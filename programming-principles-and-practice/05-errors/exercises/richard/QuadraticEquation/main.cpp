@@ -14,6 +14,8 @@ class ImaginaryNumberException {
 /**
  * Returns a vector with the two double results for the quadratic equation
  * or throws a ImaginaryNumberException
+ * 
+ * For a cool graphical tool to visualise the results see http://fooplot.com/
  */
 vector<double> quad_results(double a, double b, double c) {
     double rootArgument = pow(b, 2) - 4 * a * c;
