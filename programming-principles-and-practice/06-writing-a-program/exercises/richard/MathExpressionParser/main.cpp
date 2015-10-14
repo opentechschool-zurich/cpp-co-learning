@@ -28,8 +28,8 @@ public:
     }
 };
 
-
-void printTokens(vector<Token> tokens) {
+void printTokenVector(vector<Token> tokens) {
+    cout << "Token vector:\n";
     for (int i = 0; i < tokens.size(); ++i) {
         cout << "Token " << i << " kind: " << tokens[i].kind << " value: " << tokens[i].value << '\n';
     }
@@ -67,9 +67,24 @@ vector<Token> parseExpression(string expression) {
     return tokens;
 }
 
+
+vector<Token> reduceNegativeNumbers(vector<Token> tokens) {
+    cout << "reduceNegativeNumbers.size():  " << tokens.size() << '\n';
+    printTokenVector(tokens);
+    if ( tokens[0].kind == '-' && tokens.size() > 1 && tokens[1].kind == 'd') {
+        tokens[0].kind = 'd';
+        tokens[0].value = 0 - tokens[1].value;
+        tokens.erase(tokens.begin()+1);
+        cout << "negative number resolved:\n";
+        printTokenVector(tokens);
+    }
+    return tokens;
+}
+
+
 vector<Token> reduceTerms(vector<Token> tokens) {
     cout << "reduceTerms.size():  " << tokens.size() << '\n';
-    printTokens(tokens);
+    printTokenVector(tokens);
     for ( int i=1; i < tokens.size(); ++i ) {
         if ( tokens[i].kind == '*' ) {
             cout << "Found a * on index " << i << '\n';
@@ -94,13 +109,13 @@ vector<Token> reduceTerms(vector<Token> tokens) {
         }
     }
     cout << "reduceTerms.size():  " << tokens.size() << '\n';
-    printTokens(tokens);
+    printTokenVector(tokens);
     return tokens;
 }
 
 vector<Token> reduceExpressions(vector<Token> tokens) {
     cout << "reduceExpressions.size():  " << tokens.size() << '\n';
-    printTokens(tokens);
+    printTokenVector(tokens);
     for ( int i=1; i < tokens.size(); ++i ) {
         if ( tokens[i].kind == '+' ) {
             cout << "Found a + on index " << i << '\n';
@@ -125,23 +140,26 @@ vector<Token> reduceExpressions(vector<Token> tokens) {
         }
     }
     cout << "reduceExpressions.size():  " << tokens.size() << '\n';
-    printTokens(tokens);
+    printTokenVector(tokens);
     return tokens;
 }
 
-double parseMathExpression(string expression) {
-    vector<Token> tokens = parseExpression(expression);
-    vector<Token> termReducedTokens = reduceTerms(tokens);
-    vector<Token> expressionReducedTokens = reduceExpressions(tokens);
-    return expressionReducedTokens[0].value;
-}
+
+
 
 void printTokenisation(string expression) {
     vector<Token> tokens = parseExpression(expression);
     cout << "-------------\n" << expression << " parses as:\n";
-    for (int i = 0; i < tokens.size(); ++i) {
-        cout << "Token " << i << " kind: " << tokens[i].kind << " value: " << tokens[i].value << '\n';
-    }
+    printTokenVector(tokens);
+}
+
+
+double parseMathExpression(string expression) {
+    vector<Token> tokens = parseExpression(expression);
+    vector<Token> fixedNegativeNumberTokens = reduceNegativeNumbers(tokens);
+    vector<Token> termReducedTokens = reduceTerms(fixedNegativeNumberTokens);
+    vector<Token> expressionReducedTokens = reduceExpressions(termReducedTokens);
+    return expressionReducedTokens[0].value;
 }
 
 
