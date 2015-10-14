@@ -31,6 +31,8 @@ class newtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(testBracketsAtEnd);
     CPPUNIT_TEST(testBracketsAtStart);
     
+    CPPUNIT_TEST(testNasty);
+    
     CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -55,6 +57,7 @@ private:
     void testBracketsAddition();
     void testBracketsAtEnd();
     void testBracketsAtStart();
+    void testNasty();
 };
 
 #endif	/* NEWTESTCLASS_H */
