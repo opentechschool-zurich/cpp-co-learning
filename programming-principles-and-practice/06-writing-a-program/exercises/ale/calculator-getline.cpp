@@ -61,8 +61,8 @@ class Token_stream {
  */
 void Token_stream::set(string line) { 
     full = false;  
-    calculation.clear();
     calculation.str(line);  
+    calculation.clear();
 }
 
 /**
@@ -74,19 +74,18 @@ Token Token_stream::get() {
         return buffer;
     }
 
-    // debugging current string
-    cout << "-->" << calculation.str() << endl;
+    // cout << "-->" << calculation.str() << endl;
 
     char c;
     Token t;
+
+    calculation >> c;
 
     if (calculation.eof()) {
         t.kind = ' ';
         t.value = 0;
         return t;
     }
- 
-    calculation >> c;
 
     if (isdigit(c)) {
         t.kind = 'n';
@@ -102,7 +101,6 @@ Token Token_stream::get() {
         // TODO: throw an exception
     }
     return t;
-
 }
 
 void Token_stream::put_back(Token t) {
@@ -173,121 +171,104 @@ double expression()
 {
     double left = term();
     Token t = ts.get();
-    switch (t.kind) {
-        case ' ':
-           return left;
-        break;
-        case '+':
-            return left + term();
-        break;
-        case '-':
-            return left + term();
-        break;
-        default:
-            ts.put_back(t);
-            return left;
-    }
-}
-
-double term()
-{
-    double left = primary();
-     return left;
-}
-
-double primary()
-{
-    double result = 0.0;
-    Token t = ts.get();
-    cout << t.kind << " / " << t.value << endl;
-    result = t.value;
-
-    return result;
-}
-
-/*
-
-double calculate(string calculation) {
-    double result;
-    ts.set(calculation);
-    result = expression();
-    return result;
-}
-
-double expression()
-{
-    double left = term(); // read and evaluate a Term
-    Token t = ts.get(); // get the next token
     while (true) {
         switch (t.kind) {
+            case ' ':
+               return left;
+                break;
             case '+':
-                left += term(); // evaluate Term and add
+                left += term();
                 t = ts.get();
                 break;
             case '-':
-                left -= term(); // evaluate Term and subtract
+                left -= term();
                 t = ts.get();
                 break;
-            default:
-                return left; // finally: no more + or –; return the answer
-        }
-        cout << "expression::left :" << left << "\n";
-    }
-}
-
-double term()
-{
-    double left = primary();
-    Token t = ts.get();
-    while (true) {
-        switch (t.kind) {
-            case '*':
-                left *= primary();
-                t = ts.get();
-                break;
-            case '/':
-                { double d = primary();
-                    if (d == 0) error("divide by zero");
-                    left /= d;
-                    t = ts.get();
-                    break;
-                }
             default:
                 ts.put_back(t);
                 return left;
         }
     }
+    return left;
+}
+
+double term()
+{
+    double left = primary();
+    Token t = ts.get();
+    while (true) {
+        switch (t.kind) {
+            case ' ':
+               return left;
+                break;
+            case '*':
+                left *= primary();
+                t = ts.get();
+                break;
+            case '/':
+                left /= primary();
+                t = ts.get();
+                break;
+            default:
+                ts.put_back(t);
+                return left;
+        }
+    }
+    return left;
 }
 
 double primary()
 {
+    double result = 0.0;
+    bool negative = false;
     Token t = ts.get();
-    cout << "kind" << t.kind << endl;;
-    cout << "value" << t.value << endl;
-    switch (t.kind) {
-        case '(':
-            {
-                double d = expression();
-                t = ts.get();
-                if (t.kind != ')') error("')' expected");
-                return d;
+    if (t.kind == '(') {
+        result = expression();
+        t = ts.get();
+        if (t.kind != ')') {
+            throw std::invalid_argument("matching paranthesis not found.");
+        }
+        return result;
+    } else {
+        if (t.kind == '-') {
+            negative = true;
+        }
+        result = t.value;
+        t = ts.get();
+        while (t.kind == 'n') {
+            if (negative) {
+                result = -1 * t.value;
+            } else {
+                result *= 10;
+                result += t.value;
             }
-        case 'n':
-            return t.value;
-        case 'q':
-            return 0;
-        default:
-            throw std::invalid_argument("primary expected");
+            t = ts.get();
+        }
+        ts.put_back(t);
     }
+
+    return result;
 }
-*/
 
 TEST_CASE( "r", "[digit]" ) {
-    REQUIRE( calculate("4") == 4 );
-    REQUIRE( calculate("6") == 6 );
-    REQUIRE( calculate("4+2") == 6 );
-    // REQUIRE( calculate("4*2") == 8 );
-        // -3+2
-        // -3 + 2
-        // 3+(-2*3)
+    REQUIRE(calculate("4") == 4);
+    REQUIRE(calculate("6") == 6);
+    REQUIRE(calculate("4+2") == 6);
+    REQUIRE(calculate("4+2+2") == 8);
+    REQUIRE(calculate("4+2+2+4+2+2+1") == 17);
+    REQUIRE(calculate("4-2") == 2);
+    REQUIRE(calculate("8-2") == 6);
+    REQUIRE(calculate("8-2-2") == 4);
+    REQUIRE(calculate("3*2") == 6);
+    REQUIRE(calculate("3*3") == 9);
+    REQUIRE(calculate("3*2*3") == 18);
+    REQUIRE(calculate("3+2*4") == 11);
+    REQUIRE(calculate("3*2+4") == 10);
+    REQUIRE(calculate("4 + 2") == 6);
+    REQUIRE(calculate("10 + 2") == 12);
+    REQUIRE(calculate("10 + 123") == 133);
+    REQUIRE(calculate("-4 + 5") == 1);
+    REQUIRE(calculate("(4 + 5)*2") == 18);
+    REQUIRE(calculate("3+(-4 * 5)") == -17);
+    // 3 / 0
 }
