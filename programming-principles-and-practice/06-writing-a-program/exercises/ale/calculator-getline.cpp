@@ -92,7 +92,7 @@ Token Token_stream::get() {
         t.value = c - '0';
     } else if (c == ' ') {
         // TODO: ignore it ?
-    } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
+    } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '.') {
         t.kind = c;
     } else if (c == '\0') {
         t.kind = 'q';
@@ -221,6 +221,7 @@ double primary()
 {
     double result = 0.0;
     bool negative = false;
+    int decimal = 0;
     Token t = ts.get();
     if (t.kind == '(') {
         result = expression();
@@ -235,12 +236,20 @@ double primary()
         }
         result = t.value;
         t = ts.get();
-        while (t.kind == 'n') {
-            if (negative) {
+        while ((t.kind == 'n') || t.kind == '.') {
+            if (t.kind == '.') {
+                decimal = 10;
+            } else if (negative) {
                 result = -1 * t.value;
+                negative = false;
             } else {
-                result *= 10;
-                result += t.value;
+                if (decimal > 0) {
+                    result += t.value / decimal;
+                    decimal *= 10;
+                } else {
+                    result *= 10;
+                    result += t.value;
+                }
             }
             t = ts.get();
         }
@@ -268,7 +277,10 @@ TEST_CASE( "r", "[digit]" ) {
     REQUIRE(calculate("10 + 2") == 12);
     REQUIRE(calculate("10 + 123") == 133);
     REQUIRE(calculate("-4 + 5") == 1);
+    REQUIRE(calculate("-100 + 5") == -95);
     REQUIRE(calculate("(4 + 5)*2") == 18);
     REQUIRE(calculate("3+(-4 * 5)") == -17);
+    REQUIRE(calculate("1.5 * 2") == 3);
+    // .5 * 2
     // 3 / 0
 }
