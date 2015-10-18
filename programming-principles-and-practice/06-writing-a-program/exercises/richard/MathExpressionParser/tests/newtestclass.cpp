@@ -60,7 +60,7 @@ void newtestclass::testNegativeNumber() {
     CPPUNIT_ASSERT_MESSAGE("Expecting type to be d", 'd' == tokens[1].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting value to be 6", 6 == tokens[1].value);
     
-    //CPPUNIT_ASSERT_MESSAGE("Expecting result of -6 to be -6.0", -6.0 == parseMathExpression("-6"));
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of -6 to be -6.0", -6.0 == parseMathExpression("-6"));
 }
 
 void newtestclass::testTwoDigitNumber() {
@@ -68,6 +68,8 @@ void newtestclass::testTwoDigitNumber() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for expression 62", 1 == tokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting type to be d", 'd' == tokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting value to be 62", 62 == tokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 62 to be 62.0", 62.0 == parseMathExpression("62"));
 }
 
 void newtestclass::test5DigitNumber() {
@@ -75,6 +77,8 @@ void newtestclass::test5DigitNumber() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for expression 12345", 1 == tokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting type to be d", 'd' == tokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting value to be 12345", 12345 == tokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 12345 to be 12345.0", 12345.0 == parseMathExpression("12345"));
 }
 
 void newtestclass::test16DigitNumber() {
@@ -82,6 +86,8 @@ void newtestclass::test16DigitNumber() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for expression 1234567890123456", 1 == tokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting type to be d", 'd' == tokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting value to be 1234567890123456", 1234567890123456 == tokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 1234567890123456 to be 1234567890123456.0", 1234567890123456.0 == parseMathExpression("1234567890123456"));
 }
 
 void newtestclass::testAddition() {
@@ -99,6 +105,7 @@ void newtestclass::testAddition() {
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to be type d", 'd' == reducedTokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to have value 10", 10 == reducedTokens[0].value);
 
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 6+4 to be 10.0", 10.0 == parseMathExpression("6+4"));
 }
 
 void newtestclass::testMultiAddition() {
@@ -119,6 +126,8 @@ void newtestclass::testMultiAddition() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for reduced 6+4+2 tokens", 1 == reducedTokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to be type d", 'd' == reducedTokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to have value 12", 12 == reducedTokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 6+4+2 to be 12.0", 12.0 == parseMathExpression("6+4+2"));
 }
 
 void newtestclass::testSubtraction() {
@@ -135,6 +144,8 @@ void newtestclass::testSubtraction() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for reduced 6-4 tokens", 1 == reducedTokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to be type d", 'd' == reducedTokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to have value 2", 2 == reducedTokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 6-4 to be 2.0", 2.0 == parseMathExpression("6-4"));
 }
 
 void newtestclass::testMultiplication() {
@@ -151,6 +162,8 @@ void newtestclass::testMultiplication() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for reduced 6*4 tokens", 1 == reducedTokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to be type d", 'd' == reducedTokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to have value 24", 24 == reducedTokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 6*4 to be 24.0", 24.0 == parseMathExpression("6*4"));
 }
 
 void newtestclass::testMultiMultiplication() {
@@ -171,6 +184,8 @@ void newtestclass::testMultiMultiplication() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for reduced 6*4*2 tokens", 1 == reducedTokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to be type d", 'd' == reducedTokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to have value 48", 48 == reducedTokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 6*4*2 to be 48.0", 48.0 == parseMathExpression("6*4*2"));
 }
 
 void newtestclass::testDivision() {
@@ -187,6 +202,8 @@ void newtestclass::testDivision() {
     CPPUNIT_ASSERT_MESSAGE("Expecting 1 token for reduced 6/4 tokens", 1 == reducedTokens.size());
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to be type d", 'd' == reducedTokens[0].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 0 to have value 1.5", 1.5 == reducedTokens[0].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 6/4 to be 1.5", 1.5 == parseMathExpression("6/4"));
 }
 
 void newtestclass::testBracketsSingleNumber() {
@@ -198,6 +215,8 @@ void newtestclass::testBracketsSingleNumber() {
     CPPUNIT_ASSERT_MESSAGE("Expecting token 1 to have value 6", 6 == tokens[1].value);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 2 to be type )", ')' == tokens[2].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 2 to have value 0", 0 == tokens[2].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of (6) to be 6.0", 6.0 == parseMathExpression("(6)"));
 }
 
 void newtestclass::testBracketsAddition() {
@@ -213,6 +232,8 @@ void newtestclass::testBracketsAddition() {
     CPPUNIT_ASSERT_MESSAGE("Expecting token 3 to have value 3", 3 == tokens[3].value);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 4 to be type )", ')' == tokens[4].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 4 to have value 0", 0 == tokens[4].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of (6+3) to be 9", 9.0 == parseMathExpression("(6+3)"));
 }
 
 void newtestclass::testBracketsAtEnd() {
@@ -232,6 +253,8 @@ void newtestclass::testBracketsAtEnd() {
     CPPUNIT_ASSERT_MESSAGE("Expecting token 5 to have value 3", 3 == tokens[5].value);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 6 to be type )", ')' == tokens[6].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 6 to have value 0", 0 == tokens[6].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 4+(6+3) to be 13", 13.0 == parseMathExpression("4+(6+3)"));
 }
 
 void newtestclass::testBracketsAtStart() {
@@ -251,4 +274,12 @@ void newtestclass::testBracketsAtStart() {
     CPPUNIT_ASSERT_MESSAGE("Expecting token 5 to have value 0", 0 == tokens[5].value);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 6 to be type d", 'd' == tokens[6].kind);
     CPPUNIT_ASSERT_MESSAGE("Expecting token 6 to have value 4", 4 == tokens[6].value);
+
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of (6+3)+4 to be 13", 13.0 == parseMathExpression("(6+3)+4"));
 }
+
+void newtestclass::testNasty() {
+    vector<Token> tokens = parseExpression("6+4*(-2-4/2)");
+    CPPUNIT_ASSERT_MESSAGE("Expecting result of 6+4*(-2-4/2) to be -10", -10.0 == parseMathExpression("6+4*(-2-4/2)"));
+}
+
