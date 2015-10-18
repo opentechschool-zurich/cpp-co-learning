@@ -3,6 +3,8 @@
  * - uses getline() to read a full line at a time
  * - uses istringstream to get the same behavior as cin on a full string
  * - directly uses exceptions
+ * - uses catch for unit testing
+ * - parses options
  */
 #include <iostream>
 #include <string>
@@ -12,13 +14,19 @@
 #include "optionparser.h"
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
+
 using namespace std;
 
 void error(string message) {
     cout << message << "\n";
 }
 
-enum  optionIndex { UNKNOWN, HELP, TEST };
+enum  optionIndex {
+    UNKNOWN,
+    HELP,
+    TEST
+ };
+
 const option::Descriptor usage[] =
 {
     {UNKNOWN, 0,"" , "",option::Arg::None, "USAGE: alculator [options]\n\n"
@@ -39,7 +47,7 @@ class Token {
 
 class Token_stream {
     public:
-        void set(string);
+        void set(string line);
         Token get();
         void put_back(Token t);
     private:
@@ -48,9 +56,15 @@ class Token_stream {
         Token buffer;
 };
 
-void Token_stream::set(string calculation) {
-    Token_stream::calculation.str(calculation);
+/*
+ * build stream from string
+ */
+void Token_stream::set(string line) { 
+    full = false;  
+    calculation.clear();
+    calculation.str(line);  
 }
+
 /**
  * for now only single digit numbers are supported
  */
@@ -59,9 +73,21 @@ Token Token_stream::get() {
         full = false;
         return buffer;
     }
+
+    // debugging current string
+    cout << "-->" << calculation.str() << endl;
+
     char c;
     Token t;
+
+    if (calculation.eof()) {
+        t.kind = ' ';
+        t.value = 0;
+        return t;
+    }
+ 
     calculation >> c;
+
     if (isdigit(c)) {
         t.kind = 'n';
         t.value = c - '0';
@@ -127,15 +153,59 @@ int main(int argc, char* argv[]) {
     cout << "Please enter an expression (RETURN to quit) :" << endl;
     while (getline(cin, calculation))
    {
-        // -3+2
-        // -3 + 2
-        // 3+(-2*3)
         if (calculation.empty())
             break;
         result = calculate(calculation);
         cout << "result: " << result << endl << "Please enter an expression (RETURN to quit): ";
     }
 }
+
+double calculate(string calculation) {
+
+    double result = 0.0;
+
+    ts.set(calculation);
+    result = expression();
+    return result;
+}
+
+double expression()
+{
+    double left = term();
+    Token t = ts.get();
+    switch (t.kind) {
+        case ' ':
+           return left;
+        break;
+        case '+':
+            return left + term();
+        break;
+        case '-':
+            return left + term();
+        break;
+        default:
+            ts.put_back(t);
+            return left;
+    }
+}
+
+double term()
+{
+    double left = primary();
+     return left;
+}
+
+double primary()
+{
+    double result = 0.0;
+    Token t = ts.get();
+    cout << t.kind << " / " << t.value << endl;
+    result = t.value;
+
+    return result;
+}
+
+/*
 
 double calculate(string calculation) {
     double result;
@@ -210,29 +280,14 @@ double primary()
             throw std::invalid_argument("primary expected");
     }
 }
+*/
 
-TEST_CASE( "r", "[factorial]" ) {
+TEST_CASE( "r", "[digit]" ) {
     REQUIRE( calculate("4") == 4 );
+    REQUIRE( calculate("6") == 6 );
     REQUIRE( calculate("4+2") == 6 );
     // REQUIRE( calculate("4*2") == 8 );
+        // -3+2
+        // -3 + 2
+        // 3+(-2*3)
 }
-
-/**
- * for now only single digit numbers are supported
- */
-/*
-Token get_token() {
-    Token t;
-    char c;
-    cin >> c;
-    if (isdigit(c)) {
-        t.kind = 'n';
-        t.value = c - '0';
-    } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
-        t.kind = c;
-    } else {
-        // TODO: throw an exception
-    }
-    return t;
-}
-*/
