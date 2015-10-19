@@ -5,20 +5,21 @@
  * - directly uses exceptions
  * - parses options
  */
+
+// -------------------------------------------------------------------------------------------
+// INCLUDES, DEFINES AND VARIABLES
+// -------------------------------------------------------------------------------------------
 #include <iostream>
 #include <string>
 #include <exception>
 #include <sstream>
 #include <vector>
+
 #include "optionparser.h"
-#define CATCH_CONFIG_RUNNER
+#define CATCH_CONFIG_RUNNER  // needed in catch.hpp
 #include "catch.hpp"
 
 using namespace std;
-
-void error(string message) {
-    cout << message << "\n";
-}
 
 enum  optionIndex {
     UNKNOWN,
@@ -34,10 +35,15 @@ const option::Descriptor usage[] =
     {TEST, 0,"", "test",option::Arg::None, "  --test       \tRun the tests." },
     {UNKNOWN, 0, "", "",option::Arg::None, "\nExamples:\n"
         "  calculator --test \n"
-        "  calculator\n" },
-    {0,0,0,0,0,0}
+        "  calculator\n" },    {0,0,0,0,0,0}
 };
 
+
+
+
+// -------------------------------------------------------------------------------------------
+// CLASS AND INSTANCES
+// -------------------------------------------------------------------------------------------
 class Token {
     public:
         char kind;
@@ -55,8 +61,70 @@ class Token_stream {
         Token buffer;
 };
 
+Token t;
+Token_stream ts;
+
+
+
+double calculate(string calculation);
+double expression();
+double term();
+double primary();
+
+
+// -------------------------------------------------------------------------------------------
+// MAIN
+// -------------------------------------------------------------------------------------------
+int main(int argc, char* argv[]) {
+
+		// option parser
+		argc -=(argc > 0);
+		argv +=(argc > 0); 
+
+		option::Stats  stats(usage, argc, argv);
+		std::vector<option::Option> options(stats.options_max);
+		std::vector<option::Option> buffer(stats.buffer_max);
+		option::Parser parse(usage, argc, argv, &options[0], &buffer[0]);
+		if (parse.error())
+			return 1;
+		if (options[HELP]/* || argc == 0*/) {
+			option::printUsage(std::cout, usage);
+			return 0;
+		}
+		if (options[TEST]) {
+			int result = Catch::Session().run( argc, argv );
+			return result;
+		}
+		for (option::Option* opt = options[UNKNOWN]; opt; opt = opt->next()) {
+			std::cout << "Unknown option: " << opt->name << "\n";
+		}
+
+		// start code
+		string calculation;
+		double result;
+
+		cout << "Please enter an expression (RETURN to quit) :" << endl;
+
+		// write cin in calculation
+		while (getline(cin, calculation))
+	    {
+			if (calculation.empty()){
+				break;
+			}
+
+			result = calculate(calculation);
+
+			cout << "result: " << result << endl << "Please enter an expression (RETURN to quit): ";
+		}
+}
+
+
+// -------------------------------------------------------------------------------------------
+// FUNCTIONS
+// -------------------------------------------------------------------------------------------
+
 /*
- * build stream from string
+ * Build stream from string
  */
 void Token_stream::set(string line) { 
     full = false;  
@@ -64,19 +132,17 @@ void Token_stream::set(string line) {
     calculation.clear();
 }
 
-/**
- * for now only single digit numbers are supported
+/*
+ * Get token in the size of a single digit number
  */
 Token Token_stream::get() {
+	char c;
+    Token t;
+
     if (full) {
         full = false;
         return buffer;
-    }
-
-    // cout << "-->" << calculation.str() << endl;
-
-    char c;
-    Token t;
+    } 
 
     calculation >> c;
 
@@ -90,73 +156,32 @@ Token Token_stream::get() {
         t.kind = 'n';
         t.value = c - '0';
     } else if (c == ' ') {
-        // TODO: ignore it ?
+		// no action       
     } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c == '.') {
         t.kind = c;
     } else if (c == '\0') {
         t.kind = 'q';
     } else {
-        throw std::invalid_argument("just get out");
-        // TODO: throw an exception
+        throw std::invalid_argument("just get out"); 
     }
     return t;
 }
 
+/*
+ * Token not used and given back
+ */
 void Token_stream::put_back(Token t) {
     if (full) {
-        // TODO: throw an error
-        error("filling a full buffer");
+        throw std::overflow_error("buffer already full");
     }
     full = true;
     buffer = t;
 }
 
-double calculate(string calculation);
-double expression();
-double term();
-double primary();
-// Token get_token();
 
-Token_stream ts;
-
-int main(int argc, char* argv[]) {
-
-    argc-=(argc>0); argv+=(argc>0); // skip program name argv[0] if present
-    option::Stats  stats(usage, argc, argv);
-    std::vector<option::Option> options(stats.options_max);
-    std::vector<option::Option> buffer(stats.buffer_max);
-    option::Parser parse(usage, argc, argv, &options[0], &buffer[0]);
-
-    if (parse.error())
-        return 1;
-
-    if (options[HELP]/* || argc == 0*/) {
-        option::printUsage(std::cout, usage);
-        return 0;
-    }
-    if (options[TEST]) {
-        int result = Catch::Session().run( argc, argv );
-        return result;
-    }
-
-
-    for (option::Option* opt = options[UNKNOWN]; opt; opt = opt->next()) {
-        std::cout << "Unknown option: " << opt->name << "\n";
-    }
-
-
-    string calculation;
-    double result;
-    cout << "Please enter an expression (RETURN to quit) :" << endl;
-    while (getline(cin, calculation))
-   {
-        if (calculation.empty())
-            break;
-        result = calculate(calculation);
-        cout << "result: " << result << endl << "Please enter an expression (RETURN to quit): ";
-    }
-}
-
+/*
+ * Basic function of the calculator
+ */
 double calculate(string calculation) {
 
     double result = 0.0;
@@ -166,6 +191,10 @@ double calculate(string calculation) {
     return result;
 }
 
+/*
+ * Highest level in Grammar
+ * Last priority: Handels + and -
+ */
 double expression()
 {
     double left = term();
@@ -191,6 +220,12 @@ double expression()
     return left;
 }
 
+
+/*
+ * Middle level in Grammar
+ * Second Priority: Check * and /
+ * which are prior to + and -
+ */
 double term()
 {
     double left = primary();
@@ -216,6 +251,12 @@ double term()
     return left;
 }
 
+
+/*
+ * Lowest level in Grammar
+ * Highest Priority: Read each digit
+ * Destinguish between number and special character
+ */
 double primary()
 {
     double result = 0.0;
@@ -258,6 +299,13 @@ double primary()
     return result;
 }
 
+// -------------------------------------------------------------------------------------------
+// Unit testing
+// -------------------------------------------------------------------------------------------
+
+/*
+ * Each line is a new test
+ */
 TEST_CASE( "r", "[digit]" ) {
     REQUIRE(calculate("4") == 4);
     REQUIRE(calculate("6") == 6);
@@ -280,6 +328,4 @@ TEST_CASE( "r", "[digit]" ) {
     REQUIRE(calculate("(4 + 5)*2") == 18);
     REQUIRE(calculate("3+(-4 * 5)") == -17);
     REQUIRE(calculate("1.5 * 2") == 3);
-    // .5 * 2
-    // 3 / 0
 }
