@@ -38,7 +38,11 @@ Token Token_stream::get() {
     if (isdigit(c)) {
         t.kind = 'n';
         t.value = c - '0';
-    } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
+    } else if (c == '+' || c == '-' || c == '*' || c == '/') {
+        t.kind = c;
+    } else if (c == '(' || c == ')') {
+        t.kind = c;
+    } else if (c == '.') {
         t.kind = c;
     } else {
         // TODO: throw an exception
