@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=MathExpressionParser
+PROJECTNAME=ISBNPatttern
 
 # Active Configuration
 DEFAULTCONF=Debug

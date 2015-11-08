@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=mathexpressionparser
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/mathexpressionparser
+CND_ARTIFACT_NAME_Debug=ipaddress
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/ipaddress
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=mathexpressionparser.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/mathexpressionparser.tar
+CND_PACKAGE_NAME_Debug=ipaddress.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/ipaddress.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
-CND_ARTIFACT_NAME_Release=mathexpressionparser
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/mathexpressionparser
+CND_ARTIFACT_NAME_Release=ipaddress
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/ipaddress
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
-CND_PACKAGE_NAME_Release=mathexpressionparser.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/mathexpressionparser.tar
+CND_PACKAGE_NAME_Release=ipaddress.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/ipaddress.tar
 #
 # include compiler specific variables
 #
