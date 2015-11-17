@@ -35,9 +35,21 @@
 4. What, fundamentally, is a file?
 5. What is a file format?
 6. Name four different types of devices that can require I/O for a program.
-7. What are the four steps for reading a file?
-8. What are the four steps for writing a file?
+7. What are the four steps for reading a file? (g?)
+   - xabj vgf anzr
+   - bcra vg
+   - ernq va
+   - pybfr vg
+8. What are the four steps for writing a file? (g?)
+   - anzr vg
+   - bcra vg
+   - jevgr bhg
+   - pybfr vg
 9. Name and define the four stream states.
+  - tbbq
+  - rbs
+  - snvy
+  - onq
 10. Discuss how the following input problems can be resolved:
     - The user typing an out-of-range value
     - Getting no value (end of file)
