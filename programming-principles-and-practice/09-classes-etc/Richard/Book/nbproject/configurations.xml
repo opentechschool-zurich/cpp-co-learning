@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -37,10 +37,16 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <incDir>
+            <pElem>/usr/include/qt5</pElem>
+          </incDir>
+          <commandLine>-fPIC</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>boost_regex</linkerLibLibItem>
+            <linkerLibLibItem>Qt5Widgets</linkerLibLibItem>
+            <linkerLibLibItem>Qt5Core</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
