@@ -14,3 +14,5 @@ cmake ..
 make
 ./Area
 ~~~
+
+p.s.: `.hpp` files that do not have a matching `.cpp` are simply included as is and do not have to be added to the `CMakeFiles.txt` file.
