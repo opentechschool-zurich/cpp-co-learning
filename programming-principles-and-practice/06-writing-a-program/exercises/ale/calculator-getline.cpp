@@ -153,8 +153,13 @@ int main(int argc, char* argv[]) {
    {
         if (calculation.empty())
             break;
-        result = calculate(calculation);
-        cout << "result: " << result << endl << "Please enter an expression (RETURN to quit): ";
+        try {
+            result = calculate(calculation);
+            cout << "result: " << result << endl;
+        } catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+        }
+        cout << "Please enter an expression (RETURN to quit): " << endl;;
     }
 }
 
@@ -206,8 +211,14 @@ double term()
                 t = ts.get();
                 break;
             case '/':
-                left /= primary();
-                t = ts.get();
+                {
+                    double value = primary();
+                    if (value == 0.0) {
+                        throw overflow_error("divide by zero exception");
+                    }
+                    left /= value;
+                    t = ts.get();
+                }
                 break;
             default:
                 ts.put_back(t);
@@ -239,9 +250,6 @@ double primary()
         while ((t.kind == 'n') || t.kind == '.') {
             if (t.kind == '.') {
                 decimal = 10;
-            } else if (negative) {
-                result = -1 * t.value;
-                negative = false;
             } else {
                 if (decimal > 0) {
                     result += t.value / decimal;
@@ -252,6 +260,9 @@ double primary()
                 }
             }
             t = ts.get();
+        }
+        if (negative) {
+            result = -1 * result;
         }
         ts.put_back(t);
     }
@@ -278,9 +289,10 @@ TEST_CASE( "r", "[digit]" ) {
     REQUIRE(calculate("10 + 123") == 133);
     REQUIRE(calculate("-4 + 5") == 1);
     REQUIRE(calculate("-100 + 5") == -95);
+    REQUIRE(calculate("-123 + 5") == -118);
     REQUIRE(calculate("(4 + 5)*2") == 18);
     REQUIRE(calculate("3+(-4 * 5)") == -17);
     REQUIRE(calculate("1.5 * 2") == 3);
+    CHECK_THROWS(calculate("3/0"));
     // .5 * 2
-    // 3 / 0
 }
