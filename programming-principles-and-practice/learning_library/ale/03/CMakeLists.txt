@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.6)
+project(Area)
+add_library(SqArea sq_area.cpp)
+add_library(CircArea circ_area.cpp)
+add_library(RecArea rec_area.cpp)
+add_library(TriArea tri_area.cpp)
+add_executable(Area main.cpp)
