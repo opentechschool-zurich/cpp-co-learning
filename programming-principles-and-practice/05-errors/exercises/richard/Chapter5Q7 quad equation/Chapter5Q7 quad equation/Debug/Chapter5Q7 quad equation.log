@@ -1,0 +1,22 @@
+﻿Build started 29/09/2015 21:55:30.
+     1>Project "c:\Users\Richard\documents\visual studio 2015\Projects\Chapter5Q7 quad equation\Chapter5Q7 quad equation\Chapter5Q7 quad equation.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\Chapter5Q7 quad equation.pch" /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt "Chapter5Q7 quad equation.cpp"
+         Chapter5Q7 quad equation.cpp
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(10): error C2448: 'delta': function-style initializer appears to be a function definition
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(13): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(13): error C2040: 'quad_equation': 'int [1]' differs in levels of indirection from 'Vector<double>'
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(13): error C2065: 'd': undeclared identifier
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(14): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(14): error C2040: 'quad_equation': 'int [2]' differs in levels of indirection from 'Vector<double>'
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(14): error C2065: 'd': undeclared identifier
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(19): error C2065: 'C': undeclared identifier
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(22): error C2088: '[': illegal for struct
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(25): error C2065: 'd': undeclared identifier
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(26): error C2065: 'Bad_delta': undeclared identifier
+     1>c:\users\richard\documents\visual studio 2015\projects\chapter5q7 quad equation\chapter5q7 quad equation\chapter5q7 quad equation.cpp(33): error C2143: syntax error: missing ';' before '}'
+     1>Done Building Project "c:\Users\Richard\documents\visual studio 2015\Projects\Chapter5Q7 quad equation\Chapter5Q7 quad equation\Chapter5Q7 quad equation.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.93
