@@ -98,6 +98,14 @@
     <Linkage-openssl>static</Linkage-openssl>
     <Linkage-zlib>static</Linkage-zlib>
     <Linkage-libssh2>static</Linkage-libssh2>
+    <Linkages-rmt_libssh2>
+    </Linkages-rmt_libssh2>
+    <Linkages-rmt_zlib>
+    </Linkages-rmt_zlib>
+    <Linkages-rmt_curl>
+    </Linkages-rmt_curl>
+    <Linkages-rmt_openssl>
+    </Linkages-rmt_openssl>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
