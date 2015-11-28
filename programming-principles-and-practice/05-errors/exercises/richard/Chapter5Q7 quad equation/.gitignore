@@ -228,12 +228,3 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-
-
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-.nb-gradle/
