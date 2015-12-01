@@ -3,7 +3,6 @@ PROJECT(Punct)
 
 ADD_DEFINITIONS("-std=c++11")
 
-ADD_LIBRARY(punctStream PunctStream.cpp)
+#ADD_LIBRARY(punctStream PunctStream.cpp)
 
-
-add_executable (punct main.cpp)
+add_executable (punct main.cpp PunctStream.cpp)

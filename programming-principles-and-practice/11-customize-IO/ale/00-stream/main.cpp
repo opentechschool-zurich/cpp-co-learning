@@ -1,6 +1,12 @@
 #include<iostream>
 #include<string>
 #include<vector>
+
+#include<istream>
+#include<sstream>
+#include <algorithm>
+#include <exception>
+
 #include "PunctStream.h"
 
 using namespace std;
@@ -12,13 +18,9 @@ int main() {
 
     cout << "please enter some words" << endl;
     vector<string> vs;
-    /*
     for (string word; ps >> word; ) {
         vs.push_back(word);
     }
-    */
-    string word = "abcd";
-    ps >> word;
 
     return 1;
 }
