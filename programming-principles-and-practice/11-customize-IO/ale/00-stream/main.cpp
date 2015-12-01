@@ -2,11 +2,6 @@
 #include<string>
 #include<vector>
 
-#include<istream>
-#include<sstream>
-#include <algorithm>
-#include <exception>
-
 #include "PunctStream.h"
 
 using namespace std;

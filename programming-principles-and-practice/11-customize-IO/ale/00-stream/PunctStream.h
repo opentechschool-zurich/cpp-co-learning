@@ -2,10 +2,6 @@
 #include<sstream>
 #include<string>
 
-#include <algorithm>
-#include <exception>
-#include <vector>
-
 using namespace std;
 
 class PunctStream {
