@@ -5,4 +5,7 @@ ADD_DEFINITIONS("-std=c++11")
 
 #ADD_LIBRARY(punctStream PunctStream.cpp)
 
-add_executable (punct main.cpp PunctStream.cpp)
+add_executable (punct
+    main.cpp
+    PunctStream.cpp
+)
