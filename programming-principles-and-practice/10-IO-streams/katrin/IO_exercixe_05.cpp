@@ -1,0 +1,47 @@
+// c++ read structured file in
+//
+// strucutre:
+// hour (0 - 23)
+// temp (unsigned int)
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <stdexcept>
+
+using namespace std;
+ 
+struct Inputdata {
+    int hour;
+    double temperature; // in Fahrenheit
+};
+ 
+int main()
+{
+    cout << "Please enter input file name: ";
+    string name_inputfile;
+    cin >> name_inputfile;
+    ifstream ist {name_inputfile};
+    if (!ist) throw ios_base::failure("can't open input file "+name_inputfile);
+ 
+    string name_outputfile;
+    cout << "Please enter name of output file: ";
+    cin >> name_outputfile;
+    ofstream ost {name_outputfile};
+    if (!ost) throw ios_base::failure("can't open output file "+name_outputfile);
+ 
+    vector<Inputdata> input; // structured vector. store the readings here
+    int hour;
+    double temperature;
+    // read structured in
+    while (ist >> hour >> temperature) {
+        if (hour < 0 || 23 <hour) throw range_error("hour out of range");
+        // fill vector
+        input.push_back(Inputdata{hour,temperature});
+    }
+ 
+    // set brackets for clearer structure
+    for (int i=0; i<input.size(); ++i)
+        ost << '(' << input[i].hour << ','
+            << input[i].temperature << ")\n";
+}
