@@ -10,10 +10,10 @@ using namespace std;
 
 int main() {
     PunctStream ps{cin};
-    ps.setWhiteSpace(";:.");
+    ps.setWhiteSpace(";:.,");
     ps.setCaseSensitive(true);
 
-    cout << "please enter some words" << endl;
+    cout << "please enter some words (ctrl-d on an empty line to terminate)" << endl;
     vector<string> vs;
     for (string word; ps >> word; ) {
         vs.push_back(word);

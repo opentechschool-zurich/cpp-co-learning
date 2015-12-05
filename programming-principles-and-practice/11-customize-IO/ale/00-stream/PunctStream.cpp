@@ -1,4 +1,5 @@
 #include "PunctStream.h"
+#include<iostream>
 #include<istream>
 #include<string>
 
