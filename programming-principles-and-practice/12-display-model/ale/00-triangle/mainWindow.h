@@ -9,6 +9,8 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = 0, Qt::WindowFlags flags = 0);
+protected:
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
 #endif
