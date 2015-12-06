@@ -1,0 +1,23 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(Sine)
+
+ADD_DEFINITIONS("-std=c++11")
+
+SET (QT_MIN_VERSION "5.2.0")
+SET(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+SET(CMAKE_AUTOMOC ON)
+
+FIND_PACKAGE(Qt5Widgets REQUIRED)
+
+ADD_EXECUTABLE (sine
+    main.cpp
+    mainWindow.cpp
+    axis.cpp
+    plotter.cpp
+)
+
+TARGET_LINK_LIBRARIES(sine
+    Qt5::Widgets
+)
+
