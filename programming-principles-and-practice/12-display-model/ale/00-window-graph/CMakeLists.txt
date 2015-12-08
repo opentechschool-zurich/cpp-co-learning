@@ -3,10 +3,14 @@ PROJECT(Wingraph)
 
 ADD_DEFINITIONS("-std=c++11")
 
-SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+FIND_PACKAGE(FLTK REQUIRED)
 
 ADD_EXECUTABLE (wingraph
     main.cpp
+    Window.cpp
     Simple_window.cpp
+    GUI.cpp
     Graph.cpp
 )
+
+TARGET_LINK_LIBRARIES(wingraph ${FLTK_LIBRARIES})
