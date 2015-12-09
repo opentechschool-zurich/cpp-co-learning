@@ -23,5 +23,6 @@ void MainWindow::paintEvent(QPaintEvent* /* event */)
     }
 
     QPainter painter(this);
+    painter.setPen(Qt::DotLine);
     painter.drawLines(lines);
 }
