@@ -13,4 +13,6 @@ ADD_EXECUTABLE (wingraph
     Graph.cpp
 )
 
-TARGET_LINK_LIBRARIES(wingraph ${FLTK_LIBRARIES})
+TARGET_LINK_LIBRARIES(wingraph
+    ${FLTK_LIBRARIES}
+)
