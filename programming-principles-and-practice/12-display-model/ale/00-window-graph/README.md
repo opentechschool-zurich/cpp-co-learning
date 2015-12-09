@@ -9,3 +9,13 @@ On Debian/Ubuntu you need to install
 - libftlk1.3-dev
 
 you get `fluid` a Gui builder for fltk.
+
+## Building and running
+
+~~~.sh
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ ./wingraph
+~~~
