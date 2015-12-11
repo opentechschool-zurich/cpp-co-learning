@@ -6,7 +6,7 @@ This [Programming Principle and Practice Forum thread](https://groups.google.com
 
 On Debian/Ubuntu you need to install
 
-- libftlk1.3-dev
+- libfltk1.3-dev
 
 you get `fluid` a Gui builder for fltk.
 
