@@ -1,4 +1,3 @@
-
 #include "GUI.h"	// for Simple_window only (doesn't really belong in Window.h)
 
 using namespace Graph_lib;

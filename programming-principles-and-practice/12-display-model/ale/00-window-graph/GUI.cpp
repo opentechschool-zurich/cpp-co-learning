@@ -5,7 +5,7 @@
 using namespace Graph_lib;
 
 
-void Button::attach(Window& win)
+void Button::attach(Graph_lib::Window& win)
 	{
 		pw = new Fl_Button(loc.x, loc.y, width, height, label.c_str());
 		pw->callback(reinterpret_cast<Fl_Callback*>(do_it), &win); // pass the window
@@ -27,7 +27,7 @@ string In_box::get_string()
 	return string(pi.value());
 }
 
-void In_box::attach(Window& win)
+void In_box::attach(Graph_lib::Window& win)
 {
 	pw = new Fl_Input(loc.x, loc.y, width, height, label.c_str());
 	own = &win;
@@ -46,7 +46,7 @@ void Out_box::put(const string& s)
 	reference_to<Fl_Output>(pw).value(s.c_str());
 }
 
-void Out_box::attach(Window& win)
+void Out_box::attach(Graph_lib::Window& win)
 {
 	pw = new Fl_Output(loc.x, loc.y, width, height, label.c_str());
 	own = &win;
