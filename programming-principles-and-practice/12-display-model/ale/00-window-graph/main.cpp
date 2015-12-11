@@ -1,5 +1,7 @@
 #include "Simple_window.h"
-#include "Graph.h"
+//#include "Graph.h"  
+#include "Point.h"
+
 int main() {
     using namespace Graph_lib;
 

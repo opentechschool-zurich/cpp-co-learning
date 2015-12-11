@@ -39,7 +39,7 @@
           <buildCommandWorkingDir>/richi/Src/cpp-co-learning/programming-principles-and-practice/12-display-model/ale/00-window-graph/build</buildCommandWorkingDir>
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
-          <executablePath></executablePath>
+          <executablePath>/richi/Src/cpp-co-learning/programming-principles-and-practice/12-display-model/ale/00-window-graph/build/wingraph</executablePath>
           <ccTool>
             <incDir>
               <pElem>build</pElem>
