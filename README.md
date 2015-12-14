@@ -11,7 +11,7 @@ Meetup page: http://www.meetup.com/opentechschool-zurich/events/226235793/
 
 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
 
-[Lambda Expressions in C++](http://stackoverflow.com/questions/7627098/what-is-a-lambda-expression-in-c11)
+[Lambda Expressions in C++](http://stackoverflow.com/questions/7627098/what-is-a-lambda-expression-in-c11) / 
 [THE WAYS TO AVOID COMPLEXITY
 IN MODERN C++ by VICTOR A. LASKIN, 2015] (http://vitiy.info/Slides/MeetingCPP2015/MeetingCPP2015Complexity.pdf)
 
