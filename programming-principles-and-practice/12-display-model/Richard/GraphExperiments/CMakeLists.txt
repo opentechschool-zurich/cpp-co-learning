@@ -16,3 +16,5 @@ ADD_EXECUTABLE (wingraph
 TARGET_LINK_LIBRARIES(wingraph
     ${FLTK_LIBRARIES}
 )
+
+CONFIGURE_FILE(image.jpg image.jpg COPYONLY)

@@ -2,7 +2,7 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="/richi/Src/cpp-co-learning/programming-principles-and-practice/12-display-model/Richard/GraphExperiments"
-        name="1">
+        name="0">
       <in>GUI.cpp</in>
       <in>Graph.cpp</in>
       <in>Simple_window.cpp</in>
@@ -37,6 +37,11 @@
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath>/richi/Src/cpp-co-learning/programming-principles-and-practice/12-display-model/Richard/GraphExperiments/build/wingraph</executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>build</pElem>
+            </incDir>
+          </ccTool>
         </makeTool>
         <preBuild>
           <preBuildCommandWorkingDir>./build/</preBuildCommandWorkingDir>
@@ -69,13 +74,6 @@
             tool="1"
             flavor2="4">
       </item>
-      <folder path="1">
-        <ccTool>
-          <incDir>
-            <pElem>build</pElem>
-          </incDir>
-        </ccTool>
-      </folder>
     </conf>
   </confs>
 </configurationDescriptor>
