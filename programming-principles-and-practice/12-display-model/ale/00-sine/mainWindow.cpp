@@ -20,6 +20,7 @@ void MainWindow::paintEvent(QPaintEvent* /* event */)
     axis.draw(Axis::x, QPoint(50,200), 90, 10, "X Axis");
     axis.draw(Axis::y, QPoint(50,200), 90, 10, "Y Axis");
     Plotter plotter(painter);
-    std::function<double(const double)> sine = [] (double y) -> double { return std::sin(y); };
+    // std::function<double(const double)> sine = [] (double x) -> double { return std::sin(x); };
+    auto sine = [] (double x) -> double { return std::sin(x); };
     plotter.draw(sine, 0, 100, QPoint{50,150}, 50, 50);
 }
