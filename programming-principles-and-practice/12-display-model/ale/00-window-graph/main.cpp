@@ -1,5 +1,7 @@
 #include "Simple_window.h"
-#include "Graph.h"
+//#include "Graph.h"  
+#include "Point.h"
+
 int main() {
     using namespace Graph_lib;
 
@@ -7,7 +9,7 @@ int main() {
 
     Simple_window win {tl,600,400,"Canvas"};
 
-    Polygon poly;
+    Graph_lib::Polygon poly;
 
     poly.add(Point{300,200}); // add a point
     poly.add(Point{350,100}); // add another point
