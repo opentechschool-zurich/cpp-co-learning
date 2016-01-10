@@ -1,11 +1,11 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-PROJECT(Wingraph)
+PROJECT(AcidSmiley)
 
 ADD_DEFINITIONS("-std=c++11")
 
 FIND_PACKAGE(FLTK REQUIRED)
 
-ADD_EXECUTABLE (wingraph
+ADD_EXECUTABLE (acidsmiley
     main.cpp
     Window.cpp
     Simple_window.cpp
@@ -13,8 +13,6 @@ ADD_EXECUTABLE (wingraph
     Graph.cpp
 )
 
-TARGET_LINK_LIBRARIES(wingraph
+TARGET_LINK_LIBRARIES(acidsmiley
     ${FLTK_LIBRARIES}
 )
-
-CONFIGURE_FILE(image.jpg image.jpg COPYONLY)
