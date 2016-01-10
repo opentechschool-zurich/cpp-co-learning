@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
         {20, 150}, 1000, 50, 50};
     win.attach(sine);
 
-    Rectangle r{Point
+	Graph_lib::Rectangle r{Point
         {200, 200}, 100, 50};
     r.set_fill_color(Color::yellow);
     win.attach(r);
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
     Circle c {Point{100,200},50};
     win.attach(c);
     
-    Ellipse e {Point{100,200}, 75,25};
+	Graph_lib::Ellipse e {Point{100,200}, 75,25};
     e.set_color(Color::dark_red);
     win.attach(e);
     
