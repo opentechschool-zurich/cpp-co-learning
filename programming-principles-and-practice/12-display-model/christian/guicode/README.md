@@ -25,7 +25,8 @@ version of the support - files, it is commented out.
    with *FL*. In Debian, this is directory is `<fltk-path> =
    /usr/include/FL`.
 
-4. In `<exampledir>`, create links to the FLTK-files: 
+4. In `<exampledir>`, create links to the FLTK-files:
+
         ```
         ln -s <fltk-path> FL
         ln -s <fltk-path> Fl
@@ -41,11 +42,11 @@ version of the support - files, it is commented out.
 7. Be careful to set the include-directives correctly in
    `<main.cpp>`: 
 
-```
-#include "path/to/Simple_window.h"
-#include "path/to/Graph.h"
-... and so on ...
-```
+    ```
+    #include "path/to/Simple_window.h"
+    #include "path/to/Graph.h"
+    ... and so on ...
+    ```
 
 8. Change directory to `<exampledir>`, compile with
 
