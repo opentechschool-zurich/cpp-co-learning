@@ -16,26 +16,24 @@ version of the support - files, it is commented out.
 
 1. Install FLTK with your package manager. In Debian, this is done by:
 
-        `sudo apt-get install libfltk1.3-dev`
+        sudo apt-get install libfltk1.3-dev
 
 2. Save all files in *this* directory in some directory such as
    `<exampledir>`.
-
 
 3. Check out the path to the FLTK - files. These are files starting
    with *FL*. In Debian, this is directory is `<fltk-path> =
    /usr/include/FL`.
 
 4. In `<exampledir>`, create links to the FLTK-files: 
-
-```
-ln -s <fltk-path> FL
-ln -s <fltk-path> Fl
-```
+        ```
+        ln -s <fltk-path> FL
+        ln -s <fltk-path> Fl
+        ```
 
 5. Link your cpp-files with 
 
-        `g++ -c -std=c++11 GUI.cpp Graph.cpp Window.cpp Simple_window.cpp`
+        g++ -c -std=c++11 GUI.cpp Graph.cpp Window.cpp Simple_window.cpp
 
 6. Create the file `<main.cpp>` in a directory `<maindir>` of your
    choice which contains Bjarne's code to paint the polygon. 
