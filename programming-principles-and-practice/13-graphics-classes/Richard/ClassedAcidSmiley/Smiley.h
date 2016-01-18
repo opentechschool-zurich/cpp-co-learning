@@ -23,7 +23,7 @@ public:
             { x, y}, 5, 20};
         win.attach(*nosePointer);
 
-        Arc *mouthArc = new Arc{Point
+		Graph_lib::Arc *mouthArc = new Graph_lib::Arc{Point
             {x, y + 8}, 55, 210.0, 330.0};
         win.attach(*mouthArc);
     }
