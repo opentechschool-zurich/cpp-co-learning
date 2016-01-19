@@ -21,3 +21,4 @@ TARGET_LINK_LIBRARIES(myproject
   ${FLTK_LIBRARIES}
   dl 
   )
+# dl is really essential
