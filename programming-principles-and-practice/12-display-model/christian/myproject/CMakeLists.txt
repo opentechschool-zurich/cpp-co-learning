@@ -19,4 +19,5 @@ ADD_EXECUTABLE (myproject
 
 TARGET_LINK_LIBRARIES(myproject
   ${FLTK_LIBRARIES}
+  dl 
   )
