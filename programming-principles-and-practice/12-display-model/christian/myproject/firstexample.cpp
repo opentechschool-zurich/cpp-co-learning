@@ -1,5 +1,5 @@
-#include "../../guicode/Simple_window.h" // window library 
-#include "../../guicode/Graph.h"
+#include "Simple_window.h" // window library 
+#include "Graph.h"
 
 int main()
 {

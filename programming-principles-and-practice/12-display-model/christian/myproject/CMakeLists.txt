@@ -3,16 +3,20 @@ PROJECT("My funky drill")
 
 ADD_DEFINITIONS("-std=c++11 -lfltk")
 
-
 FIND_PACKAGE(FLTK REQUIRED)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-include_directories("../../guicode/")
-include_directories("/home/christian/ProjektePrivat/CppLerngruppe/guicode/")
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories("graphicscode/")
 
-ADD_EXECUTABLE (mydrill
-  firstexample.cpp  )
+ADD_EXECUTABLE (myproject
+  firstexample.cpp 
+  graphicscode/Window.cpp
+  graphicscode/Simple_window.cpp
+  graphicscode/GUI.cpp
+  graphicscode/Graph.cpp
+ )
 
 
-TARGET_LINK_LIBRARIES(mydrill
-  GraphFun)
+TARGET_LINK_LIBRARIES(myproject
+  ${FLTK_LIBRARIES}
+  )
