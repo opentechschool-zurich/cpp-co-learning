@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/mydrill.dir/firstexample.cpp.o  -o mydrill -rdynamic -lGraphFun 
