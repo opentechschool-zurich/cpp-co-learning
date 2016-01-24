@@ -11,9 +11,12 @@ int main() {
 	
 	smiley(simple_win, 100, 100);
 	smiley(simple_win, 300, 100);
-	smiley(simple_win, 100, 300);
-	smiley(simple_win, 300, 300);
+        simple_win.wait_for_button();
 
+	smiley(simple_win, 100, 300);
+        simple_win.wait_for_button();
+
+	smiley(simple_win, 300, 300);
 	simple_win.wait_for_button();
 	return 0;
 }
