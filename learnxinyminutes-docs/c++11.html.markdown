@@ -6,6 +6,7 @@ contributors:
     - ["Matt Kline", "https://github.com/mrkline"]
     - ["Geoff Liu", "http://geoffliu.me"]
     - ["Connor Waters", "http://github.com/connorwaters"]
+    - ["Ale Rimoldi", "https://github.com/aoloe"]
 lang: en
 ---
 
@@ -20,8 +21,8 @@ Though its syntax can be more difficult or complex than newer languages,
 it is widely used because it compiles to native instructions that can be
 directly run by the processor and offers tight control over hardware (like C)
 while offering high-level features such as generics, exceptions, and classes.
-This combination of speed and functionality makes C++
-one of the most widely-used programming languages.
+This combination of speed and functionality makes C++ one of the most widely-used
+programming languages.
 
 ```c++
 // Your program's entry point is a function called main with an integer return type.
@@ -32,7 +33,9 @@ int main()
     // An exit status of 0 indicates success.
     return 0;
 }
+```
 
+```c++
 #include <iostream>
 
 int main()
@@ -42,7 +45,9 @@ int main()
     // Functions with a non-void return type, failure to return a value results in undefined behaviour.
     // The sole exception to this rule is the main function, which implicitly returns a value of zero.
 }
+```
 
+```c++
 ///////////////
 // Input/Output
 ///////////////
@@ -70,7 +75,9 @@ int main()
 
     cerr << "Used for error messages";
 }
+```
 
+```c++
 //////////
 // Strings
 //////////
@@ -91,7 +98,9 @@ cout << myString + " You" << endl; // "Hello You"
 // C++ strings are mutable and have value semantics.
 myString.append(" Dog");
 cout << myString << endl; // "Hello Dog"
+```
 
+```c++
 //////////////////////////////////////////
 // Classes and object-oriented programming
 //////////////////////////////////////////
@@ -103,8 +112,8 @@ cout << myString << endl; // "Hello Dog"
 // Classes are usually declared in header (.h or .hpp) files.
 class Square {
 
-// All members following this are public
-// until "private:" or "protected:" is found.
+    // All members following this are public
+    // until "private:" or "protected:" is found.
 public:
 
     // Default constructor
@@ -115,7 +124,7 @@ public:
     // using namespace std;
     // above.
     // Never put a "using namespace" statement in a header.
-    void setName(const std::string& squareName);
+    void setColor(const std::string& squareColor);
 
     void setWidth(int squareWidth);
 
@@ -129,7 +138,7 @@ public:
 
     // Functions can also be defined inside the class body.
     // Functions defined as such are automatically inlined.
-    void bark() const { std::cout << name << " barks!\n"; }
+    void getColor() const { return color; }
 
     // Along with constructors, C++ provides destructors.
     // These are called when an object is deleted or falls out of scope.
@@ -139,12 +148,12 @@ public:
     // if it is not virtual, then the derived class' destructor will
     // not be called if the object is destroyed through a base-class reference
     // or pointer.
-    virtual ~Dog();
+    virtual ~Square();
 private:
     // Member variables and functions are private by default.
     // But most prefere to private member variables after the public ones.
     std::string name;
-    int width = 0;
+    int width{0};
 
 }; // A semicolon must follow the class definition.
 
@@ -169,28 +178,28 @@ void Square::setWidth(int squareWidth)
 // Notice that "virtual" is only needed in the declaration, not the definition.
 void Square::print() const
 {
-    std::cout << "Dog is " << name << " and weighs " << weight << "kg\n";
+    std::cout << "Square is " << name << " and is " << weight << " wide\n";
 }
 
-Dog::~Dog()
+Square::~Square()
 {
     cout << "Goodbye " << name << "\n";
 }
 
 int main() {
-    Square square; // prints "A dog has been constructed"
-    square.setName("Barkley");
+    Square square; // prints "A square has been constructed"
+    square.setName("10x10");
     square.setWidth(10);
-    square.print(); // prints "Dog is Barkley and weighs 10 kg"
+    square.print(); // prints "Square is 10x10 and is 10 wide"
     return 0;
-} // prints "Goodbye Barkley"
+} // prints "Goodbye 10x10"
 
 // Inheritance:
 
 // This class inherits everything public and protected from the Dog class
 // as well as private but may not directly access private members/methods 
 // without a public or protected method for doing so
-class Rectangle : public Dog {
+class Rectangle : public Square {
 
     void setHeight(const int);
 

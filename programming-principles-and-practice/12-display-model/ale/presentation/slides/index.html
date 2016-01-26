@@ -78,11 +78,6 @@ README.md
 </section>
 
 <section data-markdown>
-## ... The graphics files...
-
-`GUI.{h|cpp}`: the 
-
-<section data-markdown>
 # Class and Struct
 
 - `class` and `struct` are mostly the same thing
@@ -93,11 +88,11 @@ README.md
 <section data-markdown>
 # Defining a class
 
-in the file `rectangle.cpp` we have:
+in the file `square.cpp` we have:
 
-- the definition of the `Rectangle` class.
-- the implementation of the `Rectangle` class.
-- the `main()` function which is the entry point for the program, creates a `rectangle` object, sets its width and height and reads its area.
+- the definition of the `Square` class.
+- the implementation of the `Square` class.
+- the `main()` function which is the entry point for the program, creates a `square` object, sets its width and height and reads its area.
 </section>
 
 <section data-markdown>
@@ -106,29 +101,26 @@ in the file `rectangle.cpp` we have:
 
 using namespace std;
 
-class Rectangle
+class Square
 {
 public:
-    Rectangle() {};
-    void setWidth(int w) {width = w;};
-    void setHeight(int h) {height = h;};
-    int getArea();
+    Square() {};
+    void setWidth(const int w) {width = w;};
+    int getArea() const;
 private:
     int width{0};
-    int height{0};
 };
 
-int Rectangle::getArea()
+int Square::getArea() const
 {
-    return height * width;
+    return width * width;
 }
 
 int main()
 {
-    Rectangle rectangle{};
-    rectangle.setWidth(10);
-    rectangle.setHeight(5);
-    cout << "Area: " << rectangle.getArea() << endl;
+    Square square{};
+    square.setWidth(10);
+    cout << "Area: " << square.getArea() << endl;
     return 0;
 }
 ~~~
@@ -137,19 +129,119 @@ int main()
 <section data-markdown>
 # "Running the class"
 
-in the file `rectangle.cpp` we have:
+in the file `square.cpp` we have:
 
-- create a `build/` directory in `01-rectangle`
+- create a `build/` directory in `01-square`
 - `cd build/`
 - `cmake ..`
 - `make`
-- `./rectangle`
+- `./square`
 
 </section>
 
 <section data-markdown>
-# 
+# ... Header and Body...
 
+This is a header
+
+~~~.cpp
+class Square
+{
+public:
+    Square() {};
+    void setWidth(const int w) {width = w;};
+    int getArea() const;
+private:
+    int width{0};
+};
+~~~
+
+It belongs in `Square.h`
+
+</section>
+
+<section data-markdown>
+# ... Header and Body...
+
+And the `main.cpp` should be as small as possible...
+
+~~~.cpp
+#include <iostream>
+#include "Square.h"
+
+using namespace std;
+
+int main()
+{
+    Square square{};
+    square.setWidth(10);
+    square.setHeight(5);
+    cout << "Area: " << square.getArea() << endl;
+    return 0;
+}
+~~~
+</section>
+
+<section data-markdown>
+# ... Header and Body...
+
+This is the body
+
+
+~~~.cpp
+#include "Square.h"
+
+int Square::getArea()
+{
+    return width * width;
+}
+~~~
+
+It belongs in `Square.cpp`
+
+</section>
+
+<section data-markdown>
+# ... Header and Body
+
+## Rules of thumb
+
+- Classes are named with nouns, the first letter capitalized.
+- Each class is in its own file.
+- Each file is named according to the containing class  
+  (try to respect the case)
+- Only for very short functions you will put the body in the header file.  
+  They will be inlined.
+- Everything is `const`` if it can be
+</section>
+
+<section data-markdown>
+# Inheritance
+
+`square.h`
+
+~~~.cpp
+class Rectangle : Square
+{
+    void setHeight(const int h) {height = h;};
+}
+~~~
+
+`square.cpp`
+
+~~~.cpp
+#include "Rectangle.h"
+
+int Rectangle::getArea() const
+{
+    return height * width;
+}
+~~~
+</section>
+<section data-markdown>
+# What's that virtual thing?
+
+...
 </section>
 
 		<script src="lib/js/head.min.js"></script>
