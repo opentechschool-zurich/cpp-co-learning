@@ -157,6 +157,17 @@ private:
 ~~~
 
 It belongs in `Square.h`
+</section>
+
+<section data-markdown>
+This is an implementation in `Square.cpp`
+
+~~~.cpp
+int Square::getArea() const
+{
+    return width * width;
+}
+~~~
 
 </section>
 
@@ -175,30 +186,10 @@ int main()
 {
     Square square{};
     square.setWidth(10);
-    square.setHeight(5);
     cout << "Area: " << square.getArea() << endl;
     return 0;
 }
 ~~~
-</section>
-
-<section data-markdown>
-# ... Header and Body...
-
-This is the body
-
-
-~~~.cpp
-#include "Square.h"
-
-int Square::getArea()
-{
-    return width * width;
-}
-~~~
-
-It belongs in `Square.cpp`
-
 </section>
 
 <section data-markdown>
@@ -218,7 +209,7 @@ It belongs in `Square.cpp`
 <section data-markdown>
 # Inheritance
 
-`square.h`
+`rectangle.h`
 
 ~~~.cpp
 class Rectangle : Square
@@ -227,7 +218,7 @@ class Rectangle : Square
 }
 ~~~
 
-`square.cpp`
+`rectangle.cpp`
 
 ~~~.cpp
 #include "Rectangle.h"
