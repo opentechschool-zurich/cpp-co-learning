@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Chapter 12 - 14: Classes</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <style>
+            .reveal p {
+                text-align: left;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<section data-markdown>
+# The Graphic classes
+
+What we can learn from the chapters 12 to 14...
+</section>
+
+<section data-markdown>
+# Strutrup's graphic classes
+
+- Most of the code is in Graph.{h|cpp}
+- Point is in  Point.{h|cpp}
+</section>
+
+<section data-markdown>
+# The graphics files
+~~~
+GUI.h
+Graph.h
+Point.h
+Simple_window.h
+Window.h
+fltk.h
+std_lib_facilities.h
+GUI.cpp
+Graph.cpp
+Simple_window.cpp
+Window.cpp
+README.md
+~~~
+</section>
+
+<section data-markdown>
+## ... The graphics files...
+
+`GUI.{h|cpp}`: the 
+
+<section data-markdown>
+# Class and Struct
+
+- `class` and `struct` are mostly the same thing
+- Classes have all the members private by default, in a `struct` they are public by default.
+- Rule of thumb? Prefer classes when you have functions inside of it.
+</section>
+
+<section data-markdown>
+# Defining a class
+
+in the file `rectangle.cpp` we have:
+
+- the definition of the `Rectangle` class.
+- the implementation of the `Rectangle` class.
+- the `main()` function which is the entry point for the program, creates a `rectangle` object, sets its width and height and reads its area.
+</section>
+
+<section data-markdown>
+~~~.cpp
+#include <iostream>
+
+using namespace std;
+
+class Rectangle
+{
+public:
+    Rectangle() {};
+    void setWidth(int w) {width = w;};
+    void setHeight(int h) {height = h;};
+    int getArea();
+private:
+    int width{0};
+    int height{0};
+};
+
+int Rectangle::getArea()
+{
+    return height * width;
+}
+
+int main()
+{
+    Rectangle rectangle{};
+    rectangle.setWidth(10);
+    rectangle.setHeight(5);
+    cout << "Area: " << rectangle.getArea() << endl;
+    return 0;
+}
+~~~
+</section>
+
+<section data-markdown>
+# "Running the class"
+
+in the file `rectangle.cpp` we have:
+
+- create a `build/` directory in `01-rectangle`
+- `cd build/`
+- `cmake ..`
+- `make`
+- `./rectangle`
+
+</section>
+
+<section data-markdown>
+# 
+
+</section>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

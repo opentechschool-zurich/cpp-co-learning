@@ -15,19 +15,18 @@ using namespace std;
  
 int main()
 {
-	cout << "\n ------------------ Output formating -------\n";
-	cout << 1234 << "\n \t << 1234 \t Base invesible\n";
+	cout << "\n" << 1234 << " \t << 1234 \t Base invesible\n";
 	cout << hex << 1234 << "\t hex << 1234 \t Base invesible \n";
 	cout << 0x1234 << " \t 0x1234 \t Base invesible \n\n";  
 	
 	// Output format: showbase - 0x for hex, 0 for octal
 	cout << showbase << "\t showbase output format\n";
 	cout << 1234 << "\t << 1234 \t Wrong Base\n";
-	cout << dec << 1234 << "\t << dec << 1234 \t Base dec has no prefix \n";
+	cout << dec << 1234 << "\t << dec << 1234  Base dec has no prefix \n";
 	cout << hex << 1234 << "\t hex << 1234 \t Base visible \n";
 	cout << 0x1234 << " \t 0x1234 \t Base visible \n";  
 	cout << 1234 << "\t << 1234 \t Wrong Base. Still hex !\n";
-	cout << dec << 1234 << "\t << dec << 1234 \t Base dec has no prefix \n";
+	cout << dec << 1234 << "\t << dec << 1234  Base dec has no prefix \n";  
 	
 /*	cout << " \n------------------ Input formating -------\n";
 	cout << "Please enter 4 times 1234. \n"; 
@@ -46,14 +45,14 @@ int main()
 	cout << 1234.567 << "\t \t 1234.567 normal \n";
 	cout << 1.2345678 << "\t \t 1.2345678 normal \n";
 	cout << fixed << 123.45 << "\t 123.45 as fixed \n";
-	cout << fixed << 1234.567 << "\t \t 1234.567 fixed \n";
+	cout << fixed << 1234.56789 << "\t 1234.567 fixed \n";
 	cout << scientific << 123.45 << "\t 123.45 as scientific \n"; */
 	
 	
 /*	cout <<"" << '|' << std::setw(10) << 23 << '|';
 	cout << '|'  << std::setw(5) << 23 << '|' ;            */
 	
-/*	std:string orbits(„365.24 29.53“);
+/*	std:string orbits(„365.24 29.53“);        -------------NOT WORKING 
 	std::string::size_type  size;
 
 	// string to double

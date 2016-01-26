@@ -1,0 +1,612 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simple_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fltk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simple_window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_lib_facilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\cgdebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\crc32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\deflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fastarrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\flstring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl_cmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\Fl_Font.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\Fl_Gl_Choice.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\Fl_XColor.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\freeglut_teapot_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\gzguts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\inffast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\inffixed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\inflate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\inftrees.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jdct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jerror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jinclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jmemsys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jmorecfg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jpegint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jpeglib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\jversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\mediumarrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\png.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\pngconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\pngdebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\pnginfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\pnglibconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\pngpriv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\pngstruct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\print_panel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\slowarrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\trees.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\Xutf8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\zlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\zutil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\dirent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Enumerations.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\filename.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Adjuster.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\fl_ask.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Bitmap.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_BMP_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Box.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Browser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Browser_.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Cairo.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Cairo_Window.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Chart.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Check_Browser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Check_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Choice.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Clock.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Color_Chooser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Copy_Surface.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Counter.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Device.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Dial.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Double_Window.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\fl_draw.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Export.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_File_Browser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_File_Chooser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_File_Icon.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_File_Input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Fill_Dial.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Fill_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Float_Input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_FormsBitmap.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_FormsPixmap.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Free.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_GIF_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Gl_Window.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Group.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Help_Dialog.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Help_View.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Hold_Browser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Hor_Fill_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Hor_Nice_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Hor_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Hor_Value_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Image_Surface.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Input_.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Input_Choice.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Int_Input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_JPEG_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Light_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Line_Dial.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Menu.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Menu_.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Menu_Bar.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Menu_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Menu_Item.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Menu_Window.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\fl_message.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Multiline_Input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Multiline_Output.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Multi_Browser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Multi_Label.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Native_File_Chooser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Nice_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Object.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Output.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Overlay_Window.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Pack.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Paged_Device.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Pixmap.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Plugin.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_PNG_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_PNM_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Positioner.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_PostScript.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Preferences.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Printer.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Progress.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Radio_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Radio_Light_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Radio_Round_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Repeat_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Return_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_RGB_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Roller.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Round_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Round_Clock.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Scroll.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Scrollbar.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Secret_Input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Select_Browser.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Shared_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\fl_show_colormap.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\fl_show_input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Simple_Counter.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Single_Window.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Spinner.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Sys_Menu_Bar.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Table.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Table_Row.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tabs.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Text_Buffer.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Text_Display.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Text_Editor.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tile.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tiled_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Timer.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Toggle_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Toggle_Light_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Toggle_Round_Button.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tooltip.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tree.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tree_Item.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tree_Item_Array.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Tree_Prefs.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\fl_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\fl_utf8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Valuator.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Value_Input.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Value_Output.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Value_Slider.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Widget.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Window.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_Wizard.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_XBM_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\Fl_XPM_Image.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\forms.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\gl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\gl2opengl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\glu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\glut.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\gl_draw.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\mac.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\names.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\win32.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\fl\x.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packages\fltk.1.3.3.1\build\native\include\gl\glut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

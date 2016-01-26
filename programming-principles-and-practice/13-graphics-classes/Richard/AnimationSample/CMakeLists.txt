@@ -1,0 +1,14 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(AnimationSample)
+
+ADD_DEFINITIONS("-std=c++11")
+
+FIND_PACKAGE(FLTK REQUIRED)
+
+ADD_EXECUTABLE (AnimationSample
+    main.cpp
+)
+
+TARGET_LINK_LIBRARIES(AnimationSample
+    ${FLTK_LIBRARIES}
+)
