@@ -2,5 +2,5 @@
 
 int Square::getArea() const
 {
-    return width * width;
+    return width * width * getGlitch();
 }
