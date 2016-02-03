@@ -13,6 +13,5 @@ int main() {
     } catch  (exception& e) {
     }
 
-    // win.wait_for_button(); // give control to the display engine
     return 0;
 }
