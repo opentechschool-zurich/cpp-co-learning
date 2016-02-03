@@ -1,4 +1,3 @@
-#include <iostream>
 #include "window-graph/Window.h"
 #include "window-graph/Graph.h"  
 #include "window-graph/GUI.h"  
@@ -18,7 +17,7 @@ public:
 	void red_pressed() { change(Color::red); }
 	void blue_pressed() { change(Color::blue); }
 	void black_pressed() { change(Color::black); }
-	void change(Color c) { std::cout << "new color" << std::endl; circle.set_color(c); }
+	void change(Color c) {circle.set_color(c); redraw();}
 };
 
 }
