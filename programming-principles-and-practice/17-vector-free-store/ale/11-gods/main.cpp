@@ -60,17 +60,17 @@ int main() {
     norse_gods = norse_gods->insert(norse_gods, new Link{"Odin"});
     cout << norse_gods << endl;
     norse_gods = norse_gods->insert(norse_gods, new Link{"Freia"});
-    Link* freia  = norse_gods->next();
-    freia->erase();
-    cout << freia << endl;
-    delete(freia);
-    cout << "odin prev" << norse_gods->previous() << endl;
-    cout << "odin next" << norse_gods->next() << endl;
-    Link* odin  = norse_gods;
+    Link* odin  = norse_gods->next();
     odin->erase();
+    cout << odin << endl;
     delete(odin);
-    cout << "odin" << odin << endl;
-    cout << "odin next" << odin->next() << endl;
+    cout << "freia prev" << norse_gods->previous() << endl;
+    cout << "freia next" << norse_gods->next() << endl;
+    Link* freia  = norse_gods;
+    freia->erase();
+    delete(freia);
+    cout << "freia" << freia << endl;
+    cout << "freia next" << freia->next() << endl;
     cout << "norse_gods" << norse_gods << endl;
     cout << "norse_gods next" << norse_gods->next() << endl;
 
