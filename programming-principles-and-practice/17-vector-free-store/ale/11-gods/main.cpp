@@ -46,7 +46,7 @@ Link* Link::erase()
     if (prev != nullptr) {
         prev->succ = succ;
     }
-    if (succ == nullptr) {
+    if (succ != nullptr) {
         succ->prev = prev;
     }
     prev = nullptr;
