@@ -1,2 +1,0 @@
-/home/katrin/Documents/cpp-co-learning/programming-principles-and-practice/13-graphics-classes/ale/00-grid/build/CMakeFiles/grid.dir
-/home/katrin/Documents/cpp-co-learning/programming-principles-and-practice/13-graphics-classes/ale/00-grid/build/CMakeFiles/grid_automoc.dir

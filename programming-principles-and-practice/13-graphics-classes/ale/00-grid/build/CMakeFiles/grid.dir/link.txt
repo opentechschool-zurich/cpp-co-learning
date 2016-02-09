@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/grid.dir/main.cpp.o CMakeFiles/grid.dir/mainWindow.cpp.o CMakeFiles/grid.dir/grid_automoc.cpp.o  -o grid -rdynamic /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.4.2 /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.4.2 /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.4.2 
