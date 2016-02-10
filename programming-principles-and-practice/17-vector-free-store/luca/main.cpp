@@ -88,7 +88,7 @@ int main() {
     cout << "we found it: " << foundGod->god << endl;
 
     insertBefore( new Link("Frida"), foundGod);
-    addGod( new Link("Frigg"), foundGod);
+    insertBefore( new Link("Frigg"), foundGod);
     
     printGods(norse_gods);
     
