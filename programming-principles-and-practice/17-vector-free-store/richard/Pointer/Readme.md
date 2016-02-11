@@ -52,6 +52,7 @@ make
 
 It produces this output on a 64bit computer:
 
+    Creating a variable: int x = 17;
     Creating a different variable: double e = 2.71828;
     Address of x: 0x7fffbca94d7c value of x: 17
     Address of e: 0x7fffbca94d70 value of e: 2.71828
