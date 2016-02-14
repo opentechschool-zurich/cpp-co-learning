@@ -2,7 +2,7 @@
 <html>
 <head>
 <title></title>
-<!-- 2016-02-12 Fr 18:45 -->
+<!-- 2016-02-14 So 17:41 -->
 <meta  charset="utf-8" />
 <meta  htto-equiv="X-UA-Compatible" content="chrome=1" />
 <meta  name="generator" content="Org-mode with org-ioslide" />
@@ -39,8 +39,8 @@
 
 <slide id="sec-" class=" segue dark quote nobackground" style="background-image: url(nil)">
 <aside class="gdbar right bottom"><img src="images/emacs-icon.png"></aside><hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">Copying &amp; Moving</h2>
+       <h2 class=" "><div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19">Copying &amp; Moving</h2>
 </div>
 </h2>
        <h3></h3>
@@ -134,8 +134,14 @@ vector v4 = {1, 2, 3}
        <h3></h3>
        </hgroup>
 <article class="" id="text-">
+<blockquote>
+<p>
+Default meaning of <i>copying</i> in C++: copy all member variables! 
+</p>
+</blockquote>
+
+
 <ul>
-<li>Default meaning of <i>copying</i> in C++: copy all member variables!</li>
 <li>Problem: When your member variables are pointers <i>you just copy
 addresses</i>!</li>
 <li>try to free memory twice with <code>delete</code> =&gt; real trouble.</li>
@@ -162,7 +168,7 @@ name_of_class(const name_of_class&amp;);
 <slide id="sec-"  >
 <hgroup class="">
        <h2 class=" "><div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4">Copying like a pro</h3>
+<h3 id="orgheadline4">Copying constructor</h3>
 </div>
 </h2>
        <h3></h3>
@@ -176,7 +182,7 @@ Copy constructor body with initializer list:
 
 <pre class="prettyprint" data-lang="c++">
 name_of_class::name_of_class(const name_of_class&amp; arg)
-  :// initialization of member variables ....
+  :// comma-separated initialization/delcaration of member variables
 {
  // copying operation 
 }
@@ -191,31 +197,611 @@ name_of_class::name_of_class(const name_of_class&amp; arg)
 </slide>
 
 </slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">Copy constructor in his example class:</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+vector::vector(const vector&amp; arg)
+:sz {arg.sz}, elem {new double[arg.sz]}
+{
+   copy(arg, arg+sz, elem); 
+}
+</pre>
+
+</div>
+<ul>
+<li>What does it mean?</li>
+</ul>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">Copy assignment</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>When two vectors are already initialized (constructed) <code>v1 = v2</code> is
+not copy construction anymore but copying by assignment</li>
+
+<li><p>
+Implement copy assignment as a member function like 
+</p>
+
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+name_of_class&amp; operator=(const name_of_class&amp;)
+{
+// assignment operation
+}
+</pre>
+
+</div></li>
+</ul>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7">Copy assignment in his example class</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+vector&amp; vector::operator=(const vector&amp; a)
+{
+  double* p = new double[a.sz];
+  copy(a.elem, a.elem+a.sz, elem);
+  delete[] elem;
+  elem = p;
+  sz = a.sz;
+  return *this; // reference to itself :) 
+}
+</pre>
+
+</div>
+<ul>
+<li><code>Error in example</code>!</li>
+<li>Only delete old stuff in <code>elem</code> when you have the new stuff!</li>
+</ul>
+
+
+</article>
+
+</slide>
+
 
 
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">Essentials</h2>
+       <h2 class=" "><div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">Copy terminology</h3>
 </div>
 </h2>
        <h3></h3>
        </hgroup>
+<article class="" id="text-">
+<blockquote>
+<p>
+<i>Shallow copy</i> copies only a pointer so that the two pointers now
+refer to the same object. 
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<i>Deep copy</i> copies what a pointer refers to so that the two pointers
+now refer to distinct objects. 
+</p>
+</blockquote>
+
+
+</article>
 
 </slide>
 
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7">Arrays</h2>
+       <h2 class=" "><div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9">Moving</h3>
 </div>
 </h2>
        <h3></h3>
        </hgroup>
+<article class="" id="text-">
+<ul>
+<li>Sometimes you want to avoid copying because 
+<ol>
+<li>it involves a lot of data.</li>
+<li>what is created inside a (function) scope would be destroyed
+after leaving the scope, which is a bit wasteful.</li>
+</ol></li>
+
+<li>We would actually just like to move pointers without moving the
+content itself - this is what <i>moving</i> does!</li>
+</ul>
+
+
+</article>
 
 </slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10">Moving declarations</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>Syntax</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+name_of_class(name_of_class&amp;&amp; a);  // moving constructor 
+name_of_class&amp; operator=(name_of_class&amp;&amp; a); // moving assignment
+</pre>
+
+</div>
+
+<dl>
+<dt><code>&amp;&amp;</code></dt><dd>rvalue reference used for defining move operations</dd>
+<dt>(no term)</dt><dd>move operations do not take const arguments because the purpose is
+to orderly destroy the old argument</dd>
+<dt>(no term)</dt><dd>the beauty of move operations are that they are invoked
+implicitely and automatically once declared &amp; defined</dd>
+</dl>
+
+
+</article>
+
+</slide>
+
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11">Moving definitions in his example class</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+vector::vector(vector&amp;&amp; a)
+  :sz{a.sz}, elem{a.elem}
+  {
+  a.sz = 0; 
+  a.elem = nullptr; //delete[] a.elem would destroy the content
+  }
+</pre>
+
+</div>
+
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+vector&amp; vector::operation=(vector&amp;&amp; a){
+  sz = a.sz;
+  delete[] elem; // deallocate !!!
+  elem = a.elem;
+
+  a.sz = 0; 
+  a.elem = nullptr; 
+  return *this; 
+}
+</pre>
+
+</div>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Essentials</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>Operations to consider when implementing a class:
+<ol>
+<li>constructors from one or more arguments</li>
+<li>default constructor</li>
+<li>copy constructor</li>
+<li>copy assignment</li>
+<li>move constructor</li>
+<li>move assignment</li>
+<li>destructor</li>
+</ol></li>
+</ul>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13">When to build what</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">constructors</td>
+<td class="left">always</td>
+</tr>
+
+<tr>
+<td class="left">default constructor</td>
+<td class="left">make class objects w/o specifying an initializer</td>
+</tr>
+
+<tr>
+<td class="left">destructor</td>
+<td class="left">when the class acquires resources from somewhere or when you have pointers</td>
+</tr>
+
+<tr>
+<td class="left">copy constructor</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">copy assignment</td>
+<td class="left">- usually needed when resources are acquired -</td>
+</tr>
+
+<tr>
+<td class="left">move constructor</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">move assignment</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">When to build what, ctd</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>default constructor only reasonable, when there are defaults
+satisfying the invariants</li>
+
+<li>resources: memory, locks, thread handles, sockets</li>
+</ul>
+
+
+</article>
+
+</slide>
+
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15">Explicit constructors</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<blockquote>
+<p>
+A constructor that takes a <b>single</b> argument defines a conversion from
+its argument type to its class.
+</p>
+</blockquote>
+
+<ul>
+<li>Sounds harmless but it means that this</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+class vector{
+    // ...
+    vector(int);
+    //...
+}
+</pre>
+
+</div>
+<p>
+implies that the following is valid code
+</p>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+vector v = 10;                      // odd: makes a vector of 10 doubles
+v = 20;                                  // eh? Assigns a new vector of 20 doubles to v
+
+void f(const vector&amp;);
+f(10);                                    // eh? Calls f with a new vector of 10 doubles
+</pre>
+
+</div>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16">Explicit constructors, ctd</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>The solution is to exclude all that syntax with</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+class vector{
+    // ...
+    explicit vector(int); 
+}
+</pre>
+
+</div>
+
+<ul>
+<li>The only thing that works is now</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+vector v(10);
+</pre>
+
+</div>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17">Implicit invokation of constructors and destructors</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>Whenever an object of type <code>X</code> is created, one of <code>X</code>'s constructors
+is invoked.
+<ul>
+<li>when a variable is initialized</li>
+<li>object is created using new</li>
+<li>whenever an object is copied</li>
+</ul></li>
+<li>Whenever an object of type <code>X</code> is destroyed, one of <code>X</code>'s destructors
+is invoked.
+<ul>
+<li>when names go out of scope</li>
+<li>the program terminates</li>
+<li>when delete is used</li>
+</ul></li>
+</ul>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18">Access to vector elements</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>we want our usual subscript notation: <code>v[i]</code></li>
+<li><p>
+because it should allow read &amp; write it has to be in our case 
+</p>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+double&amp; operator[](int n){ return elem[n];}
+</pre>
+
+</div></li>
+<li><code>v[i]</code> is interpreted as <code>v.operator[](i)</code>.</li>
+<li><p>
+usually also need a const version:
+</p>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+class vector {
+          // . . .
+          double&amp; operator[](int n);             // for non-const vectors
+          double operator[](int n) const;      // for const vectors
+};
+</pre>
+
+</div></li>
+</ul>
+
+
+</article>
+
+</slide>
+
+</slide>
+
+
+</slide>
+<slide id="sec-" class=" segue dark quote nobackground" style="background-image: url(nil)">
+<aside class="gdbar right bottom"><img src="images/emacs-icon.png"></aside><hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22">Arrays</h2>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="flexbox vleft auto-fadein" id="text-">
+
+
+</article>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20">Hello Array</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>Arrays can be allocated on the free store but also elsewhere. They
+are simply sequence of objects.</li>
+
+<li>Definition syntax:</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+type var_name[number_elements];
+</pre>
+
+</div>
+
+<ul>
+<li>The number of elements of a named array must be known at compile
+time. (not true when we have an anonymous array on the heap)</li>
+
+<li><code>[ ]</code> and <code>*</code> work here</li>
+
+<li><code>*arr</code> equivalent to <code>arr[0]</code></li>
+</ul>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21">Pointers to array elements</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+double ad[10];
+double* p = &amp;ad[5];
+</pre>
+
+</div>
+
+<ul>
+<li><code>p+2</code> makes the pointer point at the 7th position! Also, \(+,-,+=,-=\) all work</li>
+<li>This is called <i>pointer arithmetic</i></li>
+</ul>
+
+
+</article>
+
+</slide>
+
+</slide>
+
+
+
 
 </slide>
 <slide id="sec-" class=" thank-you-slide segue nobackground" style="background-image: url(nil)">

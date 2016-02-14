@@ -4,7 +4,7 @@
 #+AUTHOR: 
 
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
-#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+OPTIONS: author:nil c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:nil f:t inline:t num:nil p:nil pri:nil stat:t
 #+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
 #+DESCRIPTION:
@@ -52,7 +52,11 @@ standard library *type* =initializer_list<T>=.
 
 ** Copying 
 
-- Default meaning of /copying/ in C++: copy all member variables! 
+#+BEGIN_QUOTE
+Default meaning of /copying/ in C++: copy all member variables! 
+#+END_QUOTE
+
+
 - Problem: When your member variables are pointers /you just copy
   addresses/!
 - try to free memory twice with =delete= => real trouble.
@@ -63,20 +67,271 @@ standard library *type* =initializer_list<T>=.
   name_of_class(const name_of_class&);
   #+END_SRC
 
-** Copying like a pro
+** Copying constructor 
 - Copy constructor body with initializer list: 
   #+BEGIN_SRC c++
     name_of_class::name_of_class(const name_of_class& arg)
-      :// initialization of member variables ....
+      :// comma-separated initialization/delcaration of member variables
     {
      // copying operation 
     }
   #+END_SRC
 
+** Copy constructor in his example class:
+  #+BEGIN_SRC c++
+  vector::vector(const vector& arg)
+  :sz {arg.sz}, elem {new double[arg.sz]}
+  {
+     copy(arg, arg+sz, elem); 
+  }
+  #+END_SRC
+- What does it mean? 
 
-* Essentials 
+** Copy assignment 
+
+- When two vectors are already initialized (constructed) =v1 = v2= is
+  not copy construction anymore but copying by assignment
+
+- Implement copy assignment as a member function like 
+
+  #+BEGIN_SRC c++
+  name_of_class& operator=(const name_of_class&)
+  {
+  // assignment operation
+  } 
+  #+END_SRC
+
+** Copy assignment in his example class 
+
+#+BEGIN_SRC c++
+vector& vector::operator=(const vector& a)
+{
+  double* p = new double[a.sz];
+  copy(a.elem, a.elem+a.sz, elem);
+  delete[] elem;
+  elem = p;
+  sz = a.sz;
+  return *this; // reference to itself :) 
+}
+#+END_SRC
+- =Error in example=! 
+- Only delete old stuff in =elem= when you have the new stuff!
+
+
+
+** Copy terminology
+
+#+BEGIN_QUOTE
+/Shallow copy/ copies only a pointer so that the two pointers now
+refer to the same object. 
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+/Deep copy/ copies what a pointer refers to so that the two pointers
+now refer to distinct objects. 
+#+END_QUOTE
+
+** Moving 
+
+- Sometimes you want to avoid copying because 
+  1. it involves a lot of data. 
+  2. what is created inside a (function) scope would be destroyed
+     after leaving the scope, which is a bit wasteful. 
+
+- We would actually just like to move pointers without moving the
+  content itself - this is what /moving/ does! 
+
+** Moving declarations 
+
+- Syntax
+#+BEGIN_SRC c++
+name_of_class(name_of_class&& a);  // moving constructor 
+name_of_class& operator=(name_of_class&& a); // moving assignment 
+#+END_SRC
+
+- =&&= :: rvalue reference used for defining move operations 
+- move operations do not take const arguments because the purpose is
+  to orderly destroy the old argument 
+- the beauty of move operations are that they are invoked
+  implicitely and automatically once declared & defined 
+
+ 
+** Moving definitions in his example class
+
+#+BEGIN_SRC c++
+vector::vector(vector&& a)
+  :sz{a.sz}, elem{a.elem}
+  {
+  a.sz = 0; 
+  a.elem = nullptr; //delete[] a.elem would destroy the content
+  }
+#+END_SRC
+
+#+BEGIN_SRC c++
+vector& vector::operation=(vector&& a){
+  sz = a.sz;
+  delete[] elem; // deallocate !!!
+  elem = a.elem;
+  
+  a.sz = 0; 
+  a.elem = nullptr; 
+  return *this; 
+}
+#+END_SRC
+
+** Essentials 
+- Operations to consider when implementing a class:
+  1. constructors from one or more arguments 
+  2. default constructor
+  3. copy constructor
+  4. copy assignment
+  5. move constructor
+  6. move assignment
+  7. destructor 
+
+** When to build what 
+
+|---------------------+----------------------------------------------------------------------------|
+| constructors        | always                                                                     |
+| default constructor | make class objects w/o specifying an initializer                           |
+| destructor          | when the class acquires resources from somewhere or when you have pointers |
+| copy constructor    |                                                                            |
+| copy assignment     |       - usually needed when resources are acquired -                       |
+| move constructor    |                                                                            |
+| move assignment     |                                                                            |
+|---------------------+----------------------------------------------------------------------------|
+
+** When to build what, ctd 
+
+- default constructor only reasonable, when there are defaults
+  satisfying the invariants
+
+- resources: memory, locks, thread handles, sockets 
+
+
+** Explicit constructors
+
+#+BEGIN_QUOTE
+A constructor that takes a *single* argument defines a conversion from
+its argument type to its class.
+#+END_QUOTE
+
+- Sounds harmless but it means that this 
+#+BEGIN_SRC c++
+class vector{
+    // ...
+    vector(int);
+    //...
+}
+#+END_SRC
+  implies that the following is valid code
+#+BEGIN_SRC c++
+vector v = 10;                      // odd: makes a vector of 10 doubles
+v = 20;                                  // eh? Assigns a new vector of 20 doubles to v
+
+void f(const vector&);
+f(10);                                    // eh? Calls f with a new vector of 10 doubles
+#+END_SRC
+
+** Explicit constructors, ctd
+
+- The solution is to exclude all that syntax with
+#+BEGIN_SRC c++
+class vector{
+    // ...
+    explicit vector(int); 
+}
+#+END_SRC
+
+- The only thing that works is now 
+#+BEGIN_SRC c++
+vector v(10); 
+#+END_SRC
+
+** Implicit invokation of constructors and destructors 
+
+- Whenever an object of type =X= is created, one of =X='s constructors
+  is invoked.
+  - when a variable is initialized 
+  - object is created using new
+  - whenever an object is copied 
+- Whenever an object of type =X= is destroyed, one of =X='s destructors
+  is invoked.
+  - when names go out of scope
+  - the program terminates
+  - when delete is used 
+
+** Access to vector elements 
+   - we want our usual subscript notation: =v[i]=
+   - because it should allow read & write it has to be in our case 
+     #+BEGIN_SRC c++
+double& operator[](int n){ return elem[n];} 
+     #+END_SRC
+   - =v[i]= is interpreted as =v.operator[](i)=.
+   - usually also need a const version:
+     #+BEGIN_SRC c++
+class vector {
+          // . . .
+          double& operator[](int n);             // for non-const vectors
+          double operator[](int n) const;      // for const vectors
+};
+     #+END_SRC
+
 
 * Arrays 
+  :PROPERTIES:
+  :SLIDE:    segue dark quote
+  :ASIDE:    right bottom
+  :ARTICLE:  flexbox vleft auto-fadein
+  :END:
+
+** Hello Array
+
+- Arrays can be allocated on the free store but also elsewhere. They
+  are simply sequence of objects.
+
+- Definition syntax:
+  
+#+BEGIN_SRC c++
+type var_name[number_elements]; 
+#+END_SRC
+
+- The number of elements of a named array must be known at compile
+  time. (not true when we have an anonymous array on the heap)
+
+- =[ ]= and =*= work here
+
+- =*arr= equivalent to =arr[0]= 
+
+** Pointers to array elements
+
+#+BEGIN_SRC c++
+double ad[10];
+double* p = &ad[5]; 
+#+END_SRC
+
+- =p+2= makes the pointer point at the 7th position! Also, $+,-,+=,-=$ all work
+- This is called /pointer arithmetic/. Avoid it :) 
+- Also the name of an array turns into a pointer to its first element
+  most often, so assignment to the array name is not possible because
+  assignment to pointers is not possible. Not even copy asignments are
+  possible. 
+#+BEGIN_SRC c++
+char ac[10];
+ac = new char [20];  //error 
+#+END_SRC
+
+** Pointer problems 
+
+- Some bad ideas:
+  1. Don't access through the null pointer.
+  2. Do initialize your pointer.
+  3. Don't access nonexistent array elements.
+  4. Don't access trough a deleted pointer.
+  5. Don't return a pointer to a local variable. 
+
+- Being careful simply isn't enough in realistically sized programs. 
+
 
 * Thank You ˊ・ω・ˋ
 :PROPERTIES:
