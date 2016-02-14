@@ -2,6 +2,10 @@
 
 This program experiments with different kinds of constructors as per Bjarne's book Chapter 18.4 Essential Operations
 
+
+Run it on-line with coliru:  [http://coliru.stacked-crooked.com/a/6c2e44d23f27a94a]
+
+
 ```cpp
 #include <iostream>
 #include <vector>
