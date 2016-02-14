@@ -101,6 +101,8 @@ Default meaning of /copying/ in C++: copy all member variables!
   } 
   #+END_SRC
 
+- The =&= just makes it possible to chain ==
+
 ** Copy assignment in his example class 
 
 #+BEGIN_SRC c++

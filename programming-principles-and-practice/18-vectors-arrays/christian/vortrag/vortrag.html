@@ -2,7 +2,7 @@
 <html>
 <head>
 <title></title>
-<!-- 2016-02-14 So 17:41 -->
+<!-- 2016-02-14 So 20:39 -->
 <meta  charset="utf-8" />
 <meta  htto-equiv="X-UA-Compatible" content="chrome=1" />
 <meta  name="generator" content="Org-mode with org-ioslide" />
@@ -254,6 +254,8 @@ name_of_class&amp; operator=(const name_of_class&amp;)
 </pre>
 
 </div></li>
+
+<li>The <code>&amp;</code> just makes it possible to chain <code>=</code>.</li>
 </ul>
 
 
@@ -719,8 +721,8 @@ class vector {
 </slide>
 <slide id="sec-" class=" segue dark quote nobackground" style="background-image: url(nil)">
 <aside class="gdbar right bottom"><img src="images/emacs-icon.png"></aside><hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline22" class="outline-2">
-<h2 id="orgheadline22">Arrays</h2>
+       <h2 class=" "><div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23">Arrays</h2>
 </div>
 </h2>
        <h3></h3>
@@ -790,7 +792,47 @@ double* p = &amp;ad[5];
 
 <ul>
 <li><code>p+2</code> makes the pointer point at the 7th position! Also, \(+,-,+=,-=\) all work</li>
-<li>This is called <i>pointer arithmetic</i></li>
+<li>This is called <i>pointer arithmetic</i>. Avoid it :)</li>
+<li>Also the name of an array turns into a pointer to its first element
+most often, so assignment to the array name is not possible because
+assignment to pointers is not possible. Not even copy asignments are
+possible.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+char ac[10];
+ac = new char [20];  //error
+</pre>
+
+</div>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22">Pointer problems</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>Some bad ideas:
+<ol>
+<li>Don't access through the null pointer.</li>
+<li>Do initialize your pointer.</li>
+<li>Don't access nonexistent array elements.</li>
+<li>Don't access trough a deleted pointer.</li>
+<li>Don't return a pointer to a local variable.</li>
+</ol></li>
+
+<li>Being careful simply isn't enough in realistically sized programs.</li>
 </ul>
 
 
@@ -799,8 +841,6 @@ double* p = &amp;ad[5];
 </slide>
 
 </slide>
-
-
 
 
 </slide>
