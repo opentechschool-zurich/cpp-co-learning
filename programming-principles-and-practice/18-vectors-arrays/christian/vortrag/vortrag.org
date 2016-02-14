@@ -1,5 +1,5 @@
 #+TITLE: Vectors and Arrays
-#+SUBTITLE: Be careful! :-) 
+#+SUBTITLE: Lift-off by overcoming the constraints of the machine! :-)
 #+DATE: 2015/01/18（日）02:20
 #+AUTHOR: 
 
@@ -20,18 +20,63 @@
   :ASIDE:    right bottom
   :ARTICLE:  flexbox vleft auto-fadein
   :END:
-** Nested List
-- Item 1
-- Item 2
-  + Depth 2
-  + Depth 2
-    * Third
-    * Third
+** Initialization
+
+
+#+BEGIN_QUOTE
+A {}-delimited list of elements of type =T= is an object of the
+standard library *type* =initializer_list<T>=.
+#+END_QUOTE
+
+- Usage
+  #+BEGIN_SRC c++
+    vector(initializer_list<double> lst)
+      :sz{lst.size()}, elem{new double[sz]}{
+
+      copy(lst.begin(),lst.end(), elem);
+    }
+  #+END_SRC
+    Note that =copy()= is a SL function. 
+
+** Initialization, ctd 
+
+- Quiz: What does it mean for his new vector class?
+  #+BEGIN_SRC c++
+  vector v1 {3};
+  vector v2(3);
+  vector v3 {1, 2, 3}
+  vector v4 = {1, 2, 3}
+  #+END_SRC  
+
+- Note: initializer lists are passed by value. 
+
+** Copying 
+
+- Default meaning of /copying/ in C++: copy all member variables! 
+- Problem: When your member variables are pointers /you just copy
+  addresses/!
+- try to free memory twice with =delete= => real trouble.
+- Solution: copying is like constructing a new object from an old
+  object -> use a *copy constructor* 
+- Copy constructur declaration syntax:
+  #+BEGIN_SRC c++
+  name_of_class(const name_of_class&);
+  #+END_SRC
+
+** Copying like a pro
+- Copy constructor body with initializer list: 
+  #+BEGIN_SRC c++
+    name_of_class::name_of_class(const name_of_class& arg)
+      :// initialization of member variables ....
+    {
+     // copying operation 
+    }
+  #+END_SRC
+
 
 * Essentials 
 
 * Arrays 
-
 
 * Thank You ˊ・ω・ˋ
 :PROPERTIES:
