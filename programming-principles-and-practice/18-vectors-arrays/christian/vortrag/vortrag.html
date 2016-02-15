@@ -2,7 +2,7 @@
 <html>
 <head>
 <title></title>
-<!-- 2016-02-14 So 17:41 -->
+<!-- 2016-02-15 Mo 18:51 -->
 <meta  charset="utf-8" />
 <meta  htto-equiv="X-UA-Compatible" content="chrome=1" />
 <meta  name="generator" content="Org-mode with org-ioslide" />
@@ -27,7 +27,7 @@
 <body style="opacity: 0">
 <slides class="layout-widescreen">
 <slide class="title-slide segue nobackground">
-       <aside class="gdbar"><img src="images/emacs-icon.png"></aside>
+       <aside class="gdbar"><img src="images/CppVectorsAndArrays.png"></aside>
        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
        <hgroup class="auto-fadein">
          <h1 data-config-title><!-- populated from slide_config.json --></h1>
@@ -36,11 +36,10 @@
        </hgroup>
     </slide>
   
-
 <slide id="sec-" class=" segue dark quote nobackground" style="background-image: url(nil)">
-<aside class="gdbar right bottom"><img src="images/emacs-icon.png"></aside><hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline19" class="outline-2">
-<h2 id="orgheadline19">Copying &amp; Moving</h2>
+<aside class="gdbar right bottom"><img src="images/CppVectorsAndArrays.png"></aside><hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21">Copying &amp; Moving</h2>
 </div>
 </h2>
        <h3></h3>
@@ -176,12 +175,12 @@ name_of_class(const name_of_class&amp;);
 <article class="" id="text-">
 <ul>
 <li><p>
-Copy constructor body with initializer list: 
+Copy constructor definition: 
 </p>
 <div class="org-src-container">
 
 <pre class="prettyprint" data-lang="c++">
-name_of_class::name_of_class(const name_of_class&amp; arg)
+name_of_class(const name_of_class&amp; arg)
   :// comma-separated initialization/delcaration of member variables
 {
  // copying operation 
@@ -212,13 +211,13 @@ name_of_class::name_of_class(const name_of_class&amp; arg)
 vector::vector(const vector&amp; arg)
 :sz {arg.sz}, elem {new double[arg.sz]}
 {
-   copy(arg, arg+sz, elem); 
+   copy(arg.elem, arg.elem+sz, elem); 
 }
 </pre>
 
 </div>
 <ul>
-<li>What does it mean?</li>
+<li><code>ar.elem+sz</code> !</li>
 </ul>
 
 
@@ -238,7 +237,7 @@ vector::vector(const vector&amp; arg)
 <article class="" id="text-">
 <ul>
 <li>When two vectors are already initialized (constructed) <code>v1 = v2</code> is
-not copy construction anymore but copying by assignment</li>
+not a copy construction anymore but copying by assignment</li>
 
 <li><p>
 Implement copy assignment as a member function like 
@@ -254,6 +253,8 @@ name_of_class&amp; operator=(const name_of_class&amp;)
 </pre>
 
 </div></li>
+
+<li>The <code>&amp;</code> just makes it possible to chain <code>=</code></li>
 </ul>
 
 
@@ -276,12 +277,12 @@ name_of_class&amp; operator=(const name_of_class&amp;)
 <pre class="prettyprint" data-lang="c++">
 vector&amp; vector::operator=(const vector&amp; a)
 {
-  double* p = new double[a.sz];
-  copy(a.elem, a.elem+a.sz, elem);
-  delete[] elem;
-  elem = p;
-  sz = a.sz;
-  return *this; // reference to itself :) 
+  double* p = new double[a.sz];   
+  copy(a.elem, a.elem+a.sz, p);   // make &amp; copy to temp pointer(!) 
+  delete[] elem;                  // delete old content
+  elem = p;                       // point to new data 
+  sz = a.sz;                    
+  return *this;                   // reference to itself  
 }
 </pre>
 
@@ -289,14 +290,13 @@ vector&amp; vector::operator=(const vector&amp; a)
 <ul>
 <li><code>Error in example</code>!</li>
 <li>Only delete old stuff in <code>elem</code> when you have the new stuff!</li>
+<li>a bit like old-school change of variable exercise</li>
 </ul>
 
 
 </article>
 
 </slide>
-
-
 
 </slide>
 <slide id="sec-"  >
@@ -370,19 +370,19 @@ content itself - this is what <i>moving</i> does!</li>
 <div class="org-src-container">
 
 <pre class="prettyprint" data-lang="c++">
-name_of_class(name_of_class&amp;&amp; a);  // moving constructor 
-name_of_class&amp; operator=(name_of_class&amp;&amp; a); // moving assignment
+name_of_class(name_of_class&amp;&amp; );  // moving constructor 
+name_of_class&amp; operator=(name_of_class&amp;&amp; ); // moving assignment
 </pre>
 
 </div>
 
-<dl>
-<dt><code>&amp;&amp;</code></dt><dd>rvalue reference used for defining move operations</dd>
-<dt>(no term)</dt><dd>move operations do not take const arguments because the purpose is
-to orderly destroy the old argument</dd>
-<dt>(no term)</dt><dd>the beauty of move operations are that they are invoked
-implicitely and automatically once declared &amp; defined</dd>
-</dl>
+<ul>
+<li><code>&amp;&amp;</code> is rvalue reference used for defining move operations</li>
+<li>move operations do not take const arguments because the purpose is
+to orderly destroy the old argument</li>
+<li>the beauty of move operations are that they are invoked
+implicitely and automatically once declared &amp; defined</li>
+</ul>
 
 
 </article>
@@ -400,29 +400,51 @@ implicitely and automatically once declared &amp; defined</dd>
        <h3></h3>
        </hgroup>
 <article class="" id="text-">
+<ul>
+<li>Moving constructor</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="prettyprint" data-lang="c++">
 vector::vector(vector&amp;&amp; a)
-  :sz{a.sz}, elem{a.elem}
+  :sz{a.sz}, elem{a.elem}      // assign to newly created vector 
   {
   a.sz = 0; 
-  a.elem = nullptr; //delete[] a.elem would destroy the content
+  a.elem = nullptr;            //delete[] a.elem would destroy the content
   }
 </pre>
 
 </div>
 
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Moving definitions in his example class</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ul>
+<li>Moving assignment</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="prettyprint" data-lang="c++">
 vector&amp; vector::operation=(vector&amp;&amp; a){
-  sz = a.sz;
-  delete[] elem; // deallocate !!!
-  elem = a.elem;
 
-  a.sz = 0; 
-  a.elem = nullptr; 
+  delete[] elem;      // deallocate !!!
+  sz = a.sz;
+  elem = a.elem;     // assign to newly created vector 
+
+  a.sz = 0;          
+  a.elem = nullptr;  // make old pointer harmless
   return *this; 
 }
 </pre>
@@ -437,8 +459,8 @@ vector&amp; vector::operation=(vector&amp;&amp; a){
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12">Essentials</h3>
+       <h2 class=" "><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13">Essentials</h3>
 </div>
 </h2>
        <h3></h3>
@@ -465,8 +487,8 @@ vector&amp; vector::operation=(vector&amp;&amp; a){
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13">When to build what</h3>
+       <h2 class=" "><div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">When to build what</h3>
 </div>
 </h2>
        <h3></h3>
@@ -526,8 +548,8 @@ vector&amp; vector::operation=(vector&amp;&amp; a){
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14">When to build what, ctd</h3>
+       <h2 class=" "><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15">When to build what, ctd</h3>
 </div>
 </h2>
        <h3></h3>
@@ -545,12 +567,11 @@ satisfying the invariants</li>
 
 </slide>
 
-
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15">Explicit constructors</h3>
+       <h2 class=" "><div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16">Explicit constructors</h3>
 </div>
 </h2>
        <h3></h3>
@@ -564,7 +585,7 @@ its argument type to its class.
 </blockquote>
 
 <ul>
-<li>Sounds harmless but it means that this</li>
+<li>Sounds harmless but it means that this &#x2026;</li>
 </ul>
 <div class="org-src-container">
 
@@ -577,17 +598,33 @@ class vector{
 </pre>
 
 </div>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17">Explicit constructors</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
 <p>
-implies that the following is valid code
+&#x2026; implies that the following is valid code
 </p>
 <div class="org-src-container">
 
 <pre class="prettyprint" data-lang="c++">
-vector v = 10;                      // odd: makes a vector of 10 doubles
-v = 20;                                  // eh? Assigns a new vector of 20 doubles to v
+vector v = 10;               // odd: makes a vector of 10 doubles
+v = 20;                      // eh? Assigns a new vector of 20 doubles to v
 
 void f(const vector&amp;);
-f(10);                                    // eh? Calls f with a new vector of 10 doubles
+f(10);                       // eh? Calls f with a new vector of 10 doubles
 </pre>
 
 </div>
@@ -600,8 +637,8 @@ f(10);                                    // eh? Calls f with a new vector of 10
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline16" class="outline-3">
-<h3 id="orgheadline16">Explicit constructors, ctd</h3>
+       <h2 class=" "><div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18">Explicit constructors, ctd</h3>
 </div>
 </h2>
        <h3></h3>
@@ -640,8 +677,8 @@ vector v(10);
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline17" class="outline-3">
-<h3 id="orgheadline17">Implicit invokation of constructors and destructors</h3>
+       <h2 class=" "><div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19">Implicit invokation of constructors and destructors</h3>
 </div>
 </h2>
        <h3></h3>
@@ -659,8 +696,8 @@ is invoked.
 is invoked.
 <ul>
 <li>when names go out of scope</li>
-<li>the program terminates</li>
 <li>when delete is used</li>
+<li>the program terminates</li>
 </ul></li>
 </ul>
 
@@ -672,17 +709,17 @@ is invoked.
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline18" class="outline-3">
-<h3 id="orgheadline18">Access to vector elements</h3>
+       <h2 class=" "><div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20">Access to vector elements</h3>
 </div>
 </h2>
        <h3></h3>
        </hgroup>
 <article class="" id="text-">
 <ul>
-<li>we want our usual subscript notation: <code>v[i]</code></li>
+<li>We want our usual subscript notation: <code>v[i]</code></li>
 <li><p>
-because it should allow read &amp; write it has to be in our case 
+Since it should allow read &amp; write, it has to be in our case 
 </p>
 <div class="org-src-container">
 
@@ -693,7 +730,7 @@ double&amp; operator[](int n){ return elem[n];}
 </div></li>
 <li><code>v[i]</code> is interpreted as <code>v.operator[](i)</code>.</li>
 <li><p>
-usually also need a const version:
+Usually we also need a const version:
 </p>
 <div class="org-src-container">
 
@@ -718,9 +755,9 @@ class vector {
 
 </slide>
 <slide id="sec-" class=" segue dark quote nobackground" style="background-image: url(nil)">
-<aside class="gdbar right bottom"><img src="images/emacs-icon.png"></aside><hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline22" class="outline-2">
-<h2 id="orgheadline22">Arrays</h2>
+<aside class="gdbar right bottom"><img src="images/CppVectorsAndArrays.png"></aside><hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25">Arrays</h2>
 </div>
 </h2>
        <h3></h3>
@@ -733,8 +770,8 @@ class vector {
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline20" class="outline-3">
-<h3 id="orgheadline20">Hello Array</h3>
+       <h2 class=" "><div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22">Hello Array</h3>
 </div>
 </h2>
        <h3></h3>
@@ -742,7 +779,7 @@ class vector {
 <article class="" id="text-">
 <ul>
 <li>Arrays can be allocated on the free store but also elsewhere. They
-are simply sequence of objects.</li>
+are simply sequences of objects.</li>
 
 <li>Definition syntax:</li>
 </ul>
@@ -772,8 +809,8 @@ time. (not true when we have an anonymous array on the heap)</li>
 </slide>
 <slide id="sec-"  >
 <hgroup class="">
-       <h2 class=" "><div id="outline-container-orgheadline21" class="outline-3">
-<h3 id="orgheadline21">Pointers to array elements</h3>
+       <h2 class=" "><div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23">Pointers to array elements</h3>
 </div>
 </h2>
        <h3></h3>
@@ -790,7 +827,45 @@ double* p = &amp;ad[5];
 
 <ul>
 <li><code>p+2</code> makes the pointer point at the 7th position! Also, \(+,-,+=,-=\) all work</li>
-<li>This is called <i>pointer arithmetic</i></li>
+<li>This is called <i>pointer arithmetic</i>. Avoid it :)</li>
+<li>Also the name of an array turns into a pointer (value) to its first
+element most often, so assignment to the array name is not possible
+because assignment to a value is not possible. Also, not even copy
+asignments are possible.</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="prettyprint" data-lang="c++">
+char ac[10];
+ac = new char [20];  //error
+</pre>
+
+</div>
+
+
+</article>
+
+</slide>
+
+</slide>
+<slide id="sec-"  >
+<hgroup class="">
+       <h2 class=" "><div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24">Pointer problems</h3>
+</div>
+</h2>
+       <h3></h3>
+       </hgroup>
+<article class="" id="text-">
+<ol>
+<li>Don't access through the null pointer.</li>
+<li>Do initialize your pointer.</li>
+<li>Don't access nonexistent array elements.</li>
+<li>Don't access trough a deleted pointer.</li>
+<li>Don't return a pointer to a local variable.</li>
+</ol>
+<ul>
+<li>Being careful simply isn't enough in realistically sized programs.</li>
 </ul>
 
 
@@ -801,11 +876,9 @@ double* p = &amp;ad[5];
 </slide>
 
 
-
-
 </slide>
 <slide id="sec-" class=" thank-you-slide segue nobackground" style="background-image: url(nil)">
-<aside class="gdbar right"><img src="images/emacs-icon.png"></aside><article class="flexbox vleft auto-fadein" id="text-">
+<aside class="gdbar right"><img src="images/CppVectorsAndArrays.png"></aside><article class="flexbox vleft auto-fadein" id="text-">
 <h2>
   <p>Thank You ˊ・ω・ˋ</p>
 </h2>

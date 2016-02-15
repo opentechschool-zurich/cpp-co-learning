@@ -1,5 +1,5 @@
 slides > slide:not(.nobackground):before {
-background: url(../../images/emacs-icon.png) no-repeat 0 50%;
+background: url(../../nil) no-repeat 0 50%;
 font-size: 12pt;
 content: "";
 position: absolute;
