@@ -308,7 +308,7 @@ int main() {
     for (int i = 0; i &lt; n; i++) // timing loop
         do_something();
     auto endTime = system_clock::now();
-    auto ms = duration_cast<milliseconds>( endTime - startTime).count();
+    auto ms = duration_cast&lt;milliseconds>( endTime - startTime).count();
     cout &lt;&lt; "do_something() " &lt;&lt; n &lt;&lt; " times took "
         &lt;&lt; ms &lt;&lt; "ms\n";
 }</code></pre>
