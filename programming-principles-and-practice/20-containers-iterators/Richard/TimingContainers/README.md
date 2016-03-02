@@ -12,7 +12,12 @@ make
 ./TimingContainers
 ```
 
+
+
 # Results on a 64 bit 8 core Intel i7-4770K processor @ 3.50GHz with 32GB Ram
+
+[Chart](http://opentechschool-zurich.github.io/cpp-co-learning/programming-principles-and-practice/20-containers-iterators/Richard/ContainersPresentation/app/chart.html)
+
 ```
 timeAContainer of type vector<int> with 10 elements ran << 0ms per cycle (10 cycles)
 timeAContainer of type list<int>   with 10 elements ran << 0ms per cycle (10 cycles)
