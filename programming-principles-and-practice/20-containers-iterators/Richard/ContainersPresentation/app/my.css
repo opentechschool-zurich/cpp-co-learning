@@ -1,0 +1,18 @@
+/* app css stylesheet */
+
+#logo {
+  font-family: 'Russo One', sans-serif;
+  font-size: 500%;
+  color: #0000f1;
+  background: -webkit-linear-gradient(200deg, #66ffff,  #0000f1);
+  background: -o-linear-gradient(transparent, transparent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+span.boxed {
+    border: 3px solid red;
+    margin: 5px;
+    padding: 5px;
+}
+
