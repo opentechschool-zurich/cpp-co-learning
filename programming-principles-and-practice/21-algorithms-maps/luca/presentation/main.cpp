@@ -5,8 +5,9 @@
 
 using namespace std;
 
-bool isBiggerThan_2 (int i) {
-  return i > 2;
+int x;
+bool isBiggerThan_x (int i) {
+  return i > x;
 }
 
 
@@ -29,9 +30,10 @@ int main () {
     vector<int> myvector {1, 2, 3, 4};
 
     // with global function
-    auto it = find_if (myvector.begin(), myvector.end(), isBiggerThan_2);
+    x = 2;
+    auto it = find_if (myvector.begin(), myvector.end(), isBiggerThan_x);
     if ( it != myvector.end() ) {
-        cout << "first result with global function isBiggerThan_2         is: " << *it << endl;
+        cout << "first result with global function isBiggerThan_x x=2     is: " << *it << endl;
     }
 
     // with function object
@@ -40,5 +42,10 @@ int main () {
         cout << "first result with function object myDynamicBiggerThan(3) is: " << *it << endl;
     }
 
-
+    // with lambda function
+    int bigger = 1;
+    it = find_if (myvector.begin(), myvector.end(), [=](int i){ return i > bigger; });
+    if ( it != myvector.end() ) {
+        cout << "first result with lambda function using the var bigger=1 is: " << *it << endl;
+    }
 }
