@@ -36,17 +36,21 @@ Animal Fido not inserted because animal Animal: Tim Species: Dog Legs: 4
 already has the key
 
 zooMap contains:
+Creating a multipmap from our zoo:
+zooMultimap contains:
 Key: Dog        Animal: Tim Species: Dog Legs: 4
+Key: Dog        Animal: Fido Species: Dog Legs: 4
 Key: Gorilla    Animal: King Kong Species: Gorilla Legs: 2
 Key: Lion       Animal: Simba Species: Lion Legs: 4
 Key: Mouse      Animal: Mikey Mouse Species: Mouse Legs: 2
 Key: Sheep      Animal: Dolly Species: Sheep Legs: 4
 Key: Snake      Animal: Sid Species: Snake Legs: 0
 
-Creating a multipmap from our zoo:                                                                                       zooMultimap contains:                                                                                                          Key: Dog        Animal: Tim Species: Dog Legs: 4                                                                               Key: Dog        Animal: Fido Species: Dog Legs: 4
-Key: Gorilla    Animal: King Kong Species: Gorilla Legs: 2
-Key: Lion       Animal: Simba Species: Lion Legs: 4
-Key: Mouse      Animal: Mikey Mouse Species: Mouse Legs: 2
-Key: Sheep      Animal: Dolly Species: Sheep Legs: 4
-Key: Snake      Animal: Sid Species: Snake Legs: 0
+Creating a collection with animals whose name has an odd number of characters:
+Animal: Sid Species: Snake Legs: 0
+Animal: Simba Species: Lion Legs: 4
+Animal: Tim Species: Dog Legs: 4
+Animal: King Kong Species: Gorilla Legs: 2
+Animal: Mikey Mouse Species: Mouse Legs: 2
+Animal: Dolly Species: Sheep Legs: 4
 ```
