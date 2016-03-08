@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <vector>
 
 using namespace std;
 
@@ -108,7 +109,15 @@ int main() {
         cout << "Key: " << element.first << "\t" << element.second;
     }
 
+    cout << endl << "Creating a collection with animals whose name has an odd number of characters: " << endl;
+    list<Animal> outputZoo;
+    copy_if( Zoo.begin(), Zoo.end(), back_inserter(outputZoo),
+      [](const Animal& a) -> bool { return a.name.size() % 2; } 
+    );
+    for ( auto a : outputZoo ) {
+      cout << a;
+    }
 
-
+    cout << endl;
     return 0;
 }
