@@ -6,7 +6,7 @@
   "license": "CC BY 4",
   "private": true,
   "dependencies": {
-    "reveal.js": "~3.1.0",
-    "highlightjs": "~8.8.0"
+    "highlightjs": "~9.1.0",
+    "reveal.js": "~3.2.0"
   }
 }
