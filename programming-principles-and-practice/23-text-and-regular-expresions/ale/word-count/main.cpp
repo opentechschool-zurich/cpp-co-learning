@@ -29,11 +29,9 @@ namespace word_count {
     map<string, int> words(string sentence) {
         map<string, int> result {};
         for (auto word: split(sentence)) {
-            auto it = result.find(word);
-            if (it != result.end()) {
-                it->second = it->second + 1;
-            }  else {
-                result.insert({word, 1});
+            auto it = result.insert({word, 1});
+            if (it.second == false) {
+                (*it.first).second++;
             }
         }
         return result;
