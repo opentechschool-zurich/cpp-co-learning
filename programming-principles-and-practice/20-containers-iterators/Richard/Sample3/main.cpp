@@ -1,17 +1,14 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
-
 int main() {
-    vector <int> myIntVector {1, 4, 8};
-    vector <int>::reverse_iterator myIntVectorIterator;
+    std::vector <int> myIntVector {1, 4, 8};
 
-    for (myIntVectorIterator = myIntVector.rbegin();
-            myIntVectorIterator != myIntVector.rend();
-            myIntVectorIterator++) {
-        cout << *myIntVectorIterator << " ";
-        //Should output 1 4 8
+    //std::vector <int>::reverse_iterator it;
+    for (auto it=myIntVector.rbegin(); it!=myIntVector.rend(); ++it)
+    {
+        std::cout << *it << " ";
     }
+
     return 0;
 }

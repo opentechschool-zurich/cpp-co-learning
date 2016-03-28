@@ -22,33 +22,33 @@
                     <p>in</p>
                     <div id="logo">C++</div>
                     <p>Richard Eigenmann, 1 Mar 2016</p>
+                    <small><p>Revised 28 Mar 2016 (Thanks Andreas Gieriet)</p></small>
                     <!--<p>Revised 21 Nov 2015</p> -->
                 </section>
 
                 <section>
                     <h3>Standard Template Library Containers</h3>
                     <h4>Sequence Containers</h4>
-                    <p>vector, list, slist, deque, array</p>
+                    <p>vector, list, forward_list, deque, array</p>
                     <h4>Associative Containers</h4>
-                    <p>set, multiset, map, multimap, hash_set, hash_map, hash_multiset, hash_multimap.</p>
+                    <p>set, multiset, map, multimap</p>
                     <h4>Container Adaptors</h4>
                     <p>queue, priority_queue, stack</p>
                     <h4>Single Container</h4>
-                    <p>pair</p>
-                    <p><small>See <a href="https://en.wikipedia.org/wiki/Standard_Template_Library#Composition">https://en.wikipedia.org/wiki/Standard_Template_Library#Composition</a></small></p>
+                    <p>pair, tuple</p>
+                    <p><small>See <a href="http://en.cppreference.com/w/cpp/container">http://en.cppreference.com/w/cpp/container</a></small></p>
                 </section>
 
                 <section>
-
                     <h3>All containers</h3>
                     <small>
                         <ul>
-                            <li>have a sequence of elements</li>
+                            <li>have a collection of elements</li>
                             <li>provide copy operations that copy elements. Copying can be done with assignment or a copy constructor.</li>
-                            <li>name their element type "value_type"</li>
+                            <li>name their element type "value_type" (amongst others)</li>
                             <li>have iterator types called "iterator" and "const_iterator". Iterators provide *, ++ (both prefix and postfix), ==, and != with the appropriate semantics. The iterators for list also provide –– for moving backward in the sequence; that’s called a bidirectional iterator. The iterators for vector also provide --, [], +, and - and are called random-access iterators.</li>
                             <li>provides insert() and erase(), front() and back(), push_back() and pop_back(), size(), etc.; vector and map also provide subscripting (e.g., operator []).</li>
-                            <li>provide comparison operators (==, !=, <, <=, >, and >=) that compare the elements. Containers use lexicographical ordering for <, <=, >, and >=; that is, they compare the elements in order starting with the first.</li>
+                            <li>provide comparison operators (==, !=, <, <=, >, and >=) that compare the elements. Containers use lexicographical ordering for <, <=, >, and >=; that is, they compare the elements in order starting with the first. (Actually the elements must provide the operations.)</li>
                         </ul>
                         <p>See <a href="http://www.stroustrup.com/programming.html">Stroustroup, Programming Principle and Practice Using C++ 20.10</a></p>
                     </small>
@@ -72,114 +72,121 @@
                 </section>                
 
                 <section>
-                    <h2>Old approach (avoid)</h2>
+                    <h3>Think of an Iterator as a Cursor on Ctonatiners, mimicking pointer-access on elements</h3>
+                    <ul>
+                        <li>pointer to first element (begin())</li>
+                        <li>pointer behind last element (end())</li>
+                        <li>go to next element(++it, it++ is not advised due to performance penalty)</li>
+                        <li>get current element (*it)</li>
+                        <li>pointer equality (== and !=)</li>
+                        <li>go to previous element if supported (--it, it-- is not advised due to performance penalty)</li>
+                        <li>random access if supported (it[pos], +, -)</li>
+                        <li>pointer relation if supported (<, <=, >=, >)</li>
+                    </ul>
+                    <small><p>Thanks Andreas Gieriet</p></small>
+                </section>                
+
+                <section>
+                    <h2>Traditional approach with position-based for loop</h2>
                     <pre><code class="C++">#include &lt;vector>
 #include &lt;iostream>
 
-using namespace std;
-
 int main() {
-    vector &lt;int> myIntVector {1,4,8};
+    std::vector &lt;int> myIntVector { 1, 4, 8 };
 
-    for( int i=0; i&lt;myIntVector.size(); i++)
-    {
-        cout &lt;&lt; myIntVector[i] &lt;&lt; " ";
-        //Should output 1 4 8
+    for( int i=0; i &lt; myIntVector.size(); ++i ) {
+        std::cout &lt;&lt; myIntVector[i] &lt;&lt; " ";
     }
+
     return 0;
 }</code></pre>
+                    <pre>Output: 1 4 8</pre>
                     <p align="right"><small>Sample1</small></p>
                     <p><small>From <a href="http://www.cprogramming.com/tutorial/stl/iterators.html">http://www.cprogramming.com/tutorial/stl/iterators.html</a></small></p>
                 </section>             
 
 
                 <section>
-                    <h2>STL approach (use this)</h2>
+                    <h2>Iterator-based for loop approach</h2>
                     <pre><code class="C++">#include &lt;vector>
 #include &lt;iostream>
 
-using namespace std;
-
 int main() {
-    vector &lt;int> myIntVector {1, 4, 8};
-    vector &lt;int>::iterator myIntVectorIterator;
+    std::vector&lt;int> myIntVector { 1, 4, 8 };
 
-    for (myIntVectorIterator = myIntVector.begin();
-            myIntVectorIterator != myIntVector.end();
-            myIntVectorIterator++) {
-        cout &lt;&lt; *myIntVectorIterator &lt;&lt; " ";
-        //Should output 1 4 8
+    std::vector&lt;int>::iterator it;
+    for ( it = myIntVector.begin(); it != myIntVector.end(); ++it ) {
+        std::cout &lt;&lt; *it &lt;&lt; " ";
     }
+
     return 0;
 }</code></pre>
+                    <pre>Output: 1 4 8</pre>
                     <p align="right"><small>Sample2</small></p>
                     <p><small>From <a href="http://www.cprogramming.com/tutorial/stl/iterators.html">http://www.cprogramming.com/tutorial/stl/iterators.html</a></small></p>
                 </section>             
 
 
                 <section>
+                    <h2>Introducing auto in C++11</h2>
+                    <pre><code class="C++">#include &lt;vector>
+#include &lt;iostream>
+
+int main() {
+    std::vector &lt;int> myIntVector { 1, 4, 8 };
+
+    //std::vector&lt;int>::iterator it
+    for (auto it = myIntVector.begin(); it != myIntVector.end(); ++it)
+    {
+        std::cout &lt;&lt; *it &lt;&lt; " ";
+    }
+
+    return 0;
+}</code></pre>
+                    <pre>Output: 1 4 8</pre>
+                    <p align="right"><small>Sample4</small></p>
+                </section>             
+
+                <section>
                     <h2>Reverse Iterator</h2>
                     <pre><code class="C++">#include &lt;vector>
 #include &lt;iostream>
 
-using namespace std;
-
 int main() {
-    vector &lt;int> myIntVector {1, 4, 8};
-    vector &lt;int>::reverse_iterator myIntVectorIterator;
+    std::vector &lt;int> myIntVector { 1, 4, 8 };
 
-    for (myIntVectorIterator = myIntVector.rbegin();
-            myIntVectorIterator != myIntVector.rend();
-            myIntVectorIterator++) {
-        cout &lt;&lt; *myIntVectorIterator &lt;&lt; " ";
-        //Should output 8 4 1
+    //std::vector &lt;int>::reverse_iterator it;
+    for (auto it=myIntVector.rbegin(); it!=myIntVector.rend(); ++it)
+    {
+        std::cout &lt;&lt; *it &lt;&lt; " ";
     }
+
     return 0;
 }</code></pre>
+                    <pre>Output: 8 4 1</pre>
+                    <p>Note the rbegin and rend!</p>
                     <p align="right"><small>Sample3</small></p>
                     <p><small>From <a href="http://www.cprogramming.com/tutorial/stl/iterators.html">http://www.cprogramming.com/tutorial/stl/iterators.html</a></small></p>
                 </section>             
 
-                <section>
-                    <h2>Introducing auto</h2>
-                    <pre><code class="C++">#include &lt;vector>
-#include &lt;iostream>
-
-using namespace std;
-
-int main() {
-    vector &lt;int> myIntVector {1, 4, 8};
-    //vector &lt;int>::iterator myIntVectorIterator;
-
-    for (auto myIntVectorIterator = myIntVector.begin();
-            myIntVectorIterator != myIntVector.end();
-            myIntVectorIterator++) {
-        cout &lt;&lt; *myIntVectorIterator &lt;&lt; " ";
-        //Should output 1 4 8
-    }
-    return 0;
-}</code></pre>
-                    <p align="right"><small>Sample4</small></p>
-                </section>             
-
-
+                
                 <section>
                     <h3>Iteration with auto and a range-for-loop in C++11</h3>
                     <pre><code class="C++">#include &lt;vector>
 #include &lt;iostream>
 
-using namespace std;
-
 int main() {
-    vector &lt;int> myIntVector {1, 4, 8};
+    std::vector &lt;int> myIntVector { 1, 4, 8 };
 
-    for (auto element : myIntVector) {
-        cout &lt;&lt; element &lt;&lt; " ";
-        //Should output 1 4 8
+    for ( const auto& element : myIntVector ) {
+        std::cout &lt;&lt; element &lt;&lt; " ";
     }
+
     return 0;
 }</code></pre>
+                    <pre>Output: 1 4 8</pre>
                     <small><p>The range-for-loop is defined in terms of begin() and end() functions returning iterators to the first and one beyond the end of our vector elements. The range-for-loop is simply “syntactic sugar” for a loop over a sequence using iterators.</p></small>
+                    <small><p>Depeding on the use case: <strong>auto element</strong> or <strong>auto& element</strong> or <strong>const auto& element</strong>.</p></small>
                     <p align="right"><small>Sample5</small></p>
                 </section>             
 
@@ -230,12 +237,13 @@ Iterator high(Iterator first, Iterator last) {
 }
 
 int main() {
-    vector &lt;int> myVec {1, 4, 8};
-    list &lt;int> myList {10, 4, 8};
+    vector &lt;int> myVec { 1, 4, 8 };
+    list &lt;int> myList { 10, 4, 8 };
     cout &lt;&lt; "myVec high: "&lt;&lt;*high(myVec.begin(),myVec.end()) &lt;&lt; endl;
     cout &lt;&lt; "myList high: "&lt;&lt;*high(myList.begin(),myList.end())&lt;&lt;endl;
     return 0;
 }</code></pre>
+                    <small><p>For a better way check out Algorithms in the next chapter!</p></small>
                     <p align="right"><small>FindHigh</small></p>
                 </section>      
 
@@ -298,7 +306,7 @@ int main() {
                         <pre><code class="C++">#include &lt;chrono>
 #include &lt;iostream>
 #include &lt;vector>
-using namespace std; using namespace chrono;
+using namespace chrono;
 void do_something() {
     vector&lt;int> pointless {0,1,2,3,4,5};
 }
@@ -309,8 +317,8 @@ int main() {
         do_something();
     auto endTime = system_clock::now();
     auto ms = duration_cast&lt;<milliseconds>( endTime - startTime).count();
-    cout &lt;&lt; "do_something() " &lt;&lt; n &lt;&lt; " times took "
-        &lt;&lt; ms &lt;&lt; "ms\n";
+    std::cout &lt;&lt; "do_something() " &lt;&lt; n &lt;&lt; " times took "
+        &lt;&lt; ms &lt;&lt; "ms" &lt;&lt; std_endl;
 }</code></pre>
 
                     </section>

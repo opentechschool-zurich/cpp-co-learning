@@ -1,17 +1,13 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
-
 int main() {
-    vector <int> myIntVector {1, 4, 8};
-    vector <int>::iterator myIntVectorIterator;
+    std::vector <int> myIntVector {1, 4, 8};
 
-    for (myIntVectorIterator = myIntVector.begin();
-            myIntVectorIterator != myIntVector.end();
-            myIntVectorIterator++) {
-        cout << *myIntVectorIterator << " ";
-        //Should output 8 4 1
+    std::vector <int>::iterator it;
+    for ( it = myIntVector.begin(); it != myIntVector.end(); ++it ) {
+        std::cout << *it << " ";
     }
+
     return 0;
 }

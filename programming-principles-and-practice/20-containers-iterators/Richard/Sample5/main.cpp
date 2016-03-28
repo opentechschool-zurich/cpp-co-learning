@@ -1,14 +1,11 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
-
 int main() {
-    vector <int> myIntVector {1, 4, 8};
+    std::vector <int> myIntVector {1, 4, 8};
 
-    for (auto element : myIntVector) {
-        cout << element << " ";
-        //Should output 1 4 8
+    for ( const auto& element : myIntVector ) {
+        std::cout << element << " ";
     }
     return 0;
 }
