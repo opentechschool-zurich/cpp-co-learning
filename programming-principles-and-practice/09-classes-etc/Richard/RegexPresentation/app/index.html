@@ -22,7 +22,7 @@
                     <p>in</p>
                     <div id="logo">C++</div>
                     <p>Richard Eigenmann, 10 Nov 2015</p>
-                    <p>Revised 21 Nov 2015, 27 Mar 2016</p>
+                    <p>Revised 21 Nov 2015, 27 Mar 2016, 31 Mar 2016</p>
                 </section>
 
                 <section>
@@ -200,6 +200,19 @@ matches[3] = 0
 matches[4] = 1</pre>
                 </section>
 
+                <section>
+                    <h2>Greedyness:</h2>
+                    <table style="font-size: 70%;">
+                        <tr><td>Given:</td><td>&lt;TD><span class="boxed">Cute Kittens</span>&lt;/TD>&lt;TD><span class="boxed">Funny Cats</span>&lt;/TD></td></tr>
+                        <tr><td>Pattern:</td><td>&lt;TD>(.*)&lt;\/TD></td></tr>
+                        <tr><td>Match:</td><td><span class="boxed">Cute Kittens&lt;/TD>&lt;TD>Funny Cats</span></td></tr>
+                        <tr><td>Pattern:</td><td>&lt;TD>(.*?)&lt;\/TD></td></tr>
+                        <tr><td>Match:</td><td><span class="boxed">Cute Kittens</span></td></tr>
+                    </table>
+                    <p>A ? after a Repetition request non-greedy repetition</p>
+                    <small><p><a href="https://regex101.com/r/jS6cU9/2">regex101</a></p></small>
+                </section>
+                
                 <section>
                     <h2>Further reading:</h2>
                     <img src="http://it-ebooks.info/images/ebooks/3/introducing_regular_expressions.jpg" style="width:160px; height:auto">
