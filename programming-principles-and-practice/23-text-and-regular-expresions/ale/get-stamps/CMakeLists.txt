@@ -1,0 +1,15 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(get-stamps)
+
+ADD_DEFINITIONS("-std=c++11")
+
+FIND_PACKAGE(CURL REQUIRED)
+
+ADD_EXECUTABLE (get-stamps
+    main.cpp
+)
+
+TARGET_LINK_LIBRARIES(
+    get-stamps
+    ${CURL_LIBRARIES}
+)

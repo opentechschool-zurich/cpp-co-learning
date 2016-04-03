@@ -1,0 +1,22 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(content)
+
+ADD_DEFINITIONS("-std=c++11")
+
+FIND_PACKAGE( CURL REQUIRED )
+
+
+INCLUDE_DIRECTORIES(
+    ${CURL_INCLUDE_DIRS}
+    
+)
+
+ADD_EXECUTABLE (content
+    FetchWebPage.cpp
+)
+
+TARGET_LINK_LIBRARIES(
+    content
+    ${CURL_LIBRARIES}
+    
+)
