@@ -1,22 +1,23 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-PROJECT(content)
+PROJECT(linklisster)
 
 ADD_DEFINITIONS("-std=c++11")
 
 FIND_PACKAGE( CURL REQUIRED )
+FIND_PACKAGE( Boost REQUIRED regex)
 
 
 INCLUDE_DIRECTORIES(
     ${CURL_INCLUDE_DIRS}
-    
+    ${Boost_INCLUDE_DIRS}
 )
 
-ADD_EXECUTABLE (content
+ADD_EXECUTABLE (linklisster
     FetchWebPage.cpp
 )
 
 TARGET_LINK_LIBRARIES(
-    content
+    linklisster
     ${CURL_LIBRARIES}
-    
+    ${Boost_LIBRARIES}    
 )

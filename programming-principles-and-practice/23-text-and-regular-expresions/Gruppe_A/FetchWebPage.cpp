@@ -2,11 +2,11 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include <regex>
-//#include <boost/regex.hpp>
+//#include <regex>
+#include <boost/regex.hpp>
 
 using namespace std;
-//using namespace boost;
+using namespace boost;
 
 /**
 * a helper function for CURL
@@ -38,11 +38,31 @@ string getPage( string pageUrl ) {
 }
 
 /**
-* Requests the web page from the Swiss Customs Site and then
-* extracts the wine import contingent for the year.
+ * Use this function for test the regexp reading from a local file
+ * @param filename the path of the local file
+ */ 
+string getFile (string filename) {
+  ifstream ist{ filename,  ios::in };
+  if ( ist.is_open() ) {
+    stringstream stream;
+    string line;
+    while ( getline (ist, line) ) {
+      stream << line <<  endl;
+    }
+    return stream.str();
+  }else{
+    return "";
+  }
+}
+
+/**
+* Requests the web page from the Neue Zürcher Zeitung Site and then
+* extracts the clickable hypertext links using a regular expression.
 */
 int main(void) {
-	string webPage = getPage("www.nzz.ch");
+	string webPage = getPage("www.nzz.ch"); 
+   //getFile("testcontent2.html");
+// 	cout << "THEPAGE" << webPage << "ENDPAGE";
 
 	string outputFilename = "parsedresults.txt";
 	ofstream ost{ outputFilename, ios::out  };
@@ -51,21 +71,23 @@ int main(void) {
 		return 255;
 	}
 
-/*	regex datePattern { R"(<a\s.*href=(.*)>)" };
-	smatch dateMatches;
-	if (regex_search(webPage, dateMatches, datePattern)) {
-		ost << dateMatches[1] << "\t";
-	}*/
-
-	regex literPattern { R"(<a\s.*href="(http:|https:)?//(.*)\".*>.*</a>)" };
+//	regex literPattern { R"(<a\s.*href=(".*").*>(.*)</a>)" };
+	regex literPattern { 
+	      //tag and multi params,  find href,   then the real link,  then again multi params
+	    R"(<a ([\w]+="[\d\w\.-_:=']*" )*href="((https?://)?([\da-z\.-]+)(\.[a-z\.]{2,6})?([\/\w \.-]*)*\/?(\?[^<^>]*)*)\"( [\w]+="[\d\w\.-_:=']*" ?)*>([^<^>]*)</a>)" 
+	};
+	//regex literPattern { R"((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?)" };
 	auto literBegin = sregex_iterator(webPage.begin(), webPage.end(), literPattern);
 	auto literEnd = sregex_iterator();
 
-	for ( sregex_iterator i = literBegin; i != literEnd; ++i )	{
-		cout << (*i)[2] << "\n";
+	cout << endl << "link list:" << endl;
+	int cnt {0};
+	for ( sregex_iterator i = literBegin; i != literEnd; ++i ) {
+		cout << (*i)[9] << " -> " << (*i)[2] << "\n";
+		ost  << (*i)[9] << " -> " << (*i)[2] << "\n";
+		cnt++;
 	}
+	cout << "counts: " << cnt << " links." << endl;
 
-	ost << endl;
-	cout << "Successfully downloaded values\n";
 	return 0;
 }
