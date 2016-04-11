@@ -262,23 +262,98 @@ a.swap_rows(1,2);      // swap rows a[1] <-> a[2]
 \section{Gaussian Elimination}
 
 %--------------------------------------------------------------- FOLIE
-\begin{frame}{...}
+\begin{frame}{Gaussian Elimination}
 \framesubtitle{}
 
+\begin{itemize}
+\item Problem: Solve the linear system
+  \begin{align*}
+    A x = b 
+  \end{align*}
+  for $x$, where $A$ is quadratic ($n \times n$)
+\item Solution: transform both sides of the equation such that $A^{*}$
+  in 
+  \begin{align*}
+    A^{*} x = b^{*}
+  \end{align*}
+  is upper-triangular. 
+\item Depending on the entries of $A^{*}$, the equation has zero, one
+  or infinitely many solutions.
+\end{itemize}
 
+\end{frame}
+%--------------------------------------------------------------- 
+
+%--------------------------------------------------------------- FOLIE
+\begin{frame}{Gaussian Elimination}
+\framesubtitle{Solving the Upper-Triangular Form - Details}
+
+\begin{itemize}
+\item The system looks should like this at the end of the elimination
+  \begin{figure}[h]
+    \centering
+    \includegraphics[scale=.5]{images/uppertriangularform}
+  \end{figure}
+\item Solve for $x[n] = b[n]/a(n,n)$, eliminate that row and solve for
+  $x[n-1]$ and so on.
+\item Works if all diagonal elements are non-zero, otherwise system
+  has none or infinitely many solutions. 
+\end{itemize}
+
+\end{frame}
+%--------------------------------------------------------------- 
+
+\section{Random Numbers}
+
+%--------------------------------------------------------------- FOLIE
+\begin{frame}{Random Numbers}
+\framesubtitle{}
+
+\begin{itemize}
+\item The sl header \texttt{<random>} has it.
+\item Structure is
+  \begin{description}
+  \item[Engine] to generate uniformly distr. random integer(!) numbers
+  \item[Distributions] map random numbers to distributions
+  \end{description}
+\end{itemize}
 
 \end{frame}
 %--------------------------------------------------------------- 
 
 
-\section{Random Numbers}
+
+\section{Mathematical Functions \& Complex Numbers}
+
+%--------------------------------------------------------------- FOLIE
+\begin{frame}{Mathematical Functions \& Complex Numbers}
+\framesubtitle{}
+
+\begin{itemize}
+\item Mathematical functions can be found in \texttt{<cmath>}. They
+  have the usual names, that is, \texttt{cos, sin, floor} etc.
+\item Complex numbers are in \texttt{<complex>}. 
+\item For some weird reason, complex numbers are implemented as a
+  template, so you have to initialize like 
+
+\lstinputlisting{prgs/comp/main.cpp}
+\end{itemize}
 
 
-\section{Mathematical Functions}
+\end{frame}
+%--------------------------------------------------------------- 
+
+%--------------------------------------------------------------- FOLIE
+\begin{frame}{The End}
+\framesubtitle{}
+
+\begin{center}
+  Merci for listening.
+\end{center}
 
 
-\section{Complex Numbers}
-
+\end{frame}
+%--------------------------------------------------------------- 
 
 
 
