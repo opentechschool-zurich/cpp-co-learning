@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matrix", "Matrix\Matrix.vcxproj", "{033B0780-F21C-4790-B155-E9B5606CE527}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D17581B-4D3B-4129-9C5F-53D1F8B3D145}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix\Matrix.h = Matrix\Matrix.h
+		Matrix\MatrixIO.h = Matrix\MatrixIO.h
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Debug|x64.ActiveCfg = Debug|x64
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Debug|x64.Build.0 = Debug|x64
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Debug|x86.ActiveCfg = Debug|Win32
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Debug|x86.Build.0 = Debug|Win32
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Release|x64.ActiveCfg = Release|x64
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Release|x64.Build.0 = Release|x64
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Release|x86.ActiveCfg = Release|Win32
+		{033B0780-F21C-4790-B155-E9B5606CE527}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
