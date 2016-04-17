@@ -1,0 +1,4 @@
+# exclude build directories
+# ---------------------------------------
+programming-principles-and-practice/21-algorithms-and-maps/lucaMauricioKatrin/build/
+programming-principles-and-practice/21-algorithms-and-maps/womens/build/
