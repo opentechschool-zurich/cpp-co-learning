@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/Zee/gitHub2016/cpp-co-learning/programming-principles-and-practice/02-hello-world/Zee/randomNumberGame/intValidation.hpp
+
+/Users/Zee/gitHub2016/cpp-co-learning/programming-principles-and-practice/02-hello-world/Zee/randomNumberGame/main.cpp
+randomNumberGame.hpp
+/Users/Zee/gitHub2016/cpp-co-learning/programming-principles-and-practice/02-hello-world/Zee/randomNumberGame/randomNumberGame.hpp
+intValidation.hpp
+/Users/Zee/gitHub2016/cpp-co-learning/programming-principles-and-practice/02-hello-world/Zee/randomNumberGame/intValidation.hpp
+
+/Users/Zee/gitHub2016/cpp-co-learning/programming-principles-and-practice/02-hello-world/Zee/randomNumberGame/randomNumberGame.hpp
+iostream
+-
+fstream
+-
+sstream
+-
+cmath
+-
+cstdlib
+-
+string
+-
+
