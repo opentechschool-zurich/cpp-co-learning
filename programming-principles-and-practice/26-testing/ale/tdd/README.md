@@ -3,7 +3,8 @@
 - Create a new project (`main.cpp`, `CMakeLists.txt`);
 - Download gtest/gmock zipped archive from https://github.com/google/googletest
 - Place it in your code directory and unzip it; rename the directory as `googletest`.
-- Compile googletest:  
+- Compile googletest:
+
   ~~~.sh
   cd googletest/
   mkdir build
