@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Chapter 19: Vector, Templates, and Exceptions</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <style>
+            .reveal p {
+                text-align: left;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<section data-markdown>
+
+![](/home/ale/docs/src/ots-cpp-co-learning/programming-principles-and-practice/19-vector-templates-exceptions/ale/presentation/slides/19.gif)
+
+<!--
+# 19.
+# Vector, Templates, and Exceptions
+-->
+
+</section>
+
+<section data-markdown>
+# Variable number and type of the elements
+
+- How to change the size of a vector?
+- How to catch and report out-of-range vector element access?
+- How to specify the element type of a vector as an argument?
+
+~~~.cpp
+Vector&lt;int>v{};
+for (int i; cin >> i) {
+    v.push_back(i);
+}
+~~~
+</section>
+
+<section data-markdown>
+# Resizing
+
+Does anybody want to hear why resizing is important?
+
+(Hint:  
+if you try to fix a maximal size, you will probably get it wrong for some cases)
+</section>
+
+<section data-markdown>
+# Resizing operations
+
+There are several actions that resize a vector.  
+We will implement the following ones:
+
+~~~.cpp
+Vector v{};
+v.resize(10); // <-- resize to 10
+v.push_back(7); // <-- resize to 11
+Vector v2{20};
+v = v2; // <-- resize to 20
+cout << v.size();
+~~~
+</section>
+
+<section data-markdown>
+# Strategy
+
+- We don't want to allocate new memory for each element that gets added
+  - We create a vector with exactly the space needed for its initial size.
+  - In our case by doubling the capacity when the next element does not fit.
+- `reserve(int)` increases the size of the `elem` list.
+- `push_back(...)` and `resize(int)` can trigger the changes of list size
+- Assignment resets the capacity to the size.
+  
+
+</section>
+
+<section data-markdown>
+# Defining the type
+
+Does anybody want to hear why we want to be able to set the type of the elements?
+
+(Hint:  
+Generic containers are useful)
+</section>
+
+<section data-markdown>
+# Templates
+
+Templates let us  specify a type for a class or a function and is -- an example -- used by the `vector` from the standard library.
+
+~~~.cpp
+vector&lt;int> v{};
+~~~
+</section>
+
+<section data-markdown>
+# Templates
+
+~~~.cpp
+template&lt;typename T>
+class Vector {
+    T* elem;
+public:
+    ...
+    void push_back(const T& d);
+}
+~~~
+</section>
+
+<section data-markdown>
+# Templates instantiation
+
+For each "type" used, a class is generated at compile time.
+</section>
+
+<section data-markdown>
+# Generic programming
+
+Writing code that works with a variety of types presented as arguments, as long as those argument types meet specific syntactic and semantic requirements.
+
+Or: algorithm oriented programming, since we don't focus on the data.
+
+Or: parametric polymorphism (vs. OO polymorphism -> compile time vs. run time).
+</section>
+
+<section data-markdown>
+# Implementing templates
+
+- Templates should be completely defined in header files.
+- C++ 14 allows to define concepts on templates (`requires...` cf. 19.3.3)
+</section>
+
+<section data-markdown>
+# Using templates
+
+- It's hard to mix templates and inheritance (vector of shapes with rectangles and circles)
+- If you want to put items without a default value (`int`...) you have to use `std::allocator`.
+</section>
+
+<section data-markdown>
+# Storing and accessing data
+
+Does anybody want to hear why he might want to check the access to the data?
+
+(Hint:  
+...)
+</section>
+
+<section data-markdown>
+# Awkward
+
+- `[]` does dont check, `get(int)` does...
+
+</section>
+
+<section data-markdown>
+# Resources and Exceptions
+
+We recommend that when a functino cannot perform its required action, it throws an exception to tell that to its callers.
+
+Resources are something that is acquired and must be given back (released):
+- memory
+- locks
+- file handles
+- thread handles
+- sockets
+- windows
+
+</section>
+
+<section data-markdown>
+# RAII
+
+Resource Acquisition is Initialization.
+
+The constructor acquires, the destructor releases.  
+The destructor being called when the object gets out of scope, we are sure that we don't "leak" any resource.
+</section>
+
+<section data-markdown>
+# Basic and Strong Guarantees
+
+- The basic guarantee: the code under try and catch either succeeds or throws an exceptions without leaking any resource.
+- The strong guarantee: all observable values are the same after a failure.
+</section>
+
+<section data-markdown>
+# `unique_ptr`
+
+Allows us to use RAII with pointers...
+
+</section>
+
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            { src: 'plugin/notes/notes.js', async: true }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
