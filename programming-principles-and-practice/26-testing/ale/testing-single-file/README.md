@@ -1,5 +1,9 @@
 # Test driven develpment
 
+This is a very simple sample that can be used for exercises on test driven development.
+
+The code and the tests are all written in `main.cpp`.
+
 - Create a new project (`main.cpp`, `CMakeLists.txt`);
 - Download gtest/gmock zipped archive from https://github.com/google/googletest
 - Place it in your code directory and unzip it; rename the directory as `googletest`.
@@ -14,6 +18,16 @@
   make test
   ~~~
 - Add googletest to the project's `CMakeLists.txt` file, create and run the test in `main.cpp` (see the files in this directory).
+
+  ~~~.sh
+  cd ..
+  mkdir build
+  cd build
+  cmake ..
+  make
+  make test
+  ~~~
+
 
 ## Resources
 
