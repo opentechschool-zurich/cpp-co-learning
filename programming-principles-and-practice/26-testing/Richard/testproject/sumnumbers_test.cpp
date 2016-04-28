@@ -1,11 +1,11 @@
 #include "gtest/gtest.h"
 
-#include "sumnumbers.cpp"
+#include "sumnumbers.h"
 
-TEST (testsumofnumbers, sum12and13) {
+TEST (testsumnumbers, sum12and13) {
 	EXPECT_EQ (25, sumnumbers(12,13));
 }
 
-TEST (testsumofnumbers, sum10and12) {
+TEST (testsumnumbers, sum10and12) {
 	EXPECT_EQ (22, sumnumbers(10,12));
 }
