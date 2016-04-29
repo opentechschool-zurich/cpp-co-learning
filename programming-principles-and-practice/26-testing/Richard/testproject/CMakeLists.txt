@@ -1,21 +1,19 @@
-cmake_minimum_required(VERSION 2.6)
-project(HelloWorld)
+cmake_minimum_required( VERSION 2.6 )
+project( HelloWorld )
 
-#add_definitions("-std=c++11")
-SET(CMAKE_CXX_FLAGS "-std=gnu++11")
+SET( CMAKE_CXX_FLAGS "-std=gnu++11" )
 
-set(FILES_TO_TEST Testable.cpp)
-set(UNIT_TESTS Test.cpp)
-set(MAIN_FILE main.cpp)
+set( SOURCE_FILES sumnumbers.cpp multnumbers.cpp)
+set( UNIT_TESTS sumnumbers_test.cpp multnumbers_test.cpp)
 
-add_subdirectory(googletest-master)
+# these steps compile and link the HelloWorld executable
+add_executable( HelloWorld HelloWorld.cpp ${SOURCE_FILES} )
+target_link_libraries( HelloWorld )
 
-enable_testing()
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-
-add_executable(HelloWorld HelloWorld.cpp sumnumbers.cpp)
-target_link_libraries(HelloWorld gtest gtest_main)
-
-add_test( all unit-tests )
-add_executable(unit-tests unit-tests.cpp)
-target_link_libraries(unit-tests gtest gtest_main)
+# these steps compile and link the unit-tests executable
+enable_testing()  # gives us a make test target
+add_test( all unit-tests ) # gives us a make test all target
+add_subdirectory( googletest-master )
+include_directories( ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} )
+add_executable( unit-tests unit-tests.cpp ${SOURCE_FILES} ${UNIT_TESTS} )
+target_link_libraries( unit-tests gtest gtest_main )
