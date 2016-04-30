@@ -1,5 +1,4 @@
 #include "gtest/gtest.h"
-
 #include "sumnumbers.h"
 
 TEST (testsumnumbers, sum12and13) {
