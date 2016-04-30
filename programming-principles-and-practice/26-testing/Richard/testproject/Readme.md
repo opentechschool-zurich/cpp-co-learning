@@ -1,7 +1,7 @@
 # Google Test Example
 
 Here I explore the GoogleTest framework and how the files all fit together.
-This project uses the wisdom found in this blog post [https://crascit.com/2015/07/25/cmake-gtest]
+This project uses the wisdom found in this blog post https://crascit.com/2015/07/25/cmake-gtest
 to let CMake download the GoogleTest code automatically and then compile against it.
 
 ![Diagram](Diagram.png)
