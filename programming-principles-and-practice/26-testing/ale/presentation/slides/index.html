@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Chapter 26: Testing</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <style>
+            .reveal p {
+                text-align: left;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<section data-markdown>
+
+# 26.
+# Testing
+
+The systematic search of errors that the compiler cannot catch.
+
+</section>
+
+<section data-markdown>
+
+- Testing code's correctness
+- Regression tests
+- Testing performance
+- Unit testing vs System testing
+- Design for testing
+- Automating tests
+- Testing Driven Development
+
+</section>
+
+<section data-markdown>
+# Testing code's correctness
+
+- Non-trivial programs have bugs. Always.
+- We hope that bug fixes have less (serious) bugs than the fixed code.
+- Read the code, to find where the easy bugs could be.
+- Look hard for bugs that can crash the program.
+
+</section>
+
+<section data-markdown>
+# Proving code correct
+
+- Theoretically (mostly) possible.
+- Too hard for the programmer / desgigner.
+- There are programming languages aiming at / helping achieving correctness.
+
+So -- as Dijkstra said -- "Testing can reveal the presence of errors, not their absence."
+
+</section>
+
+<section data-markdown>
+# Regression tests
+
+Before fixing reported bugs, one should create a test reproducing it.
+
+The regression test suite will be run each time the code changes (future bug fixes) and ensure that fixed bugs do not reappear.
+
+</section>
+
+<section data-markdown>
+# Unit testing
+
+Testing units (classes, functions, ...) of code, indipendently of each other.
+
+You can find potential weak points by reading the code, or by systematically testing the interface.
+
+Most of the time, fixing errors at the "unit" level is easier than tracking them at system level
+</section>
+
+<section data-markdown>
+# System testing
+
+Testing the system as a whole.
+
+</section>
+
+<section data-markdown>
+# Writing good tests
+
+- Using the requirements to write tests
+- Tests should not be too tight bound to the current implementation details.
+- Test code should be as simple as possible.
+- Prioritize _likely mistakes_ and _bad mistakes_
+- Only test inside of the specification
+</section>
+
+<section data-markdown>
+# What to test
+
+Extrem cases and boundary conditions:
+
+- the emtpy set;
+- small sets;
+- large sets;
+- sets with extreme distributions;
+- sets with duplicated elements;
+- set with the _interesting_ items at specific places;
+- random sets.
+</section>
+
+<section data-markdown>
+# Design for testing
+
+- use well-defined interfaces;
+- test the assumptions in the calling code;
+- minimize the dependencies and make them explicit;
+- have a clear resources management strategy.
+
+</section>
+
+<section data-markdown>
+# Test driven development
+
+- write the test (it will fail)
+- write the mininimal code that satisfies the new test (it will succeed)
+- eventually refactor your code (it should still succeeed)
+- restart the loop
+
+→ red → green → red → ...
+
+</section>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            { src: 'plugin/notes/notes.js', async: true }
+        ]
+    });
+
+</script>
+
+</body>
+</html>

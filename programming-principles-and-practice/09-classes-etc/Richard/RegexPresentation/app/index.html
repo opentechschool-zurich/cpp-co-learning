@@ -22,7 +22,7 @@
                     <p>in</p>
                     <div id="logo">C++</div>
                     <p>Richard Eigenmann, 10 Nov 2015</p>
-                    <p>Revised 21 Nov 2015, 27 Mar 2016, 31 Mar 2016</p>
+                    <p>Revised 21 Nov 2015, 27 Mar, 31 Mar, 13 Apr 2016</p>
                 </section>
 
                 <section>
@@ -83,13 +83,18 @@
                 </section>
 
                 <section>
-                    <h2>Syntax for a char:</h2>
-                    <table style="font-size: 70%;">
+                    <h2>Syntax for one char:</h2>
+                    <table style="font-size: 50%;">
                         <tr><td>\d</td><td>digit</td></tr>
+                        <tr><td>\D</td><td>everything not a digit</td></tr>
                         <tr><td>\s</td><td>whitespace</td></tr>
-                        <tr><td>\w</td><td>word</td></tr>
+                        <tr><td>\S</td><td>any char but a whitespace</td></tr>
+                        <tr><td>\w</td><td>word character: A-Z, 0-9, including the _ (underscore)</td></tr>
+                        <tr><td>\W</td><td>everything but a \w</td></tr>
                         <tr><td>[abc]</td><td>a single char a, b, or c</td></tr>
+                        <tr><td>[^abc]</td><td>neither a, b, or c</td></tr>
                         <tr><td>[a-z]</td><td>a single lowercase char a to z</td></tr>
+                        <tr><td>[^a-z]</td><td>no single lowercase char</td></tr>
                         <tr><td>.</td><td>any single char</td></tr>
                         <tr><td>\.</td><td>a period (note the escaping!)</td></tr>
                         <tr><td>\\</td><td>a backslash</td></tr>
@@ -115,6 +120,7 @@
                     <table style="font-size: 70%;">
                         <tr><td>^</td><td>Beginning of line</td></tr>
                         <tr><td>$</td><td>End of line</td></tr>
+                        <tr><td>\b</td><td>Word boundary ( \bdone\b doesn't match aban<u>done</u>d)</td></tr>
                     </table>
                 </section>
 
@@ -203,13 +209,13 @@ matches[4] = 1</pre>
                 <section>
                     <h2>Greedyness:</h2>
                     <table style="font-size: 70%;">
-                        <tr><td>Given:</td><td>&lt;TD><span class="boxed">Cute Kittens</span>&lt;/TD>&lt;TD><span class="boxed">Funny Cats</span>&lt;/TD></td></tr>
+                        <tr><td>Given:</td><td>&lt;TD>Cute Kittens&lt;/TD>&lt;TD>Funny Cats&lt;/TD></td></tr>
                         <tr><td>Pattern:</td><td>&lt;TD>(.*)&lt;\/TD></td></tr>
-                        <tr><td>Match:</td><td><span class="boxed">Cute Kittens&lt;/TD>&lt;TD>Funny Cats</span></td></tr>
+                        <tr><td>Match:</td><td>&lt;TD><span class="boxed">Cute Kittens&lt;/TD>&lt;TD>Funny Cats</span>&lt;/TD></td></tr>
                         <tr><td>Pattern:</td><td>&lt;TD>(.*?)&lt;\/TD></td></tr>
-                        <tr><td>Match:</td><td><span class="boxed">Cute Kittens</span></td></tr>
+                        <tr><td>Match:</td><td>&lt;TD><span class="boxed">Cute Kittens</span>&lt;/TD>&lt;TD>Funny Cats&lt;/TD></td></tr>
                     </table>
-                    <p>A ? after a Repetition request non-greedy repetition</p>
+                    <p>A ? after a Repetition requests non-greedy repetition</p>
                     <small><p><a href="https://regex101.com/r/jS6cU9/2">regex101</a></p></small>
                 </section>
                 

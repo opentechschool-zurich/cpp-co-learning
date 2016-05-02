@@ -11,6 +11,7 @@ ADD_EXECUTABLE (acidsmiley
     Simple_window.cpp
     GUI.cpp
     Graph.cpp
+    Arc.cpp
 )
 
 TARGET_LINK_LIBRARIES(acidsmiley

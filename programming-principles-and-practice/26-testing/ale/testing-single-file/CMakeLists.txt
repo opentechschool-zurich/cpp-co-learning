@@ -1,0 +1,17 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT("tdd")
+
+SET(CMAKE_CXX_FLAGS "-std=gnu++11")
+
+ADD_SUBDIRECTORY(googletest)
+ENABLE_TESTING()
+INCLUDE_DIRECTORIES(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+
+
+ADD_EXECUTABLE (tdd
+    main.cpp
+)
+
+TARGET_LINK_LIBRARIES(tdd gtest gtest_main)
+
+ADD_TEST(NAME SumOfIntTest COMMAND tdd)

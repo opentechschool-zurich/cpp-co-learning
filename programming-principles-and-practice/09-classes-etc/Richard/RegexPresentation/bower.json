@@ -1,7 +1,7 @@
 {
-  "name": "RegexPresentation",
+  "name": "regexp-resentation",
   "description": "A presentation about Regular Expressions",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/opentechschool-zurich/cpp-co-learning",
   "license": "CC BY 4",
   "private": true,
