@@ -15,9 +15,17 @@
 
 - interface to R
 - doxygen
+- profiling
+- clang tools for error analyzing
+- designing an std alike algorithm
+- how to define an API
+- concurrency / parallel computing
+- c++ for android
+- network programming
 
 ## christian
 
 - spezifikationen
 - design patterns mit head first
   - https://hfdpcpp.codeplex.com/
+- computational statistics
