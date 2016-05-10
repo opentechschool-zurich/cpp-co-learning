@@ -19,3 +19,4 @@
 
 - spezifikationen
 - design patterns mit head first
+  - https://hfdpcpp.codeplex.com/
