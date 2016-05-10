@@ -5,6 +5,10 @@
 - http://www.modernescpp.com/index.php has a few articles on multithreading (http://www.modernescpp.com/index.php/tag/threads)
 - go through (and try out) the changes in C++ 14: https://en.wikipedia.org/wiki/C%2B%2B14
 - lift (aufzug) programmieren
+- scribus als projekt:
+  - markdown mit formelle grammatik (generierte c library)
+  - epub export
+  - python scripting in c++ applikation einbinden
 
 ## katrin
 
