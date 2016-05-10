@@ -36,3 +36,4 @@
 - design patterns mit head first
   - https://hfdpcpp.codeplex.com/
 - computational statistics
+- compiling with debug symbols + `ddd` for debugging
