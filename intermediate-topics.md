@@ -9,10 +9,13 @@
   - markdown mit formelle grammatik (generierte c library)
   - epub export
   - python scripting in c++ applikation einbinden
+- inkscape als projekt
 
 ## katrin
 
 - uml
+- projects:
+  - notepadqq
 
 
 ## delf
