@@ -29,7 +29,6 @@ class MallardDuck : public Duck
 {
 public:
   MallardDuck();
-  virtual ~MallardDuck();
   void display(){
     std::cout << "I am a mallard duck." << std::endl; 
   }
@@ -44,6 +43,9 @@ public:
   RubberDuck(){}; 
   void display(){
     std::cout << "I am a rubber duck." << std::endl; 
+  }
+  void fly(){
+    std::cout << "..............." << std::endl; 
   }
 };
 
