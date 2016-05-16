@@ -28,7 +28,9 @@ class MyFrame : public wxFrame
         
         
  private:
-  wxButton *JaButton, *NeinButton; 
+  wxButton *JaButton, *NeinButton;
+
+
   DECLARE_EVENT_TABLE()
     };
 
