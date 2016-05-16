@@ -10,6 +10,10 @@
   - epub export
   - python scripting in c++ applikation einbinden
 - inkscape als projekt
+- lambdas:
+  - http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951
+- folds (`...`):
+  - http://en.cppreference.com/w/cpp/language/fold
 
 ## katrin
 
