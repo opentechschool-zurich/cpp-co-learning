@@ -6,10 +6,27 @@
 - go through (and try out) the changes in C++ 14: https://en.wikipedia.org/wiki/C%2B%2B14
 - lift (aufzug) programmieren
 - scribus als projekt:
-  - markdown mit formelle grammatik (generierte c library)
+  - markdown export / import mit formelle grammatik (generierte c library)
+    - https://github.com/aoloe/scribus-plugin-gettext-markdown-2
+    - using the `greg` parser generator:
+      - using `markdown_parser.leg`
+      - generating a `c` library that has to bound to c++ "events"
   - epub export
+    - https://github.com/aoloe/scribus-plugin-export-epub
+    - it already creates a zip file (that's epub...) with all the needed files with some basic html in there
+    - needs a css file with the matching styles
+    - needs an heuristic for placing and resizing images
+    - needs an heuristic for placing the text in the right order
   - python scripting in c++ applikation einbinden
+    - currently uses a(n unmaintained) fork of the `kross` engine (formerly?) used by kde
+    - it compiles but fails at runtime: it's stuck at getting the signals and slots to cross the boundaries
+    - create a basic scripting engine for integrating python inside of a c++ program
+    - create a scripting engine that can work with qt on boths c++ and python side
 - inkscape als projekt
+- lambdas:
+  - http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951
+- folds (`...`):
+  - http://en.cppreference.com/w/cpp/language/fold
 
 ## katrin
 
