@@ -3,7 +3,8 @@
 ## plan
 
 - 17.05.2016: doxygen by delf
-- 24.05.2016: introduction to design patterns by christian
+- 24.05.2016: introduction to design patterns by christian (+ instructions on compiling scribus by ale)
+- 1?.6.2016: exporting to epubepub
 
 ## ale
 
