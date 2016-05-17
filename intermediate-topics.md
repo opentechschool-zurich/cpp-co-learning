@@ -1,5 +1,11 @@
 # Topics proposals for the C++ intermadiate Co-learning
 
+## plan
+
+- 17.05.2016: doxygen by delf
+- 24.05.2016: introduction to design patterns by christian (+ instructions on compiling scribus by ale)
+- 1?.6.2016: exporting to epubepub
+
 ## ale
 
 - http://www.modernescpp.com/index.php has a few articles on multithreading (http://www.modernescpp.com/index.php/tag/threads)
@@ -54,3 +60,7 @@
   - https://hfdpcpp.codeplex.com/
 - computational statistics
 - compiling with debug symbols + `ddd` for debugging
+
+# richard
+  - `boxbackup`
+    - get the gui into shape
