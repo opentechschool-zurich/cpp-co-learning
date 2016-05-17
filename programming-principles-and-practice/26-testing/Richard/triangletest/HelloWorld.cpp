@@ -5,6 +5,11 @@
 
 using namespace std;
 
+/*! \mainpage An Example of using Google Test with triangles
+ *
+ * \image html Diagram.png
+ */
+
 int main(int argc, char **argv) {
 	cout << "Hello World" << endl;
 	cout << "sumnumbers(12, 13) returned: " << sumnumbers(12, 13) << endl;
