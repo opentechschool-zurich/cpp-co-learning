@@ -11,7 +11,7 @@ class FlyWithWings : public FlyBehavior
 {
 public:
   FlyWithWings(){};
-  void fly() const{
+  virtual void fly() const{
     std::cout << "flap-flap-flap" << std::endl; 
   }
 };
@@ -20,7 +20,7 @@ class FlyNoWay : public FlyBehavior
 {
 public:
   FlyNoWay(){};
-  void fly() const{
+  virtual void fly() const{
     std::cout << "................" << std::endl; 
   }
 };
@@ -29,7 +29,6 @@ public:
 class Duck
 {
 public:
-  FlyBehavior* flymode; 
   void performFly() const {
     flymode->fly(); 
   }
@@ -37,6 +36,9 @@ public:
   void quack(){
     std::cout << "Quaaaaaaaaack!" << std::endl; 
   }
+protected:
+  FlyBehavior* flymode; 
+
 };
 
 
@@ -45,7 +47,7 @@ class RedheadDuck : public Duck
 {
 public:
   RedheadDuck(){
-    flymode = new FlyWithWings; 
+    flymode = new FlyWithWings(); 
   } 
   void display(){
     std::cout << "I am a redhead duck." << std::endl; 
@@ -56,7 +58,7 @@ class MallardDuck : public Duck{
 // Stockente
 public:
   MallardDuck(){
-    flymode = new FlyWithWings; 
+    flymode = new FlyWithWings(); 
   } 
   void display(){
     std::cout << "I am a mallard duck." << std::endl; 
@@ -67,7 +69,7 @@ public:
 class RubberDuck : public Duck{
 public:
   RubberDuck(){
-    flymode = new FlyNoWay; 
+    flymode = new FlyNoWay(); 
   };  
 
   void display(){

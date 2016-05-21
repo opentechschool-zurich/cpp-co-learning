@@ -10,12 +10,17 @@ double* get_from_jack(int* count){}
 vector<double>* get_from_jill(){}
 
 double* high(double* first, double* last){
-  double h = -1;
-  double* high;
-  for (double* p =first; p!=last; ++p)
-      if (h < *p){high = p; h = *p;}
 
-  return high; 
+  double max_val = *first;
+  double* p2max_val = first;
+  for (double* p =first; p!=last; ++p){
+    if (max_val < *p){
+      p2max_val = p;
+      max_val = *p;
+    }
+  }
+
+  return p2max_val; 
 }
 
 
@@ -43,9 +48,14 @@ void fct(){
 
 int main(int argc, char *argv[])
 {
-    
+  vector<double> mydat{2.0, 1.0, 2.5, -3.0, 4.0};
 
-    return 0;
+  double* highest_val = high(&mydat[0], &mydat[5]);
+   
+    cout << "The highest val is: " << *highest_val
+         << endl; 
+
+  return 0;
 }
 
 
