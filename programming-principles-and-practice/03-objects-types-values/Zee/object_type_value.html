@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>C++ | Beginners</title>
+
+    <meta name="description" content="first C++ beginner GitHub presentation using reveal.js from Hakim El Hattab">
+    <meta name="author" content="Zee forked from Hakim El Hattab">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>C++ Beginners</h1>
+          <br>
+          <p>:: Session 1 ::</p>
+          <h3>Objects, Types &amp; Values</h3>
+          <br>
+          <small style="color: #86B3B1;"><i>Programming, Principles and Practice Using C++ &mdash; Bjarne Stroustrup</i></small>
+        </section>
+
+        <section>
+          <section>
+            <h2>Very Basic</h2>
+            <h4>"Hello World"</h4>
+            <pre><code class="hljs" data-trim data-noescape>
+  <mark>//</mark> This program outputs the message "Hello World!"
+  
+  <mark>#include</mark> "stdlib.h"
+
+  using namespace std;
+
+  int <mark>main</mark>() 
+  {
+    cout << "Hello World!\n";    
+    return 0;
+  }
+            </code></pre>
+          </section>
+
+          <section>
+            <ul>
+              <li>Comments begin with <mark>&nbsp;//&nbsp;</mark></li>
+              <li><code><mark>&nbsp;#include&nbsp;</mark> directive</code></li>
+              <li><code>every .cpp has a <mark>&nbsp;main&nbsp;</mark> function</code></li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>A function has 4 parts:</h2>
+
+              <pre><code class="hljs" data-trim data-noescape>
+  int main(x, y, z){ ... ; }
+              </code></pre>
+            
+            <br>
+            <ol style="text-align: left;">
+            <li class="fragment">A return type… <span style="color: #FF6900;">int</span></li>
+            <li class="fragment">A name… <span style="color: #FF6900;">main</span></li>
+            <li class="fragment">A parameter list… <span style="color: #FF6900;">(x, y, z)</span></li>   
+            <li class="fragment">A function body… <span style="color: #FF6900;">{ ... ; }</span></li>
+            </ol>
+          </section>
+        </section>
+          
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">Objects</h2>
+            <br>
+            <div style="text-align: left;">
+              <h4>Input</h4>
+              <pre><code class="hljs" data-trim data-noescape>
+  int x = 0;  // define variable "x" with an initial value "0"
+  <mark>cin >> </mark> x; // get the input-value and put it into x 
+              </code></pre>
+              <p><b style="color: #FF6900;">Object</b> is a region of memory with specific type and name.</p>
+              <p><b style="color: #FF6900;">Variable</b> is a named object…</p>
+              <p>
+              It can be accessed through its given name<br>
+              It has a specific <mark>type</mark><br>
+              The data items we put into it is called <mark>values</mark> 
+              </p>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h6>5 basic <b style="color: #FF6900;">types:</b></h6>
+              <br>
+              <pre><code class="hljs" data-trim data-noescape>
+  int n = 0;  // integer
+  double d = 3.4;  // floating-point numbers
+  char c = 'a';  // individual character
+  string s = "apple";  // character strings
+  bool t = true;  // boolean
+              </code></pre>
+              <br>
+              <p><mark>">>"</mark> &amp; <mark>"<<"</mark> are both type sensitive.</p>
+              <p>Reading of strings is terminated by whitespaces.</p>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <h2 style="border-bottom: solid 1px #86B3B1;">Operations &amp; Operators</h2>
+          <br>
+          <div style="text-align: left;">
+            <p>Operations are determined by <mark>Type</mark></p>
+            <p><code> sqrt(n); </code> isn't an operator, but a named function</p>
+            <p>Variable "n" must be a floating-point number.</p>
+            <p>operator <mark>+</mark> for strings means concatenation.</p>
+            <p>Assignment vs. Initialization</p>
+            <p>Composite assignment operators</p>
+            <pre><code class="hljs" data-trim data-noescape>
+  ++count;  // incrementation
+  n += 5;   // "-=", "%=", (scaling operators "*=" &amp; "/=")
+            </code></pre>
+          </div>
+        </section>
+
+        <section>
+          <section>
+          <h2 style="border-bottom: solid 1px #86B3B1;">Names, Types &amp; Objects</h2>
+          <br>
+          <div style="text-align: left;">
+            <h4>Names Convensions</h4>
+            <p>Letters, digits and underscores. Start with letter</p>
+            <p>C++ compiler is case sensitive</p>
+            <p>Reserved names, aka keywords</p>
+            <p>Choose meaningful names</p>
+            <p>Other onventions</p>
+          </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+            <h4>Fixed amount of memory for each type</h4>
+            <table>
+              <tr>
+                <td>int</td>
+                <td>4 bytes</td>
+              </tr>
+              <tr>
+                <td>double</td>
+                <td>8 bytes</td>
+              </tr>
+              <tr>
+                <td>char</td>
+                <td>1 byte</td>
+              </tr>
+              <tr>
+                <td>bool</td>
+                <td>1 byte</td>
+              </tr>
+              <tr>
+                <td>string</td>
+                <td>different from string to string (a string tracks the number of the characters it holds)</td>
+              </tr>
+            </table>
+            <br>
+            <h4>Type Safety</h4>
+            </div>
+            </section>
+          
+        </section>
+      </div>
+    </div>
+
+    <script src="js/reveal.js"></script>
+    <script>
+      Reveal.initialize();
+    </script>
+
+  </body>
+</html>
