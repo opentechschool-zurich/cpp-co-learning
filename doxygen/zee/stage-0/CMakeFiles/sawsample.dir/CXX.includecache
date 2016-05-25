@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/share/private/src/cpp/doxygen/dowel.cpp
+dowel.h
+/home/share/private/src/cpp/doxygen/dowel.h
+
+/home/share/private/src/cpp/doxygen/dowel.h
+exception
+-
+
+/home/share/private/src/cpp/doxygen/main.cpp
+iostream
+-
+dowel.h
+/home/share/private/src/cpp/doxygen/dowel.h
+saw.h
+/home/share/private/src/cpp/doxygen/saw.h
+
+/home/share/private/src/cpp/doxygen/saw.cpp
+saw.h
+/home/share/private/src/cpp/doxygen/saw.h
+
+/home/share/private/src/cpp/doxygen/saw.h
+dowel.h
+/home/share/private/src/cpp/doxygen/dowel.h
+
