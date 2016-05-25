@@ -39,7 +39,7 @@ protected:
 class FlyPolicyWithWings
 {
 protected:
-    std::string fly() const
+    void fly() const
     {
         std::cout << "flap-flap-flap" << std::endl;
     }
@@ -48,7 +48,7 @@ protected:
 class FlyPolicyNoWay
 {
 protected:
-    std::string fly() const
+    void fly() const
     {
         std::cout << ".............." << std::endl;
     }
