@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
  
 template <typename QuackPolicy, typename FlyPolicy>
 class Duck : private QuackPolicy, private FlyPolicy
