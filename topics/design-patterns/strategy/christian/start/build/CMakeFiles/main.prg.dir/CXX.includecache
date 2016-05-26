@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/christian/ProjektePrivat/CppLerngruppe/cpp-co-learning/design-patterns/strategy/christian/start/main.cpp
+iostream
+-
+
