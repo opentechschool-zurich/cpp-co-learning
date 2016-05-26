@@ -1,5 +1,0 @@
-cmake_minimum_required (VERSION 2.6)
-project (Area)
-add_library(FourOp four_op.cpp)
-add_library(SqArea sq_area.cpp)
-add_executable(Area main.cpp)
