@@ -34,6 +34,7 @@
   - http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951
 - folds (`...`):
   - http://en.cppreference.com/w/cpp/language/fold
+- high level critical view on real world code snippets: http://www.viva64.com/en/b/0391/
 
 ## katrin
 
