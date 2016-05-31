@@ -26,6 +26,7 @@
 
   ~~~.sh
   cd ~/src/scribus/build/
+  cmake ..
   make -j4
   make install
   ~~~
