@@ -8,7 +8,7 @@
   git clone git@github.com:aoloe/scribus-plugin-API.git
   cd ~/src/scribus/scribus/plugins/
   ln -s ~/src/scribus-plugin-API/src scribusAPI
-  echo "ADD_SUBDIRECTORY(scribusAPI)\n" >> CMakeLists.txt
+  echo "ADD_SUBDIRECTORY(scribusAPI)" >> CMakeLists.txt
   ~~~
 - add the Epub plugin
   ~~~.sh
@@ -16,7 +16,7 @@
   git clone git@github.com:aoloe/scribus-plugin-export-epub.git
   cd ~/src/scribus/scribus/plugins/export/
   ln -s ~/src/scribus-plugin-export-epub/src epub
-  echo "ADD_SUBDIRECTORY(epub)\n" >> CMakeLists.txt
+  echo "ADD_SUBDIRECTORY(epub)" >> CMakeLists.txt
   ~~~
 - recompile Scribus
   ~~~.sh
