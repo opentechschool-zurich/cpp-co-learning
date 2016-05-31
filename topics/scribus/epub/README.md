@@ -13,6 +13,7 @@
       ~~~
 
 - add the Epub plugin  
+
   ~~~.sh
   cd ~/src/
   git clone git@github.com:aoloe/scribus-plugin-export-epub.git
@@ -20,7 +21,9 @@
   ln -s ~/src/scribus-plugin-export-epub/src epub
   echo "ADD_SUBDIRECTORY(epub)" >> CMakeLists.txt
   ~~~
+
 - recompile Scribus  
+
   ~~~.sh
   cd ~/src/scribus/build/
   make -j4
