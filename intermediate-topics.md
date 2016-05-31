@@ -34,6 +34,7 @@
   - http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951
 - folds (`...`):
   - http://en.cppreference.com/w/cpp/language/fold
+- memory analysis / leeks with valgrind
 
 ## katrin
 
