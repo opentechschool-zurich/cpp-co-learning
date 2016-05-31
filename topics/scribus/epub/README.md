@@ -2,7 +2,7 @@
 
 - compile scribus
   - https://github.com/aoloe/scribus-manual-development/blob/master/content/getting-started/getting-started.md
-- add the scribusAPI plugin  
+- add the scribusAPI plugin
       ~~~.sh
       cd ~/src/
       git clone git@github.com:aoloe/scribus-plugin-API.git
