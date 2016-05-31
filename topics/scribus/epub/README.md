@@ -2,14 +2,14 @@
 
 - compile scribus
   - https://github.com/aoloe/scribus-manual-development/blob/master/content/getting-started/getting-started.md
-- add the scribusAPI plugin
-  ~~~.sh
-  cd ~/src/
-  git clone git@github.com:aoloe/scribus-plugin-API.git
-  cd ~/src/scribus/scribus/plugins/
-  ln -s ~/src/scribus-plugin-API/src scribusAPI
-  echo "ADD_SUBDIRECTORY(scribusAPI)" >> CMakeLists.txt
-  ~~~
+- add the scribusAPI plugin  
+      ~~~.sh
+      cd ~/src/
+      git clone git@github.com:aoloe/scribus-plugin-API.git
+      cd ~/src/scribus/scribus/plugins/
+      ln -s ~/src/scribus-plugin-API/src scribusAPI
+      echo "ADD_SUBDIRECTORY(scribusAPI)" >> CMakeLists.txt
+      ~~~
 - add the Epub plugin  
   ~~~.sh
   cd ~/src/
