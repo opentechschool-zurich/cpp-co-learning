@@ -1,0 +1,416 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>C++ | Beginners</title>
+
+    <meta name="description" content="first C++ beginner GitHub presentation using reveal.js from Hakim El Hattab">
+    <meta name="author" content="Zee forked from Hakim El Hattab">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>C++ Beginners</h1>
+          <br>
+          <p>:: Session 2 ::</p>
+          <h3>Chapter 4: computation</h3>
+          <br>
+          <small style="color: #86B3B1;"><i>Programming, Principles and Practice Using C++ &mdash; Bjarne Stroustrup</i></small>
+        </section>
+
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">Computation</h2>
+            <div style="text-align: left;">
+             <h3>input -&rarr; I/O -&rarr; output</h3>
+             <p>get input from outside sources</p>
+             <p>I/O's internally, i.e. internal <mark>data exchanges and sharing</mark> between cooperating parts of a program</p>
+             <p>give output to outside world</p>
+           </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+             <h3>Computation</h3>
+             <p>computation means the act of producing some outputs based on some inputs</p>
+             <h3>Objectives</h3>
+             <p>Correctly, Simply, Efficiently</p>
+             <br>
+           </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+             <h3>tools</h3>
+             <p><mark>Abstraction</mark>: hide details, such as usage of <code style="background-color: #121212; color: ccc;">sort();</code>or access memories indirectly.</p>
+             <p><mark>Devide &amp; Conquer</mark>: break-down or devide a large problem into smaller problems</p>
+             <h3>Concerns about <mark>structure</mark></h3>
+             <p>e.g. using existing libraries: <code><iostream></code> saves us from dealing with the hardware's I/O ports.</p>
+           </div>
+          </section>
+        </section>
+          
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">Expressions</h2>
+            <br>
+            <div style="text-align: left;">
+              <p>…computes a value from a number of operands</p>
+              <p>the simplest expression is a <i style="background-color: #121212; color: ccc;">literal value</i> </p>
+              <p>Names of <i style="background-color: #121212; color: ccc;">variables</i> are expressions, which represent the values found in the objects with that name.</p>
+              <p>the <mark>L</mark>value and the <mark>R</mark>value: e.g <code style="background-color: #121212; color: ccc;">x = x*3;</code></p>
+              <p>group expressions with parentheses.</p>
+            </div>
+          </section>
+          <section> 
+            <div style="text-align: left;">             
+              <h3>Constant expressions</h3>
+              <p>notion of a symbolic constant: a named object initialized with a constant value which can't be changed</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  <mark>constexpr</mark> double pi = 3.1415926;  // initialize constant "pi"
+  <mark>const </mark>int x = n + 7; // initialize constant "x"
+  // value "n" which is unknown at compile time
+              </code></pre>
+              <p>Avoid <b style="color: #FF6900;">magic constants</b>. i.e. avoid using non-obvious literals, like 299792458, in code.</p>
+              <p><b style="color: #FF6900;">constexpr</b> must be given a value that is known at compile time.</p>
+            </div>
+          </section>
+          <section>             
+            <table style="text-align: left; font-size: 16px; line-height: 16px;">
+              <caption style="font-size: 21px; line-height: 20px;"><b>common operators</b></caption>
+              <tr style="background-color: gray;">
+                <th></th>
+                <th>Name</th>
+                <th>Comment</th>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;" >f(a)</td>
+                <td>function call</td>
+                <td>pass <span style="color: #86B3B1;" >a</span> to <span style="color: #86B3B1;" >f</span> as an argument</td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">++lval</td>
+                <td>pre-increment</td>
+                <td>increment and use the increment value</td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">--lval</td>
+                <td>pre-decrement</td>
+                <td>decrement and use the decrement value</td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">!a</td>
+                <td>not</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">-a</td>
+                <td>unary minus</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a*b</td>
+                <td>multiply</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a/b</td>
+                <td>divide</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a%b</td>
+                <td>modulo(remainder)</td>
+                <td>only for <mark>integer</mark> types</td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a+b</td>
+                <td>add</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a-b</td>
+                <td>subtract</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">out&lt;&lt;b</td>
+                <td>write <span style="color: #86B3B1;" >b</span> to <span style="color: #86B3B1;" >out</span></td>
+                <td>where <span style="color: #86B3B1;" >out</span> is an <span style="color: #86B3B1;" >ostream</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">in&gt;&gt;b</td>
+                <td>read from <span style="color: #86B3B1;" >in</span> to <span style="color: #86B3B1;" >b</span></td>
+                <td>where <span style="color: #86B3B1;" >in</span> is an <span style="color: #86B3B1;" >istream</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a&lt;b</td>
+                <td>less than</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a&lt;=b</td>
+                <td>less than or equal</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a&gt;b</td>
+                <td>greater than</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a&gt;=b</td>
+                <td>greater than or equal</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a==b</td>
+                <td>equal</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a!=b</td>
+                <td>not equal</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a&amp;&amp;b</td>
+                <td>logical and</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">a||b</td>
+                <td>logical or</td>
+                <td>result is <span style="color: #86B3B1;" >bool</span></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">lval=a</td>
+                <td>assignment</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="color: #86B3B1;">lval*=a</td>
+                <td>compound assignment</td>
+                <td><span style="color: #86B3B1;" >lval=lval*a</span>; also for <span style="color: #86B3B1;" >/, %, +, -</span></td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <div style="text-align: left;">
+             <h3>Conversions</h3>
+             <pre><code class="hljs" data-trim data-noescape>
+  5/2;  // is 2 not 2.5
+  2.5/2;  // is 1.25 (integer 2 is converted to double)
+  'a'+1;  // means int{'a'}+1; char a is converted to int
+              </code></pre>
+           </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">Statements</h2>
+            <br>
+            <div style="text-align: left;">
+              <h3>Selection</h3>
+              <p><mark>if-</mark>statement</p>
+              <div style="font-size: 25px; line-height: 25px;">
+              <pre><code class="hljs" data-trim data-noescape>
+  if() { ...; }
+  else if() { ...; }
+  else { ...; }
+              </pre></code> 
+              </div>
+              <p><mark>switch-</mark>statement</p>
+              <div style="font-size: 25px; line-height: 25px;">
+              <pre><code class="hljs" data-trim data-noescape>
+  switch(s) {             // "s" can't be a string (must be int, char, or enumeration types)           
+              case 'a':   // value of case must be a constant expression
+                ...;      // cannot use a variable in a case label
+                break;    // cannot use the same value for two case labels 
+              case 'b':
+                ...;
+                break;    // end each case with a <mark>break</mark>
+              ...
+              default:
+                ...;    
+            }
+              </pre></code>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <p>Can use several case labels for a single case</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  case'0':case'2':case'4': break;              
+  case'1':case'3':case'5': 
+                           .....;              
+                           break;      
+  default:                 .....;        
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h3>Iteration</h3>
+              <p><mark>while-</mark>statement</p>
+              <!-- <div style="font-size: 25px; line-height: 25px;"> -->
+              <pre><code class="hljs" data-trim data-noescape>
+  // calculate and print a table of squares 0–99
+  int main() {
+    int i = 0;    // the loop variable for a while-statement must be
+                  // initialized outside/before the while-statement
+    while(i&lt;100) {
+      cout &lt;&lt; i &lt;&lt; '\t' &lt;&lt; square(i) &lt;&lt; '\n';  
+      ++i;        // increment
+    }             // …is called a block or a compound statement
+  }
+              </pre></code> 
+              <p>{ } is a empty block which does nothing.</p>
+              <!-- </div> -->
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <p><mark>for-</mark>statement</p>
+              <p>is just a while-statement, used when with simple initializer, condition and increment.</p>
+              <!-- <div style="font-size: 25px; line-height: 25px;"> -->
+              <pre><code class="hljs" data-trim data-noescape>
+  // calculate and print a table of squares 0–99
+  int main() {
+    for (int i = 0; i&lt;100; ++i)
+    cout &lt;&lt; i &lt;&lt; '\t' &lt;&lt; square(i) &lt;&lt; '\n';
+  }
+              </pre></code>
+              <!-- </div> -->
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <h2 style="border-bottom: solid 1px #86B3B1;">Functions</h2>
+          <br>
+          <div style="text-align: left;">
+            <h3>function definition</h3>
+            <p><em>type identifier (parameter-list) function-body</em></p>
+            <h3>function declaration</h3>
+            <pre><code class="hljs" data-trim data-noescape>
+  int square(int);
+  double sqrt(double);              
+            </pre></code>  
+          </div>
+        </section>
+
+         <section>
+           <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">Vector</h2>
+            <br>
+            <div style="text-align: left;">
+              <p>…is one of the ways of storing collections of data</p>
+              <p>A vector is a sequence of elements accessable by an index.</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  vector&lt;int&gt; v = {5,6,7,8,9};
+  vector&lt;string&gt; friends = {"Anna","Bob","Ted","Joe","Mischa"};
+              </pre></code>  
+              <p>A vector stores its elements and knows its <mark>size</mark></p>
+              <p>Use the (n) notation to define a vector of a given size</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  vector&lt;int&gt; vi(6);
+              </pre></code>  
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h3>Traversing a vector</h3>
+              <br>
+              <p><code style="color: #86B3B1;"> v.size() </code> gives the number of elements of v</p>
+              <p><code style="color: #86B3B1;"> v.size(0) </code> is an empty vector</p>
+              <p><code style="color: #86B3B1;"> v[0] </code> is the first element</p>
+              <p><code style="color: #86B3B1;"> v[v.size()-1] </code> is the last element</p>
+              <p>A range-for-loop</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  vector&lt;int&gt; v = {5,6,7,8,9};
+  for(int x:v)  // <mark>for each x in v</mark>
+    cout &lt;&lt; x &lt;&lt; '\n';
+              </pre></code>  
+            </div>
+          </section>
+           <section>
+            <div style="text-align: left;">
+              <h3>Growing a vector</h3>
+              <br>
+              <p>Use <code style="color: #86B3B1;"> push_back() </code> operation</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  vector&lt;double&gt; v;
+  v.push_back(2.7);   // <mark>"dot" notation</mark>: a member function call
+              </pre></code> 
+            </div>
+          </section>   
+          <section>
+            <div style="text-align: left;">
+              <h3>A numeric example</h3>
+              <br>
+              <pre><code class="hljs" data-trim data-noescape>
+// read some temperatures into a vector 
+int main() { 
+  vector&lt;double&gt; temps; // initialize an empty vector "temps" 
+  for (double temp; cin&gt;&gt;temp; ) // read into temp 
+    temps.push_back(temp);  // put temp into vector 
+                            // . . . do something . . . 
+}              
+              </pre></code> 
+              <Ul>
+                <li>Using the input operation as the condition for a for-statement
+                  <li>it's true if a value was read correctly</li>
+                  <li>use "|" to terminate the input loop</li>
+                </li>
+                <li>for- instead of while- to limit the <mark>scope</mark> of "temp"</li>
+              </Ul>
+            </div>
+          </section>   
+          <section>
+            <div style="text-align: left;">
+              <h3>A text example</h3>
+              <br>
+              <pre><code class="hljs" data-trim data-noescape>
+  // simple dictionary: list of sorted words 
+  int main() { 
+    vector&lt;string&gt; words; 
+    for(string word; cin&gt;&gt;word; ) // read each words 
+      words.push_back(word); // put into vector 
+    cout &lt;&lt; "Number of words: " &lt;&lt; words.size() &lt;&lt; '\n'; 
+    sort(words); // sort the words 
+    for (int i = 0; i&lt;words.size(); ++i) 
+      if (i==0 || words[i–1]!=words[i]) // is this a new word?
+        cout &lt;&lt; words[i] &lt;&lt; "\n"; 
+  }
+              </pre></code>
+              <p><mark>Question:</mark> How to terminate the input loop of strings? </p>
+              <p><mark>Answer:</mark><span class="fragment">
+                ^ + Z (windows), ^ + D (Mac OS X)
+                </span>
+              </p>
+            </div>
+          </section>          
+        </section>
+      </div>
+    </div>
+
+    <script src="js/reveal.js"></script>
+    <script>
+      Reveal.initialize();
+    </script>
+
+  </body>
+</html>
