@@ -34,6 +34,9 @@
   - http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951
 - folds (`...`):
   - http://en.cppreference.com/w/cpp/language/fold
+- memory analysis / leeks with valgrind
+- high level critical view on real world code snippets: http://www.viva64.com/en/b/0391/
+- dependency management with conan https://www.conan.io/ (cf. slides for presentation on the 28 may 2016 @ metalab wiki / c++ user group)
 
 ## katrin
 

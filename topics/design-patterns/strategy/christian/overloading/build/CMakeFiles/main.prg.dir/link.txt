@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/main.prg.dir/main.cpp.o  -o main.prg -rdynamic 
