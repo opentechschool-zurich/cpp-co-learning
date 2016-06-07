@@ -18,3 +18,5 @@ IN MODERN C++ by VICTOR A. LASKIN, 2015] (http://vitiy.info/Slides/MeetingCPP201
 [Richard's Containers in C++ presentation](http://opentechschool-zurich.github.io/cpp-co-learning/programming-principles-and-practice/20-containers-iterators/Richard/ContainersPresentation/app/index.html)
 
 [Delf's Doxygen Presentation](http://opentechschool-zurich.github.io/cpp-co-learning/doxygen/slides/doxygen.html)
+
+[Zee's Beginner Presentation] (http://opentechschool-zurich.github.io/cpp-co-learning/beginnersPresentation/zee/computation.html)
