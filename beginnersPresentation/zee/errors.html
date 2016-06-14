@@ -1,0 +1,421 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>C++ | Errors</title>
+
+    <meta name="description" content="first C++ beginner GitHub presentation using reveal.js from Hakim El Hattab">
+    <meta name="author" content="Zee forked from Hakim El Hattab">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <h1>C++ Beginners</h1>
+          <br>
+          <p>:: Session 4 ::</p>
+          <h3>Chapter 5: Errors | 1/2</h3>
+          <br>
+          <small style="color: #86B3B1;"><i>Programming, Principles and Practice Using C++ &mdash; by Bjarne Stroustrup</i></small>
+        </section>
+
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">A program… </h2>
+            <br>
+            <div style="text-align: left;">
+             <ol>
+               <li>should produce the desired results for all legal inputs</li>
+               <li>should give reasonable err messages for all illegal inputs</li>
+               <li>need not worry about misbehaving hardware</li>
+               <li>need not worry about misbehaving system software</li>
+               <li>is allowed to terminate after finding an error</li>
+             </ol>
+           </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+             <h3>3 Approaches</h3>
+             <br>
+             <ol style="width: 100%;">
+               <li><mark>Organize</mark> software</li>
+               <li>Eliminate most of the errors through <span style="border-bottom: 1px dotted #D14334;">debugging</span> and <span style="border-bottom: 1px dotted #D14334;">testing</span></li>
+               <li>Make sure the remaining errors aren't serious</li>
+             </ol>
+             <hr>
+             <h6>Avoid &rarr; Find &rarr; Correct </h6>
+           </div>
+          </section>
+        </section>
+          
+        <section>
+          <h2 style="border-bottom: solid 1px #86B3B1;">source of errors &mdash; check-list</h2>
+          <br>
+          <div style="text-align: left;">
+            <ul>
+            <li>Poor Specification: not knowing exactly what that program should do</li>
+            <li>Incomplete: not handle all the cases</li>
+            <li>Unexpected Arguments: e.g. <code style="background-color: #121212; color: ccc;"> sqrt(-1.2);</code> will give you a <mark>domain error</mark> and "NaN" will be returned</li>
+            <li>Unexpected Inputs</li>
+            <li>Unexpected State: i.e. data 'state' (see Chapter 26!)</li>
+            <li>Logic Errors</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">compile-time errors</h2>
+            <br>
+            <div style="text-align: left;">
+              <p>Errors found by compiler.</p>
+              <p>Before generating code, compiler analyzes code to detect <mark>sytax-</mark> &amp; <mark>type</mark> errors.</p>
+              <p>It only allows to proceed when everything conforms to the language specification.</p>
+            </div>
+          </section>
+          <section>
+            <h3>syntax errors</h3>
+            <br>
+            <div style="text-align: left;">
+              <p>The reports of Sytax Errors are offen cryptic.</p>
+              <p><mark>Tip:</mark> also look at previous lines in the messages</p>
+            </div>
+          </section>
+          <section>
+            <h3>type errors</h3>
+            <br>
+            <div style="text-align: left;">
+              <p>Reports of the mismatches between the types declared for the variables, functions etc. and the types of values or expressions assigned to or passed as arguments.</p>
+              <p>For example: </p>
+              <pre><code class="hljs" data-trim data-noescape>
+int area(int length, int width) {...;} // calculate area
+int x0 = arena(7); // err: undeclared function
+int x1 = area(7);  // err: wrong number of arguments<mark>*</mark>
+int x2 = area("seven", 2); // err: 1st argument has wrong type<mark>!</mark>…
+              </code></pre>
+              <small><mark>*</mark>: every function call must provide the expected number of arguments, of the right types, and in the right order</small>
+              <small><mark>!</mark>: and it can't implicitly convert string to integer</small>
+            </div>
+          </section>
+          <section>
+            <h3>non-errors</h3>
+            <br>
+            <div style="text-align: left;">
+              <p>remaining errors like: </p>
+              <pre><code class="hljs" data-trim data-noescape>
+  int area(int length, int width) 
+    {...;} // calculate area of a rectangle
+  int x3 = area(10, -7);  
+    // OK. but rectangle with a width of minus 7?
+  int x4 = area(10.7, 9.3); // OK. but calls area(10, 9) instead
+  char x5 = area(100, 999); // OK. but truncates the result
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">link-time errors</h2>
+            <br>
+            <div style="text-align: left;">
+              <p>Rules:</p>
+              <ol>
+                <li>Every function in a program must be declared with the <mark>same type</mark> in every <mark>translation unit</mark>.</li>
+                <li>Every function must be defined exactly <mark>once</mark>.</li>
+              </ol>
+              <p>The rules hold also for all other entities of a program, such as variables &amp; types.</p>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <p>Concider the following code: </p>
+              <pre><code class="hljs" data-trim data-noescape>
+  int area(int length, int width) {...;} // our area() function
+  double area(double length, double width) {...;} // not our area()
+  int area(int x, int y, char unit) {...;} // not our area()
+              </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2 style="border-bottom: solid 1px #86B3B1;">run-time errors</h2>
+            <br>
+            <div style="text-align: left;">
+              <p>Errors found by checking in a running program.</p>
+              <p>What to do with an error caught at run time? <mark>Questions:</mark></p>
+              <ul>
+                <li>Is an erroneous result acceptable?</li>
+                <li>If not, who should detect the errors: <br>the <mark>caller</mark> or the <mark>callee</mark>?</li>
+                <li>And how should such errors be reported?</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <p>For example: </p>
+              <pre><code class="hljs" data-trim data-noescape>
+int area(int length, int width) { 
+  return length*width; } // calculate area of a rectangle
+constexpr int frame_width = 2;
+int framed_area(int x, int y) {
+  return area(x-frame_width, y-frame_width); 
+} // calculate area within frame
+int main() {  int x=-1, y=2, z=4;
+  int area1 = area(x, y);
+  int area2 = framed_area(1, z);
+  int area3 = framed_area(y, z);
+  double ratio = double(area1)/area3;
+  //convert to double to get floating-point divsion
+}
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>The caller deals with errors</h4>
+              <p>…when we can't modify the called function, e.g. in a library.</p>
+              <p>Catch runtime error: write out an error message or take other actions if error found</p>
+              <p>Protecting the call of <code style="color: #F90;">area(x,y)</code> in <code style="color: #F90;">main()</code> completly:</p>
+              <pre><code class="hljs" data-trim data-noescape>
+int main() {  int x=-1, y=2, z=4;
+  <b style="color: #F90;">if(x&lt;=0 || y&lt;=0 ) 
+    error("non-positive area() argument");</b>
+  int area1 = area(x, y);
+  <b style="color: #F90;">if(1-frame_width&lt;=0 || z-frame_width&lt;=0 ) 
+    error("non-positive argument for area() called by framed_area()");</b>
+  int area2 = framed_area(1, z);
+  <b style="color: #F90;">if(y-frame_width&lt;=0 || z-frame_width&lt;=0 ) 
+    error("non-positive argument for area() called by framed_area()");</b>
+  int area3 = framed_area(y, z); }
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>The callee deals with errors</h4>
+              <p>Check for valid arguments within the called functions</p>
+              <p>Arguments-hecking code is in one place, and that one place is exactly where the arguments are to be used</p>
+              <pre><code class="hljs" data-trim data-noescape>
+int area(int length, int width) {   // calculate area of a rectangle
+  <b style="color: #F90;">if(length&lt;=0 || width&lt;=0 ) error("non-positive area() argument");</b>
+  return length*width; }
+int framed_area(int x, int y) {
+  constexpr int frame_width = 2;
+  <b style="color: #F90;">if(x-frame_width&lt;=0 || y-frame_width&lt;=0 ) 
+    error("non-positive argument for area() called by framed_area()");</b>
+  return area(x-frame_width, y-frame_width); }  // calculate area within frame
+int main() {
+  int x=-1, y=2, z=4;
+  int area1 = area(x, y);
+  int area2 = framed_area(1, z);
+  int area3 = framed_area(y, z); }
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>Can't use callee to handle errors when…</h4>
+              <ul>
+                <li>Can't modify the function definition</li>
+                <li>The called function doesn't know what to do in case of error. (typically functions in libraries)</li>
+                <li>The called function doesn't know where it was called from</li>
+                <li>Performance</li>
+              </ul>
+              <hr>
+              <h4>Error Reporting</h4>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <h2 style="border-bottom: solid 1px #86B3B1;">Exceptions</h2>
+          <br>
+          <div style="text-align: left;">
+            <p>To separate detection of an arror (should be done in a called function, aka callee) from the handling of an error (should be done in calling side of function).</p>
+            <ol style="font-size: .8em;">
+              <li>A function finds an error and <mark>throws</mark> an <mark>exception</mark> indicating what went wrong.</li>
+              <li>Any direct or indirect caller can <mark>catch</mark> the exception, i.e. specify what to do if the callee used throw.</li>
+              <li>A function expresses interest by using a <mark>try-</mark>block listing the kinds of exceptions it wants to handle in the <mark>catch</mark> parts of the try-block.</li>
+              <li>If no caller catches an exception, the program terminates.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <section>
+            <div style="text-align: left;">
+              <h2 style="border-bottom: solid 1px #86B3B1;">exception basic examples</h2>
+              <h4>1. Bad Arguments Errors</h4>
+              <p>Callee side:</p>
+              <pre><code class="hljs" data-trim data-noescape>
+<b style="color: #F90;">class Bad_area {};</b> // a type specifically for reporting errors from area()
+int area(int length, int width) {
+  if(length&lt;=0 || width&lt;=0 ) {
+    <b style="color: #F90;">throw Bad_area{};</b> // throw a Bad_area exception in case of bad argument
+  }
+  return length*width; 
+}
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>1. Bad Arguments Errors</h4>
+              <p>Caller side:</p>
+              <pre><code class="hljs" data-trim data-noescape>
+int main() 
+<b style="color: #F90;">try</b> { int x=-1, y=2, z=4;
+      ...
+      int area1 = area(x, y);
+      int area2 = framed_area(1, z);
+      int area3 = framed_area(y, z); 
+      double radio = area1/area3;
+    }
+<b style="color: #F90;">catch (Bad_area)</b> {
+      cout&lt;&lt;"Oops! Bad arguments.\n";
+}
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>2. Range Errors</h4>
+              <p>"Collection of data": <mark>containers</mark></p>
+              <p>The most common and useful standard library container is the <mark>vector</mark></p>
+              <p>The general notation <code><mark>[low:high)</mark></code> e.g. <code><mark>[0:v.size())</mark></code>, means indices from "low" to "high-1", i.e. including low but not high</p>
+              <p>Trying to read v[v.size()] which is one beyond the end of the vector, is an <i>"off-by-one" error</i>, or a <i>"range error"</i></p>
+              <pre><code class="hljs" data-trim data-noescape>
+  for(int i=0; <mark>i&lt;=v.size();</mark> i++) {}
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>2. Range Errors</h4>
+              <p>vector's subscript operation: <code style="color: #86B3B1;">vector::operator[]</code> reports finding an error by throwing an exception (of type: <mark>out_of_range</mark>).</p> 
+              <pre><code class="hljs" data-trim data-noescape>
+  int main() 
+  try { vector&lt;int&gt; v;
+        for (int x; cin&gt;&gt;x;)
+          v.push_back(x);
+        for (int i=0; i&lt;=v.size(); ++i)
+          cout&lt;&lt;"v["&lt;&lt;i&lt;&lt;"]=="&lt;&lt;v[i]&lt;&lt;'\n';
+      }
+  catch (<b style="color: #F90;">out_of_range</b>) {
+        <b style="color: #F90;">cerr</b>&lt;&lt;"Oops! Range error.\n";
+        return 1;
+      }
+  catch (...) {  // catch all other exceptions
+        cerr</b>&lt;&lt;"Exception: something went wrong.\n";
+        return 2;
+      }
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>3. Bad Input</h4>
+              <p>Test if the last input operation succeeded by: </p>
+              <pre><code class="hljs" data-trim data-noescape>
+  double d = 0;
+  cin &gt;&gt; d;
+  if(cin) {
+    // all is well, and we can try reading again
+  }
+  else {
+    // the last read didn't succeed, so we take some other action
+  }
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>3. Bad Input</h4>
+              <p>We (just) want to report the error and terminate the program</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  double sfn() {
+    double d = 0;
+    cin &gt;&gt; d;
+    if(!cin) error("couldn't read a double in 'sfn()'");
+    // later we'll come back and do something more useful
+  }
+              </code></pre>
+              <small><b style="color: #86B3B1;">error()</b> can't return a value. and…</small>
+              <small>is supposed to terminate the program after getting its message written.</small>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>3. Bad Input</h4>
+              <p>Another type of exceptions defined by standard library is <mark>runtime_error(s)</mark></p>
+              <pre><code class="hljs" data-trim data-noescape>
+  void error(string s) { throw runtime_error(s); }
+  int main()
+  try { // ...our program...
+        return 0;  // 0 indicates success
+      }
+  catch (runtime_error&amp; e) {
+      cerr&gt;&gt;"runtime error: "&gt;&gt;e.what()&gt;&gt;'\n';
+      keep_window_open();
+      return 1;  // 1 indicates failure
+      }
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>3. Bad Input</h4>
+              <ul style="font-size: .8em;">
+              <li>The <code><b style="color: #86B3B1;">e.what()</b></code> extracts the error message from the runtime_error.</li>
+              <li>The <code><b style="color: #86B3B1;">&amp;</b></code> in (runtime_error&amp; e) is an indicator of "passing the exception by reference."</li>
+              <li>The <code><b style="color: #86B3B1;">cerr</b></code> is like cout, except it's meant for error output. (can also diverted to a different target other than to the screen in other operating systems, e.g. to a file.</li>
+              <li>The type <mark>exception</mark> is a common base (supertype) of type out_of_range and type runtime_error</li>
+              <li><code><b style="color: #86B3B1;">error()</b></code> is commonly used to give two pieces of information passed along to describe the problem, by concatenating the strings in it: </li>
+              <pre><code class="hljs" data-trim data-noescape>
+  void error(string s1, s2) { throw runtime_error(s1+s2); }
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div style="text-align: left;">
+              <h4>4. Narrowing Errors (implicitly truncated)</h4>
+              <p>Write a function that tests and throw a runtime_error exception if an assignment or initialization would lead to a changed value. e.g.:</p>
+              <pre><code class="hljs" data-trim data-noescape>
+  int x1 = narrow_cast&lt;int&gt; (2.9);  // throws
+  int x2 = narrow_cast&lt;int&gt; (2.0);  // ok.
+  char c1 = narrow_cast&lt;char&gt; (1066);  // throws
+  char c2 = narrow_cast&lt;char&gt; (85);  // ok.
+              </code></pre>
+              <ul style="font-size: .8em;">
+              <li>The <code><b style="color: #86B3B1;">&lt;...&gt;</b></code> are the same as are used for vector&lt;...&gt;.</li>
+              <li>The <code><b style="color: #86B3B1;">&lt;...&gt;</b></code> are used when we need to specify a type rather than a value.</li>
+              <li>A <mark>"cast"</mark> doesn't cange its operand, it produces a new value of the type specified in the <code><b style="color: #86B3B1;">&lt;...&gt;</b></code> that corresponds to its operand value.</li>
+            </div>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="js/reveal.js"></script>
+    <script>
+      Reveal.initialize();
+    </script>
+
+  </body>
+</html>
