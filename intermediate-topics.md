@@ -37,6 +37,8 @@
 - memory analysis / leeks with valgrind
 - high level critical view on real world code snippets: http://www.viva64.com/en/b/0391/
 - dependency management with conan https://www.conan.io/ (cf. slides for presentation on the 28 may 2016 @ metalab wiki / c++ user group)
+- [more c++ idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
+- [libui](https://github.com/andlabs/libui) is a simple UI library that interfaces with GTK, OS X or Windows, depending on your operating system.
 
 ## katrin
 
