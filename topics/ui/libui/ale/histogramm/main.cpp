@@ -1,6 +1,7 @@
 #include "libui/ui.h"
 #include <system_error>
 #include <string>
+#include <random>
 #include <functional>
 
 using namespace std;
@@ -24,10 +25,11 @@ struct Callback<Ret(Params...)> {
 template <typename Ret, typename... Params>
 std::function<Ret(Params...)> Callback<Ret(Params...)>::func;
 
-typedef int (*callback_t)(void*);
-
 // end of the mapping templates
 // ----------------------------
+
+// this is what we need for the uiOnShouldQuit()
+typedef int (*callback_t)(void*);
 
 static void setSolidBrush(uiDrawBrush *brush, uint32_t color, double alpha)
 {
@@ -133,9 +135,15 @@ void Histogramm::setupWindow(string title)
 
 void Histogramm::setupToolbox()
 {
+
+	// for a random number you need a seeder, an engine and a distribution
+	std::random_device seeder;
+	std::mt19937 engine(seeder());
+	std::uniform_int_distribution<int> dist(0, 100);
+
 	for (int i = 0; i < 10; i++) {
 		datapoints[i] = uiNewSpinbox(0, 100);
-		uiSpinboxSetValue(datapoints[i], i); // use a random value for i
+		uiSpinboxSetValue(datapoints[i], dist(engine));
 		// uiSpinboxOnChanged(datapoints[i], onDatapointChanged, NULL);
 		uiBoxAppend(toolbox, uiControl(datapoints[i]), 0);
 	}
