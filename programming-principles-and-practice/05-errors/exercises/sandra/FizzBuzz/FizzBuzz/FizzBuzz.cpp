@@ -32,7 +32,7 @@ public:
 FizzBuzz::FizzBuzz(int val) : value(val) {}
 
 int main() {
-	for (int i = 1; i <= 30; i++) {
+	for (int i = 1; i <= 20; i++) {
 		try {
 			if (i % 3 == 0 && i % 5 == 0)
 				throw  FizzBuzz(i);
@@ -44,7 +44,7 @@ int main() {
 						throw Buzz(i);
 					else cout << i << endl;
 		} catch (FizzBuzz fb) {
-			fb.printValue(); cout << "FizzBuzz" << endl;
+			fb.printValue();
 		} catch (Buzz b) {
 			b.printValue();
 		} catch (Fizz f) {
