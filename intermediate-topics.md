@@ -31,7 +31,7 @@
     - create a scripting engine that can work with qt on boths c++ and python side
 - inkscape als projekt
 - lambdas:
-  - http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951
+  - <http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951>
 - folds (`...`):
   - http://en.cppreference.com/w/cpp/language/fold
 - memory analysis / leeks with valgrind
@@ -39,6 +39,7 @@
 - dependency management with conan https://www.conan.io/ (cf. slides for presentation on the 28 may 2016 @ metalab wiki / c++ user group)
 - [more c++ idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
 - [libui](https://github.com/andlabs/libui) is a simple UI library that interfaces with GTK, OS X or Windows, depending on your operating system.
+- deep learning framework: <https://github.com/nyanp/tiny-cnn>
 
 ## katrin
 
