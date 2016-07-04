@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="wxDraw" displayName="wxDraw" projectFiles="true" root=".">
+      <itemPath>MyApp.cpp</itemPath>
+      <itemPath>UpdateTimer.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>/richi/Src/wxDraw/CMakeLists.txt</itemPath>
+    </logicalFolder>
+    <itemPath>/richi/Src/wxDraw/.gitignore</itemPath>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <projectmakefile>/richi/Src/wxDraw/build/Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=gnu++11"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>/richi/Src/wxDraw/build</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>/richi/Src/wxDraw/build/DrawApplication</executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>/usr/lib64/wx-2.8-stl/wx/include/gtk2-unicode-release-2.8</pElem>
+              <pElem>/usr/include/wx-2.8</pElem>
+              <pElem>build</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>_FILE_OFFSET_BITS=64</Elem>
+              <Elem>_LARGE_FILES</Elem>
+              <Elem>__WXGTK__</Elem>
+            </preprocessorList>
+          </ccTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>/richi/Src/wxDraw/build</preBuildCommandWorkingDir>
+          <preBuildCommand>cmake ..</preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="/richi/Src/wxDraw/.gitignore" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="BasicDrawPane.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>/usr/lib64/wx-2.8-stl/wx/include/gtk2-unicode-release-2.8</pElem>
+            <pElem>/usr/include/wx-2.8</pElem>
+            <pElem>build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FILE_OFFSET_BITS=64</Elem>
+            <Elem>_LARGE_FILES</Elem>
+            <Elem>__WXGTK__</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="Circle.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+          <incDir>
+            <pElem>/usr/lib64/wx-2.8-stl/wx/include/gtk2-unicode-release-2.8</pElem>
+            <pElem>/usr/include/wx-2.8</pElem>
+            <pElem>build</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FILE_OFFSET_BITS=64</Elem>
+            <Elem>_LARGE_FILES</Elem>
+            <Elem>__WXGTK__</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="Definitions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MyApp.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
