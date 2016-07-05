@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 HistogramWidget::HistogramWidget(uiAreaHandler& handler, Datapoints& d, Color& c)
 : handler(handler),
   datapoints(d),
@@ -50,7 +52,6 @@ void HistogramWidget::handlerDraw(uiAreaHandler *ah, uiArea *a, uiAreaDrawParams
 	uiDrawStrokeParams sp;
 	uiDrawMatrix m;
 	double graphWidth, graphHeight;
-	double graphR, graphG, graphB, graphA;
 
 	// fill the area with white
 	Color::setSolidBrush(&brush, Color::white, 1.0);
@@ -93,23 +94,18 @@ void HistogramWidget::handlerDraw(uiAreaHandler *ah, uiArea *a, uiAreaDrawParams
 	uiDrawTransform(p->Context, &m);
 
 	// now get the color for the graph itself and set up the brush
-
-
     brush = color.getCurrentBrush();
 	// we set brush->A below to different values for the fill and stroke
-    std::cout << "out r" << brush.R << std::endl;
-    std::cout << "out g" << brush.G << std::endl;
-    std::cout << "out b" << brush.B << std::endl;
 
 	// now create the fill for the graph below the graph line
 	path = constructGraph(graphWidth, graphHeight, 1);
-	brush.A = graphA / 2;
+	brush.A = brush.A / 2;
 	uiDrawFill(p->Context, path, &brush);
 	uiDrawFreePath(path);
 
 	// now draw the histogram line
 	path = constructGraph(graphWidth, graphHeight, 0);
-	brush.A = graphA;
+	brush.A = brush.A * 2; // TODO: check if we can do better... initial A is 1 anyway
 	uiDrawStroke(p->Context, path, &brush, &sp);
 	uiDrawFreePath(path);
 

@@ -2,8 +2,6 @@
 #include "libui/ui.h"
 #include <cstdint>
 
-#include <iostream>
-
 /**
  * @brief set the brush in the parameter with the hex color.
  *
@@ -28,13 +26,12 @@ void Color::setSolidBrush(uiDrawBrush *brush, uint32_t color, double alpha)
  * @brief Set current class brush.
  */
 void Color::setCurrentBrush(double r, double g, double b, double a) {
-    std::cout << "in r " << r << std::endl;
-    std::cout << "in g " << g << std::endl;
-    std::cout << "in b " << b << std::endl;
     brush.R = r;
     brush.G = g;
     brush.B = b;
     brush.A = a;
+
+    std::cout << "alpha " << brush.A << std::endl;
 }
 
 void Color::setCurrentBrush(uiDrawBrush b)

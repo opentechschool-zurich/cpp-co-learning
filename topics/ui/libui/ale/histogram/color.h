@@ -22,12 +22,9 @@ class Color {
         static void setSolidBrush(uiDrawBrush *brush, uint32_t color, double alpha);
         void setCurrentBrush(uiDrawBrush brush);
         void setCurrentBrush(double r, double g, double b, double a);
-        uiDrawBrush getCurrentBrush() {
-            std::cout << "get r" << brush.R << std::endl;
-            return brush;
-        }
+        uiDrawBrush getCurrentBrush() { return brush; }
     private:
-        uiDrawBrush brush{uiDrawBrushTypeSolid,0,0,0};
+        uiDrawBrush brush;
 };
 
 #endif
