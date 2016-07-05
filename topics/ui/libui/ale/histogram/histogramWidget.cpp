@@ -43,6 +43,22 @@ void HistogramWidget::attachToolboxController(ToolboxWidget& toolbox)
 
 void HistogramWidget::handlerMouseEvent(uiAreaHandler *a, uiArea *area, uiAreaMouseEvent *e)
 {
+	double graphWidth, graphHeight;
+	double xs[10], ys[10];
+	int i;
+
+	graphSize(e->AreaWidth, e->AreaHeight, &graphWidth, &graphHeight);
+	pointLocations(graphWidth, graphHeight, xs, ys);
+
+	for (i = 0; i < 10; i++)
+		if (inPoint(e->X, e->Y, xs[i], ys[i]))
+			break;
+	if (i == 10)		// not in a point
+		i = -1;
+
+	currentPoint = i;
+	// TODO only redraw the relevant area
+	uiAreaQueueRedrawAll(histogram);
 }
 
 void HistogramWidget::handlerDraw(uiAreaHandler *ah, uiArea *a, uiAreaDrawParams *p)
@@ -187,4 +203,15 @@ void HistogramWidget::pointLocations(double width, double height, double *xs, do
 		xs[i] = xincr * i;
 		ys[i] = yincr * n;
 	}
+}
+
+int HistogramWidget::inPoint(double x, double y, double xtest, double ytest)
+{
+	// TODO switch to using a matrix
+	x -= xoffLeft;
+	y -= yoffTop;
+	return (x >= xtest - pointRadius) &&
+		(x <= xtest + pointRadius) &&
+		(y >= ytest - pointRadius) &&
+		(y <= ytest + pointRadius);
 }

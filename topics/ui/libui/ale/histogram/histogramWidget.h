@@ -47,6 +47,7 @@ class HistogramWidget
         uiDrawPath *constructGraph(double width, double height, int extend);
 
         void pointLocations(double width, double height, double *xs, double *ys);
+        int inPoint(double x, double y, double xtest, double ytest);
         /** The point being hovered */
         int currentPoint = -1;
 };
