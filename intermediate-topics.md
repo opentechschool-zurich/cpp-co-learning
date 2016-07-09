@@ -41,6 +41,10 @@
 - [libui](https://github.com/andlabs/libui) is a simple UI library that interfaces with GTK, OS X or Windows, depending on your operating system.
 - deep learning framework: <https://github.com/nyanp/tiny-cnn>
 - machin learning: <http://mlpack.org/>
+- mutex:
+  - read and write locks:
+    - http://stackoverflow.com/questions/19915152/c11-multiple-read-and-one-write-thread-mutex
+    - with a proper c++ 14 example and one that works with c++ 11
 
 ## katrin
 
