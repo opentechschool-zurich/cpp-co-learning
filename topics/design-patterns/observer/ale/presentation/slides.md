@@ -20,22 +20,25 @@ The _observer pattern_ defines a `one-to-many` dependency between objects so tha
     #include <iostream>
     #include <vector>
     #include <functional>
+
+    using namespace std;
+
     class Subject
     {
         public:
-            void register(std::function<void(int)> func)
+            void add(function<void(int)> f)
             {
-                views.push_back(func);
+                views.push_back(f);
             }
             void set(int v) {value = v; notify();}
         private:
             int value{0};
-            vector<void(int)> views;
+            vector<function<void(int)>> views;
             void notify()
             {
                 for (auto f: views)
                 {
-                    f(v);
+                    f(value);
                 }
             }
 
@@ -44,9 +47,10 @@ The _observer pattern_ defines a `one-to-many` dependency between objects so tha
     class FirstView
     {
         public:
-            FirstView(Subject mode)
+            FirstView(Subject &mode)
             {
-                mode.register([this](int value) {update(value);}
+                auto lambda = [this](int value) {update(value);};
+                mode.add(lambda);
             }
         private:
             void update(int value)
