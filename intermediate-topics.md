@@ -45,7 +45,7 @@
   - read and write locks:
     - http://stackoverflow.com/questions/19915152/c11-multiple-read-and-one-write-thread-mutex
     - with a proper c++ 14 example and one that works with c++ 11
-- create a light weight web / documentation browser based on libui / litehtml (using litebrowser-linux as an example)
+- create a light weight web / documentation browser based on [libui](https://github.com/andlabs/libui) / [litehtml](https://github.com/litehtml/litehtml) (using [litebrowser-linux](https://github.com/litehtml/litebrowser-linux/) as an example)
 
 ## katrin
 
