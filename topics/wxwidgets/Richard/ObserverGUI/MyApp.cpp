@@ -24,9 +24,9 @@ bool MyApp::OnInit() {
 }
 
 
-//BEGIN_EVENT_TABLE(BasicDrawPane, wxPanel)
+BEGIN_EVENT_TABLE(MyFrame, wxFrame)
 //EVT_LEFT_UP(BasicDrawPane::mouseClicked)
-//EVT_TIMER(TIMER_ID, BasicDrawPane::OnTimer)
+EVT_TIMER(TIMER_ID, MyFrame::OnTimer)
 // some useful events
 /*
  EVT_MOTION(BasicDrawPane::mouseMoved)
@@ -42,4 +42,4 @@ bool MyApp::OnInit() {
 // catch paint events
 //EVT_PAINT(BasicDrawPane::paintEvent)
 
-//END_EVENT_TABLE()
+END_EVENT_TABLE()

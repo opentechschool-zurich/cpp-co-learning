@@ -5,8 +5,7 @@
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#ifndef __NONAME_H__
-#define __NONAME_H__
+#pragma once
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
@@ -25,7 +24,11 @@
 #include <wx/icon.h>
 #include <wx/menu.h>
 #include <wx/frame.h>
+#include <wx/timer.h>
 #include <iostream>
+#include <vector>
+
+#include "PricePublisher.h"
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -35,6 +38,10 @@
 class MyFrame : public wxFrame
 {
 	private:
+           
+            PricePublisher pricePublisher;
+            
+            
 
 	protected:
 		wxButton* m_startButton;
@@ -53,13 +60,15 @@ class MyFrame : public wxFrame
 		wxStatusBar* m_statusBar1;
 		wxMenuBar* m_menubar1;
 		wxMenu* m_menu1;
+                wxTimer m_timer;
+                
 
 		// Virtual event handlers, overide them in your derived class
-		virtual void onStartButtonClicked( wxCommandEvent& event ) { std::cout << "clicked!\n"; event.Skip(); }
-		virtual void onAddPriceObserverClicked( wxCommandEvent& event ) { event.Skip(); }
-		virtual void onAddHighObserverClicked( wxCommandEvent& event ) { event.Skip(); }
-		virtual void onAddLowObserverClicked( wxCommandEvent& event ) { event.Skip(); }
-		virtual void onAddAverageObserverClicked( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onStartButtonClicked( wxCommandEvent& event );
+		virtual void onAddPriceObserverClicked( wxCommandEvent& event );
+		virtual void onAddHighObserverClicked( wxCommandEvent& event );
+		virtual void onAddLowObserverClicked( wxCommandEvent& event );
+		virtual void onAddAverageObserverClicked( wxCommandEvent& event );
 
 
 	public:
@@ -67,7 +76,9 @@ class MyFrame : public wxFrame
 		MyFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 725,337 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~MyFrame();
+                
+                void OnTimer(wxTimerEvent& event);
+                DECLARE_EVENT_TABLE()
 
 };
 
-#endif //__NONAME_H__

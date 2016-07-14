@@ -20,6 +20,12 @@ include( "${wxWidgets_USE_FILE}" )
 set(SRCS
     MyApp.cpp
     MyFrame.cpp
+    PricePublisher.cpp
+    PriceObserver.cpp
+    TextCtrlPriceObserver.cpp
+    HighPriceObserver.cpp
+    LowPriceObserver.cpp
+    AvgPriceObserver.cpp
 )
 
 # Here we define the executable DrawApplication.exe or DrawApplication on other systems
