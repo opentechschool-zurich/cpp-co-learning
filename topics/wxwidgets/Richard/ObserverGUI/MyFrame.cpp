@@ -6,7 +6,6 @@
 
 
 
-
 void MyFrame::onStartButtonClicked(wxCommandEvent& event) {
     m_timer.Start(400); //ms
 }
