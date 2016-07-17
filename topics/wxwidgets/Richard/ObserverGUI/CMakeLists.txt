@@ -20,6 +20,7 @@ include( "${wxWidgets_USE_FILE}" )
 set(SRCS
     MyApp.cpp
     MyFrame.cpp
+    MyFrame_generated.cpp
     PricePublisher.cpp
     PriceObserver.cpp
     TextCtrlPriceObserver.cpp
