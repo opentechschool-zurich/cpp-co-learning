@@ -13,10 +13,11 @@ set(ObserverGUI_STATIC ON)
 
 FIND_PACKAGE( wxWidgets COMPONENTS core base html adv net aui xrc qa richtext REQUIRED )
 
+FIND_PACKAGE( wxfreechart REQUIRED )
+include_directories(${wxfreechart_INCLUDE_DIRS})
+
 # wxWidgets include (this will do all the magic to configure everything)
 include( "${wxWidgets_USE_FILE}" )
-
-include_directories("/richi/Src/freechart/include")
 
 # For convenience we define the sources as a variable. You can add
 # header files and cpp/c files and CMake will sort them out
@@ -25,7 +26,6 @@ set(SRCS
     MyFrame.cpp
     MyFrame_generated.cpp
     PricePublisher.cpp
-    PriceObserver.cpp
     TextCtrlPriceObserver.cpp
     HighPriceObserver.cpp
     LowPriceObserver.cpp
@@ -41,4 +41,4 @@ add_executable(ObserverGUI WIN32 ${SRCS})
 # We add to our target 'ObserverGUI' the wxWidgets libraries. These are
 # set for us by the find script. If you need other libraries, you
 # can add them here as well.
-target_link_libraries(ObserverGUI ${wxWidgets_LIBRARIES} "/usr/local/lib64/libwxcode_gtk2u_freechart-3.0.so")
+target_link_libraries(ObserverGUI ${wxWidgets_LIBRARIES} ${wxfreechart_LIBRARIES} )

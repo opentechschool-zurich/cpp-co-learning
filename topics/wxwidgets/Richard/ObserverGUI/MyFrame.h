@@ -5,6 +5,9 @@
 #include "Definitions.h"
 #include "XYChart.h"
 
+/**
+* This is the class for the principle frame of the application
+*/
 class MyFrame : public MyFrame_generated {
 private:
     PricePublisher pricePublisher;
@@ -32,4 +35,3 @@ public:
     void onAddAverageObserverClicked(wxCommandEvent& event) override;
 
 };
-

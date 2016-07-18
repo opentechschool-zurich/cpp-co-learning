@@ -5,7 +5,7 @@
 #include "MyFrame.h"
 
 /**
- * Defines a wxDidgets application
+ * The main class for the wxWidgets application
  */
 class MyApp: public wxApp {
     bool OnInit();

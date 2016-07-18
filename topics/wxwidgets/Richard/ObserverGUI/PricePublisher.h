@@ -3,6 +3,12 @@
 #include <vector>
 #include "PriceObserver.h"
 
+/**
+* Follows the Observer Pattern and allows classes inheriting from PriceObserver
+* to register on the registerPriceObserver method. Anyone can call the publishNextPrice
+* method to have the PricePublisher push a new quote of the Apple stock to the
+* registered PriceObservers.
+*/
 class PricePublisher {
 public:
     PricePublisher();
@@ -30,5 +36,5 @@ private:
         97.129997, 99.519997, 97.389999, 99.959999, 98.529999, 96.959999, 96.449997, 100.699997,
         102.709999, 105.349998};
         std::vector<PriceObserver*> priceObservers;
-       
+
 };
