@@ -25,6 +25,9 @@ and connects to an XYChart that draws it's line based on data in a vector. The
 vector is connected as a PriceObserver and also gets the prices published by the
 PricePublisher.
 
+## Doxygen documentation
+
+http://opentechschool-zurich.github.io/cpp-co-learning/topics/wxwidgets/Richard/ObserverGUI/build/doxygen/html/index.html
 
 ## Compiling notes
 
