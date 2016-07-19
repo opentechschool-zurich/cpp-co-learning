@@ -30,7 +30,7 @@
 * Registering your Nick Name with Freenode
 
 #+BEGIN_SRC bash
-n/nick nick_name
+/nick nick_name
 /msg NickServ INFO nick_name
 /msg NickServ REGISTER password your@mail.com
 /msg NickServ VERIFY REGISTER nick_name wlerjölkjsrölk
