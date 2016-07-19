@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Chapter 26: Testing</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <style>
+            .reveal p {
+                text-align: left;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<section data-markdown>
+
+# libui
+
+Simple and portable GUI library that uses the native GUI technologies of GTK, OS X and Windows
+
+</section>
+
+<section data-markdown>
+
+# Features
+
+- Small binaries: less than 1 Mb for simple applications
+- Looks native on every platform
+- Portable code with interfaces (in the workings) for most programming languages
+
+... It's still a very young project but very active.
+</section>
+
+<section data-markdown>
+# Fetching, compiling and running the tests
+</section>
+
+<section data-markdown>
+# Fetching, compiling and running the tests
+
+Get it from
+
+https://github.com/andlabs/libui
+
+~~~.sh
+mkdir build
+cd build
+cmake ..
+make
+make examples
+./out/controlgallery
+~~~
+
+</section>
+
+<section data-markdown>
+
+![linux](https://raw.githubusercontent.com/andlabs/libui/master/examples/controlgallery/unix.png)
+
+</section>
+
+<section data-markdown>
+
+![os x](https://raw.githubusercontent.com/andlabs/libui/master/examples/controlgallery/darwin.png)
+
+</section>
+
+<section data-markdown>
+
+![windows](https://raw.githubusercontent.com/andlabs/libui/master/examples/controlgallery/windows.png)
+
+</section>
+
+<section data-markdown>
+# A first GUI program
+
+- Create a new project
+- `mkdir libui/`
+- Copy `ui.h` from the `libui` sources in our `libui/` directory.
+- Copy `libui.so.*` from the `libui/build/out` in our `libui/` directory.
+
+</section>
+
+<section data-markdown>
+# A first GUI program
+
+Create a `CMakeLists.txt` file that finds our local libui and compiles a `main.cpp` file
+
+~~~.cmake
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT("ui-sample")
+
+ADD_DEFINITIONS("-std=c++11")
+
+FIND_LIBRARY(UI_LIBRARY ui HINTS ${CMAKE_CURRENT_SOURCE_DIR}/libui)
+
+ADD_EXECUTABLE (ui-sample
+    main.cpp
+)
+
+TARGET_LINK_LIBRARIES(ui-sample PUBLIC ${UI_LIBRARY})
+~~~
+</section>
+
+<section data-markdown>
+# A first GUI program
+
+Create a program that shows a window with a button that quits. 
+
+~~~.cpp
+#include "libui/ui.h"
+
+int main()
+{
+    // @todo: is this correct?
+	uiInitOptions o = {0};
+	// memset(&o, 0, sizeof (uiInitOptions));
+	if (uiInit(&o) != NULL) {
+        return -1;
+    }
+
+    // set the last parameter to 1 if you have a menu
+    uiWindow *w = uiNewWindow("Hello World", 320, 240, 0);
+
+	uiBox *b =uiNewVerticalBox();
+    uiBoxSetPadded(b, 1);
+    uiWindowSetChild(w, uiControl(b));
+
+    uiButton *btn = uiNewButton("Quit");
+    uiButtonOnClicked(btn, [](uiButton *b, void *data){uiQuit();}, NULL);
+    uiBoxAppend(b, uiControl(btn), 0);
+
+    // quit the application when the window closes
+	uiWindowOnClosing(w, [](uiWindow *w, void *data) {uiQuit(); return 1;}, NULL);
+
+    uiControlShow(uiControl(w));
+    uiMain();
+}
+~~~
+</section>
+
+<section data-markdown>
+
+# A first GUI program
+
+Add a navigation to the program.
+
+https://github.com/aoloe/cpp-libui-sample
+</section>
+
+<section data-markdown>
+
+# The future
+
+We need a more C++ interface!
+
+I'm working on `libui-qtlike` (unpublished) and wait for more features being available!
+
+https://github.com/aoloe/cpp-libui-qtlike
+</section>
+
+<section data-markdown>
+
+# Ideas
+
+- port the histogramm to c++
+- extend the histogramm
+- think about how to document the API
+- just try some widgets
+- create a simple program for imposition
+- YOUR IDEA!!!
+
+</section>
+
+
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            { src: 'plugin/notes/notes.js', async: true }
+        ]
+    });
+
+</script>
+
+</body>
+</html>

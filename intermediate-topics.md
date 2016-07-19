@@ -31,12 +31,21 @@
     - create a scripting engine that can work with qt on boths c++ and python side
 - inkscape als projekt
 - lambdas:
-  - http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951
+  - <http://maitesin.github.io//Lambda_comparison/ and https://news.ycombinator.com/item?id=11697951>
 - folds (`...`):
   - http://en.cppreference.com/w/cpp/language/fold
 - memory analysis / leeks with valgrind
 - high level critical view on real world code snippets: http://www.viva64.com/en/b/0391/
 - dependency management with conan https://www.conan.io/ (cf. slides for presentation on the 28 may 2016 @ metalab wiki / c++ user group)
+- [more c++ idioms](https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms)
+- [libui](https://github.com/andlabs/libui) is a simple UI library that interfaces with GTK, OS X or Windows, depending on your operating system.
+- deep learning framework: <https://github.com/nyanp/tiny-cnn>
+- machin learning: <http://mlpack.org/>
+- mutex:
+  - read and write locks:
+    - http://stackoverflow.com/questions/19915152/c11-multiple-read-and-one-write-thread-mutex
+    - with a proper c++ 14 example and one that works with c++ 11
+- create a light weight web / documentation / epub browser based on [libui](https://github.com/andlabs/libui) / [litehtml](https://github.com/litehtml/litehtml) (using [litebrowser-linux](https://github.com/litehtml/litebrowser-linux/) as an example)
 
 ## katrin
 
