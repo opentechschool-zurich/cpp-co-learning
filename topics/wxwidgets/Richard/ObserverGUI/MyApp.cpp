@@ -5,7 +5,7 @@
 #include "MyFrame.h"
 
 /**
- * Defines a wxDidgets application
+ * The main class for the wxWidgets application
  */
 class MyApp: public wxApp {
     bool OnInit();
@@ -16,7 +16,7 @@ class MyApp: public wxApp {
 IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit() {
-    myFrame = new MyFrame((wxFrame *)NULL, -1,  wxT("myFrame"), wxPoint(50,50), wxSize(800,600));
+    myFrame = new MyFrame((wxFrame *)NULL, -1,  wxT("myFrame"));
     myFrame->SetAutoLayout(true);
     myFrame->Show();
 
