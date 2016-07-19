@@ -1,2 +1,3 @@
 # ignore build directory for Cmake
-build/*
+build/
+# that s the way to do it, no "build/*" or stuff like that
