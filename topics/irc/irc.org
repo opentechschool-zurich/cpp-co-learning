@@ -1,0 +1,54 @@
+#+TITLE: IRC - Internet Relay Chat - Basics
+
+#+OPTIONS: toc:nil
+
+
+
+* Quick Start 
+
+- Open your IRC client. A popular program is =HexChat=.
+
+- Choose a nick name.
+
+- Connect to =freenode=.
+
+- Choose our channel
+#+BEGIN_SRC bash
+/join ##ots-zh
+#+END_SRC
+
+- Quit with
+
+#+BEGIN_SRC bash
+/part #channel_name
+/quit
+#+END_SRC   
+
+- Basic commands at [[http://ircbeginner.com/ircinfo/ircc-commands.html][link]].
+
+
+* Registering your Nick Name with Freenode
+
+#+BEGIN_SRC bash
+n/nick nick_name
+/msg NickServ INFO nick_name
+/msg NickServ REGISTER password your@mail.com
+/msg NickServ VERIFY REGISTER nick_name wlerjölkjsrölk
+/msg NickServ IDENTIFY nick_name password
+/msg NickServ help 
+#+END_SRC
+
+
+* Registering a Channel with Freenode
+
+#+BEGIN_SRC bash
+/msg NickServ IDENTIFY nick_name password
+/join #yourchannel
+/msg ChanServ INFO #yourchannel
+/msg ChanServ REGISTER #yourchannel
+/msg ChanServ help 
+/msg ChanServ help FLAGS
+/msg ChanServ SET #yourchannel GUARD ON 
+#+END_SRC
+
+- more at [[https://meta.wikimedia.org/wiki/IRC/Instructions][Wikimedia]] 
