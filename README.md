@@ -1,5 +1,5 @@
 [![chat on freeonde](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://kiwiirc.com/client/irc.freenode.net/##ots-zh)
-[![chat on vector.im](https://chat-on-vector-im.svg)](https://vector.im/develop/#/room/#ots-zh:matrix.org)
+[![chat on vector.im](https://raw.githubusercontent.com/opentechschool-zurich/resources/master/logos/chat-on-vector-im.svg)](https://vector.im/develop/#/room/#ots-zh:matrix.org)
 
 # cpp-co-learning
 
