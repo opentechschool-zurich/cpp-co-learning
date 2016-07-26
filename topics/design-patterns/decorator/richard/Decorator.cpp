@@ -55,3 +55,10 @@ int main()
     return 0;
 }
 
+/*
+Output
+From Bevrage: Espresso costs 1.69
+From CondimentsDecorator: Sugar {From Bevrage: Espresso}  costs 2.18
+From CondimentsDecorator: Small Plastic Cup {From Bevrage: Sugar}  costs 0.54
+*/
+
