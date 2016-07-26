@@ -1,3 +1,6 @@
+[![chat on freeonde](https://img.shields.io/badge/chat-on%20freenode-brightgreen.svg)](https://kiwiirc.com/client/irc.freenode.net/##ots-zh)
+[![chat on vector.im](http://opentechschool-zurich.github.io/cpp-co-learning/svg/chat-on-vector-im.svg)](https://vector.im/develop/#/room/#ots-zh:matrix.org)
+
 # cpp-co-learning
 
 Slides, discussion and exercices for the c++ co-learning in Zürich.
