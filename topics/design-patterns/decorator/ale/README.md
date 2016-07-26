@@ -10,5 +10,7 @@ _Open / Closed_: Allow classes to be easily extended to incorporate new behavior
 But:  
 Be careful when choosing the areas of code that need to be extend: applying the Open-Closed principle everywhere is wasteful, unnecessary, and can lead to complex, hard to understand code.
 
+![](decorator-uml.png)
+
 So:  
 Inheritance → Composition
