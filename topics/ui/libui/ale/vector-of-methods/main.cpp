@@ -35,7 +35,7 @@ public:
     int b(int i) {return a * i;}
     int c(int i) {return a + i;}
 private:
-    int a = 2;
+    int a = 20;
     D d;
 };
 

@@ -9,7 +9,7 @@ template <typename Ret, typename... Params>
 struct Callback<Ret(Params...)> {
     template <typename... Args> 
     static Ret callback(Args... args) {                    
-        func(args...);  
+        return func(args...);  
     }
     static std::function<Ret(Params...)> func; 
 };
