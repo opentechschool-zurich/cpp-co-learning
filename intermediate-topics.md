@@ -46,6 +46,10 @@
     - http://stackoverflow.com/questions/19915152/c11-multiple-read-and-one-write-thread-mutex
     - with a proper c++ 14 example and one that works with c++ 11
 - create a light weight web / documentation / epub browser based on [libui](https://github.com/andlabs/libui) / [litehtml](https://github.com/litehtml/litehtml) (using [litebrowser-linux](https://github.com/litehtml/litebrowser-linux/) as an example)
+- library for 3D world generation based on open street map: <https://github.com/reinterpretcat/utymap>
+- a wrapper around curl: <https://github.com/whoshuu/cpr>
+- [Modern Memory Safety: C/C++ Vulnerability Discovery, Exploitation, Hardening](https://github.com/struct/mms)
+
 
 ## katrin
 
