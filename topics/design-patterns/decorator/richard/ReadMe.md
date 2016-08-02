@@ -1,7 +1,7 @@
-##Late Binding in C++
-#Differences between Java and C++ and how C++ overridden function behave differently when you use objects or pointers to objects
+#Late Binding in C++
+##Differences between Java and C++ and how C++ overridden function behave differently when you use objects or pointers to objects
 
-The cool thing about Object Oriented Programming is that you can define methods in a base class that you 
+The cool thing about Object Oriented Programming is that you can define methods in a base class that you
 can override to do something desirable in the overriding class. Consider this Java program:
 
 
@@ -60,16 +60,16 @@ Bar
 Bar
 ```
 
-What's happening? Inside the for loop the program picks a random number between 1 and 10. If the number is larger 
-than 5 then our variable `fb` of type `FooBar` is set to the `Foo` type object `f`. If not then the `Bar` type 
-object `b` is assigned to the `FooBar` base class type variable `fb`. We then ask the object behind the fb 
-variable to `doSomething()`. Since the objects are either `Foo` or `Bar` objects they call the `doSomething()` 
+What's happening? Inside the for loop the program picks a random number between 1 and 10. If the number is larger
+than 5 then our variable `fb` of type `FooBar` is set to the `Foo` type object `f`. If not then the `Bar` type
+object `b` is assigned to the `FooBar` base class type variable `fb`. We then ask the object behind the fb
+variable to `doSomething()`. Since the objects are either `Foo` or `Bar` objects they call the `doSomething()`
 defined in the `Foo` overriding class or in the `Bar` overriding class and print Foo or Bar.
 
 
 Let's do the same thing with C++:
 ```cpp
-// LateBinding.cpp
+// EarlyBinding.cpp
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
@@ -128,8 +128,8 @@ FooBar
 FooBar
 ```
 
-The result is spectacularly different! Why? When we push the `Foo` or `Bar` object into a `FooBar` variable we 
-essentially downcast our object to just the base functionality of the `FooBar` object. And when we call `FooBar`'s 
+The result is spectacularly different! Why? When we push the `Foo` or `Bar` object into a `FooBar` variable we
+essentially downcast our object to just the base functionality of the `FooBar` object. And when we call `FooBar`'s
 `doSomething()` the compile-time VTable listed function `doSomething()` from `FooBar` is called.
 
 If we want the equivalent of the Java behaviour we need to use pointers. They use "late binding" and can figure out
@@ -196,7 +196,7 @@ Bar
 ```
 
 Note the subtle changes: `fb` is now a pointer to a `FooBar` object. We push a pointer to a `Foo` or `Bar`
-object into it. And when we call the `doSomething()` method the system understand what kind of object the 
+object into it. And when we call the `doSomething()` method the system understand what kind of object the
 pointer is pointing at and calls the overriding method in the sub-class.
 
 

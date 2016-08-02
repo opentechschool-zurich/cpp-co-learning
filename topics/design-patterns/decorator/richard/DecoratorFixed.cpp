@@ -1,4 +1,4 @@
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -23,23 +23,23 @@ public:
 
 class CondimentsDecorator : public Beverage {
 private:
-	Beverage myBeverage;
+	Beverage * myBeverage;
 public:
-	CondimentsDecorator(const Beverage & bev, const string & desc, const double & price) {
+	CondimentsDecorator( Beverage  * bev, const string & desc, const double & price) {
 		myBeverage = bev;
 		description = desc;
 		myPrice = price;
 	}
-	CondimentsDecorator( const string & desc, const double & price, const CondimentsDecorator & bev) {
+	CondimentsDecorator( const string & desc, const double & price,  CondimentsDecorator  * bev) {
 		myBeverage = bev;
 		description = desc;
 		myPrice = price;
 	}
 	string getDescription() {
-		return "From CondimentsDecorator: " + description + " {" + myBeverage.getDescription() + "} ";
+		return "From CondimentsDecorator: " + description + " {" + myBeverage->getDescription() + "} ";
 	}
 	double cost() {
-		return myPrice + myBeverage.cost();
+		return myPrice + myBeverage->cost();
 	}
 
 };
@@ -47,8 +47,8 @@ public:
 int main()
 {
 	Beverage espresso{ "Espresso", 1.69 };
-	CondimentsDecorator sugar( espresso, "Sugar", .49 );
-	CondimentsDecorator plasticCup("Small Plastic Cup", .05, sugar);
+	CondimentsDecorator sugar( & espresso, "Sugar", .49 );
+	CondimentsDecorator plasticCup("Small Plastic Cup", .05, & sugar);
 	cout << espresso.getDescription() << " costs " << espresso.cost() << endl;
 	cout << sugar.getDescription() << " costs " << sugar.cost() << endl;
 	cout << plasticCup.getDescription() << " costs " << plasticCup.cost() << endl;
@@ -59,6 +59,5 @@ int main()
 Output
 From Bevrage: Espresso costs 1.69
 From CondimentsDecorator: Sugar {From Bevrage: Espresso}  costs 2.18
-From CondimentsDecorator: Small Plastic Cup {From Bevrage: Sugar}  costs 0.54
+From CondimentsDecorator: Small Plastic Cup {From CondimentsDecorator: Sugar {From Bevrage: Espresso} }  costs 2.23
 */
-
