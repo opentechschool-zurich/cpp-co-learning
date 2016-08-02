@@ -25,3 +25,5 @@ IN MODERN C++ by VICTOR A. LASKIN, 2015] (http://vitiy.info/Slides/MeetingCPP201
 [Delf's Doxygen Presentation](http://opentechschool-zurich.github.io/cpp-co-learning/doxygen/slides/doxygen.html)
 
 [Zee's Beginner Presentation] (http://opentechschool-zurich.github.io/cpp-co-learning/beginnersPresentation/zee/computation.html)
+
+[Richard Writeup on Early vs. Late Binding in C++ and Java](https://github.com/opentechschool-zurich/cpp-co-learning/blob/master/topics/design-patterns/decorator/richard/ReadMe.md)
