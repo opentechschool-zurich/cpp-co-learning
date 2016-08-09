@@ -21,6 +21,7 @@ set(SRCS
     MyApp.cpp
     Circle.cpp
     BasicDrawPane.cpp
+    StraightLinePositionCalculator.cpp
 )
 
 # Here we define the executable DrawApplication.exe or DrawApplication on other systems

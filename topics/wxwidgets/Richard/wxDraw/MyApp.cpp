@@ -35,6 +35,7 @@ bool MyApp::OnInit() {
 BEGIN_EVENT_TABLE(BasicDrawPane, wxPanel)
 EVT_LEFT_UP(BasicDrawPane::mouseClicked)
 EVT_TIMER(TIMER_ID, BasicDrawPane::OnTimer)
+EVT_TIMER(CREATE_TIMER_ID, BasicDrawPane::OnCreateTimer)
 // some useful events
 /*
  EVT_MOTION(BasicDrawPane::mouseMoved)

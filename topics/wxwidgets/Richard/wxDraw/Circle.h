@@ -3,14 +3,15 @@
 #include <math.h>
 #include <chrono>
 #include <wx/colour.h>
+#include "StraightLinePositionCalculator.h"
+#include <wx/dc.h>
+#include <iostream>
 
 enum CircleType {Explodes, Dies};
 
 class Circle {
     
 private:
-    float deltaX = 0; // delta for X in pixels per second
-    float deltaY = 0; // delta for y in pixels per second
     static constexpr float  PI_F=3.14159265358979f;
     std::chrono::steady_clock::time_point created = std::chrono::steady_clock::now();
     wxColor color = wxColor(0,0,255);
@@ -18,29 +19,35 @@ private:
     CircleType circleType = Explodes;
     
 public:
-    float x;
-    float y;
+    StraightLinePositionCalculator position;
     int radius; // in pixels
-    int speed; // pixels per second
-    float angle; // in degrees
-    int timeToLive; // in ms
-    Circle(int x = 0, int y = 0, int radius = 0, int speed = 250, float angle = 0.0, int timeToLive = 2000 ) 
-            : x(x), y(y), radius(radius), speed(speed), angle(angle), timeToLive(timeToLive) {
-        float radiansAngle = angle * PI_F / 180;
-        deltaX = speed * cos(radiansAngle);
-        deltaY = speed * sin(radiansAngle);
+    float timeToLive; // in s
+    Circle(int x = 0, int y = 0, int radius = 0, int speed = 250, float angle = 0.0, float timeToLive = 2.0 ) 
+            : radius(radius), timeToLive(timeToLive) {
+        wxPoint p = wxPoint(x,y);
+        position = StraightLinePositionCalculator(p, speed, angle);
     }
     
     /**
      * Moves the x and y by the pre-calculated deltaX and deltaY.
      * The idea being to avoid the costly floating point trigonometry call.
      * @param deltaTime in seconds
-     */
+     *
     void move (float deltaTime) {
         x += deltaX * deltaTime;
         y += deltaY * deltaTime;
-    }
+    }*/
     
+    
+    /**
+     * How long the circle has existed since it was created
+     * @return the time in seconds
+     */
+    double getAge() {
+        std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+        int ms = std::chrono::duration_cast<std::chrono::milliseconds>(now - created).count();
+        return (double) ms / 1000;
+    }
     
     /**
      * Returns if the time to live has expired by calculating the difference
@@ -48,9 +55,8 @@ public:
      * @return true if expired, false if not.
      */
     bool isExpired() {
-        std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-        double deltaTimeMs = std::chrono::duration_cast<std::chrono::milliseconds>(now - created).count();
-        return deltaTimeMs > timeToLive;
+        std::cout << "age: " << getAge() << " ttl: " << timeToLive << "\n";
+        return getAge() > timeToLive;
     }
     
     /**
@@ -88,5 +94,16 @@ public:
      * @param type
      */
     void setCircleType( CircleType type ) { circleType = type; }
-   
+
+    /**
+     * Draws the circle 
+     * @param dc
+     */
+    void render( wxDC& dc) {
+        //dc.DrawCircle( wxPoint(x,y), radius );    
+        
+        dc.DrawCircle( position.getPosition( getAge() ), radius );    
+        //dc.DrawCircle( position.getPosition( 0.0 ), radius );    
+    }
+    
 };

@@ -1,18 +1,21 @@
+#include <wx-3.0/wx/gdicmn.h>
+
 #include "BasicDrawPane.h"
 #include "Definitions.h"
 #include "Circle.h"
 
 BasicDrawPane::BasicDrawPane(wxFrame* parent) :
-wxPanel(parent), m_timer(this, TIMER_ID)
+wxPanel(parent), m_timer(this, TIMER_ID), m_create_timer(this, CREATE_TIMER_ID)
 {
      m_timer.Start(20);    // interval in ms
+     m_create_timer.Start(1000);    // interval in ms
 }
 
 
 void BasicDrawPane::mouseClicked(wxMouseEvent& event) {
     wxPoint mousePoint = event.GetLogicalPosition(wxClientDC(this));
     vectorMtx.lock();
-    vectorOfCirclePointers.push_back(new Circle{mousePoint.x, mousePoint.y , 25, (rand() % 250) + 100, static_cast< float >(rand() % 360), 2000});
+    vectorOfCirclePointers.push_back(new Circle{mousePoint.x, mousePoint.y , 25, (rand() % 250) + 100, static_cast< float >(rand() % 360), 2.0});
     vectorMtx.unlock();
     Refresh();
 }
@@ -24,10 +27,10 @@ void BasicDrawPane::mouseClicked(wxMouseEvent& event) {
  * @param x the coordinates of the new fragments to burst away from
  * @param y the coordinates of the new fragments to burst away from
  */
-void explode( std::vector<Circle*> & newFragments, int fragments, int x, int y, int speed = 600, int timeToLive = 2000 ) {
+void explode( std::vector<Circle*> & newFragments, int fragments, int x, int y, int speed = 200, float timeToLive = 1.0 ) {
     for ( int i = 0; i < fragments; ++i) {
         float angle = i * 360 / fragments;
-        Circle* fragment = new Circle {x, y, 5, speed, static_cast<float>(angle), 2000 };
+        Circle* fragment = new Circle {x, y, 5, speed, static_cast<float>(angle), timeToLive };
         fragment->setColor(wxColor(255,0,0));
         fragment->setCircleType(Dies);
         newFragments.push_back(fragment);
@@ -54,9 +57,10 @@ void BasicDrawPane::OnTimer(wxTimerEvent& event)
     std::vector<Circle*> newFragments;
     vectorMtx.lock();
     for (auto cptr : vectorOfCirclePointers ) {
-        cptr->move(deltaTimeS);
+        //cptr->move(deltaTimeS);
         if ( cptr->isExpired() && cptr->explodesAtEnd() ) {
-            explode(newFragments, 25, cptr->x, cptr->y);
+            wxPoint position = cptr->position.getPosition( cptr->getAge() );
+            explode(newFragments, 25, position.x, position.y);
         }
     }
     // merge the vectors
@@ -69,7 +73,8 @@ void BasicDrawPane::OnTimer(wxTimerEvent& event)
             vectorOfCirclePointers.begin(),
             vectorOfCirclePointers.end(),
             [panelSize](Circle *c) -> bool {
-                if ( c->x < 0 || c->x > panelSize.GetWidth() || c->y < 0 || c->y > panelSize.GetHeight() || c->isExpired() ) {
+                wxPoint position = c->position.getPosition( c->getAge() );
+                if ( position.x < 0 || position.x > panelSize.GetWidth() || position.y < 0 || position.y > panelSize.GetHeight() || c->isExpired() ) {
                     delete c;
                     return true;
                 } else {
@@ -79,6 +84,22 @@ void BasicDrawPane::OnTimer(wxTimerEvent& event)
         ),
         vectorOfCirclePointers.end()
     );
+    vectorMtx.unlock();
+    Refresh();
+}
+
+void BasicDrawPane::OnCreateTimer(wxTimerEvent& event) {
+    vectorMtx.lock();
+    wxSize panelSize=GetClientSize();
+    int horizontalItems = 3;
+    int verticalItems = 3;
+    int hw = panelSize.GetWidth() / (horizontalItems + 1);
+    int vh = panelSize.GetHeight() / (verticalItems + 1);
+    for (int i = 1; i <= horizontalItems; ++i ) {
+        for (int j = 1; j <= verticalItems; ++j ) {
+            vectorOfCirclePointers.push_back(new Circle{ i * hw, j * vh , 15, 150, 30.0, 0.4});
+        }
+    }
     vectorMtx.unlock();
     Refresh();
 }
@@ -139,7 +160,8 @@ void BasicDrawPane::render(wxDC&  dc)
     for ( Circle* c : vectorOfCirclePointers ) {
         dc.SetBrush(c->getColor()); // filling
         dc.SetPen(  wxPen( c->getColor(), 1 ) );  // color & pend width
-        dc.DrawCircle( wxPoint(c->x,c->y), c->radius );
+        c->render( dc );
+        //dc.DrawCircle( wxPoint(c->x,c->y), c->radius );
     }
     vectorMtx.unlock();
 

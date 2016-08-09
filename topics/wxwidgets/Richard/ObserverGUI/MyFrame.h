@@ -11,6 +11,7 @@
 class MyFrame : public MyFrame_generated {
 private:
     PricePublisher pricePublisher;
+    DECLARE_EVENT_TABLE()
 
 protected:
     wxTimer m_timer;
@@ -25,9 +26,8 @@ public:
         pricePublisher.registerPriceObserver(chart);
     }
 
+  
     void OnTimer(wxTimerEvent& event);
-    DECLARE_EVENT_TABLE()
-
     void onStartButtonClicked(wxCommandEvent& event) override;
     void onAddPriceObserverClicked(wxCommandEvent& event) override;
     void onAddHighObserverClicked(wxCommandEvent& event) override;
