@@ -17,6 +17,8 @@ public:
     void render(wxDC& dc);
     void mouseClicked(wxMouseEvent& event);
     void OnTimer(wxTimerEvent& event);
+    void OnCreateTimer(wxTimerEvent& event);
+
 
     // some useful events
     /*
@@ -36,6 +38,7 @@ private:
         std::vector<Circle*> vectorOfCirclePointers;
         std::mutex vectorMtx; // mutex to prevent concurrent modifications on vector
         wxTimer m_timer;
+        wxTimer m_create_timer;
         std::chrono::steady_clock::time_point lastUpdateTimePoint = std::chrono::steady_clock::now();
 };
 
