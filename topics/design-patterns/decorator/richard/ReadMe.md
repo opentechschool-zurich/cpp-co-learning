@@ -62,7 +62,7 @@ Bar
 
 What's happening? Inside the for loop the program picks a random number between 1 and 10. If the number is larger
 than 5 then our variable `fb` of type `FooBar` is set to the `Foo` type object `f`. If not then the `Bar` type
-object `b` is assigned to the `FooBar` base class type variable `fb`. We then ask the object behind the fb
+object `b` is assigned to the `FooBar` base class type variable `fb`. We then ask the object behind the `fb`
 variable to `doSomething()`. Since the objects are either `Foo` or `Bar` objects they call the `doSomething()`
 defined in the `Foo` overriding class or in the `Bar` overriding class and print Foo or Bar.
 
@@ -70,7 +70,6 @@ defined in the `Foo` overriding class or in the `Bar` overriding class and print
 Let's do the same thing with C++:
 ```cpp
 // EarlyBinding.cpp
-
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -96,8 +95,7 @@ public:
 	}
 };
 
-int main()
-{
+int main() {
 	Foo f;
 	Bar b;
 	FooBar fb;
@@ -110,7 +108,7 @@ int main()
 			fb = b;
 		fb.doSomething();
 	}
-  return 0;
+	return 0;
 }
 ```
 
@@ -137,7 +135,6 @@ at runtime what type of object they are dealing with and can call the appropriat
 
 ```cpp
 // LateBinding.cpp
-
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -163,12 +160,11 @@ public:
 	}
 };
 
-int main()
-{
+int main() {
 	Foo f;
 	Bar b;
 	FooBar * fb;
-	srand(time(NULL));
+	srand(time(NULL)); // seed randomizer
 	for (auto i = 1; i <= 10; ++i) {
 		auto r = rand() % 10 + 1;
 		if (r > 5)
@@ -177,7 +173,7 @@ int main()
 			fb = &b;
 		fb->doSomething();
 	}
-  return 0;
+	return 0;
 }
 ```
 
@@ -195,8 +191,8 @@ Foo
 Bar
 ```
 
-Note the subtle changes: `fb` is now a pointer to a `FooBar` object. We push a pointer to a `Foo` or `Bar`
-object into it. And when we call the `doSomething()` method the system understand what kind of object the
+Note the subtle changes: `fb` is now a `FooBar` type pointer. We push a pointer to a `Foo` or `Bar`
+object into it. And when we call the `doSomething()` method the system understands what kind of object the
 pointer is pointing at and calls the overriding method in the sub-class.
 
 
