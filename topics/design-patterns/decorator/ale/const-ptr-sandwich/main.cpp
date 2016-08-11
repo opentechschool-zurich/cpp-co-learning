@@ -22,11 +22,13 @@ int main()
 
     std::cout<< sandwichVerdure->getDescription() << ": " << sandwichVerdure->getCost() << std::endl;
 
+    /*
     Ingredient* sandwichRoyal = new HamDecorator(sandwichVerdure);
     std::cout<< sandwichRoyal->getDescription() << ": " << sandwichRoyal->getCost() << std::endl;
 
     std::cout << "delete sandwichRoyal" << std::endl;
     delete sandwichRoyal;
+    */
     // std::cout << "delete sandwichVerdure" << std::endl;
     // delete sandwichVerdure;
 }

@@ -47,18 +47,18 @@ public:
 
 class IngredientDecorator : public Ingredient {
 public:
-	IngredientDecorator(const Ingredient * const ingredient)
+	IngredientDecorator(const shared_ptr<const Ingredient> ingredient)
     : ingredient(ingredient) {}
-	virtual ~IngredientDecorator() {cout << "~ID:" << getDescription() << endl; delete ingredient;}
+	virtual ~IngredientDecorator() {cout << "~ID:" << getDescription() << endl; /*delete ingredient;*/}
 	virtual  string getDescription() const override { return ingredient->getDescription(); }
 	virtual double getCost() const override { return ingredient->getCost(); }
 private:
-      const shared_ptr<Ingredient> const ingredient;
+      const shared_ptr<const Ingredient> ingredient;
 };
 
 class CheeseDecorator: public IngredientDecorator {
 public:
-	CheeseDecorator(const Ingredient * const ingredient)
+	CheeseDecorator(const shared_ptr<const Ingredient> ingredient)
     :IngredientDecorator(ingredient) {}
 	virtual ~CheeseDecorator() { }
 	virtual  string getDescription() const override { return "Cheese with " + IngredientDecorator::getDescription(); }
@@ -67,7 +67,7 @@ public:
 
 class VegDecorator: public IngredientDecorator {
 public:
-	VegDecorator(const Ingredient * const ingredient)
+	VegDecorator(const shared_ptr<const Ingredient> ingredient)
     :IngredientDecorator(ingredient) {}
 	virtual ~VegDecorator() {cout << "~Veg" << endl;}
 	virtual  string getDescription() const override { return "Veggies with " + IngredientDecorator::getDescription(); }
@@ -76,7 +76,7 @@ public:
 
 class HamDecorator: public IngredientDecorator {
 public:
-	HamDecorator(const Ingredient * const ingredient)
+	HamDecorator(const shared_ptr<const Ingredient> ingredient)
     :IngredientDecorator(ingredient) {}
 	virtual ~HamDecorator() { }
 	virtual  string getDescription() const override { return "Ham with " + IngredientDecorator::getDescription(); }
