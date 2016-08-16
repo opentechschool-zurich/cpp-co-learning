@@ -8,4 +8,5 @@ ADD_DEFINITIONS("-std=c++11 -Wall")
 
 ADD_EXECUTABLE (observer
     main.cpp
+    weatherdisplays.cpp
 )
