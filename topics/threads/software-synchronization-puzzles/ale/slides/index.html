@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Software Synchronization Puzzles</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+        <style>
+            .reveal p {
+                text-align: left;
+            }
+        </style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+<section data-markdown>
+
+# Software Synchronization Puzzles
+
+by Allen Downey   
+
+<https://www.youtube.com/watch?v=RaEUw107dpg>
+
+</section>
+
+<section data-markdown>
+# Synchronization
+
+In software, synchronization means enforcing constraints:
+
+- In the order concurrent threads perform specific actions (serialization).
+- In who is allowed to access a specific resource (mutual exclusion)
+</section>
+
+<section data-markdown>
+# Concurrency
+
+Concurrent programs are not deterministic:
+
+Two events are concurrent if you can't tell by looking at the code which will happen first.
+</section>
+
+<section data-markdown>
+# Threads
+
+Threads are parts of a program that run in a concurrent way.
+
+Threads can run on a single processor through time sharing or on multiple processors in parallel.
+</section>
+
+<section data-markdown>
+What is the possible output of
+
+~~~
+Thread a:           Thread b:
+
+a1: print "yes"     b1: print "no"
+~~~
+
+- undefined order
+- letters might be mixed up
+- might crash
+</section>
+
+<section data-markdown>
+What is the possible output of
+
+~~~
+x = 1
+
+Thread a:           Thread b:
+
+a1: x = x + 1       b1: x = x + 1
+~~~
+
+<div style="background-color:black">
+- 3
+- 2
+</div>
+
+</section>
+
+<section data-markdown>
+# Atomic operations
+
+If `x++` is atomic, it will be run without being interrupted.
+
+You can't assume that a specific operation is atomic on every hardware.
+</section>
+
+<section data-markdown>
+# A few assumptions for your sanity
+
+- Result of concurrent writes is undefined.
+- Result of concurrent read-writes is undefined.
+- Concurrent reads are fine.
+- Threads can be interrupted at any time.
+
+</section>
+
+<section data-markdown>
+# Tools for synchronization
+Most languages provide tools for synchronization.
+
+- Semaphores.
+- Mutexes.
+- Condition variables.
+- Monitors
+- ...
+
+</section>
+
+<section data-markdown>
+# The semaphores
+
+Simple (low level), can solve every synchronisation problem, but error prone.
+
+A semaphore is a counter with three methods:
+- `initialize(n)`: allow `n` concurrent uses of the resources.
+- `wait()`: decrement and block if negative.
+- `signal()`: increment and wake a thread.
+</section>
+
+<section data-markdown>
+# Semaphores and serialization
+
+if `doA` has to execute before `doB`
+
+~~~
+
+sem = Semaphore(0)
+
+Thread a:                 Thread b:
+
+a1: doA()                 b1: sem.wait()
+a2: sem.signal()          b2: doB()
+~~~
+
+This is a signaling pattern.
+
+</section>
+
+<section data-markdown>
+# Semaphores and mutual exclusion
+
+`x = x + 1` must be atomic.
+
+~~~
+mutex = Semaphore(1)
+
+Thread a:                 Thread b:
+
+a1: mutex.wait()          b1: mutex.wait()
+a2: x = x + 1             b2: x = x + 1
+a3: mutex.signal()        b3: mutex.signal()
+~~~
+
+In the critical section, `a` can still be interrupted, but `b` cannot run until `a` has exited has emitted the signal.
+
+</section>
+<section data-markdown>
+# Readers and writers
+
+The constraints are:
+
+- Only one writer can write concurrently.
+- A reader cannot read concurrently with a writer.
+- Any number of readers can read concurrently.
+
+~~~
+resource = semaphore(1);
+mutex = semaphore(1);
+readcount = 0;
+
+Thread a (writer):        Thread b (reader):
+
+a1: resource.wait()       b1: mutex.wait()
+a2: x = x + 1             b2  readcount++
+a3: resource.signal()     b3  if (readcount == 1)
+                          b4      resource.wait()
+                          b5  mutex.signal()
+                          
+                          b6  a = x + 1
+                          
+                          b7  mutex.wait()
+                          b8  readcount--
+                          b9  if readcount == 0
+                          b0      resource.signal()
+                          b1  mutex.signal()
+~~~
+</section>
+
+<section data-markdown>
+# Patterns
+
+- Scoreboard: check in, update state, condition behavior, check out
+- Turnstile: thread go through serially, one blocks all wait (wait-signal pattern)
+- Lightswitch: encapsulates the read-writer
+</section>
+
+<section data-markdown>
+# The unisex bathroom problem
+
+- Not men and women in at the same time.
+- Never more than three employes in at the same time.
+
+Solution:
+
+- Use a semaphore with an initial value of n (3).
+- Use a lightswitch for categorical exclusion.
+</section>
+
+<section data-markdown>
+# The status so far
+
+- Solutions for multiple problems (as patterns).
+- Patterns can be encapsulated in objects.
+
+But
+
+- Muliple semaphores can get hard to get right.
+- And it's even harder to make sure that it's been done right.
+</section>
+
+<section data-markdown>
+# Ideas
+
+- Implement the "Unisex bathroom"
+</section>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+            { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
