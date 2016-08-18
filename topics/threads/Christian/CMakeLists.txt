@@ -1,8 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT("Escalator Threads")
 
+# since cmake 3.1.3
 set (CMAKE_CXX_STANDARD 11)
-
+# for older cmake
 ADD_DEFINITIONS("-std=c++11")
 
 find_package (Threads)
