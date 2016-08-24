@@ -10,7 +10,7 @@ std::mutex outputMutex;
 
 class Guard {
 public:
-    explicit Guard(std::mutex& m): m{m} {m.lock();}
+    explicit Guard(std::mutex& m): m(m) { m.lock(); }
     ~Guard() {m.unlock();}
 private:
     std::mutex& m;
