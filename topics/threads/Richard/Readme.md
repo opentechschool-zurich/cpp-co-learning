@@ -8,10 +8,12 @@ find_package (Threads)
 target_link_libraries(YesNoThreads ${CMAKE_THREAD_LIBS_INIT})
 ```
 
+## YesNoThreads
+
 The program has issues: It doesn't have any synchronisation on the cout
 instruction and some lines are intermingled:
 
-#Output:
+### Output:
 
 ```
 ./YesNoThreads
@@ -84,8 +86,9 @@ wait on the lock and atomically check and set the conditions. When something
 relevant changed the notify_all is called which tells all waiting threads to
 go and have a look at the condition and run if OK.
 
-
+### Output
 ```
+> ./escalator.prg
 Escalator going idle with 0 aboard.
 Person 1 wants to ride the escalator up
 Person 1 hops on the escalator
