@@ -95,7 +95,8 @@ go and have a look at the condition and run if OK.
 The key is the condition_variable. As per
 http://www.cplusplus.com/reference/condition_variable/condition_variable/
 A condition variable is an object able to block the calling thread until notified to resume.
-
+See also:
+http://en.cppreference.com/w/cpp/thread
 
 ### Output
 #### Timing set so that people step off before new people arrive
