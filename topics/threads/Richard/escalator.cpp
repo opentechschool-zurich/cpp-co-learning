@@ -91,18 +91,24 @@ public:
   auto ride(Person p) -> void {
     p.describe();
 
-    { // block to ensure the lock is unlocked event when an exception occurs
+    { // RAII block to ensure the lock is unlocked event when an exception
+      // occurs
       std::unique_lock<std::mutex> lck(mtx);
       cv.wait(lck, [this, p] {
         return (nPersons < 3 && escalatorDirection == p.intendedDirection) ||
                nPersons == 0;
       });
       hopOn(p);
+      cv.notify_all(); // other threads might be waiting for the changed
+                       // direction
     }
-    cv.notify_all();
     usleep(800000);
-    stepOff(p);
-    cv.notify_all();
+
+    { // RAII block
+      std::unique_lock<std::mutex> lck(mtx);
+      stepOff(p);
+      cv.notify_all(); // others might now want to hopOn
+    }
   }
 
   auto printEscalatorState(string tabs) -> void {
