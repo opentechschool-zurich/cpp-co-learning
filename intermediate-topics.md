@@ -53,6 +53,7 @@
   - by understanding this python example <https://www.promptworks.com/blog/the-fastest-fizzbuzz-in-the-west?utm_source=python&utm_medium=reddit&utm_campaign=FizzBuzz>
   - here a rply implementation in c++: <https://gist.github.com/pranavkantgaur/f301fd064f7ba444d41a>
   - and what rply is: http://w3.impa.br/~diego/software/rply/
+  looks like a cool introduction to parsing!
 
 ## katrin
 
