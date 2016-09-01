@@ -54,6 +54,9 @@
   - here a rply implementation in c++: <https://gist.github.com/pranavkantgaur/f301fd064f7ba444d41a>
   - and what rply is: http://w3.impa.br/~diego/software/rply/
   looks like a cool introduction to parsing!
+- embed lua into c++:
+  - https://github.com/vinniefalco/LuaBridge
+  - https://github.com/progschj/luacpp11
 
 ## katrin
 
