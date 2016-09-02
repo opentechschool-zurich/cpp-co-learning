@@ -57,6 +57,7 @@
 - embed lua into c++:
   - https://github.com/vinniefalco/LuaBridge
   - https://github.com/progschj/luacpp11
+- using range based loops: auto, const & & <https://blog.petrzemek.net/2016/08/17/auto-type-deduction-in-range-based-for-loops/> 
 
 ## katrin
 
