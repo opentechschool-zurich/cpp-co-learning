@@ -49,7 +49,15 @@
 - library for 3D world generation based on open street map: <https://github.com/reinterpretcat/utymap>
 - a wrapper around curl: <https://github.com/whoshuu/cpr>
 - [Modern Memory Safety: C/C++ Vulnerability Discovery, Exploitation, Hardening](https://github.com/struct/mms)
-
+- implement a buzz fizz language
+  - by understanding this python example <https://www.promptworks.com/blog/the-fastest-fizzbuzz-in-the-west?utm_source=python&utm_medium=reddit&utm_campaign=FizzBuzz>
+  - here a rply implementation in c++: <https://gist.github.com/pranavkantgaur/f301fd064f7ba444d41a>
+  - and what rply is: http://w3.impa.br/~diego/software/rply/
+  looks like a cool introduction to parsing!
+- embed lua into c++:
+  - https://github.com/vinniefalco/LuaBridge
+  - https://github.com/progschj/luacpp11
+- using range based loops: auto, const & & <https://blog.petrzemek.net/2016/08/17/auto-type-deduction-in-range-based-for-loops/> 
 
 ## katrin
 
