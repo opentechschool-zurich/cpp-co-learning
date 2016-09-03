@@ -1,3 +1,5 @@
 # ignore build directory for Cmake
 build/
+# ignore documentation directories for doxygen
+doc/
 # that s the way to do it, no "build/*" or stuff like that
