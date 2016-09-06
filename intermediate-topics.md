@@ -58,7 +58,11 @@
   - https://github.com/vinniefalco/LuaBridge
   - https://github.com/progschj/luacpp11
 - using range based loops: auto, const & & <https://blog.petrzemek.net/2016/08/17/auto-type-deduction-in-range-based-for-loops/>
-- [c++ koans](https://github.com/torbjoernk/CppKoans): learning c++ by making tests pass. 
+- [c++ koans](https://github.com/torbjoernk/CppKoans): learning c++ by making tests pass.  
+  other koans:
+  - http://www.yeradis.com/2014/09/29/koans/
+  - https://github.com/bkleinen/CPPKoans
+  - https://github.com/sensorflo/cppkoans
 
 ## katrin
 
