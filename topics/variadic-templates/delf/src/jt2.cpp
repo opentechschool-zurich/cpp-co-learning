@@ -14,5 +14,5 @@ void print(const T& ... t)
 
 int main()
 {
-    print("Remember floppy disks?", 8, 5.25f, 3.5, "where popular sizes");
+    print("Remember floppy disks?", 8, 5.25f, 3.5, "were popular sizes.");
 }
