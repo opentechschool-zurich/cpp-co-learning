@@ -12,5 +12,5 @@ int main()
     print(8);
     print(5.25f);
     print(3.5);
-    print("where popular sizes.");
+    print("were popular sizes.");
 }
