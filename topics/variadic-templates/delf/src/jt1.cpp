@@ -31,7 +31,7 @@ std::vector<std::string> to_string(const P1 &p1, const Param& ... param)
 
 int main()
 {
-    const auto vec = to_string("Remember floppy disks?", 8, 5.25f, 3.5, "where popular sizes");
+    const auto vec = to_string("Remember floppy disks?", 8, 5.25f, 3.5, "were popular sizes.");
 
     for (const auto &o : vec)
     {
