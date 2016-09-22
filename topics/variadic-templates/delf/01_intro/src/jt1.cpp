@@ -16,7 +16,7 @@ std::vector<std::string> to_string()
     return {};
 }
 
-// Process one of the params, recusion on the remainding parameter
+// Process one of the params, recursion on the remainding parameter
 template <typename P1, typename ... Param>
 std::vector<std::string> to_string(const P1 &p1, const Param& ... param)
 {
