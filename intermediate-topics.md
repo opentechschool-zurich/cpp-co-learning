@@ -63,6 +63,7 @@
   - http://www.yeradis.com/2014/09/29/koans/
   - https://github.com/bkleinen/CPPKoans
   - https://github.com/sensorflo/cppkoans
+- Making your class "move enabled": https://www.oreilly.com/ideas/2-major-reasons-why-modern-c-is-a-performance-beast
 
 ## katrin
 
