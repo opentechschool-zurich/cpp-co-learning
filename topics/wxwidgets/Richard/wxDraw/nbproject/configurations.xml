@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="CMakeFiles"
+                   displayName="CMakeFiles"
+                   projectFiles="true"
+                   root="build/CMakeFiles">
+    </logicalFolder>
+    <logicalFolder name="Modules"
+                   displayName="Modules"
+                   projectFiles="true"
+                   root="/usr/share/cmake/Modules">
+    </logicalFolder>
     <logicalFolder name="wxDraw" displayName="wxDraw" projectFiles="true" root=".">
-      <itemPath>MyApp.cpp</itemPath>
-      <itemPath>UpdateTimer.h</itemPath>
+      <itemPath>.gitignore</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/BasicDrawPane.cpp</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/BasicDrawPane.h</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/CMakeLists.txt</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/Circle.cpp</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/Circle.h</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/Definitions.h</itemPath>
+      <itemPath>Doxyfile</itemPath>
+      <itemPath>FireworksApp.cpp</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/PositionCalculator.h</itemPath>
+      <itemPath>Readme.md</itemPath>
+      <itemPath>Renderable.h</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/StraightLinePositionCalculator.cpp</itemPath>
+      <itemPath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/StraightLinePositionCalculator.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>/richi/Src/wxDraw/CMakeLists.txt</itemPath>
     </logicalFolder>
-    <itemPath>/richi/Src/wxDraw/.gitignore</itemPath>
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw</Elem>
+  </sourceRootList>
   <projectmakefile>/richi/Src/wxDraw/build/Makefile</projectmakefile>
   <confs>
     <conf name="Default" type="0">
@@ -29,64 +52,66 @@
       </codeAssistance>
       <makefileType>
         <makeTool>
-          <buildCommandWorkingDir>/richi/Src/wxDraw/build</buildCommandWorkingDir>
+          <buildCommandWorkingDir>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/build</buildCommandWorkingDir>
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
-          <executablePath>/richi/Src/wxDraw/build/DrawApplication</executablePath>
-          <ccTool>
-            <incDir>
-              <pElem>/usr/lib64/wx-2.8-stl/wx/include/gtk2-unicode-release-2.8</pElem>
-              <pElem>/usr/include/wx-2.8</pElem>
-              <pElem>build</pElem>
-            </incDir>
-            <preprocessorList>
-              <Elem>_FILE_OFFSET_BITS=64</Elem>
-              <Elem>_LARGE_FILES</Elem>
-              <Elem>__WXGTK__</Elem>
-            </preprocessorList>
+          <executablePath>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/build/DrawApplication</executablePath>
+          <ccTool flags="0">
           </ccTool>
         </makeTool>
         <preBuild>
-          <preBuildCommandWorkingDir>/richi/Src/wxDraw/build</preBuildCommandWorkingDir>
+          <preBuildCommandWorkingDir>/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/build</preBuildCommandWorkingDir>
           <preBuildCommand>cmake ..</preBuildCommand>
         </preBuild>
       </makefileType>
-      <item path="/richi/Src/wxDraw/.gitignore" ex="false" tool="3" flavor2="0">
+      <item path=".gitignore" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="BasicDrawPane.cpp" ex="false" tool="1" flavor2="8">
+      <item path="/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/BasicDrawPane.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
         <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/Circle.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="/richi/Src/cpp-co-learning/topics/wxwidgets/Richard/wxDraw/StraightLinePositionCalculator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="Doxyfile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FireworksApp.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="Readme.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Renderable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="wxDraw">
+        <ccTool>
           <incDir>
-            <pElem>/usr/lib64/wx-2.8-stl/wx/include/gtk2-unicode-release-2.8</pElem>
-            <pElem>/usr/include/wx-2.8</pElem>
+            <pElem>/usr/lib64/wx/include/gtk2-unicode-3.0</pElem>
+            <pElem>/usr/include/wx-3.0</pElem>
             <pElem>build</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>WXUSINGDLL</Elem>
             <Elem>_FILE_OFFSET_BITS=64</Elem>
-            <Elem>_LARGE_FILES</Elem>
             <Elem>__WXGTK__</Elem>
+            <Elem>wxDEBUG_LEVEL=0</Elem>
           </preprocessorList>
         </ccTool>
-      </item>
-      <item path="Circle.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-          <incDir>
-            <pElem>/usr/lib64/wx-2.8-stl/wx/include/gtk2-unicode-release-2.8</pElem>
-            <pElem>/usr/include/wx-2.8</pElem>
-            <pElem>build</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>_FILE_OFFSET_BITS=64</Elem>
-            <Elem>_LARGE_FILES</Elem>
-            <Elem>__WXGTK__</Elem>
-          </preprocessorList>
-        </ccTool>
-      </item>
-      <item path="Definitions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MyApp.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
+      </folder>
     </conf>
   </confs>
 </configurationDescriptor>
