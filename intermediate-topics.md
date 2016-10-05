@@ -65,6 +65,9 @@
   - https://github.com/sensorflo/cppkoans
 - Making your class "move enabled": https://www.oreilly.com/ideas/2-major-reasons-why-modern-c-is-a-performance-beast
 - Implementing a renderer (OpenGL clone) in 500 LOC: https://github.com/ssloy/tinyrenderer/wiki
+- explore [drakon](http://drakon-editor.sourceforge.net/), a visual language for specifications that can generate code
+  - http://drakon-editor.sourceforge.net/cpp/cpp.html
+  - http://drakon-editor.sourceforge.net/cpp.pdf
 
 ## katrin
 
