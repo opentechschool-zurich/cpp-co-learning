@@ -68,6 +68,7 @@
 - explore [drakon](http://drakon-editor.sourceforge.net/), a visual language for specifications that can generate code
   - http://drakon-editor.sourceforge.net/cpp/cpp.html
   - http://drakon-editor.sourceforge.net/cpp.pdf
+- [Reclaiming Data Structures with Cycles](https://www.justsoftwaresolutions.co.uk/cplusplus/reclaiming-data-structures-with-cycles.html) ("garbage collection" in c++)
 
 ## katrin
 
