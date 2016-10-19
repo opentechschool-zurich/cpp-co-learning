@@ -14,3 +14,7 @@ ADD_EXECUTABLE (introduction
 ADD_EXECUTABLE (type-deduction
     02-automatic-type-deduction.cpp
 )
+
+ADD_EXECUTABLE (sum
+    02-sum.cpp
+)
