@@ -1,5 +1,3 @@
-/*
- * SubwayDecorator.hpp
  *
  *  Created on: Jul 26, 2016
  *      Author: arktis
