@@ -65,8 +65,9 @@ public:
     s << tabs() << "Person " << number << " wants to ride the escalator "
       << getDirectonString(intendedDirection) << endl;
     cout << s.str();
-  }
+  }ß
 };
+
 
 // static initialiser (Can't be initialized in the class)
 int Person::totalPersons = 0;
