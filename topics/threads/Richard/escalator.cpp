@@ -13,10 +13,9 @@ using namespace std;
 namespace {
 
 std::mt19937_64 eng{std::random_device{}()}; // or seed however you want
-std::uniform_int_distribution<> distribution{5, 80};
-std::uniform_int_distribution<> boolDist{0, 1};
 
 void sleepRandomTime() {
+  static std::uniform_int_distribution<> distribution{5, 80};
   std::this_thread::sleep_for(std::chrono::milliseconds{distribution(eng)});
 }
 
@@ -66,6 +65,8 @@ public:
       << getDirectonString(intendedDirection) << endl;
     cout << s.str();
   }ß
+private:
+
 };
 
 
@@ -76,13 +77,13 @@ int Person::totalPersons = 0;
  * Makes a Person with a random Direction
  */
 auto makeRandomPerson() -> Person {
+  static std::uniform_int_distribution<> boolDist{0, 1};
   Person p = boolDist(eng) ? Person(Direction::up) : Person(Direction::down);
   return p;
 };
 
 class Escalator {
 public:
-  Direction escalatorDirection = Direction::idle;
   std::mutex mtx;
   std::condition_variable cv;
 
@@ -122,6 +123,7 @@ public:
 
 private:
   int nPersons{0};
+  Direction escalatorDirection = Direction::idle;
 
   auto hopOn(Person p) -> void {
     stringstream s;

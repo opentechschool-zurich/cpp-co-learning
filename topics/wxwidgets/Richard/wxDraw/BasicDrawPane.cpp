@@ -1,51 +1,40 @@
-#include <wx-3.0/wx/gdicmn.h>
-
-#include "BasicDrawPane.h"
 #include "Definitions.h"
+#include "BasicDrawPane.h"
 #include "Circle.h"
 
-BasicDrawPane::BasicDrawPane(wxFrame* parent) :
-wxPanel(parent), m_timer(this, TIMER_ID), m_create_timer(this, CREATE_TIMER_ID)
-{
-     m_timer.Start(20);    // interval in ms
-     m_create_timer.Start(1000);    // interval in ms
+BasicDrawPane::BasicDrawPane(wxFrame *parent) :
+wxPanel(parent), updateTimer(this, TIMER_ID), createTimer(this, CREATE_TIMER_ID) {
+    updateTimer.Start(20); // interval in ms
+    createTimer.Start(1000); // interval in ms
 }
-
 
 void BasicDrawPane::mouseClicked(wxMouseEvent& event) {
     wxPoint mousePoint = event.GetLogicalPosition(wxClientDC(this));
     vectorMtx.lock();
-    vectorOfCirclePointers.push_back(new Circle{mousePoint.x, mousePoint.y , 25, (rand() % 250) + 100, static_cast< float >(rand() % 360), 2.0});
+    Circle *c_pt = new Circle{mousePoint.x, mousePoint.y, 25, (rand() % 250) + 100, static_cast<float> (rand() % 360), 2.0};
+    vectorOfRenderablePointers.push_back(c_pt);
     vectorMtx.unlock();
     Refresh();
 }
 
-/**
- * Creates a number of new Circles that move radially away from the supplied x and y coordinates
- * @param newFragments The vector to add the new fragments to
- * @param fragments The number of fragments to create
- * @param x the coordinates of the new fragments to burst away from
- * @param y the coordinates of the new fragments to burst away from
- */
-void explode( std::vector<Circle*> & newFragments, int fragments, int x, int y, int speed = 200, float timeToLive = 1.0 ) {
-    for ( int i = 0; i < fragments; ++i) {
-        float angle = i * 360 / fragments;
-        Circle* fragment = new Circle {x, y, 5, speed, static_cast<float>(angle), timeToLive };
-        fragment->setColor(wxColor(255,0,0));
-        fragment->setCircleType(Dies);
-        newFragments.push_back(fragment);
+
+void BasicDrawPane::OnCreateTimer(wxTimerEvent& event) {
+    vectorMtx.lock();
+    wxSize panelSize = GetClientSize();
+    int horizontalItems = 3;
+    int verticalItems = 3;
+    int hw = panelSize.GetWidth() / (horizontalItems + 1);
+    int vh = panelSize.GetHeight() / (verticalItems + 1);
+    for (int i = 1; i <= horizontalItems; ++i) {
+        for (int j = 1; j <= verticalItems; ++j) {
+            vectorOfRenderablePointers.push_back(new Circle{i * hw, j * vh, 15, 150, 30.0, 0.4});
+        }
     }
+    vectorMtx.unlock();
+    Refresh();
 }
 
-
-/**
- * This method is called by the wxTimer. We use this event to update the position
- * of all our objects.
- * 
- * @param event The timer event
- */
-void BasicDrawPane::OnTimer(wxTimerEvent& event)
-{
+void BasicDrawPane::OnUpdateTimer(wxTimerEvent& event) {
     // figure out how much time passed since the last time we were called
     // Should correspond to the event timer.
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
@@ -53,56 +42,39 @@ void BasicDrawPane::OnTimer(wxTimerEvent& event)
     double deltaTimeS = deltaTimeMs / 1000.0;
     lastUpdateTimePoint = now;
 
-    // create a new vector to add the fragments if any so as to avoid a concurrent modification
-    std::vector<Circle*> newFragments;
+    // allow the Renderables to perform an endAction if required
     vectorMtx.lock();
-    for (auto cptr : vectorOfCirclePointers ) {
-        //cptr->move(deltaTimeS);
-        if ( cptr->isExpired() && cptr->explodesAtEnd() ) {
-            wxPoint position = cptr->position.getPosition( cptr->getAge() );
-            explode(newFragments, 25, position.x, position.y);
-        }
+    std::vector<Renderable*> newRenderables;
+    for (auto r : vectorOfRenderablePointers) {
+        r->endAction(newRenderables);
     }
     // merge the vectors
-    vectorOfCirclePointers.insert(vectorOfCirclePointers.end(), newFragments.begin(), newFragments.end());
-    
-    wxSize panelSize=GetClientSize();
-    // remove circles that have expired and delete them from the heap using a lambda
-    vectorOfCirclePointers.erase(
-        std::remove_if(
-            vectorOfCirclePointers.begin(),
-            vectorOfCirclePointers.end(),
-            [panelSize](Circle *c) -> bool {
-                wxPoint position = c->position.getPosition( c->getAge() );
-                if ( position.x < 0 || position.x > panelSize.GetWidth() || position.y < 0 || position.y > panelSize.GetHeight() || c->isExpired() ) {
-                    delete c;
+    vectorOfRenderablePointers.insert(vectorOfRenderablePointers.end(), newRenderables.begin(), newRenderables.end());
+
+
+    // remove Renderables that have expired or moved off the screen
+    wxSize panelSize = GetClientSize();
+    vectorOfRenderablePointers.erase(
+            std::remove_if(
+            vectorOfRenderablePointers.begin(),
+            vectorOfRenderablePointers.end(),
+            [panelSize](Renderable * r) -> bool {
+                wxPoint position = r->getPosition();
+                if (position.x < 0 || position.x > panelSize.GetWidth() || position.y < 0 || position.y > panelSize.GetHeight() || r->isExpired()) {
+                    delete r;
                     return true;
                 } else {
                     return false;
                 }
             }
-        ),
-        vectorOfCirclePointers.end()
-    );
+    ),
+    vectorOfRenderablePointers.end()
+            );
     vectorMtx.unlock();
     Refresh();
 }
 
-void BasicDrawPane::OnCreateTimer(wxTimerEvent& event) {
-    vectorMtx.lock();
-    wxSize panelSize=GetClientSize();
-    int horizontalItems = 3;
-    int verticalItems = 3;
-    int hw = panelSize.GetWidth() / (horizontalItems + 1);
-    int vh = panelSize.GetHeight() / (verticalItems + 1);
-    for (int i = 1; i <= horizontalItems; ++i ) {
-        for (int j = 1; j <= verticalItems; ++j ) {
-            vectorOfCirclePointers.push_back(new Circle{ i * hw, j * vh , 15, 150, 30.0, 0.4});
-        }
-    }
-    vectorMtx.unlock();
-    Refresh();
-}
+
 
 // some useful events
 /*
@@ -115,8 +87,6 @@ void BasicDrawPane::OnCreateTimer(wxTimerEvent& event) {
  void BasicDrawPane::keyPressed(wxKeyEvent& event) {}
  void BasicDrawPane::keyReleased(wxKeyEvent& event) {}
  */
-
-
 
 /**
  * Called by the system of by wxWidgets when the panel needs
@@ -150,18 +120,12 @@ void BasicDrawPane::paintNow() {
  * method so that it can work no matter what type of DC
  * (e.g. wxPaintDC or wxClientDC) is used.
  */
-void BasicDrawPane::render(wxDC&  dc)
-{
+void BasicDrawPane::render(wxDC& dc) {
     dc.Clear();
-    // draw some text
-    //dc.DrawText(wxT("Testing"), 40, 60);
 
     vectorMtx.lock();
-    for ( Circle* c : vectorOfCirclePointers ) {
-        dc.SetBrush(c->getColor()); // filling
-        dc.SetPen(  wxPen( c->getColor(), 1 ) );  // color & pend width
-        c->render( dc );
-        //dc.DrawCircle( wxPoint(c->x,c->y), c->radius );
+    for (Renderable *r : vectorOfRenderablePointers) {
+        r->render(dc);
     }
     vectorMtx.unlock();
 

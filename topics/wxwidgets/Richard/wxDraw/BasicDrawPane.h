@@ -2,12 +2,11 @@
 
 #include "wx/wx.h"
 #include <vector>
-#include "Circle.h"
+#include "Renderable.h"
 #include <chrono>
 #include <mutex>
 
 class BasicDrawPane : public wxPanel {
-
 public:
     BasicDrawPane(wxFrame* parent);
 
@@ -16,10 +15,23 @@ public:
 
     void render(wxDC& dc);
     void mouseClicked(wxMouseEvent& event);
-    void OnTimer(wxTimerEvent& event);
+    
+    /**
+     * The update timer fires reasonably often and asks the Renderables to 
+     * update their position.
+     * @param event The timer event
+     */
+    void OnUpdateTimer(wxTimerEvent& event);
+    
+    /**
+     * The create timer fires every few seconds and starts new Fireworks
+     * @param event
+     */
     void OnCreateTimer(wxTimerEvent& event);
 
-
+    std::vector<Renderable*> vectorOfRenderablePointers;
+    std::mutex vectorMtx; // mutex to prevent concurrent modifications on vector
+    
     // some useful events
     /*
      void mouseMoved(wxMouseEvent& event);
@@ -35,10 +47,8 @@ public:
     DECLARE_EVENT_TABLE()
 
 private:
-        std::vector<Circle*> vectorOfCirclePointers;
-        std::mutex vectorMtx; // mutex to prevent concurrent modifications on vector
-        wxTimer m_timer;
-        wxTimer m_create_timer;
-        std::chrono::steady_clock::time_point lastUpdateTimePoint = std::chrono::steady_clock::now();
+    wxTimer updateTimer;
+    wxTimer createTimer;
+    std::chrono::steady_clock::time_point lastUpdateTimePoint = std::chrono::steady_clock::now();
 };
 
