@@ -1,0 +1,27 @@
+#+TITLE: Logistic Regression and the Titanic Data
+
+
+
+* Logistic Regression
+  - method to explain a binary outcome with other variables
+  - example: probability of survival given age of passenger
+#+BEGIN_LaTeX
+$P(Y=1 | x) = F(x) = \frac{1}{1+\exp\{-(\beta_0 + \beta_1 x)\}} $
+#+END_LaTeX    
+  - [[https://en.wikipedia.org/wiki/Logistic_regression][Wikipedia-entry]]
+  - [[http://www.mlpack.org/docs/mlpack-2.0.3/doxygen.php?doc=classmlpack_1_1regression_1_1LogisticRegression.html][mlpack-api-documentation]]
+
+
+
+* Application to Titanic Survival Data
+  - data is on github =topics/machine-learning/logreg/=
+  - data is taken from the [[https://www.kaggle.com/c/titanic][Kaggle-site]] 
+  - each row corresponds to a passenger 
+
+
+
+
+
+
+
+
