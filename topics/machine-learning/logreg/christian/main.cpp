@@ -33,7 +33,7 @@ int main()
 
   regression::LogisticRegression<arma::mat> reg_results {2};
   
-  reg_results.Train(X, Y);
+  // reg_results.Train(X, Y);
   
 
  
