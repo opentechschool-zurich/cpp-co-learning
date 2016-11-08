@@ -11,4 +11,4 @@ ADD_EXECUTABLE (titanic
     main.cpp
 )
 
-TARGET_LINK_LIBRARIES(titanic mlpack)
+TARGET_LINK_LIBRARIES(titanic mlpack armadillo)
