@@ -7,7 +7,9 @@
   - example: probability of survival given age of passenger
     P(Y=1 | x) = F(x) = 1 / ( 1 + exp{-(b_0 + b_1 x)} ) 
   - [[https://en.wikipedia.org/wiki/Logistic_regression][Wikipedia-entry]]
-  - [[http://www.mlpack.org/docs/mlpack-2.0.3/doxygen.php?doc=classmlpack_1_1regression_1_1LogisticRegression.html][mlpack-api-documentation]]
+  - [[http://www.mlpack.org/docs/mlpack-2.0.3/doxygen.php?doc=classmlpack_1_1regression_1_1LogisticRegression.html][Mlpack-api-documentation]]
+  - [[http://arma.sourceforge.net/docs.html][Armadillo-documentation]] : MLpack uses the Armadillo C++ linear
+    algebra library
 
 
 
