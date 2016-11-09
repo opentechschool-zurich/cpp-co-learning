@@ -4,5 +4,35 @@ set(CMAKE_BUILD_TYPE Debug)
 set (CMAKE_CXX_STANDARD 11)
 ADD_DEFINITIONS("-Wall")
 
-ADD_EXECUTABLE (linear_regression main.cpp)
-TARGET_LINK_LIBRARIES(linear_regression mlpack armadillo boost_serialization)
+FIND_PACKAGE( wxWidgets COMPONENTS core base html adv net aui xrc qa richtext REQUIRED )
+
+FIND_PACKAGE( wxfreechart REQUIRED )
+include_directories(${wxfreechart_INCLUDE_DIRS})
+
+
+FIND_PACKAGE( Armadillo REQUIRED )
+FIND_PACKAGE( Boost REQUIRED COMPONENTS serialization)
+
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+FIND_PACKAGE( Mlpack REQUIRED )
+
+set(SRCS
+    main.cpp
+    #MyApp.cpp
+    #MyFrame.cpp
+    #MyFrame_generated.cpp
+    #PricePublisher.cpp
+    #TextCtrlPriceObserver.cpp
+    #HighPriceObserver.cpp
+    #LowPriceObserver.cpp
+    #AvgPriceObserver.cpp
+    #XYChart.cpp
+)
+
+ADD_EXECUTABLE (linear_regression ${SRCS})
+TARGET_LINK_LIBRARIES(linear_regression
+    ${Mlpack_LIBRARIES}
+    ${ARMADILLO_LIBRARIES}
+    ${Boost_LIBRARIES}
+    ${wxWidgets_LIBRARIES}
+    ${wxfreechart_LIBRARIES} )
