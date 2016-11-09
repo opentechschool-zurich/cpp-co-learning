@@ -9,6 +9,8 @@ FIND_PACKAGE( wxWidgets COMPONENTS core base html adv net aui xrc qa richtext RE
 FIND_PACKAGE( wxfreechart REQUIRED )
 include_directories(${wxfreechart_INCLUDE_DIRS})
 
+# wxWidgets include (this will do all the magic to configure everything)
+include( "${wxWidgets_USE_FILE}" )
 
 FIND_PACKAGE( Armadillo REQUIRED )
 FIND_PACKAGE( Boost REQUIRED COMPONENTS serialization)
@@ -17,16 +19,12 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 FIND_PACKAGE( Mlpack REQUIRED )
 
 set(SRCS
-    main.cpp
-    #MyApp.cpp
-    #MyFrame.cpp
-    #MyFrame_generated.cpp
-    #PricePublisher.cpp
-    #TextCtrlPriceObserver.cpp
-    #HighPriceObserver.cpp
-    #LowPriceObserver.cpp
-    #AvgPriceObserver.cpp
-    #XYChart.cpp
+    #main.cpp
+    MyApp.cpp
+    MyFrame.cpp
+    MyFrame_generated.cpp
+    PricePublisher.cpp
+    XYChart.cpp
 )
 
 ADD_EXECUTABLE (linear_regression ${SRCS})

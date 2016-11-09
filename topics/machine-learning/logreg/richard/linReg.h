@@ -1,9 +1,10 @@
+#pragma once
 #include <mlpack/methods/linear_regression/linear_regression.hpp>
 
 using std::cout;
 using namespace mlpack::regression;
 
-int main() {
+void doLinearRegression() {
   arma::mat dataset;
   mlpack::data::Load("../dataset.csv", dataset);
   cout << "The dataset values:\n";
