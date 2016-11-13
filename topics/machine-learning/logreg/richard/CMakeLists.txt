@@ -21,7 +21,7 @@ FIND_PACKAGE( Mlpack REQUIRED )
 set(SRCS
     MyApp.cpp
     MyFrame.cpp
-    MyFrame_generated.cpp
+    src-formbuilder/MyFrame_generated.cpp
     XYChart.cpp
 )
 

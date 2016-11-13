@@ -1,7 +1,6 @@
 #include "wx/wx.h"
 #include "wx/sizer.h"
 #include "wx/app.h"
-#include "Definitions.h"
 #include "MyFrame.h"
 
 /**
@@ -16,7 +15,7 @@ class MyApp: public wxApp {
 IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit() {
-    myFrame = new MyFrame((wxFrame *)NULL, -1,  wxT("myFrame"));
+    myFrame = new MyFrame((wxFrame *)NULL, -1,  wxT("Linear Regression Plot"));
     myFrame->SetAutoLayout(true);
     myFrame->Show();
 
