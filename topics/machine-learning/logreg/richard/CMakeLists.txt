@@ -19,11 +19,9 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 FIND_PACKAGE( Mlpack REQUIRED )
 
 set(SRCS
-    #main.cpp
     MyApp.cpp
     MyFrame.cpp
     MyFrame_generated.cpp
-    PricePublisher.cpp
     XYChart.cpp
 )
 
