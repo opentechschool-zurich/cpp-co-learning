@@ -32,3 +32,8 @@ TARGET_LINK_LIBRARIES(linear_regression
     ${Boost_LIBRARIES}
     ${wxWidgets_LIBRARIES}
     ${wxfreechart_LIBRARIES} )
+
+ADD_EXECUTABLE (linear_regression_cli linear_regression_cli.cpp)
+TARGET_LINK_LIBRARIES(linear_regression_cli
+    ${Mlpack_LIBRARIES}
+    ${ARMADILLO_LIBRARIES} )

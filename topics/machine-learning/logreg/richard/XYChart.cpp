@@ -1,11 +1,8 @@
 #include "XYChart.h"
-#include <iostream>
+#include <wx/xy/xydynamicdataset.h>
 #include <mlpack/methods/linear_regression/linear_regression.hpp>
 #include <armadillo>
-#include <wx/xy/xydynamicdataset.h>
 
-using std::cout;
-using std::endl;
 using namespace mlpack::regression;
 
 
@@ -33,8 +30,6 @@ Chart * XYChart::Create() {
     for ( unsigned int i = 0; i < matrix.n_cols; ++i) {
         serie->AddXY(matrix.at(0,i), matrix.at(1,i));
     }
-
-    // figure out the low and high value for x for the second series
     arma::mat x_row = matrix.row(0);
     double x_min = x_row.min();
     double x_max = x_row.max();
