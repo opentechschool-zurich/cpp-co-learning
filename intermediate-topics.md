@@ -10,6 +10,7 @@
 
 - http://www.modernescpp.com/index.php has a few articles on multithreading (http://www.modernescpp.com/index.php/tag/threads)
 - go through (and try out) the changes in C++ 14: https://en.wikipedia.org/wiki/C%2B%2B14
+- [modern c++ features: C++11/14/17](https://github.com/AnthonyCalandra/modern-cpp-features)
 - lift (aufzug) programmieren
 - going through [THE WAYS TO AVOID COMPLEXITY IN MODERN C++](http://vitiy.info/Slides/MeetingCPP2015/MeetingCPP2015Complexity.pdf)
 - scribus als projekt:
