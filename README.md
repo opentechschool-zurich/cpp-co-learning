@@ -27,4 +27,4 @@ Meetup page: <http://www.meetup.com/opentechschool-zurich/events/226235793/>
 
 [Richard: Writeup on Early vs. Late Binding in C++ and Java](https://github.com/opentechschool-zurich/cpp-co-learning/blob/master/topics/design-patterns/decorator/richard/ReadMe.md)
 
-[Richardi: Linear Regression with wxWidgets and wxFreeChart](https://github.com/opentechschool-zurich/cpp-co-learning/tree/master/topics/machine-learning/logreg/richard)
+[Richard: Linear Regression with wxWidgets and wxFreeChart](https://github.com/opentechschool-zurich/cpp-co-learning/tree/master/topics/machine-learning/logreg/richard)
