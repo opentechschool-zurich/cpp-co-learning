@@ -5,19 +5,8 @@
 
 using namespace mlpack::regression;
 
-
 typedef std::vector<double> stdvec;
 typedef std::vector< std::vector<double> > stdvecvec;
-
-stdvecvec mat_to_std_vec(const arma::mat &A) {
-    stdvecvec V(A.n_cols);
-    for (size_t i = 0; i < A.n_cols; ++i) {
-        V[i] = arma::conv_to< stdvec >::from(A.col(i));
-    };
-    return V;
-}
-
-
 
 Chart * XYChart::Create() {
     XYPlot *plot = new XYPlot();
