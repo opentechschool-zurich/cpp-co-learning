@@ -16,7 +16,6 @@
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -34,22 +33,6 @@ class MyFrame_generated : public wxFrame
 		MyFrame_generated( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 690,434 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~MyFrame_generated();
-	
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class MyPanel1
-///////////////////////////////////////////////////////////////////////////////
-class MyPanel1 : public wxPanel 
-{
-	private:
-	
-	protected:
-	
-	public:
-		
-		MyPanel1( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL ); 
-		~MyPanel1();
 	
 };
 
