@@ -125,6 +125,7 @@ FooBar
 FooBar
 FooBar
 ```
+Try it yourself: <http://cpp.sh/454h4>
 
 The result is spectacularly different! Why? When we push the `Foo` or `Bar` object into a `FooBar` variable we
 essentially downcast our object to just the base functionality of the `FooBar` object. And when we call `FooBar`'s
@@ -190,6 +191,7 @@ Bar
 Foo
 Bar
 ```
+Check it: <http://cpp.sh/5ioi>
 
 Note the subtle changes: `fb` is now a `FooBar` type pointer. We push a pointer to a `Foo` or `Bar`
 object into it. And when we call the `doSomething()` method the system understands what kind of object the
@@ -198,3 +200,79 @@ pointer is pointing at and calls the overriding method in the sub-class.
 
 See also:
 <http://stackoverflow.com/questions/36691108/what-is-the-difference-between-early-binding-and-late-binding-in-c>
+
+
+There is another twist to this C++ behaviour. Consider this code:
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    virtual void foo() {
+        cout << "foo from A" << endl;
+    }
+    void bar() {
+        cout << "bar from A" << endl;
+        foo();
+    }
+};
+
+class B : public A {
+public:
+    void foo() {
+        cout << "foo from B" << endl;
+    }
+};
+
+int main()
+{
+  B b;
+  b.bar();
+}
+```
+Try it out: <http://cpp.sh/4nqzl>
+
+The `bar` method which exists only on class A calls the `foo` method. But since `foo` on class A is a virtual method the function call is forwarded to the `foo` method in class B.
+
+```
+bar from A
+foo from B
+```
+
+If class A's `foo` were not virtual then `bar` would call `foo` from class A:
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    void foo() {
+        cout << "foo from A" << endl;
+    }
+    void bar() {
+        cout << "bar from A" << endl;
+        foo();
+    }
+};
+
+class B : public A {
+public:
+    void foo() {
+        cout << "foo from B" << endl;
+    }
+};
+
+int main()
+{
+  B b;
+  b.bar();
+}
+```
+
+```
+bar from A
+foo from A
+```
+
+Try it out: <http://cpp.sh/74osp>
