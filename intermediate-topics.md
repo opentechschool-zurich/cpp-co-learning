@@ -72,6 +72,7 @@
   - http://drakon-editor.sourceforge.net/cpp/cpp.html
   - http://drakon-editor.sourceforge.net/cpp.pdf
 - [Reclaiming Data Structures with Cycles](https://www.justsoftwaresolutions.co.uk/cplusplus/reclaiming-data-structures-with-cycles.html) ("garbage collection" in c++)
+- uml and c++: <https://cppcodetips.wordpress.com/2013/12/23/uml-class-diagram-explained-with-c-samples/
 
 ## katrin
 
