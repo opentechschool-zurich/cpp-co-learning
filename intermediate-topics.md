@@ -76,6 +76,11 @@
 - pub quiz:
   - http://www.pvv.org/~oma/PubQuiz_CPP_Oct2011.pdf
   - http://cppquiz.org/
+- [Demystifying constexpr](http://blog.quasardb.net/demystifying-constexpr/)
+- [Lambda Magic](https://adishavit.github.io/2016/magical-captureless-lambdas/)
+- [Leaky 🕳 Lambdas](https://adishavit.github.io/2016/leaky-closures-captureless-lambdas/)
+- [Default Constructed Return Value: return {}](https://adishavit.github.io/2015/default-constructed-return-value-return/)
+- [c++ 17 and Polymorphism](https://adishavit.github.io/2016/polymorphism-polymorphism/)
 
 ## katrin
 
