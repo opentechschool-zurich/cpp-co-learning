@@ -10,8 +10,11 @@
 
 - http://www.modernescpp.com/index.php has a few articles on multithreading (http://www.modernescpp.com/index.php/tag/threads)
 - go through (and try out) the changes in C++ 14: https://en.wikipedia.org/wiki/C%2B%2B14
+- [modern c++ features: C++11/14/17](https://github.com/AnthonyCalandra/modern-cpp-features)
+- check [clang-tidy](http://clang.llvm.org/extra/clang-tidy/) for code analysis
 - lift (aufzug) programmieren
 - going through [THE WAYS TO AVOID COMPLEXITY IN MODERN C++](http://vitiy.info/Slides/MeetingCPP2015/MeetingCPP2015Complexity.pdf)
+- go throug (parts of) the [C++ Core Guidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md)
 - scribus als projekt:
   - markdown export / import mit formelle grammatik (generierte c library)
     - https://github.com/aoloe/scribus-plugin-gettext-markdown-2
@@ -69,6 +72,15 @@
   - http://drakon-editor.sourceforge.net/cpp/cpp.html
   - http://drakon-editor.sourceforge.net/cpp.pdf
 - [Reclaiming Data Structures with Cycles](https://www.justsoftwaresolutions.co.uk/cplusplus/reclaiming-data-structures-with-cycles.html) ("garbage collection" in c++)
+- uml and c++: <https://cppcodetips.wordpress.com/2013/12/23/uml-class-diagram-explained-with-c-samples/
+- pub quiz:
+  - http://www.pvv.org/~oma/PubQuiz_CPP_Oct2011.pdf
+  - http://cppquiz.org/
+- [Demystifying constexpr](http://blog.quasardb.net/demystifying-constexpr/)
+- [Lambda Magic](https://adishavit.github.io/2016/magical-captureless-lambdas/)
+- [Leaky 🕳 Lambdas](https://adishavit.github.io/2016/leaky-closures-captureless-lambdas/)
+- [Default Constructed Return Value: return {}](https://adishavit.github.io/2015/default-constructed-return-value-return/)
+- [c++ 17 and Polymorphism](https://adishavit.github.io/2016/polymorphism-polymorphism/)
 
 ## katrin
 
