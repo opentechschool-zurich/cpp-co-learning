@@ -1,9 +1,16 @@
-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
-project(sfml_test)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
+PROJECT(sfml_test)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-find_package(SFML REQUIRED COMPONENTS graphics window audio system)
-find_package(GLEW REQUIRED)
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
+
+IF (UNIX)
+    SET(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" "${CMAKE_MODULE_PATH}")
+ENDIF (UNIX)
+
+SET(CMAKE_CXX_STANDARD 14)
+
+FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window audio system)
+FIND_PACKAGE(GLEW REQUIRED)
 # find_package(Threads REQUIRED)
 
 # find_package(X11 REQUIRED)	# XXX Needed for XInitThreads()
