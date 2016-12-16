@@ -11,16 +11,9 @@ namespace MonkeyKeg {
         sf::CircleShape shape;
         sf::Clock deltaClock;
 
-        b2Vec2 Gravity;
-        b2World World;
-
-		sf::Texture GroundTexture;
-		sf::Texture BoxTexture;
     public:
         Game():
             window(sf::VideoMode(200, 200), "SFML works!"),
-            Gravity(0.f, 9.8f),
-            World(Gravity),
             shape(20.f)
         {
         }
@@ -30,10 +23,6 @@ namespace MonkeyKeg {
             window.setFramerateLimit(60),
             shape.setFillColor(sf::Color::Green);
             shape.setPosition(10, 10);
-
-			GroundTexture.loadFromFile("assets/ground.png");
-			BoxTexture.loadFromFile("assets/box.png");
-
         }
 
         void update(const float dt)
