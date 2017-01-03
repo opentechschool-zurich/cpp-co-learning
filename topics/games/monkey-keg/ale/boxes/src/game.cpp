@@ -72,7 +72,7 @@ namespace MonkeyKeg {
             {
                 if (event.type == sf::Event::Closed)
                     window.close();
-				else if (event.type == sf::Event::MouseButtonReleased)
+                else if (event.type == sf::Event::MouseButtonReleased)
                     createBox(event.mouseButton.x, event.mouseButton.y);
             }
 
@@ -84,34 +84,34 @@ namespace MonkeyKeg {
         }
     }
 
-	void Game::createBox(int x, int y)
-	{
-		b2BodyDef BodyDef;
-		BodyDef.position = b2Vec2(x/scale, y/scale);
-		BodyDef.type = b2_dynamicBody;
-		b2Body* Body = world.CreateBody(&BodyDef);
-	 
-		b2PolygonShape Shape;
-		Shape.SetAsBox((32.f/2)/scale, (32.f/2)/scale);
-		b2FixtureDef FixtureDef;
-		FixtureDef.density = 1.f;
-		FixtureDef.friction = 0.7f;
-		FixtureDef.shape = &Shape;
-		Body->CreateFixture(&FixtureDef);
-	}
+    void Game::createBox(int x, int y)
+    {
+        b2BodyDef BodyDef;
+        BodyDef.position = b2Vec2(x/scale, y/scale);
+        BodyDef.type = b2_dynamicBody;
+        b2Body* Body = world.CreateBody(&BodyDef);
+
+        b2PolygonShape Shape;
+        Shape.SetAsBox((32.f/2)/scale, (32.f/2)/scale);
+        b2FixtureDef FixtureDef;
+        FixtureDef.density = 1.f;
+        FixtureDef.friction = 0.7f;
+        FixtureDef.shape = &Shape;
+        Body->CreateFixture(&FixtureDef);
+    }
 
     void Game::createGround(float x, float y)
     {
-		b2BodyDef BodyDef;
-		BodyDef.position = b2Vec2(x/scale, y/scale);
-		BodyDef.type = b2_staticBody;
-		b2Body* Body = world.CreateBody(&BodyDef);
-	 
-		b2PolygonShape Shape;
-		Shape.SetAsBox((800.f/2)/scale, (16.f/2)/scale);
-		b2FixtureDef FixtureDef;
-		FixtureDef.density = 0.f;
-		FixtureDef.shape = &Shape;
-		Body->CreateFixture(&FixtureDef);
+        b2BodyDef BodyDef;
+        BodyDef.position = b2Vec2(x/scale, y/scale);
+        BodyDef.type = b2_staticBody;
+        b2Body* Body = world.CreateBody(&BodyDef);
+
+        b2PolygonShape Shape;
+        Shape.SetAsBox((800.f/2)/scale, (16.f/2)/scale);
+        b2FixtureDef FixtureDef;
+        FixtureDef.density = 0.f;
+        FixtureDef.shape = &Shape;
+        Body->CreateFixture(&FixtureDef);
     }
 }

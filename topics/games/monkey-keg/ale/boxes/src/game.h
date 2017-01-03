@@ -21,14 +21,14 @@ namespace MonkeyKeg {
         // sf::CircleShape shape;
         sf::Clock deltaClock;
 
-		/** for converting between pixel and real-world coordinates*/
-		static constexpr float scale = 30.f;
+        /** for converting between pixel and real-world coordinates*/
+        static constexpr float scale = 30.f;
 
         b2Vec2 gravity;
         b2World world;
 
-		sf::Texture groundTexture;
-		sf::Texture boxTexture;
+        sf::Texture groundTexture;
+        sf::Texture boxTexture;
 
         void createBox(int x, int y);
         void createGround(float X, float Y);
