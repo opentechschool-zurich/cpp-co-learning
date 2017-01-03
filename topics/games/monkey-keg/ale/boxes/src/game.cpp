@@ -40,6 +40,7 @@ namespace MonkeyKeg {
         for (b2Body* BodyIterator = world.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
         // for (auto BodyIterator : world.GetBodyList())
         {
+            // TODO: we should probably use BodyDef.UserData to keep them apart (ale)
             if (BodyIterator->GetType() == b2_dynamicBody)
             {
                 sf::Sprite Sprite;
@@ -76,7 +77,7 @@ namespace MonkeyKeg {
                     createBox(event.mouseButton.x, event.mouseButton.y);
             }
 
-            // TODO: should this go to update()? and should it relate to dt?
+            // TODO: should this go to update()? and should it relate to dt? (ale)
             world.Step(1/60.f, 8, 3);
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
