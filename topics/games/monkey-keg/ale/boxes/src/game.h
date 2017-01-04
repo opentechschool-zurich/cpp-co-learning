@@ -21,7 +21,8 @@ namespace MonkeyKeg {
         // sf::CircleShape shape;
         sf::Clock deltaClock;
 
-        /** for converting between pixel and real-world coordinates*/
+        // for converting between pixel and real-world coordinates
+        // box2d real coordinates are in meters.
         static constexpr float scale = 30.f;
 
         b2Vec2 gravity;
