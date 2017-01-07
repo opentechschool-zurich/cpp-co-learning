@@ -1,0 +1,29 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
+PROJECT(SfmlHelloWorld)
+
+SET(CMAKE_CXX_STANDARD 14)
+
+IF (UNIX)
+    SET(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" "${CMAKE_MODULE_PATH}")
+ENDIF (UNIX)
+
+FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window audio system)
+
+SET(ASSETS_DIR ${PROJECT_SOURCE_DIR})
+SET(ASSETS
+    ${ASSETS_DIR}/Davos.jpg
+    ${ASSETS_DIR}/ChangaOne-Regular.ttf
+    ${ASSETS_DIR}/sound.ogg
+)
+FILE(COPY ${ASSETS} DESTINATION .)
+
+
+SET(SfmlHelloWorldSources
+    main.cpp
+)
+
+ADD_EXECUTABLE(SfmlHelloWorld ${SfmlHelloWorldSources})
+
+TARGET_LINK_LIBRARIES(SfmlHelloWorld LINK_PUBLIC
+		${SFML_LIBRARIES}
+)
