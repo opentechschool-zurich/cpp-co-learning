@@ -7,10 +7,12 @@ From: http://www.sfml-dev.org/documentation/2.4.1/
 
 ## Description:
 This short program creates a Window, loads a jpg image and displays it.
+
 It loads a font and uses it to render a text.
+
 It loads a ogg sound file and plays the sound in a loop.
 
-## Build and return
+## Build and run
 ```bash
 mkdir build
 cd build
