@@ -40,6 +40,7 @@ namespace Box2DBodies {
         void createBox(int x, int y);
         void createGround(b2World & world, const float X, const float Y);
 
+        sf::Text bannerText;
 
     };
 }

@@ -24,6 +24,12 @@ namespace Box2DBodies {
         if (!font.loadFromFile("assets/ChangaOne-Regular.ttf"))
             std::cout << "Can't load font ./assets/ChangaOne-Regular.ttf" << std::endl;
 
+        bannerText.setFont(font);
+        bannerText.setCharacterSize(30);
+        bannerText.setStyle(sf::Text::Bold);
+        bannerText.setColor(sf::Color::Black);
+        bannerText.setString("Left-click to drop, right-click to rotate");
+        bannerText.setPosition(30, 10);
 
     }
 
@@ -46,14 +52,7 @@ namespace Box2DBodies {
     {
         window.clear(sf::Color::White);
 
-        sf::Text myText;
-        myText.setFont(font);
-        myText.setCharacterSize(30);
-        myText.setStyle(sf::Text::Bold);
-        myText.setColor(sf::Color::Black);
-        myText.setString("Left-click to drop, right-click to rotate");
-        myText.setPosition(30, 10);
-        window.draw(myText);
+        window.draw(bannerText);
 
         for (b2Body* body = world.GetBodyList(); body != 0; body = body->GetNext())
         // for (auto BodyIterator : world.GetBodyList())
