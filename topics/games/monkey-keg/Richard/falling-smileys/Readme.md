@@ -1,7 +1,7 @@
 # Falling Smileys
 
 ## Screenshot
-![Screenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/falling-smileys/Screenshot.png)
+![Screenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/falling-smileys/screenshot.png)
 
 ## Description:
 This program creates a Window and allows you to drop smileys with a left click
