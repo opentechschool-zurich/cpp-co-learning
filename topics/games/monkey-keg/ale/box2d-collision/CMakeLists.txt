@@ -1,0 +1,43 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
+PROJECT(box2d-collisions)
+
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
+
+IF (UNIX)
+    SET(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" "${CMAKE_MODULE_PATH}")
+ENDIF (UNIX)
+
+SET(CMAKE_CXX_STANDARD 14)
+
+FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window audio system)
+FIND_PACKAGE(GLEW REQUIRED)
+# find_package(Threads REQUIRED)
+
+# find_package(X11 REQUIRED)	# XXX Needed for XInitThreads()
+# find_package(OpenGL REQUIRED)	# XXX should be set by SFML...
+
+# https://github.com/slok/Box2D-and-SFML-demo/blob/master/cmake-modules/FindBox2D.cmake
+IF(BOX2D_INCLUDE_DIR)
+  # Already in cache, be silent
+  SET(BOX2D_FIND_QUIETLY TRUE)
+ENDIF(BOX2D_INCLUDE_DIR)
+
+FIND_PATH(BOX2D_INCLUDE_DIR Box2D/Box2D.h)
+
+SET(BOX2D_NAMES box2d Box2d BOX2D Box2D)
+FIND_LIBRARY(BOX2D_LIBRARY NAMES ${BOX2D_NAMES})
+# MARK_AS_ADVANCED(BOX2D_LIBRARY BOX2D_INCLUDE_DIR)
+
+SET(BOX2D_INCLUDE_DIRS "${BOX2D_INCLUDE_DIR}")
+SET(BOX2D_LIBRARIES    "${BOX2D_LIBRARY}")
+
+SET(BOX2DCOLLISIONS_ASSETS "${PROJECT_SOURCE_DIR}/assets")
+
+SET(box2d-collisions-assets
+    ${BOX2DCOLLISIONS_ASSETS}/box.png
+    ${BOX2DCOLLISIONS_ASSETS}/box-red.png
+)
+
+FILE(COPY ${box2d-collisions-assets} DESTINATION assets/)
+
+ADD_SUBDIRECTORY(src)
