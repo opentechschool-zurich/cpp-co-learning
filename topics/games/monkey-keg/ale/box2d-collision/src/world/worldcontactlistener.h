@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
+#include <SFML/Audio.hpp>
+#include <deque>
 
 namespace Box2DCollisions {
     /**
@@ -13,6 +15,10 @@ namespace Box2DCollisions {
         public:
             void BeginContact(b2Contact* contact);
             void EndContact(b2Contact* contact);
+            WorldContactListener();
+        private:
+            sf::SoundBuffer boxCrashSoundBuffer;
+            std::deque<sf::Sound> playingSounds{};
     };
 }
 

@@ -36,6 +36,7 @@ SET(BOX2DCOLLISIONS_ASSETS "${PROJECT_SOURCE_DIR}/assets")
 SET(box2d-collisions-assets
     ${BOX2DCOLLISIONS_ASSETS}/box.png
     ${BOX2DCOLLISIONS_ASSETS}/box-red.png
+    ${BOX2DCOLLISIONS_ASSETS}/box-crash.ogg
 )
 
 FILE(COPY ${box2d-collisions-assets} DESTINATION assets/)
