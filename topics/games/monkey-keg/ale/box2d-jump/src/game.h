@@ -34,6 +34,21 @@ namespace Box2DJump {
         b2World world;
 
         WorldContactListener worldContactListener;
+
+        /**
+         * @brief Actions to be triggered while keys are pressed
+         */
+        void keyboardPressed(sf::Event event);
+
+        /**
+         * @brief Actions to be triggered when keys are released
+         */
+        void keyboardReleased(sf::Event event);
+
+        /**
+         * @brief Actions to be triggered when the mouse button is released
+         */
+        void mouse(sf::Event event);
     };
 }
 #endif

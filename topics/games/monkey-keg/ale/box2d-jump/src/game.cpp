@@ -52,19 +52,28 @@ namespace Box2DJump {
     {
         while (window.isOpen())
         {
+            /* Events can be individually polled from sf::Keyboard or by checking the polled events.
+             * The first way is better suited for high performance / continues polling (keeping down the key)
+             * In this case, the second approach probably fits better
+             * http://www.sfml-dev.org/tutorials/2.4/window-inputs.php
+             */
             sf::Event event;
             while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
+                {
                     window.close();
+                }
                 else if (event.type == sf::Event::MouseButtonReleased)
                 {
-                    if (event.mouseButton.button == sf::Mouse::Right)
-                    {
-                    }
-                    else
-                    {
-                    }
+                    mouse(event);
+                }
+                else if (event.type == sf::Event::KeyPressed)
+                {
+                }
+                else if (event.type == sf::Event::KeyReleased)
+                {
+                    keyboardReleased(event);
                 }
             }
 
@@ -73,6 +82,38 @@ namespace Box2DJump {
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
             render();
+        }
+    }
+
+    void Game::keyboardPressed(sf::Event event)
+    {
+    }
+
+    void Game::keyboardReleased(sf::Event event)
+    {
+        if (event.key.code == sf::Keyboard::L) {
+            // TODO: right
+        }
+        else if (event.key.code == sf::Keyboard::Space) {
+            // TODO: jump
+        }
+        else if (event.key.code == sf::Keyboard::Escape)
+        {
+            window.close();
+        }
+        else if ((event.key.code == sf::Keyboard::Q) && (event.key.control))  {
+            window.close();
+        }
+   
+    }
+
+    void Game::mouse(sf::Event event)
+    {
+        if (event.mouseButton.button == sf::Mouse::Left)
+        {
+        }
+        else if (event.mouseButton.button == sf::Mouse::Right)
+        {
         }
     }
 
