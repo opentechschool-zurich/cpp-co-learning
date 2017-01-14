@@ -15,7 +15,8 @@ namespace Box2DJump {
     Game::Game():
         window(sf::VideoMode(800, 600, 32), "Box2D Collision"),
         gravity(0.f, 9.8f),
-        world(gravity)
+        world(gravity),
+        box(&world, 200, 100)
     {
     }
 
@@ -24,7 +25,6 @@ namespace Box2DJump {
         window.setFramerateLimit(60);
         world.SetContactListener(&worldContactListener);
         Ground* ground = new Ground(&world, 400.f, 500.f);
-        Box* box = new Box(&world, 200, 100);
     }
 
     void Game::update(const float dt)
@@ -93,9 +93,13 @@ namespace Box2DJump {
     {
         if (event.key.code == sf::Keyboard::L) {
             // TODO: right
+            box.moveRight();
+        }
+        else if (event.key.code == sf::Keyboard::H) {
+            // TODO: jump
+            box.moveLeft();
         }
         else if (event.key.code == sf::Keyboard::Space) {
-            // TODO: jump
         }
         else if (event.key.code == sf::Keyboard::Escape)
         {

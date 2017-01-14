@@ -6,6 +6,7 @@
 #include <SFML/System/Time.hpp>
 #include <Box2D/Box2D.h>
 
+#include "world/box.h"
 #include "world/worldcontactlistener.h"
 
 namespace Box2DJump {
@@ -33,6 +34,7 @@ namespace Box2DJump {
         b2Vec2 gravity;
         b2World world;
 
+        Box box;
         WorldContactListener worldContactListener;
 
         /**

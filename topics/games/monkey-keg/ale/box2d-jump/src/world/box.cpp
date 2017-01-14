@@ -1,3 +1,4 @@
+#include <iostream>
 #include "world/box.h"
 
 namespace Box2DJump {
@@ -9,7 +10,7 @@ namespace Box2DJump {
         b2BodyDef BodyDef;
         BodyDef.position = b2Vec2(x/scale, y/scale);
         BodyDef.type = b2_dynamicBody;
-        b2Body* Body = world->CreateBody(&BodyDef);
+        Body = world->CreateBody(&BodyDef);
 
         Body->SetUserData(this);
 
@@ -37,5 +38,28 @@ namespace Box2DJump {
         Sprite.setPosition(scale * body->GetPosition().x, scale * body->GetPosition().y);
         Sprite.setRotation(body->GetAngle() * 180/b2_pi);
         window->draw(Sprite);
+    }
+
+    void Box::moveLeft()
+    {
+        // Body->ApplyForce(b2Vec2(0,50), Body->GetWorldCenter());
+        std::cout << "left" << std::endl;
+        // Body->ApplyForce(b2Vec2(0,50), Body->GetWorldCenter(), true);
+        Body->ApplyLinearImpulse(b2Vec2(-10, 10), Body->GetWorldCenter(), true);
+        /*
+        //apply gradual force upwards
+        bodies[0]->ApplyForce( b2Vec2(0,50), bodies[0]->GetWorldCenter() );
+        //apply immediate force upwards
+        bodies[1]->ApplyLinearImpulse( b2Vec2(0,50), bodies[1]->GetWorldCenter() );
+        //teleport or 'warp' to new location
+        bodies[2]->SetTransform( b2Vec2(10,20), 0 );
+        */
+    }
+
+    void Box::moveRight()
+    {
+        std::cout << "right" << std::endl;
+        Body->ApplyForce(b2Vec2(10 ,10), Body->GetWorldCenter(), true);
+        Body->ApplyLinearImpulse(b2Vec2(10, 10), Body->GetWorldCenter(), true);
     }
 }

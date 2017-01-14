@@ -16,9 +16,14 @@ namespace Box2DJump {
             Box(b2World* world, int x, int y);
 
             void render(sf::RenderWindow* window, b2Body* body);
+            
+            void moveLeft();
+            void moveRight();
         private:
             sf::Texture boxTexture;
             sf::Texture boxRedTexture;
+
+            b2Body* Body;
     };
 }
 
