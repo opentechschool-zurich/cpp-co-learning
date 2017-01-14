@@ -45,7 +45,8 @@ namespace Box2DJump {
         // Body->ApplyForce(b2Vec2(0,50), Body->GetWorldCenter());
         std::cout << "left" << std::endl;
         // Body->ApplyForce(b2Vec2(0,50), Body->GetWorldCenter(), true);
-        Body->ApplyLinearImpulse(b2Vec2(-10, 10), Body->GetWorldCenter(), true);
+        // Body->ApplyLinearImpulse(b2Vec2(-10, 10), Body->GetWorldCenter(), true);
+        Body->SetTransform(b2Vec2(10,20), 0, true);
         /*
         //apply gradual force upwards
         bodies[0]->ApplyForce( b2Vec2(0,50), bodies[0]->GetWorldCenter() );
