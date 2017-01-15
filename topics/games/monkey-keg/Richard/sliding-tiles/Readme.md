@@ -1,7 +1,7 @@
 # Sliding Tiles
 
 ## Screenshot
-none yet
+![Screenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/Screenshot.png)
 
 ## Description:
 This program creates a window and places tiles in a grid.

@@ -24,7 +24,6 @@ SET(BOX2D_LIBRARIES    "${BOX2D_LIBRARY}")
 
 SET(sliding-tiles_assets_dir "${PROJECT_SOURCE_DIR}/assets")
 SET(sliding-tiles-assets
-    ${sliding-tiles_assets_dir}/box.png
     ${sliding-tiles_assets_dir}/ChangaOne-Regular.ttf
     ${sliding-tiles_assets_dir}/bottomright.png
     ${sliding-tiles_assets_dir}/endbottom.png
@@ -40,6 +39,7 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/starttop.png
     ${sliding-tiles_assets_dir}/topright.png
     ${sliding-tiles_assets_dir}/vertical.png
+    ${sliding-tiles_assets_dir}/empty.png
 )
 FILE(COPY ${sliding-tiles-assets} DESTINATION assets/)
 

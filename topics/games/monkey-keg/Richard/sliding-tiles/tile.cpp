@@ -2,9 +2,6 @@
 
 namespace SlidingTiles {
     void Tile::render() {
-        if (tileType == TileType::Empty)
-            return;
-
         sf::Vector2i currentPosition { gridZeroZero.x + gameBoardPosition.x * size, gridZeroZero.y + gameBoardPosition.y * size};
         if ( transitioning ) {
             sf::Vector2i nextPosition { gridZeroZero.x + newGameBoardPosition.x * size, gridZeroZero.y + newGameBoardPosition.y * size };
@@ -14,17 +11,12 @@ namespace SlidingTiles {
             currentPosition.y += deltaY;
         }
 
-        if (tileType == TileType::Colored) {
-            sf::RectangleShape rectangle(sf::Vector2f(size, size));
-            rectangle.setFillColor(tileColor);
-            rectangle.setPosition(currentPosition.x, currentPosition.y);
-            window->draw(rectangle);
-        } else {
-            sf::Sprite sprite;
-            sprite.setTexture(tileTexture);
-            sprite.setPosition(currentPosition.x, currentPosition.y);
-            window->draw(sprite);
-        }
+        sf::Sprite sprite;
+        sprite.setTexture(tileTexture);
+        sprite.setPosition(currentPosition.x, currentPosition.y);
+        if (winner)
+            sprite.setColor(sf::Color{0,255,0});
+        window->draw(sprite);
     }
 
     void Tile::update(const float dt) {
@@ -40,6 +32,7 @@ namespace SlidingTiles {
     bool Tile::transition(sf::Vector2i newGameBoardPosition) {
         if (transitioning) return false;
         transitioning = true;
+        timeSpentTransitioning = 0;
         this->newGameBoardPosition = newGameBoardPosition;
     }
 
@@ -50,5 +43,21 @@ namespace SlidingTiles {
     int Tile::getY() {
         return gameBoardPosition.y;
     }
+
+    void Tile::setTileType(TileType newType) {
+        tileType = newType;
+        if ( newType == Tile::TileType::Empty
+            || newType == Tile::TileType::StartBottom
+            || newType == Tile::TileType::StartTop
+            || newType == Tile::TileType::StartLeft
+            || newType == Tile::TileType::StartRight
+            || newType == Tile::TileType::EndBottom
+            || newType == Tile::TileType::EndTop
+            || newType == Tile::TileType::EndLeft
+            || newType == Tile::TileType::EndRight)
+            isMoveable = false;
+        else
+            isMoveable = true;
+    };
 
 }
