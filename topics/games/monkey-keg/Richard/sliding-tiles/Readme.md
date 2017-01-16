@@ -9,7 +9,7 @@ The tiles can be slid around by dragging the mouse.
 When the start and end tile match up in a path you win.
 
 
-## Build and return
+## Build and run
 ```bash
 mkdir build
 cd build
