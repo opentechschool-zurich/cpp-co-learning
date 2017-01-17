@@ -50,7 +50,7 @@ namespace Box2DJump {
         /**
          * @brief Actions to be triggered when the mouse button is released
          */
-        void mouse(sf::Event event);
+        void mouseReleased(sf::Event event);
     };
 }
 #endif

@@ -64,12 +64,16 @@ namespace Box2DJump {
                 {
                     window.close();
                 }
+                else if (event.type == sf::Event::MouseButtonPressed)
+                {
+                }
                 else if (event.type == sf::Event::MouseButtonReleased)
                 {
-                    mouse(event);
+                    mouseReleased(event);
                 }
                 else if (event.type == sf::Event::KeyPressed)
                 {
+                    keyboardPressed(event);
                 }
                 else if (event.type == sf::Event::KeyReleased)
                 {
@@ -87,19 +91,39 @@ namespace Box2DJump {
 
     void Game::keyboardPressed(sf::Event event)
     {
+        if (event.key.code == sf::Keyboard::L) {
+            // TODO: right
+            box.startMoveRight();
+            // box.moveRight();
+        }
+        else if (event.key.code == sf::Keyboard::J) {
+            // TODO: jump
+            box.startMoveLeft();
+        }
+        else if (event.key.code == sf::Keyboard::I) {
+            box.startMoveUp();
+        }
+        else if (event.key.code == sf::Keyboard::K) {
+            box.startMoveDown();
+        }
     }
 
     void Game::keyboardReleased(sf::Event event)
     {
         if (event.key.code == sf::Keyboard::L) {
-            // TODO: right
-            box.moveRight();
+            box.stopMove();
         }
-        else if (event.key.code == sf::Keyboard::H) {
-            // TODO: jump
-            box.moveLeft();
+        else if (event.key.code == sf::Keyboard::J) {
+            box.stopMove();
+        }
+        else if (event.key.code == sf::Keyboard::I) {
+            box.stopMove();
+        }
+        else if (event.key.code == sf::Keyboard::K) {
+            box.stopMove();
         }
         else if (event.key.code == sf::Keyboard::Space) {
+            box.startJump();
         }
         else if (event.key.code == sf::Keyboard::Escape)
         {
@@ -111,7 +135,7 @@ namespace Box2DJump {
    
     }
 
-    void Game::mouse(sf::Event event)
+    void Game::mouseReleased(sf::Event event)
     {
         if (event.mouseButton.button == sf::Mouse::Left)
         {

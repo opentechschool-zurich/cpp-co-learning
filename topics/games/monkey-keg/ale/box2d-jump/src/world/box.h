@@ -17,11 +17,23 @@ namespace Box2DJump {
 
             void render(sf::RenderWindow* window, b2Body* body);
             
-            void moveLeft();
-            void moveRight();
+
+            void startMoveLeft();
+            void startMoveRight();
+            void startMoveUp();
+            void startMoveDown();
+            void stopMove();
+            void startJump();
+            void move();
+            void jump();
         private:
             sf::Texture boxTexture;
             sf::Texture boxRedTexture;
+
+            enum Direction{Stopped, Left, Right, Up, Down};
+            Direction direction{Stopped};
+
+            int jumpStepsLeft{0};
 
             b2Body* Body;
     };
