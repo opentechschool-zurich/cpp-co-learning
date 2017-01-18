@@ -92,7 +92,9 @@ namespace Box2DJump {
 
     void Box::startJump()
     {
-        jumpStepsLeft = 8;
+        if (contact > 0) {
+            jumpStepsLeft = 8;
+        }
     }
 
     void Box::move()
