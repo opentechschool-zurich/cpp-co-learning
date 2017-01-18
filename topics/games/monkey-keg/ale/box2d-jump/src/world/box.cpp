@@ -50,13 +50,17 @@ namespace Box2DJump {
     void Box::startMoveLeft()
     {
         std::cout << "start left" << std::endl;
-        direction = Direction::Left;
+        if (contact > 0) {
+            direction = Direction::Left;
+        }
         // Body->SetLinearVelocity(b2Vec2(-5, 0));
     }
     void Box::startMoveRight()
     {
         std::cout << "start right" << std::endl;
-        direction = Direction::Right;
+        if (contact > 0) {
+            direction = Direction::Right;
+        }
         // Body->SetLinearVelocity(b2Vec2(5, 0));
     }
 
@@ -64,7 +68,9 @@ namespace Box2DJump {
     {
         std::cout << "start up" << std::endl;
         // TODO: disable gravity?
-        direction = Direction::Up;
+        if (contact > 0) {
+            direction = Direction::Up;
+        }
         // Body->SetLinearVelocity(b2Vec2(0, 5));
     }
 
@@ -72,7 +78,9 @@ namespace Box2DJump {
     {
         std::cout << "start down" << std::endl;
         // TODO: disable gravity?
-        direction = Direction::Down;
+        if (contact > 0) {
+            direction = Direction::Down;
+        }
         // Body->SetLinearVelocity(b2Vec2(0, -5));
     }
 
@@ -105,7 +113,7 @@ namespace Box2DJump {
                 velocity = b2Vec2(0, 5);
             break;
             case Direction::Stopped :
-                if (contact == 1) {
+                if (contact > 0) {
                     velocity = b2Vec2(0, velocity.y);
                 }
             break;
