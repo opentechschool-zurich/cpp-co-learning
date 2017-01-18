@@ -1,9 +1,4 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System/Clock.hpp>
-#include <SFML/System/Time.hpp>
 #include "game.h"
-
 
 namespace SlidingTiles {
     Game::Game():
@@ -61,15 +56,15 @@ namespace SlidingTiles {
         bannerText.setString("Move the tiles with the mouse");
         bannerText.setPosition(30, 10);
 
-        char game1[4][4] {'-','-','H','s',
+        char game3[4][4] {'-','-','H','s',
                           '-','-','-','V',
                           '-','-','V','-',
                           '-','-','-','D'};
 
 
-        char game2[4][4] {'S','H','H','l',
-                         'e','r','l','V',
-                         'V','T','D','V',
+        char game1[4][4] {'S','H','H','l',
+                         'e','-','-','V',
+                         'V','-','-','V',
                          'R','H','H','L'};
 
 

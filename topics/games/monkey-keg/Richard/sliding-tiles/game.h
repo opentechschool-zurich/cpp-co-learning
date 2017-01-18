@@ -6,6 +6,8 @@
 #include "tile.h"
 #include <string>
 #include <vector>
+#include <cmath>
+#include <iostream>
 
 namespace SlidingTiles {
     class Game
