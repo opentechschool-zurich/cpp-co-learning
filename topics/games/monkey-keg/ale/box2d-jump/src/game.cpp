@@ -29,6 +29,14 @@ namespace Box2DJump {
 
     void Game::update(const float dt)
     {
+        for (b2Body* BodyIterator = world.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
+        {
+            WorldItem* item = static_cast<WorldItem*>(BodyIterator->GetUserData());
+            if (item)
+            {
+                item->update(dt);
+            }
+        }
     }
 
     void Game::render()

@@ -9,8 +9,8 @@ namespace Box2DJump {
     class WorldItem
     {
         public:
+            virtual void update(const float dt) = 0;
             virtual void render(sf::RenderWindow* window, b2Body* body) = 0;
-            // TODO: we will probably have to keep a counter instead of a bool
             void startContact() {contact++;}
             void endContact() {contact--;}
         protected:

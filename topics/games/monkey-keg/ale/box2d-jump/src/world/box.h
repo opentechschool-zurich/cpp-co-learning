@@ -15,8 +15,8 @@ namespace Box2DJump {
         public:
             Box(b2World* world, int x, int y);
 
+            void update(const float dt);
             void render(sf::RenderWindow* window, b2Body* body);
-            
 
             void startMoveLeft();
             void startMoveRight();

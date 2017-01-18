@@ -24,10 +24,14 @@ namespace Box2DJump {
         Body->CreateFixture(&FixtureDef);
     }
 
-    void Box::render(sf::RenderWindow* window, b2Body* body)
+    void Box::update(const float dt)
     {
         jump(); // TODO: move this to update()
         move();
+    }
+
+    void Box::render(sf::RenderWindow* window, b2Body* body)
+    {
         sf::Sprite Sprite;
         if (contact > 0)
         {
@@ -76,7 +80,6 @@ namespace Box2DJump {
     {
         std::cout << "stop" << std::endl;
         direction = Direction::Stopped;
-        Body->SetLinearVelocity(b2Vec2(0, 0));
     }
 
     void Box::startJump()
@@ -100,6 +103,11 @@ namespace Box2DJump {
             break;
             case Direction::Down :
                 velocity = b2Vec2(0, 5);
+            break;
+            case Direction::Stopped :
+                if (contact == 1) {
+                    velocity = b2Vec2(0, velocity.y);
+                }
             break;
         }
         Body->SetLinearVelocity(velocity);

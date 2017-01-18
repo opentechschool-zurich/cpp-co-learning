@@ -15,6 +15,7 @@ namespace Box2DJump {
         public:
             Ground(b2World* world, int x, int y);
 ;
+            void update(const float dt) {}
             void render(sf::RenderWindow* window, b2Body* body);
         private:
             const int width = 600;
