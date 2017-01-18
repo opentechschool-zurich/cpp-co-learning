@@ -7,7 +7,7 @@
 This program creates a Window and allows you to drop smileys with a left click
 It rotates the smileys with a right click.
 
-## Build and return
+## Build and run
 ```bash
 mkdir build
 cd build
