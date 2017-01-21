@@ -28,7 +28,18 @@ doxygen ../Doxyfile
 Then open the file in html/index.html in the browser
 
 
-##Copyright information:
+## Testing
+```bash
+mkdir -p build
+cd build
+cmake ..
+make
+make test
+# or
+./unit-tests
+```
+
+## Copyright information
 The Font was taken from http://www.1001freefonts.com/changa_one.fontIt is in the public domain and licenced under OFL and GPL
 Designer was Eduardo Tunni http://www.1001freefonts.com/search.php?d=1&q=Eduardo+Tunni
 
