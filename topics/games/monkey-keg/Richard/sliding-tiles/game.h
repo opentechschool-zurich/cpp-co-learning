@@ -8,6 +8,8 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include "tileType.h"
+#include "gameBoardSingleton.h"
 
 namespace SlidingTiles {
     class Game
@@ -28,15 +30,11 @@ namespace SlidingTiles {
         sf::RenderWindow window;
         sf::Clock deltaClock;
 
-        std::map<Tile::TileType, sf::Texture> texturesMap;
-
         bool canSlideTile(Tile movingTile, sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
         void slideTile(Tile movingTile, sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
 
         sf::Text bannerText;
-        sf::Vector2i gridZeroZero { 100, 100 };
-        static const int boardSize {4};
-        Tile tiles [boardSize][boardSize];
+        Tile tiles [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize];
 
         sf::Vector2i mousePositionPressed;
         static const int tileSize {60};

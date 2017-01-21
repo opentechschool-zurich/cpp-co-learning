@@ -10,41 +10,6 @@ namespace SlidingTiles {
     void Game::init()
     {
         window.setFramerateLimit(60);
-        sf::Texture texture;
-
-        texture.loadFromFile("assets/horizontal.png");
-        texturesMap[Tile::TileType::Horizontal] = texture;
-        texture.loadFromFile("assets/vertical.png");
-        texturesMap[Tile::TileType::Vertical] = texture;
-
-        texture.loadFromFile("assets/startbottom.png");
-        texturesMap[Tile::TileType::StartBottom] = texture;
-        texture.loadFromFile("assets/starttop.png");
-        texturesMap[Tile::TileType::StartTop] = texture;
-        texture.loadFromFile("assets/startleft.png");
-        texturesMap[Tile::TileType::StartLeft] = texture;
-        texture.loadFromFile("assets/startright.png");
-        texturesMap[Tile::TileType::StartRight] = texture;
-
-        texture.loadFromFile("assets/endtop.png");
-        texturesMap[Tile::TileType::EndTop] = texture;
-        texture.loadFromFile("assets/endbottom.png");
-        texturesMap[Tile::TileType::EndBottom] = texture;
-        texture.loadFromFile("assets/endleft.png");
-        texturesMap[Tile::TileType::EndLeft] = texture;
-        texture.loadFromFile("assets/endright.png");
-        texturesMap[Tile::TileType::EndRight] = texture;
-
-        texture.loadFromFile("assets/lefttop.png");
-        texturesMap[Tile::TileType::LeftTop] = texture;
-        texture.loadFromFile("assets/leftbottom.png");
-        texturesMap[Tile::TileType::LeftBottom] = texture;
-        texture.loadFromFile("assets/topright.png");
-        texturesMap[Tile::TileType::TopRight] = texture;
-        texture.loadFromFile("assets/bottomright.png");
-        texturesMap[Tile::TileType::BottomRight] = texture;
-        texture.loadFromFile("assets/empty.png");
-        texturesMap[Tile::TileType::Empty] = texture;
 
         if (!font.loadFromFile("assets/ChangaOne-Regular.ttf"))
             std::cout << "Can't load font ./assets/ChangaOne-Regular.ttf" << std::endl;
@@ -69,60 +34,44 @@ namespace SlidingTiles {
 
 
 
-        for (int x = 0; x < boardSize; ++x)
-            for (int y = 0; y < boardSize; ++y) {
-                Tile newTile {&window, tileSize, gridZeroZero, sf::Vector2i {x,y}};
+        for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
+            for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+                Tile newTile {&window, tileSize, GameBoardSingleton::getInstance().gridZeroZero, sf::Vector2i {x,y}};
                 if (game1[y][x] == '-') {
-                    newTile.setTileType(Tile::TileType::Empty);
-                    newTile.setTexture(texturesMap[Tile::TileType::Empty]);
+                    newTile.setTileType(TileType::Empty);
                 } else if (game1[y][x] == 'H'){
-                    newTile.setTileType(Tile::TileType::Horizontal);
-                    newTile.setTexture(texturesMap[Tile::TileType::Horizontal]);
+                    newTile.setTileType(TileType::Horizontal);
                 } else if (game1[y][x] == 'V'){
-                    newTile.setTileType(Tile::TileType::Vertical);
-                    newTile.setTexture(texturesMap[Tile::TileType::Vertical]);
+                    newTile.setTileType(TileType::Vertical);
 
                 } else if (game1[y][x] == 'R'){
-                    newTile.setTileType(Tile::TileType::TopRight);
-                    newTile.setTexture(texturesMap[Tile::TileType::TopRight]);
+                    newTile.setTileType(TileType::TopRight);
                 } else if (game1[y][x] == 'L'){
-                    newTile.setTileType(Tile::TileType::LeftTop);
-                    newTile.setTexture(texturesMap[Tile::TileType::LeftTop]);
+                    newTile.setTileType(TileType::LeftTop);
                 } else if (game1[y][x] == 'l'){
-                    newTile.setTileType(Tile::TileType::LeftBottom);
-                    newTile.setTexture(texturesMap[Tile::TileType::LeftBottom]);
+                    newTile.setTileType(TileType::LeftBottom);
                 } else if (game1[y][x] == 'r'){
-                    newTile.setTileType(Tile::TileType::BottomRight);
-                    newTile.setTexture(texturesMap[Tile::TileType::BottomRight]);
+                    newTile.setTileType(TileType::BottomRight);
 
                 } else if (game1[y][x] == 'S'){
-                    newTile.setTileType(Tile::TileType::StartRight);
-                    newTile.setTexture(texturesMap[Tile::TileType::StartRight]);
+                    newTile.setTileType(TileType::StartRight);
                 } else if (game1[y][x] == 's'){
-                    newTile.setTileType(Tile::TileType::StartBottom);
-                    newTile.setTexture(texturesMap[Tile::TileType::StartBottom]);
+                    newTile.setTileType(TileType::StartBottom);
                 } else if (game1[y][x] == 'T'){
-                    newTile.setTileType(Tile::TileType::StartTop);
-                    newTile.setTexture(texturesMap[Tile::TileType::StartTop]);
+                    newTile.setTileType(TileType::StartTop);
                 } else if (game1[y][x] == 't'){
-                    newTile.setTileType(Tile::TileType::StartLeft);
-                    newTile.setTexture(texturesMap[Tile::TileType::StartLeft]);
+                    newTile.setTileType(TileType::StartLeft);
 
                 } else if (game1[y][x] == 'D'){
-                    newTile.setTileType(Tile::TileType::EndTop);
-                    newTile.setTexture(texturesMap[Tile::TileType::EndTop]);
+                    newTile.setTileType(TileType::EndTop);
                 } else if (game1[y][x] == 'd'){
-                    newTile.setTileType(Tile::TileType::EndRight);
-                    newTile.setTexture(texturesMap[Tile::TileType::EndRight]);
+                    newTile.setTileType(TileType::EndRight);
                 } else if (game1[y][x] == 'E'){
-                    newTile.setTileType(Tile::TileType::EndLeft);
-                    newTile.setTexture(texturesMap[Tile::TileType::EndLeft]);
+                    newTile.setTileType(TileType::EndLeft);
                 } else if (game1[y][x] == 'e'){
-                    newTile.setTileType(Tile::TileType::EndBottom);
-                    newTile.setTexture(texturesMap[Tile::TileType::EndBottom]);
+                    newTile.setTileType(TileType::EndBottom);
                 } else {
-                    newTile.setTileType(Tile::TileType::Empty);
-                    newTile.setTexture(texturesMap[Tile::TileType::Empty]);
+                    newTile.setTileType(TileType::Empty);
                 }
                 tiles[x][y] = newTile;
             }
@@ -134,45 +83,45 @@ namespace SlidingTiles {
     * if we are on an end tile it returns -2
     */
     sf::Vector2i Game::getNextTile(sf::Vector2i tilePos, Direction incomingDirection) {
-        Tile::TileType type = tiles[tilePos.x][tilePos.y].getTileType();
+        TileType type = tiles[tilePos.x][tilePos.y].getTileType();
         sf::Vector2i nextTile {tilePos.x,tilePos.y};
 
-        if (type == Tile::TileType::StartRight)
+        if (type == TileType::StartRight)
             ++nextTile.x;
-        else if (type == Tile::TileType::StartLeft)
+        else if (type == TileType::StartLeft)
             --nextTile.x;
-        else if (type == Tile::TileType::StartTop)
+        else if (type == TileType::StartTop)
             --nextTile.y;
 
 
-        else if (type == Tile::TileType::StartBottom)
+        else if (type == TileType::StartBottom)
             ++nextTile.y;
-        else if (type == Tile::TileType::Horizontal && incomingDirection == Direction::GoRight)
+        else if (type == TileType::Horizontal && incomingDirection == Direction::GoRight)
             ++nextTile.x;
-        else if (type == Tile::TileType::Horizontal && incomingDirection == Direction::GoLeft)
+        else if (type == TileType::Horizontal && incomingDirection == Direction::GoLeft)
             --nextTile.x;
-        else if (type == Tile::TileType::Vertical && incomingDirection == Direction::GoDown)
+        else if (type == TileType::Vertical && incomingDirection == Direction::GoDown)
             ++nextTile.y;
-        else if (type == Tile::TileType::Vertical && incomingDirection == Direction::GoUp)
+        else if (type == TileType::Vertical && incomingDirection == Direction::GoUp)
             --nextTile.y;
-        else if (type == Tile::TileType::LeftBottom && incomingDirection == Direction::GoRight)
+        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoRight)
             ++nextTile.y;
-        else if (type == Tile::TileType::LeftBottom && incomingDirection == Direction::GoUp)
+        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoUp)
             --nextTile.x;
-        else if (type == Tile::TileType::LeftTop && incomingDirection == Direction::GoDown)
+        else if (type == TileType::LeftTop && incomingDirection == Direction::GoDown)
             --nextTile.x;
-        else if (type == Tile::TileType::LeftTop && incomingDirection == Direction::GoRight)
+        else if (type == TileType::LeftTop && incomingDirection == Direction::GoRight)
             --nextTile.y;
-        else if (type == Tile::TileType::BottomRight && incomingDirection == Direction::GoUp)
+        else if (type == TileType::BottomRight && incomingDirection == Direction::GoUp)
             ++nextTile.x;
-        else if (type == Tile::TileType::BottomRight && incomingDirection == Direction::GoLeft)
+        else if (type == TileType::BottomRight && incomingDirection == Direction::GoLeft)
             ++nextTile.y;
-        else if (type == Tile::TileType::TopRight && incomingDirection == Direction::GoLeft)
+        else if (type == TileType::TopRight && incomingDirection == Direction::GoLeft)
             --nextTile.y;
-        else if (type == Tile::TileType::TopRight && incomingDirection == Direction::GoDown)
+        else if (type == TileType::TopRight && incomingDirection == Direction::GoDown)
             ++nextTile.x;
-        else if (type == Tile::TileType::EndBottom || type == Tile::TileType::EndLeft
-            || type == Tile::TileType::EndRight || type == Tile::TileType::EndTop) {
+        else if (type == TileType::EndBottom || type == TileType::EndLeft
+            || type == TileType::EndRight || type == TileType::EndTop) {
             nextTile.x = -2;
             nextTile.y = -2;
         } else {
@@ -200,36 +149,36 @@ namespace SlidingTiles {
     * Returns the direction coming out of the supplied tile and incoming direction.
     */
     Game::Direction Game::getTileDirection(sf::Vector2i tilePos, Direction incomingDirection) {
-        Tile::TileType type = tiles[tilePos.x][tilePos.y].getTileType();
+        TileType type = tiles[tilePos.x][tilePos.y].getTileType();
         Direction outputDirection = Direction::Unknown;
 
-        if (type == Tile::TileType::StartRight)
+        if (type == TileType::StartRight)
             return Direction::GoRight;
-        else if (type == Tile::TileType::StartLeft)
+        else if (type == TileType::StartLeft)
             return Direction::GoLeft;
-        else if (type == Tile::TileType::StartTop)
+        else if (type == TileType::StartTop)
             return Direction::GoUp;
-        else if (type == Tile::TileType::StartBottom)
+        else if (type == TileType::StartBottom)
             return Direction::GoDown;
-        else if (type == Tile::TileType::Horizontal)
+        else if (type == TileType::Horizontal)
             return incomingDirection;
-        else if (type == Tile::TileType::Vertical)
+        else if (type == TileType::Vertical)
             return incomingDirection;
-        else if (type == Tile::TileType::LeftBottom && incomingDirection == Direction::GoRight)
+        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoRight)
             return Direction::GoDown;
-        else if (type == Tile::TileType::LeftBottom && incomingDirection == Direction::GoUp)
+        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoUp)
             return Direction::GoLeft;
-        else if (type == Tile::TileType::LeftTop && incomingDirection == Direction::GoDown)
+        else if (type == TileType::LeftTop && incomingDirection == Direction::GoDown)
             return Direction::GoLeft;
-        else if (type == Tile::TileType::LeftTop && incomingDirection == Direction::GoRight)
+        else if (type == TileType::LeftTop && incomingDirection == Direction::GoRight)
             return Direction::GoUp;
-        else if (type == Tile::TileType::TopRight && incomingDirection == Direction::GoDown)
+        else if (type == TileType::TopRight && incomingDirection == Direction::GoDown)
             return Direction::GoRight;
-        else if (type == Tile::TileType::TopRight && incomingDirection == Direction::GoLeft)
+        else if (type == TileType::TopRight && incomingDirection == Direction::GoLeft)
             return Direction::GoUp;
-        else if (type == Tile::TileType::BottomRight && incomingDirection == Direction::GoLeft)
+        else if (type == TileType::BottomRight && incomingDirection == Direction::GoLeft)
             return Direction::GoDown;
-        else if (type == Tile::TileType::BottomRight && incomingDirection == Direction::GoUp)
+        else if (type == TileType::BottomRight && incomingDirection == Direction::GoUp)
             return Direction::GoRight;
         else
             return Direction::Unknown;
@@ -242,12 +191,12 @@ namespace SlidingTiles {
 
         bool startFound = false;
         sf::Vector2i startTile {0,0};
-        for (int x = 0; (x < boardSize) && !startFound; ++x)
-            for (int y = 0; (y < boardSize) && !startFound; ++y)
-                if ( tiles[x][y].getTileType() == Tile::TileType::StartBottom
-                    || tiles[x][y].getTileType() == Tile::TileType::StartTop
-                    || tiles[x][y].getTileType() == Tile::TileType::StartLeft
-                    || tiles[x][y].getTileType() == Tile::TileType::StartRight  ) {
+        for (int x = 0; (x < GameBoardSingleton::boardSize) && !startFound; ++x)
+            for (int y = 0; (y < GameBoardSingleton::boardSize) && !startFound; ++y)
+                if ( tiles[x][y].getTileType() == TileType::StartBottom
+                    || tiles[x][y].getTileType() == TileType::StartTop
+                    || tiles[x][y].getTileType() == TileType::StartLeft
+                    || tiles[x][y].getTileType() == TileType::StartRight  ) {
                         startFound = true;
                         startTile.x = x;
                         startTile.y = y;
@@ -284,9 +233,9 @@ namespace SlidingTiles {
     void Game::update(const float dt)
     {
         // send update event to all the tiles
-        for (int x = 0; x < boardSize; ++x)
-            for (int y = 0; y < boardSize; ++y)
-                tiles[x][y].update(dt);
+        for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
+            for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
+                tiles[x][y].tileView.update(dt);
 
         // see if there is a solution
         std::vector<sf::Vector2i> solutionPath = findSolution();
@@ -294,8 +243,8 @@ namespace SlidingTiles {
             for ( auto tile : solutionPath )
                 tiles[tile.x][tile.y].winner = true;
         } else {
-            for (int x = 0; x < boardSize; ++x)
-                for (int y = 0; y < boardSize; ++y)
+            for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
+                for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
                     tiles[x][y].winner = false;
         }
     }
@@ -309,16 +258,16 @@ namespace SlidingTiles {
         window.draw(bannerText);
 
         // first render the tiles that are static
-        for (int x = 0; x < boardSize; ++x)
-            for (int y = 0; y < boardSize; ++y)
-                if ( ! tiles[x][y].transitioning )
-                    tiles[x][y].render();
+        for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
+            for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
+                if ( ! tiles[x][y].tileView.transitioning )
+                    tiles[x][y].tileView.render();
 
         // then render the tiles that are transitioning so that they are on top
-        for (int x = 0; x < boardSize; ++x)
-            for (int y = 0; y < boardSize; ++y)
-                if ( tiles[x][y].transitioning )
-                    tiles[x][y].render();
+        for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
+            for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
+                if ( tiles[x][y].tileView.transitioning )
+                    tiles[x][y].tileView.render();
 
         window.display();
     }
@@ -327,7 +276,7 @@ namespace SlidingTiles {
     * Given the screen coordinates find the corresponding game coordinates in the model
     */
     sf::Vector2i Game::findTile(sf::Vector2i mousePosition) {
-        sf::Vector2i gridCoordinates = mousePosition - gridZeroZero;
+        sf::Vector2i gridCoordinates = mousePosition - GameBoardSingleton::getInstance().gridZeroZero;
         int xPos = gridCoordinates.x / tileSize;
         int yPos = gridCoordinates.y / tileSize;
         std::cout << "find tile mouse.x=" << mousePosition.x << " y= "
@@ -339,20 +288,20 @@ namespace SlidingTiles {
         std::cout << "can slide tile[" << movingTilePosition.x << "][" << movingTilePosition.y << "]"
             << " to [" << newPosition.x << "][" << newPosition.y << "]  tile reports x="
             << movingTile.gameBoardPosition.x << " y=" << movingTile.gameBoardPosition.y
-            << " transitioning: " << movingTile.transitioning
+            << " transitioning: " << movingTile.tileView.transitioning
             << " isMoveable: " << movingTile.isMoveable << "\n";
         if ( ! movingTile.isMoveable )
             return false;
 
         // check for move off the board
-        if ( newPosition.x >= boardSize
-            || newPosition.y >= boardSize
+        if ( newPosition.x >= GameBoardSingleton::boardSize
+            || newPosition.y >= GameBoardSingleton::boardSize
             || newPosition.x < 0
             || newPosition.y < 0 )
             return false;
 
         // check if newPosition already taken
-        if ( tiles[newPosition.x][newPosition.y].getTileType() != Tile::TileType::Empty )
+        if ( tiles[newPosition.x][newPosition.y].getTileType() != TileType::Empty )
             return false;
 
         return true;
@@ -364,12 +313,11 @@ namespace SlidingTiles {
             std::cout << "slide tile[" << movingTilePosition.x << "][" << movingTilePosition.y << "]"
                 << " to [" << newPosition.x << "][" << newPosition.y << "]  tile reports x="
                 << movingTile.gameBoardPosition.x << " y=" << movingTile.gameBoardPosition.y
-                << " transitioning: " << movingTile.transitioning << "\n";
+                << " transitioning: " << movingTile.tileView.transitioning << "\n";
             movingTile.transition(newPosition);
             tiles[newPosition.x][newPosition.y] = movingTile;
-            Tile newTile {&window, tileSize, gridZeroZero, movingTilePosition };
-            newTile.setTileType(Tile::TileType::Empty);
-            newTile.setTexture(texturesMap[Tile::TileType::Empty]);
+            Tile newTile {&window, tileSize, GameBoardSingleton::getInstance().gridZeroZero, movingTilePosition };
+            newTile.setTileType(TileType::Empty);
             tiles[movingTilePosition.x][movingTilePosition.y] = newTile;
             shutUp = false;
         }
