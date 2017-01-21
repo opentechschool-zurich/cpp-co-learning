@@ -1,10 +1,10 @@
 #pragma once
 
+#include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 #include "tile.h"
-#include <string>
 #include <vector>
 #include <cmath>
 #include <iostream>

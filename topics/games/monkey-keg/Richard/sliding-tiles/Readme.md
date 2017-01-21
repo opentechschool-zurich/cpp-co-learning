@@ -11,12 +11,22 @@ When the start and end tile match up in a path you win.
 
 ## Build and run
 ```bash
-mkdir build
+mkdir -p build
 cd build
 cmake ..
 make
 ./sliding-tiles
 ```
+
+## Doxygen Documentation
+```bash
+mkdir -p build
+cd build
+doxygen ../Doxyfile
+```
+
+Then open the file in html/index.html in the browser
+
 
 ##Copyright information:
 The Font was taken from http://www.1001freefonts.com/changa_one.fontIt is in the public domain and licenced under OFL and GPL
