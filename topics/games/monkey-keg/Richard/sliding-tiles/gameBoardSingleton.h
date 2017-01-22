@@ -39,6 +39,11 @@ class GameBoardSingleton
         */
         SlidingTiles::Tile tiles [boardSize][boardSize];
 
+        /**
+         * @brief load the game into the board
+         */
+        void loadGame( char charGame[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]);
+
 
     private:
         /**

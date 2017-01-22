@@ -15,25 +15,20 @@ namespace SlidingTiles {
 
         gameView.init();
 
-        char game3[4][4] {' ',' ','-','s',
+        char game3[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+                         {' ',' ','-','s',
                           ' ',' ',' ','V',
                           ' ',' ','V',' ',
                           ' ',' ',' ','D'};
 
 
-        char game1[4][4] {'S','-','-','l',
+        char game1[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+                        {'S','-','-','l',
                          'e',' ',' ','V',
                          'V',' ',' ','V',
                          'R','-','-','L'};
 
-
-
-        for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
-            for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
-                Tile* tile = &GameBoardSingleton::getInstance().tiles[x][y];
-                tile->setTilePosition(sf::Vector2i {x,y});
-                tile->setTileType( game1[y][x] );
-            }
+        GameBoardSingleton::getInstance().loadGame(game1);
     }
 
     /**
