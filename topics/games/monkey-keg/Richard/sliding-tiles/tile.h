@@ -3,6 +3,7 @@
 #include "tileView.h"
 #include <map>
 #include "tileType.h"
+#include <iostream>
 
 namespace SlidingTiles {
 /**
@@ -10,41 +11,29 @@ namespace SlidingTiles {
  */
 class Tile {
     public:
-
-        Tile(){};  // Don't want
-        Tile(
-            sf::RenderWindow* window,
-            int size,
-            sf::Vector2i gridZeroZero,
-            sf::Vector2i tileCoordinates)
-            : gameBoardPosition(gameBoardPosition)
-            {
-                tileView.setRenderWindow(window);
-                tileView.setSize(size);
-                sf::Vector2i currentPosition { gridZeroZero.x + gameBoardPosition.x * size, gridZeroZero.y + gameBoardPosition.y * size};
-            };
-
         TileView tileView;
-        void setMoveable(TileType newType);
+
+        void setTilePosition( sf::Vector2i newGameBoardPosition ) {
+            tileView.setCoordinates( RenderingSingleton::getInstance().calculateCoordinates( newGameBoardPosition)) ;
+        }
+
         bool transition(sf::Vector2i newGameBoardPosition);
-        int getX();
-        int getY();
         void setTileType(TileType newType);
+        void setTileType(char c);
         TileType getTileType() { return tileType; };
         bool winner {false};
         bool isMoveable {false};
-        /**
-        * The position of the tile on the game board
-        */
-        sf::Vector2i gameBoardPosition {-1, -1};
 
     private:
         /**
-        * The position of the tile on the game board after the move
+        * @brief The type of the tile
         */
-        sf::Vector2i newGameBoardPosition {-1, -1};
-
         TileType tileType {TileType::Empty};
+
+        /**
+        * @brief sets the isMoveable flag based on the type of tile
+        */
+        void setMoveable(TileType newType);
 };
 
 } // namespace SlidingTiles

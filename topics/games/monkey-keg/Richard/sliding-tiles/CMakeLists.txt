@@ -36,12 +36,14 @@ SET(SOURCE_FILES
     tile.cpp
     texturesSingleton.cpp
     gameBoardSingleton.cpp
+    renderingSingleton.cpp
 )
 
 set( UNIT_TESTS
     game.tests.cpp
     texturesSingleton.tests.cpp
     gameBoardSingleton.tests.cpp
+    renderingSingleton.tests.cpp
 )
 
 ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})

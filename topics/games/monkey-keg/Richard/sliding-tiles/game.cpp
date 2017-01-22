@@ -9,7 +9,8 @@ namespace SlidingTiles {
     sf::Font font;
     void Game::init()
     {
-        window.setFramerateLimit(60);
+        RenderingSingleton::getInstance().setRenderWindow( &window );
+        RenderingSingleton::getInstance().getRenderWindow()->setFramerateLimit(60);
 
         if (!font.loadFromFile("assets/ChangaOne-Regular.ttf"))
             std::cout << "Can't load font ./assets/ChangaOne-Regular.ttf" << std::endl;
@@ -21,59 +22,24 @@ namespace SlidingTiles {
         bannerText.setString("Move the tiles with the mouse");
         bannerText.setPosition(30, 10);
 
-        char game3[4][4] {'-','-','H','s',
-                          '-','-','-','V',
-                          '-','-','V','-',
-                          '-','-','-','D'};
+        char game3[4][4] {' ',' ','-','s',
+                          ' ',' ',' ','V',
+                          ' ',' ','V',' ',
+                          ' ',' ',' ','D'};
 
 
-        char game1[4][4] {'S','H','H','l',
-                         'e','-','-','V',
-                         'V','-','-','V',
-                         'R','H','H','L'};
+        char game1[4][4] {'S','-','-','l',
+                         'e',' ',' ','V',
+                         'V',' ',' ','V',
+                         'R','-','-','L'};
 
 
 
         for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
             for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
-                Tile newTile {&window, tileSize, GameBoardSingleton::getInstance().gridZeroZero, sf::Vector2i {x,y}};
-                if (game1[y][x] == '-') {
-                    newTile.setTileType(TileType::Empty);
-                } else if (game1[y][x] == 'H'){
-                    newTile.setTileType(TileType::Horizontal);
-                } else if (game1[y][x] == 'V'){
-                    newTile.setTileType(TileType::Vertical);
-
-                } else if (game1[y][x] == 'R'){
-                    newTile.setTileType(TileType::TopRight);
-                } else if (game1[y][x] == 'L'){
-                    newTile.setTileType(TileType::LeftTop);
-                } else if (game1[y][x] == 'l'){
-                    newTile.setTileType(TileType::LeftBottom);
-                } else if (game1[y][x] == 'r'){
-                    newTile.setTileType(TileType::BottomRight);
-
-                } else if (game1[y][x] == 'S'){
-                    newTile.setTileType(TileType::StartRight);
-                } else if (game1[y][x] == 's'){
-                    newTile.setTileType(TileType::StartBottom);
-                } else if (game1[y][x] == 'T'){
-                    newTile.setTileType(TileType::StartTop);
-                } else if (game1[y][x] == 't'){
-                    newTile.setTileType(TileType::StartLeft);
-
-                } else if (game1[y][x] == 'D'){
-                    newTile.setTileType(TileType::EndTop);
-                } else if (game1[y][x] == 'd'){
-                    newTile.setTileType(TileType::EndRight);
-                } else if (game1[y][x] == 'E'){
-                    newTile.setTileType(TileType::EndLeft);
-                } else if (game1[y][x] == 'e'){
-                    newTile.setTileType(TileType::EndBottom);
-                } else {
-                    newTile.setTileType(TileType::Empty);
-                }
-                tiles[x][y] = newTile;
+                Tile* tile = &GameBoardSingleton::getInstance().tiles[x][y];
+                tile->setTilePosition(sf::Vector2i {x,y});
+                tile->setTileType( game1[y][x] );
             }
     }
 
@@ -83,7 +49,7 @@ namespace SlidingTiles {
     * if we are on an end tile it returns -2
     */
     sf::Vector2i Game::getNextTile(sf::Vector2i tilePos, Direction incomingDirection) {
-        TileType type = tiles[tilePos.x][tilePos.y].getTileType();
+        TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
         sf::Vector2i nextTile {tilePos.x,tilePos.y};
 
         if (type == TileType::StartRight)
@@ -149,7 +115,7 @@ namespace SlidingTiles {
     * Returns the direction coming out of the supplied tile and incoming direction.
     */
     Game::Direction Game::getTileDirection(sf::Vector2i tilePos, Direction incomingDirection) {
-        TileType type = tiles[tilePos.x][tilePos.y].getTileType();
+        TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
         Direction outputDirection = Direction::Unknown;
 
         if (type == TileType::StartRight)
@@ -193,17 +159,17 @@ namespace SlidingTiles {
         sf::Vector2i startTile {0,0};
         for (int x = 0; (x < GameBoardSingleton::boardSize) && !startFound; ++x)
             for (int y = 0; (y < GameBoardSingleton::boardSize) && !startFound; ++y)
-                if ( tiles[x][y].getTileType() == TileType::StartBottom
-                    || tiles[x][y].getTileType() == TileType::StartTop
-                    || tiles[x][y].getTileType() == TileType::StartLeft
-                    || tiles[x][y].getTileType() == TileType::StartRight  ) {
+                if ( GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartBottom
+                    || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartTop
+                    || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartLeft
+                    || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartRight  ) {
                         startFound = true;
                         startTile.x = x;
                         startTile.y = y;
                     }
         solutionPath.push_back(startTile);
 
-        tiles[startTile.x][startTile.y].winner = true;
+        GameBoardSingleton::getInstance().tiles[startTile.x][startTile.y].winner = true;
         sf::Vector2i nextTile = getNextTile(startTile, Direction::Unknown);
         Direction nextDirection = getTileDirection(startTile, Direction::Unknown);
         if ( ! shutUp )
@@ -235,17 +201,17 @@ namespace SlidingTiles {
         // send update event to all the tiles
         for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
             for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                tiles[x][y].tileView.update(dt);
+                GameBoardSingleton::getInstance().tiles[x][y].tileView.update(dt);
 
         // see if there is a solution
         std::vector<sf::Vector2i> solutionPath = findSolution();
         if ( solutionPath.size() > 0 ) {
             for ( auto tile : solutionPath )
-                tiles[tile.x][tile.y].winner = true;
+                GameBoardSingleton::getInstance().tiles[tile.x][tile.y].winner = true;
         } else {
             for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
                 for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                    tiles[x][y].winner = false;
+                    GameBoardSingleton::getInstance().tiles[x][y].winner = false;
         }
     }
 
@@ -253,41 +219,30 @@ namespace SlidingTiles {
 
     void Game::render()
     {
-        window.clear(sf::Color::White);
+        RenderingSingleton::getInstance().getRenderWindow()->clear(sf::Color::White);
 
-        window.draw(bannerText);
+        RenderingSingleton::getInstance().getRenderWindow()->draw(bannerText);
 
         // first render the tiles that are static
         for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
             for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                if ( ! tiles[x][y].tileView.transitioning )
-                    tiles[x][y].tileView.render();
+                if ( ! GameBoardSingleton::getInstance().tiles[x][y].tileView.transitioning )
+                    GameBoardSingleton::getInstance().tiles[x][y].tileView.render();
 
         // then render the tiles that are transitioning so that they are on top
         for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
             for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                if ( tiles[x][y].tileView.transitioning )
-                    tiles[x][y].tileView.render();
+                if ( GameBoardSingleton::getInstance().tiles[x][y].tileView.transitioning )
+                    GameBoardSingleton::getInstance().tiles[x][y].tileView.render();
 
-        window.display();
+        RenderingSingleton::getInstance().getRenderWindow()->display();
     }
 
-    /**
-    * Given the screen coordinates find the corresponding game coordinates in the model
-    */
-    sf::Vector2i Game::findTile(sf::Vector2i mousePosition) {
-        sf::Vector2i gridCoordinates = mousePosition - GameBoardSingleton::getInstance().gridZeroZero;
-        int xPos = gridCoordinates.x / tileSize;
-        int yPos = gridCoordinates.y / tileSize;
-        std::cout << "find tile mouse.x=" << mousePosition.x << " y= "
-            << mousePosition.y << " --> tiles[" << xPos << "][" << yPos << "]\n";
-        return sf::Vector2i {xPos, yPos};
-    }
 
-    bool Game::canSlideTile(Tile movingTile, sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
+    bool Game::canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
+        Tile movingTile = GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y];
         std::cout << "can slide tile[" << movingTilePosition.x << "][" << movingTilePosition.y << "]"
-            << " to [" << newPosition.x << "][" << newPosition.y << "]  tile reports x="
-            << movingTile.gameBoardPosition.x << " y=" << movingTile.gameBoardPosition.y
+            << " to [" << newPosition.x << "][" << newPosition.y << "]  "
             << " transitioning: " << movingTile.tileView.transitioning
             << " isMoveable: " << movingTile.isMoveable << "\n";
         if ( ! movingTile.isMoveable )
@@ -301,30 +256,34 @@ namespace SlidingTiles {
             return false;
 
         // check if newPosition already taken
-        if ( tiles[newPosition.x][newPosition.y].getTileType() != TileType::Empty )
+        if ( GameBoardSingleton::getInstance().tiles[newPosition.x][newPosition.y].getTileType() != TileType::Empty )
             return false;
 
         return true;
     }
 
 
-    void Game::slideTile(Tile movingTile, sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
-        if ( canSlideTile(movingTile, movingTilePosition, newPosition ) ) {
+    /**
+    * @brief moves a tile to a new position
+    * @param movingTile The coordinates of the tile that is moving
+    */
+    void Game::slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
+        Tile slidingTile = GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y];
+        if ( canSlideTile(movingTilePosition, newPosition ) ) {
             std::cout << "slide tile[" << movingTilePosition.x << "][" << movingTilePosition.y << "]"
-                << " to [" << newPosition.x << "][" << newPosition.y << "]  tile reports x="
-                << movingTile.gameBoardPosition.x << " y=" << movingTile.gameBoardPosition.y
-                << " transitioning: " << movingTile.tileView.transitioning << "\n";
-            movingTile.transition(newPosition);
-            tiles[newPosition.x][newPosition.y] = movingTile;
-            Tile newTile {&window, tileSize, GameBoardSingleton::getInstance().gridZeroZero, movingTilePosition };
+                << " to [" << newPosition.x << "][" << newPosition.y << "] "
+                << " transitioning: " << slidingTile.tileView.transitioning << "\n";
+            slidingTile.transition(newPosition);
+            GameBoardSingleton::getInstance().tiles[newPosition.x][newPosition.y] = slidingTile;
+            Tile newTile {};
+            newTile.setTilePosition( movingTilePosition );
             newTile.setTileType(TileType::Empty);
-            tiles[movingTilePosition.x][movingTilePosition.y] = newTile;
+            GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y] = newTile;
             shutUp = false;
         }
     }
 
-    void Game::run()
-    {
+    void Game::run() {
         while (window.isOpen())
         {
             sf::Event event;
@@ -335,27 +294,33 @@ namespace SlidingTiles {
                 else if (event.type == sf::Event::MouseButtonPressed) {
                     mousePositionPressed = sf::Vector2i{event.mouseButton.x, event.mouseButton.y};
                 } else if (event.type == sf::Event::MouseButtonReleased) {
-                    int deltaX = event.mouseButton.x - mousePositionPressed.x;
-                    int deltaY = event.mouseButton.y - mousePositionPressed.y;
-                    if ( abs(deltaX) > 2 || abs(deltaY) > 2) {
-                        sf::Vector2i movingTilePosition = findTile(mousePositionPressed);
-                        SlidingTiles::Tile movingTile = tiles[movingTilePosition.x][movingTilePosition.y];
-                        if (abs(deltaX) > abs(deltaY)) {
-                            // horizontal movement
-                            sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x + copysign(1, deltaX), movingTilePosition.y);
-                            slideTile(movingTile, movingTilePosition, newPosition);
-                        } else {
-                            // vertical movement
-                            sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x, movingTilePosition.y + copysign(1, deltaY));
-                            slideTile(movingTile, movingTilePosition, newPosition);
-                        }
-                    }
+                    doMouseReleased(sf::Vector2i {event.mouseButton.x, event.mouseButton.y});
                 }
             }
 
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
             render();
+        }
+    }
+
+    void Game::doMouseReleased(sf::Vector2i mousePosition) {
+        sf::Vector2i movingTilePosition = RenderingSingleton::getInstance().findTile(mousePositionPressed);
+        if ( movingTilePosition.x == -1 || movingTilePosition.y == -1)
+            return; // out of grid
+        int deltaX = mousePosition.x - mousePositionPressed.x;
+        int deltaY = mousePosition.y - mousePositionPressed.y;
+        if ( abs(deltaX) > 2 || abs(deltaY) > 2) {
+            SlidingTiles::Tile movingTile = GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y];
+            if (abs(deltaX) > abs(deltaY)) {
+                // horizontal movement
+                sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x + copysign(1, deltaX), movingTilePosition.y);
+                slideTile(movingTilePosition, newPosition);
+            } else {
+                // vertical movement
+                sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x, movingTilePosition.y + copysign(1, deltaY));
+                slideTile(movingTilePosition, newPosition);
+            }
         }
     }
 

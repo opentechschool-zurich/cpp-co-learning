@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "texturesSingleton.h"
+#include "renderingSingleton.h"
 
 namespace SlidingTiles {
 /**
@@ -10,30 +11,18 @@ namespace SlidingTiles {
 class TileView {
     public:
         TileView(){};  // Don't want
-        TileView(
-            sf::RenderWindow* window,
-            int size,
-            sf::Vector2i tileCoordinates)
-            : window(window),
-                size(size),
-                tileCoordinates(tileCoordinates)
-            {
-            };
-        void setRenderWindow( sf::RenderWindow* renderWindow) { window = renderWindow; };
-        void setSize( int newSize ) { size = newSize; };
+        TileView( sf::Vector2i tileCoordinates )
+            : tileCoordinates(tileCoordinates) {};
         void render();
         void update(const float dt);
         bool transition(sf::Vector2i newTileCoordinates);
-        void setColor( sf::Color newColor) { tileColor = newColor; };
-        void setTexture(sf::Texture newTexture) { tileTexture = newTexture; };
+
         void setTexture(TileType newType) { setTexture(TexturesSingleton::getInstance().getTexturesMap()[newType]);};
         bool winner {false};
         bool transitioning {false};
+        void setCoordinates( sf::Vector2i newCoordinates ) { tileCoordinates = newCoordinates; };
 
     private:
-        sf::RenderWindow *window;
-        int size = -1;
-
         static constexpr double TRANSITION_TIME {0.25}; // seconds
         double timeSpentTransitioning {0};
 
@@ -50,6 +39,7 @@ class TileView {
         sf::Color tileColor;
 
         sf::Texture tileTexture;
+        void setTexture(sf::Texture newTexture) { tileTexture = newTexture; };
 };
 
 } // namespace SlidingTiles

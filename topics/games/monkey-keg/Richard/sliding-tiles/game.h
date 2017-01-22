@@ -10,6 +10,7 @@
 #include <iostream>
 #include "tileType.h"
 #include "gameBoardSingleton.h"
+#include "renderingSingleton.h"
 
 namespace SlidingTiles {
     class Game
@@ -27,24 +28,21 @@ namespace SlidingTiles {
         };
 
     private:
-        sf::RenderWindow window;
         sf::Clock deltaClock;
 
-        bool canSlideTile(Tile movingTile, sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
-        void slideTile(Tile movingTile, sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
+        bool canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
+        void slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
 
         sf::Text bannerText;
-        Tile tiles [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize];
 
         sf::Vector2i mousePositionPressed;
-        static const int tileSize {60};
-        sf::Vector2i findTile(sf::Vector2i mousePosition);
         std::vector<sf::Vector2i> findSolution();
         sf::Vector2i getNextTile(sf::Vector2i tilePosition, Direction direction);
         Direction getTileDirection(sf::Vector2i tilePos, Direction incomingDirection);
         std::string directionToString(Direction direction);
         bool shutUp {false};
-
+        sf::RenderWindow window;
+        void doMouseReleased(sf::Vector2i mousePosition);
 
     };
 }
