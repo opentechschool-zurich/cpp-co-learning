@@ -6,7 +6,7 @@
 
 namespace SlidingTiles {
 /**
- * @brief Box rectangle as a dynamic body filled with a texture loaded from a file
+ * @brief The view class for the tile that knows how to render itself
  */
 class TileView {
     public:

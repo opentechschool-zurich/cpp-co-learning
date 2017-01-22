@@ -4,7 +4,7 @@
 #include "tile.h"
 
 /**
-* @brief Singleton class that holds the information about the GameBoard
+* @brief Singleton class that holds the information about the game state
 */
 class GameBoardSingleton
 {

@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 /**
-* @brief Singleton class that holds the information about the GameBoard
+* @brief Singleton class that holds the information about the screen coordinates etc.
 */
 class RenderingSingleton
 {

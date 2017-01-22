@@ -13,8 +13,11 @@
 #include "renderingSingleton.h"
 
 namespace SlidingTiles {
-    class Game
-    {
+
+    /**
+    * @brief The main game object
+    */
+    class Game {
     public:
         Game();
 

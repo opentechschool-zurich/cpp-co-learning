@@ -7,7 +7,7 @@
 
 namespace SlidingTiles {
 /**
- * A tile on the board
+ * @brief A tile on the board
  */
 class Tile {
     public:
