@@ -1,5 +1,6 @@
 #include "tileView.h"
 
+#include <iostream>
 namespace SlidingTiles {
     void TileView::render() {
         sf::Vector2i renderPosition = tileCoordinates;

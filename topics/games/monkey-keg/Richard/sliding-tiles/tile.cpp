@@ -76,4 +76,47 @@ namespace SlidingTiles {
         return true;
     }
 
+
+    /**
+    * Returns the direction coming out of the supplied tile and incoming direction.
+    */
+    Direction Tile::getTileDirection(Direction incomingDirection) {
+        Direction outputDirection = Direction::Unknown;
+
+        if (tileType == TileType::StartRight)
+            return Direction::GoRight;
+        else if (tileType == TileType::StartLeft)
+            return Direction::GoLeft;
+        else if (tileType == TileType::StartTop)
+            return Direction::GoUp;
+        else if (tileType == TileType::StartBottom)
+            return Direction::GoDown;
+        else if (tileType == TileType::Horizontal
+            && ( incomingDirection == Direction::GoRight || incomingDirection == Direction::GoLeft) )
+            return incomingDirection;
+        else if (tileType == TileType::Vertical
+            && ( incomingDirection == Direction::GoUp || incomingDirection == Direction::GoDown) )
+            return incomingDirection;
+        else if (tileType == TileType::LeftBottom && incomingDirection == Direction::GoRight)
+            return Direction::GoDown;
+        else if (tileType == TileType::LeftBottom && incomingDirection == Direction::GoUp)
+            return Direction::GoLeft;
+        else if (tileType == TileType::LeftTop && incomingDirection == Direction::GoDown)
+            return Direction::GoLeft;
+        else if (tileType == TileType::LeftTop && incomingDirection == Direction::GoRight)
+            return Direction::GoUp;
+        else if (tileType == TileType::TopRight && incomingDirection == Direction::GoDown)
+            return Direction::GoRight;
+        else if (tileType == TileType::TopRight && incomingDirection == Direction::GoLeft)
+            return Direction::GoUp;
+        else if (tileType == TileType::BottomRight && incomingDirection == Direction::GoLeft)
+            return Direction::GoDown;
+        else if (tileType == TileType::BottomRight && incomingDirection == Direction::GoUp)
+            return Direction::GoRight;
+        else
+            return Direction::Unknown;
+    }
+
+
+
 }

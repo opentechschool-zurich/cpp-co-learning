@@ -4,6 +4,8 @@
 #include <map>
 #include "tileType.h"
 #include <iostream>
+#include "direction.h"
+
 
 namespace SlidingTiles {
 /**
@@ -23,6 +25,7 @@ class Tile {
         TileType getTileType() { return tileType; };
         bool winner {false};
         bool isMoveable {false};
+        Direction getTileDirection(Direction incomingDirection);
 
     private:
         /**

@@ -6,21 +6,14 @@ namespace SlidingTiles {
     {
     }
 
-    sf::Font font;
+
     void Game::init()
     {
         RenderingSingleton::getInstance().setRenderWindow( &window );
         RenderingSingleton::getInstance().getRenderWindow()->setFramerateLimit(60);
 
-        if (!font.loadFromFile("assets/ChangaOne-Regular.ttf"))
-            std::cout << "Can't load font ./assets/ChangaOne-Regular.ttf" << std::endl;
 
-        bannerText.setFont(font);
-        bannerText.setCharacterSize(30);
-        bannerText.setStyle(sf::Text::Bold);
-        bannerText.setColor(sf::Color::Black);
-        bannerText.setString("Move the tiles with the mouse");
-        bannerText.setPosition(30, 10);
+        gameView.init();
 
         char game3[4][4] {' ',' ','-','s',
                           ' ',' ',' ','V',
@@ -98,25 +91,13 @@ namespace SlidingTiles {
         return nextTile;
     }
 
-    std::string Game::directionToString(Direction direction) {
-        if ( direction == Direction::GoDown )
-            return "GoDown";
-        else if ( direction == Direction::GoRight )
-            return "GoRight";
-        else if ( direction == Direction::GoUp )
-            return "GoUp";
-        else if ( direction == Direction::GoLeft )
-            return "GoLeft";
-        else
-            return "Unknown";
-    }
-
     /**
     * Returns the direction coming out of the supplied tile and incoming direction.
     */
-    Game::Direction Game::getTileDirection(sf::Vector2i tilePos, Direction incomingDirection) {
-        TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
-        Direction outputDirection = Direction::Unknown;
+    Direction Game::getTileDirection(sf::Vector2i tilePos, Direction incomingDirection) {
+        //TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
+        return GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileDirection(incomingDirection);
+        /*Direction outputDirection = Direction::Unknown;
 
         if (type == TileType::StartRight)
             return Direction::GoRight;
@@ -147,7 +128,7 @@ namespace SlidingTiles {
         else if (type == TileType::BottomRight && incomingDirection == Direction::GoUp)
             return Direction::GoRight;
         else
-            return Direction::Unknown;
+            return Direction::Unknown; */
     }
 
 
@@ -173,19 +154,19 @@ namespace SlidingTiles {
         sf::Vector2i nextTile = getNextTile(startTile, Direction::Unknown);
         Direction nextDirection = getTileDirection(startTile, Direction::Unknown);
         if ( ! shutUp )
-            std::cout << "getNextTile x[" << startTile.x << "][" << startTile.y
+    /*        std::cout << "getNextTile x[" << startTile.x << "][" << startTile.y
                 << "] incomingDirection: " << directionToString(Direction::Unknown)
                 << " nextTile: x" << nextTile.x << " y: " << nextTile.y
-                << " nextDirection: " << directionToString(nextDirection) << std::endl;
+                << " nextDirection: " << directionToString(nextDirection) << std::endl;*/
         while (nextTile.x > -1) {
             solutionPath.push_back(nextTile);
             sf::Vector2i tempTile = getNextTile(nextTile, nextDirection);
             Direction tempDirection = getTileDirection(nextTile, nextDirection);
             if ( ! shutUp )
-                std::cout << "getNextTile x[" << nextTile.x << "][" << nextTile.y
+                /*std::cout << "getNextTile x[" << nextTile.x << "][" << nextTile.y
                     << "] incomingDirection: " << directionToString(nextDirection)
                     << " nextTile: x" << tempTile.x << " y: " << tempTile.y
-                    << " nextDirection: " << directionToString(tempDirection) << std::endl;
+                    << " nextDirection: " << directionToString(tempDirection) << std::endl;*/
             nextTile = tempTile;
             nextDirection = tempDirection;
         }
@@ -215,28 +196,6 @@ namespace SlidingTiles {
         }
     }
 
-
-
-    void Game::render()
-    {
-        RenderingSingleton::getInstance().getRenderWindow()->clear(sf::Color::White);
-
-        RenderingSingleton::getInstance().getRenderWindow()->draw(bannerText);
-
-        // first render the tiles that are static
-        for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
-            for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                if ( ! GameBoardSingleton::getInstance().tiles[x][y].tileView.transitioning )
-                    GameBoardSingleton::getInstance().tiles[x][y].tileView.render();
-
-        // then render the tiles that are transitioning so that they are on top
-        for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
-            for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                if ( GameBoardSingleton::getInstance().tiles[x][y].tileView.transitioning )
-                    GameBoardSingleton::getInstance().tiles[x][y].tileView.render();
-
-        RenderingSingleton::getInstance().getRenderWindow()->display();
-    }
 
 
     bool Game::canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
@@ -300,7 +259,7 @@ namespace SlidingTiles {
 
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
-            render();
+            gameView.render();
         }
     }
 

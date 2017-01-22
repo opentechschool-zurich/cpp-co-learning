@@ -58,6 +58,11 @@ class RenderingSingleton
         sf::Vector2i calculateCoordinates( sf::Vector2i xy );
 
         /**
+        * @brief calculate the coordinates for a tile from the x and y position
+        */
+        sf::Vector2i calculateCoordinates( int x, int y );
+
+        /**
         * @brief figure out the tile coordiantes for a given screen position
         * if position is outside the grid return -1, -1
         */

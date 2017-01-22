@@ -6,12 +6,21 @@ RenderingSingleton::RenderingSingleton(){
 
 const int RenderingSingleton::tileSize;
 
-sf::Vector2i RenderingSingleton:: calculateCoordinates( sf::Vector2i xy ) {
-    sf::Vector2i coordinates = gridZeroZero;
+sf::Vector2i RenderingSingleton::calculateCoordinates( sf::Vector2i xy ) {
+    /*sf::Vector2i coordinates = gridZeroZero;
     coordinates.x += xy.x * tileSize;
     coordinates.y += xy.y * tileSize;
+    return coordinates;*/
+    return calculateCoordinates( xy.x, xy.y);
+}
+
+sf::Vector2i RenderingSingleton::calculateCoordinates( int x, int y ) {
+    sf::Vector2i coordinates = gridZeroZero;
+    coordinates.x += x * tileSize;
+    coordinates.y += y * tileSize;
     return coordinates;
 }
+
 
 sf::Vector2i RenderingSingleton::RenderingSingleton::findTile(sf::Vector2i mousePosition) {
     sf::Vector2i gridCoordinates = mousePosition - gridZeroZero;

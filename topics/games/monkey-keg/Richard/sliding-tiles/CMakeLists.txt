@@ -32,18 +32,24 @@ FILE(COPY ${sliding-tiles-assets} DESTINATION assets/)
 
 SET(SOURCE_FILES
     game.cpp
+    gameView.cpp
     tileView.cpp
     tile.cpp
     texturesSingleton.cpp
     gameBoardSingleton.cpp
     renderingSingleton.cpp
+    direction.cpp
 )
 
 set( UNIT_TESTS
     game.tests.cpp
+    gameView.tests.cpp
+    tileView.tests.cpp
+    tile.tests.cpp
     texturesSingleton.tests.cpp
     gameBoardSingleton.tests.cpp
     renderingSingleton.tests.cpp
+    direction.tests.cpp
 )
 
 ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})
