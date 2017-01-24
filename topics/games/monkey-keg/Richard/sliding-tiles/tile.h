@@ -5,6 +5,7 @@
 #include "tileType.h"
 #include <iostream>
 #include "direction.h"
+#include <string>
 
 
 namespace SlidingTiles {
@@ -21,7 +22,7 @@ class Tile {
 
         bool transition(sf::Vector2i newGameBoardPosition);
         void setTileType(TileType newType);
-        void setTileType(char c);
+        void setTileType(std::string c);
         TileType getTileType() { return tileType; };
         bool winner {false};
         bool isMoveable {false};

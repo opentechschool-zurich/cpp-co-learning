@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "tile.h"
+#include <string>
 
 /**
 * @brief Singleton class that holds the information about the game state
@@ -42,7 +43,7 @@ class GameBoardSingleton
         /**
          * @brief load the game into the board
          */
-        void loadGame( char charGame[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]);
+        void loadGame( std::string game[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]);
 
 
     private:

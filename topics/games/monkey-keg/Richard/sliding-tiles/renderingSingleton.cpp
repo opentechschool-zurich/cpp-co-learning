@@ -7,10 +7,6 @@ RenderingSingleton::RenderingSingleton(){
 const int RenderingSingleton::tileSize;
 
 sf::Vector2i RenderingSingleton::calculateCoordinates( sf::Vector2i xy ) {
-    /*sf::Vector2i coordinates = gridZeroZero;
-    coordinates.x += xy.x * tileSize;
-    coordinates.y += xy.y * tileSize;
-    return coordinates;*/
     return calculateCoordinates( xy.x, xy.y);
 }
 

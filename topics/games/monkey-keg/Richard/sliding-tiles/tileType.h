@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 enum TileType {
     Empty,
@@ -17,3 +18,8 @@ enum TileType {
     TopRight,
     BottomRight
 };
+
+/**
+* @brief Returns a string of the tile type. Helpful for debugging
+*/
+std::string tileTypeToString( TileType t);

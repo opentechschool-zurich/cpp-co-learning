@@ -15,39 +15,39 @@ namespace SlidingTiles {
     /**
     * Sets the type of the tile based on a character code
     */
-    void Tile::setTileType(char c) {
-        if (c == ' ') {
+    void Tile::setTileType(std::string c) {
+        if (c == "") {
             setTileType(TileType::Empty);
-        } else if (c == '-'){
+        } else if (c == "-"){
             setTileType(TileType::Horizontal);
-        } else if (c == 'V'){
+        } else if (c == "|"){
             setTileType(TileType::Vertical);
 
-        } else if (c == 'R'){
+        } else if (c == "└"){
             setTileType(TileType::TopRight);
-        } else if (c == 'L'){
+        } else if (c == "┘"){
             setTileType(TileType::LeftTop);
-        } else if (c == 'l'){
+        } else if (c == "┐"){
             setTileType(TileType::LeftBottom);
-        } else if (c == 'r'){
+        } else if (c == "┌"){
             setTileType(TileType::BottomRight);
 
-        } else if (c == 'S'){
+        } else if (c == "├"){
             setTileType(TileType::StartRight);
-        } else if (c == 's'){
+        } else if (c == "┬"){
             setTileType(TileType::StartBottom);
-        } else if (c == 'T'){
+        } else if (c == "┴"){
             setTileType(TileType::StartTop);
-        } else if (c == 't'){
+        } else if (c == "┤"){
             setTileType(TileType::StartLeft);
 
-        } else if (c == 'D'){
+        } else if (c == "┻"){
             setTileType(TileType::EndTop);
-        } else if (c == 'd'){
+        } else if (c == "┣"){
             setTileType(TileType::EndRight);
-        } else if (c == 'E'){
+        } else if (c == "┫"){
             setTileType(TileType::EndLeft);
-        } else if (c == 'e'){
+        } else if (c == "┳"){
             setTileType(TileType::EndBottom);
         } else {
             setTileType(TileType::Empty);

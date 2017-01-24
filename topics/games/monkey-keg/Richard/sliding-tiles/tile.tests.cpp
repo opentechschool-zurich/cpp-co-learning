@@ -10,8 +10,7 @@ TEST(Tile, ObjectCreation)
     SlidingTiles::Tile tile;
 }
 
-TEST(Tile, getTileDirectionStartRight)
-{
+TEST(Tile, getTileDirectionStartRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartRight);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -30,8 +29,7 @@ TEST(Tile, getTileDirectionStartRight)
     ASSERT_THAT(Direction::GoRight, newDirection);
 }
 
-TEST(Tile, getTileDirectionStartLeft)
-{
+TEST(Tile, getTileDirectionStartLeft) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartLeft);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -50,8 +48,7 @@ TEST(Tile, getTileDirectionStartLeft)
     ASSERT_THAT(Direction::GoLeft, newDirection);
 }
 
-TEST(Tile, getTileDirectionStartTop)
-{
+TEST(Tile, getTileDirectionStartTop) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartTop);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -70,8 +67,7 @@ TEST(Tile, getTileDirectionStartTop)
     ASSERT_THAT(Direction::GoUp, newDirection);
 }
 
-TEST(Tile, getTileDirectionStartBottom)
-{
+TEST(Tile, getTileDirectionStartBottom) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartBottom);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -90,8 +86,7 @@ TEST(Tile, getTileDirectionStartBottom)
     ASSERT_THAT(Direction::GoDown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndRight)
-{
+TEST(Tile, getTileDirectionEndRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndRight);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -110,8 +105,7 @@ TEST(Tile, getTileDirectionEndRight)
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndLeft)
-{
+TEST(Tile, getTileDirectionEndLeft) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndLeft);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -130,8 +124,7 @@ TEST(Tile, getTileDirectionEndLeft)
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndTop)
-{
+TEST(Tile, getTileDirectionEndTop) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndTop);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -150,8 +143,7 @@ TEST(Tile, getTileDirectionEndTop)
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndBottom)
-{
+TEST(Tile, getTileDirectionEndBottom) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndBottom);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -170,8 +162,7 @@ TEST(Tile, getTileDirectionEndBottom)
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionVertical)
-{
+TEST(Tile, getTileDirectionVertical) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::Vertical);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -190,8 +181,7 @@ TEST(Tile, getTileDirectionVertical)
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionHorizontal)
-{
+TEST(Tile, getTileDirectionHorizontal) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::Horizontal);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -211,8 +201,7 @@ TEST(Tile, getTileDirectionHorizontal)
 }
 
 
-TEST(Tile, getTileDirectionBottomRight)
-{
+TEST(Tile, getTileDirectionBottomRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::BottomRight);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -231,8 +220,7 @@ TEST(Tile, getTileDirectionBottomRight)
     ASSERT_THAT(Direction::GoDown, newDirection);
 }
 
-TEST(Tile, getTileDirectionLeftTop)
-{
+TEST(Tile, getTileDirectionLeftTop) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::LeftTop);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -251,8 +239,7 @@ TEST(Tile, getTileDirectionLeftTop)
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionLeftBottom)
-{
+TEST(Tile, getTileDirectionLeftBottom) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::LeftBottom);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -271,8 +258,7 @@ TEST(Tile, getTileDirectionLeftBottom)
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, TopRight)
-{
+TEST(Tile, TopRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::TopRight);
     Direction newDirection = tile.getTileDirection(Direction::Unknown);
@@ -289,4 +275,59 @@ TEST(Tile, TopRight)
 
     newDirection = tile.getTileDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoUp, newDirection);
+}
+
+TEST(Tile, setTileTypeChar) {
+    SlidingTiles::Tile tile;
+
+    tile.setTileType( "-");
+    ASSERT_EQ(TileType::Horizontal, tile.getTileType());
+
+    tile.setTileType( "|");
+    ASSERT_EQ(TileType::Vertical, tile.getTileType());
+
+
+    tile.setTileType( "┐");
+    ASSERT_EQ(TileType::LeftBottom, tile.getTileType());
+
+    tile.setTileType( "└");
+    ASSERT_EQ(TileType::TopRight, tile.getTileType());
+
+    tile.setTileType( "┘");
+    ASSERT_EQ(TileType::LeftTop, tile.getTileType());
+
+    tile.setTileType( "┌");
+    ASSERT_EQ(TileType::BottomRight, tile.getTileType());
+
+
+    tile.setTileType( "├");
+    ASSERT_EQ(TileType::StartRight, tile.getTileType());
+
+    tile.setTileType( "┤");
+    ASSERT_EQ(TileType::StartLeft, tile.getTileType());
+
+    tile.setTileType( "┬");
+    ASSERT_EQ(TileType::StartBottom, tile.getTileType());
+
+    tile.setTileType( "┴");
+    ASSERT_EQ(TileType::StartTop, tile.getTileType());
+
+
+    tile.setTileType( "┣");
+    ASSERT_EQ(TileType::EndRight, tile.getTileType());
+
+    tile.setTileType( "┫");
+    ASSERT_EQ(TileType::EndLeft, tile.getTileType());
+
+    tile.setTileType( "┳");
+    ASSERT_EQ(TileType::EndBottom, tile.getTileType());
+
+    tile.setTileType( "┻");
+    ASSERT_EQ(TileType::EndTop, tile.getTileType());
+
+
+    tile.setTileType( " ");
+    ASSERT_EQ(TileType::Empty, tile.getTileType());
+
+
 }

@@ -15,18 +15,18 @@ namespace SlidingTiles {
 
         gameView.init();
 
-        char game3[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
-                         {' ',' ','-','s',
-                          ' ',' ',' ','V',
-                          ' ',' ','V',' ',
-                          ' ',' ',' ','D'};
+        std::string game3[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+                         {" "," ","-","┬",
+                          " "," "," ","|",
+                          " "," ","|"," ",
+                          " "," "," ","┻"};
 
 
-        char game1[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
-                        {'S','-','-','l',
-                         'e',' ',' ','V',
-                         'V',' ',' ','V',
-                         'R','-','-','L'};
+        std::string game1[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+                        {"├","-","-","┐",
+                         "┣","┐"," ","|",
+                         "┌","┘"," ","|",
+                         "└","-","-","┘"};
 
         GameBoardSingleton::getInstance().loadGame(game1);
     }

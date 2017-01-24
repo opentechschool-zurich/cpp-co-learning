@@ -39,6 +39,7 @@ SET(SOURCE_FILES
     gameBoardSingleton.cpp
     renderingSingleton.cpp
     direction.cpp
+    tileType.cpp
 )
 
 set( UNIT_TESTS

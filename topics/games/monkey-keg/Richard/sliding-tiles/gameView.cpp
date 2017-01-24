@@ -28,6 +28,8 @@ void GameView::render()
     for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
         for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
             sf::Vector2i position = RenderingSingleton::getInstance().calculateCoordinates(x,y);
+            //std::cout << "[" << x << "][" << y << "] x: " << position.x
+            //    << " y: " << position.y << " type: "<< tileTypeToString(GameBoardSingleton::getInstance().tiles[x][y].getTileType()) << "\n";
             emptyTileSprite.setPosition(position.x, position.y);
             RenderingSingleton::getInstance().getRenderWindow()->draw(emptyTileSprite);
         }
@@ -37,14 +39,16 @@ void GameView::render()
         for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
             Tile t = GameBoardSingleton::getInstance().tiles[x][y];
             if ( ( ! t.tileView.transitioning ) && ( t.getTileType() != TileType::Empty ) )
-                GameBoardSingleton::getInstance().tiles[x][y].tileView.render();
+                t.tileView.render();
         }
 
     // then render the tiles that are transitioning so that they are on top
     for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
-        for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-            if ( GameBoardSingleton::getInstance().tiles[x][y].tileView.transitioning )
-                GameBoardSingleton::getInstance().tiles[x][y].tileView.render();
+        for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+            Tile t = GameBoardSingleton::getInstance().tiles[x][y];
+            if ( t.tileView.transitioning )
+                t.tileView.render();
+        }
 
     RenderingSingleton::getInstance().getRenderWindow()->display();
 }
