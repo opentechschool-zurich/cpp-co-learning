@@ -31,100 +31,6 @@ namespace SlidingTiles {
         GameBoardSingleton::getInstance().loadGame(game1);
     }
 
-    /**
-    * Returns the connecting tile from the supplied tile.
-    * if no connecting tile is found it returns -1,-1
-    * if we are on an end tile it returns -2
-    */
-    sf::Vector2i Game::getNextTile(sf::Vector2i tilePos, Direction incomingDirection) {
-        TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
-        sf::Vector2i nextTile {tilePos.x,tilePos.y};
-
-        if (type == TileType::StartRight)
-            ++nextTile.x;
-        else if (type == TileType::StartLeft)
-            --nextTile.x;
-        else if (type == TileType::StartTop)
-            --nextTile.y;
-
-
-        else if (type == TileType::StartBottom)
-            ++nextTile.y;
-        else if (type == TileType::Horizontal && incomingDirection == Direction::GoRight)
-            ++nextTile.x;
-        else if (type == TileType::Horizontal && incomingDirection == Direction::GoLeft)
-            --nextTile.x;
-        else if (type == TileType::Vertical && incomingDirection == Direction::GoDown)
-            ++nextTile.y;
-        else if (type == TileType::Vertical && incomingDirection == Direction::GoUp)
-            --nextTile.y;
-        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoRight)
-            ++nextTile.y;
-        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoUp)
-            --nextTile.x;
-        else if (type == TileType::LeftTop && incomingDirection == Direction::GoDown)
-            --nextTile.x;
-        else if (type == TileType::LeftTop && incomingDirection == Direction::GoRight)
-            --nextTile.y;
-        else if (type == TileType::BottomRight && incomingDirection == Direction::GoUp)
-            ++nextTile.x;
-        else if (type == TileType::BottomRight && incomingDirection == Direction::GoLeft)
-            ++nextTile.y;
-        else if (type == TileType::TopRight && incomingDirection == Direction::GoLeft)
-            --nextTile.y;
-        else if (type == TileType::TopRight && incomingDirection == Direction::GoDown)
-            ++nextTile.x;
-        else if (type == TileType::EndBottom || type == TileType::EndLeft
-            || type == TileType::EndRight || type == TileType::EndTop) {
-            nextTile.x = -2;
-            nextTile.y = -2;
-        } else {
-            nextTile.x = -1;
-            nextTile.y = -1;
-        }
-
-        return nextTile;
-    }
-
-    /**
-    * Returns the direction coming out of the supplied tile and incoming direction.
-    */
-    Direction Game::getTileDirection(sf::Vector2i tilePos, Direction incomingDirection) {
-        //TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
-        return GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileDirection(incomingDirection);
-        /*Direction outputDirection = Direction::Unknown;
-
-        if (type == TileType::StartRight)
-            return Direction::GoRight;
-        else if (type == TileType::StartLeft)
-            return Direction::GoLeft;
-        else if (type == TileType::StartTop)
-            return Direction::GoUp;
-        else if (type == TileType::StartBottom)
-            return Direction::GoDown;
-        else if (type == TileType::Horizontal)
-            return incomingDirection;
-        else if (type == TileType::Vertical)
-            return incomingDirection;
-        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoRight)
-            return Direction::GoDown;
-        else if (type == TileType::LeftBottom && incomingDirection == Direction::GoUp)
-            return Direction::GoLeft;
-        else if (type == TileType::LeftTop && incomingDirection == Direction::GoDown)
-            return Direction::GoLeft;
-        else if (type == TileType::LeftTop && incomingDirection == Direction::GoRight)
-            return Direction::GoUp;
-        else if (type == TileType::TopRight && incomingDirection == Direction::GoDown)
-            return Direction::GoRight;
-        else if (type == TileType::TopRight && incomingDirection == Direction::GoLeft)
-            return Direction::GoUp;
-        else if (type == TileType::BottomRight && incomingDirection == Direction::GoLeft)
-            return Direction::GoDown;
-        else if (type == TileType::BottomRight && incomingDirection == Direction::GoUp)
-            return Direction::GoRight;
-        else
-            return Direction::Unknown; */
-    }
 
 
     std::vector<sf::Vector2i> Game::findSolution() {
@@ -132,7 +38,7 @@ namespace SlidingTiles {
         std::vector<sf::Vector2i> solutionPath {};
 
         bool startFound = false;
-        sf::Vector2i startTile {0,0};
+        sf::Vector2i startTilePos {0,0};
         for (int x = 0; (x < GameBoardSingleton::boardSize) && !startFound; ++x)
             for (int y = 0; (y < GameBoardSingleton::boardSize) && !startFound; ++y)
                 if ( GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartBottom
@@ -140,34 +46,36 @@ namespace SlidingTiles {
                     || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartLeft
                     || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartRight  ) {
                         startFound = true;
-                        startTile.x = x;
-                        startTile.y = y;
+                        startTilePos.x = x;
+                        startTilePos.y = y;
                     }
-        solutionPath.push_back(startTile);
+        solutionPath.push_back(startTilePos);
 
-        GameBoardSingleton::getInstance().tiles[startTile.x][startTile.y].winner = true;
-        sf::Vector2i nextTile = getNextTile(startTile, Direction::Unknown);
-        Direction nextDirection = getTileDirection(startTile, Direction::Unknown);
+        Tile startTile = GameBoardSingleton::getInstance().tiles[startTilePos.x][startTilePos.y];
+        startTile.winner = true;
+        sf::Vector2i nextTilePos = GameBoardSingleton::getInstance().getNextTilePosition(startTilePos, Direction::Unknown);
+        Direction nextDirection = startTile.outputDirection( Direction::Unknown );
         if ( ! shutUp )
     /*        std::cout << "getNextTile x[" << startTile.x << "][" << startTile.y
                 << "] incomingDirection: " << directionToString(Direction::Unknown)
-                << " nextTile: x" << nextTile.x << " y: " << nextTile.y
+                << " nextTilePos: x" << nextTilePos.x << " y: " << nextTilePos.y
                 << " nextDirection: " << directionToString(nextDirection) << std::endl;*/
-        while (nextTile.x > -1) {
-            solutionPath.push_back(nextTile);
-            sf::Vector2i tempTile = getNextTile(nextTile, nextDirection);
-            Direction tempDirection = getTileDirection(nextTile, nextDirection);
+        while (nextTilePos.x > -1) {
+            solutionPath.push_back(nextTilePos);
+            sf::Vector2i tempTile = GameBoardSingleton::getInstance().getNextTilePosition(nextTilePos, nextDirection);
+            Tile nextTile = GameBoardSingleton::getInstance().tiles[nextTilePos.x][nextTilePos.y];
+            Direction tempDirection = nextTile.outputDirection(nextDirection);
             if ( ! shutUp )
-                /*std::cout << "getNextTile x[" << nextTile.x << "][" << nextTile.y
+                /*std::cout << "getNextTile x[" << nextTilePos.x << "][" << nextTilePos.y
                     << "] incomingDirection: " << directionToString(nextDirection)
-                    << " nextTile: x" << tempTile.x << " y: " << tempTile.y
+                    << " nextTilePos: x" << tempTile.x << " y: " << tempTile.y
                     << " nextDirection: " << directionToString(tempDirection) << std::endl;*/
-            nextTile = tempTile;
+            nextTilePos = tempTile;
             nextDirection = tempDirection;
         }
         shutUp = true;
 
-        if ( nextTile.x != -2 )
+        if ( nextTilePos.x != -2 )
             solutionPath = {};
         return solutionPath;
     }

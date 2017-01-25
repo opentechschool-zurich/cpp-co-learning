@@ -80,9 +80,7 @@ namespace SlidingTiles {
     /**
     * Returns the direction coming out of the supplied tile and incoming direction.
     */
-    Direction Tile::getTileDirection(Direction incomingDirection) {
-        Direction outputDirection = Direction::Unknown;
-
+    Direction Tile::outputDirection(Direction incomingDirection) {
         if (tileType == TileType::StartRight)
             return Direction::GoRight;
         else if (tileType == TileType::StartLeft)

@@ -45,6 +45,13 @@ class GameBoardSingleton
          */
         void loadGame( std::string game[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]);
 
+        /**
+        * @brief for a given imput return the position of the next tile
+        * @param tilePosition The position of the tile to query
+        * @param direction the incoming direction to return the outgoing direction
+        */
+        sf::Vector2i getNextTilePosition(sf::Vector2i tilePosition, Direction direction);
+
 
     private:
         /**

@@ -10,270 +10,270 @@ TEST(Tile, ObjectCreation)
     SlidingTiles::Tile tile;
 }
 
-TEST(Tile, getTileDirectionStartRight) {
+TEST(Tile, outputDirectionStartRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartRight);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::GoRight, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::GoRight, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::GoRight, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::GoRight, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoRight, newDirection);
 }
 
-TEST(Tile, getTileDirectionStartLeft) {
+TEST(Tile, outputDirectionStartLeft) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartLeft);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 }
 
-TEST(Tile, getTileDirectionStartTop) {
+TEST(Tile, outputDirectionStartTop) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartTop);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::GoUp, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::GoUp, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::GoUp, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::GoUp, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoUp, newDirection);
 }
 
-TEST(Tile, getTileDirectionStartBottom) {
+TEST(Tile, outputDirectionStartBottom) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::StartBottom);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::GoDown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::GoDown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::GoDown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::GoDown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoDown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndRight) {
+TEST(Tile, outputDirectionEndRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndRight);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndLeft) {
+TEST(Tile, outputDirectionEndLeft) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndLeft);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndTop) {
+TEST(Tile, outputDirectionEndTop) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndTop);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionEndBottom) {
+TEST(Tile, outputDirectionEndBottom) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::EndBottom);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionVertical) {
+TEST(Tile, outputDirectionVertical) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::Vertical);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::GoDown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::GoUp, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionHorizontal) {
+TEST(Tile, outputDirectionHorizontal) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::Horizontal);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::GoRight, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 }
 
 
-TEST(Tile, getTileDirectionBottomRight) {
+TEST(Tile, outputDirectionBottomRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::BottomRight);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::GoRight, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoDown, newDirection);
 }
 
-TEST(Tile, getTileDirectionLeftTop) {
+TEST(Tile, outputDirectionLeftTop) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::LeftTop);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::GoUp, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
-TEST(Tile, getTileDirectionLeftBottom) {
+TEST(Tile, outputDirectionLeftBottom) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::LeftBottom);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::GoLeft, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::GoDown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::Unknown, newDirection);
 }
 
 TEST(Tile, TopRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::TopRight);
-    Direction newDirection = tile.getTileDirection(Direction::Unknown);
+    Direction newDirection = tile.outputDirection(Direction::Unknown);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoDown);
+    newDirection = tile.outputDirection(Direction::GoDown);
     ASSERT_THAT(Direction::GoRight, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoUp);
+    newDirection = tile.outputDirection(Direction::GoUp);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoRight);
+    newDirection = tile.outputDirection(Direction::GoRight);
     ASSERT_THAT(Direction::Unknown, newDirection);
 
-    newDirection = tile.getTileDirection(Direction::GoLeft);
+    newDirection = tile.outputDirection(Direction::GoLeft);
     ASSERT_THAT(Direction::GoUp, newDirection);
 }
 

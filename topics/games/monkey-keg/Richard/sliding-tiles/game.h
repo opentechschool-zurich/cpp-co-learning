@@ -42,8 +42,6 @@ namespace SlidingTiles {
         void doMouseReleased(sf::Vector2i mousePosition);
 
         std::vector<sf::Vector2i> findSolution();
-        sf::Vector2i getNextTile(sf::Vector2i tilePosition, Direction direction);
-        Direction getTileDirection(sf::Vector2i tilePos, Direction incomingDirection);
 
         bool shutUp {false};
         sf::RenderWindow window;

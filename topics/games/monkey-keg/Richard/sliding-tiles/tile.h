@@ -26,7 +26,7 @@ class Tile {
         TileType getTileType() { return tileType; };
         bool winner {false};
         bool isMoveable {false};
-        Direction getTileDirection(Direction incomingDirection);
+        Direction outputDirection(Direction incomingDirection);
 
     private:
         /**
