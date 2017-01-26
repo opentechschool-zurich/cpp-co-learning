@@ -1,22 +1,16 @@
 #include "gameView.h"
 #include <gmock/gmock.h>
-#include <string>
 
-using namespace ::testing;
-
-TEST(GameView, ObjectCreation)
-{
+TEST(GameView, ObjectCreation) {
     SlidingTiles::GameView gameView;
 }
 
-TEST(GameView, initMethod)
-{
+TEST(GameView, initMethod) {
     SlidingTiles::GameView gameView;
     gameView.init();
 }
 
-TEST(GameView, bannerText)
-{
+TEST(GameView, bannerText) {
     SlidingTiles::GameView gameView;
     gameView.init();
     sf::Text bannerText = gameView.bannerText;

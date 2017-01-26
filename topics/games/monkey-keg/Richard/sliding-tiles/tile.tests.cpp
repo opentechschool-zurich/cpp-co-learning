@@ -2,10 +2,7 @@
 #include <gmock/gmock.h>
 #include "gameBoardSingleton.h"
 
-using namespace ::testing;
-
-TEST(Tile, ObjectCreation)
-{
+TEST(Tile, ObjectCreation) {
     SlidingTiles::Tile tile;
 }
 

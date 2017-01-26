@@ -1,6 +1,8 @@
 #include "gameBoardSingleton.h"
-#include <iostream>
 
+/**
+* Private singleton constructor
+*/
 GameBoardSingleton::GameBoardSingleton(){
 }
 
@@ -71,4 +73,93 @@ sf::Vector2i GameBoardSingleton::getNextTilePosition(sf::Vector2i tilePos, Direc
     }
 
     return nextTile;
+}
+
+
+bool GameBoardSingleton::canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
+    SlidingTiles::Tile movingTile = GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y];
+    if ( ! movingTile.isMoveable )
+        return false;
+
+    // check for move off the board
+    if ( newPosition.x >= GameBoardSingleton::boardSize
+        || newPosition.y >= GameBoardSingleton::boardSize
+        || newPosition.x < 0
+        || newPosition.y < 0 )
+        return false;
+
+    // check if newPosition already taken
+    if ( tiles[newPosition.x][newPosition.y].getTileType() != TileType::Empty )
+        return false;
+
+    return true;
+}
+
+
+/**
+* @brief moves a tile to a new position
+* @param movingTile The coordinates of the tile that is moving
+*/
+void GameBoardSingleton::slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
+    SlidingTiles::Tile slidingTile = tiles[movingTilePosition.x][movingTilePosition.y];
+    if ( canSlideTile(movingTilePosition, newPosition ) ) {
+        std::cout << "slide tile[" << movingTilePosition.x << "][" << movingTilePosition.y << "]"
+            << " to [" << newPosition.x << "][" << newPosition.y << "] "
+            << " transitioning: " << slidingTile.tileView.transitioning << "\n";
+        slidingTile.transition(newPosition);
+        GameBoardSingleton::getInstance().tiles[newPosition.x][newPosition.y] = slidingTile;
+        SlidingTiles::Tile newTile {};
+        newTile.setTilePosition( movingTilePosition );
+        newTile.setTileType(TileType::Empty);
+        GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y] = newTile;
+        shutUp = false;
+    }
+}
+
+
+std::vector<sf::Vector2i> GameBoardSingleton::isSolved() {
+    if ( ! shutUp ) std::cout << "starting isSolved\n";
+    std::vector<sf::Vector2i> solutionPath {};
+
+    bool startFound = false;
+    sf::Vector2i startTilePos {0,0};
+    for (int x = 0; (x < GameBoardSingleton::boardSize) && !startFound; ++x)
+        for (int y = 0; (y < GameBoardSingleton::boardSize) && !startFound; ++y)
+            if ( GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartBottom
+                || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartTop
+                || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartLeft
+                || GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartRight  ) {
+                    startFound = true;
+                    startTilePos.x = x;
+                    startTilePos.y = y;
+                }
+    solutionPath.push_back(startTilePos);
+
+    SlidingTiles::Tile startTile = GameBoardSingleton::getInstance().tiles[startTilePos.x][startTilePos.y];
+    startTile.winner = true;
+    sf::Vector2i nextTilePos = GameBoardSingleton::getInstance().getNextTilePosition(startTilePos, Direction::Unknown);
+    Direction nextDirection = startTile.outputDirection( Direction::Unknown );
+    if ( ! shutUp )
+        std::cout << "getNextTile x[" << startTilePos.x << "][" << startTilePos.y
+            << "] incomingDirection: " << directionToString(Direction::Unknown)
+            << " nextTilePos: x" << nextTilePos.x << " y: " << nextTilePos.y
+            << " nextDirection: " << directionToString(nextDirection) << std::endl;
+    while (nextTilePos.x > -1) {
+        solutionPath.push_back(nextTilePos);
+        sf::Vector2i tempTile = GameBoardSingleton::getInstance().getNextTilePosition(nextTilePos, nextDirection);
+        SlidingTiles::Tile nextTile = GameBoardSingleton::getInstance().tiles[nextTilePos.x][nextTilePos.y];
+        Direction tempDirection = nextTile.outputDirection(nextDirection);
+        if ( ! shutUp )
+            std::cout << "getNextTile x[" << nextTilePos.x << "][" << nextTilePos.y
+                << "] incomingDirection: " << directionToString(nextDirection)
+                << " nextTilePos: x" << tempTile.x << " y: " << tempTile.y
+                << " nextDirection: " << directionToString(tempDirection) << std::endl;
+        nextTilePos = tempTile;
+        nextDirection = tempDirection;
+    }
+    shutUp = true;
+
+    if ( nextTilePos.x != -2 )
+        solutionPath = {};
+    return solutionPath;
 }

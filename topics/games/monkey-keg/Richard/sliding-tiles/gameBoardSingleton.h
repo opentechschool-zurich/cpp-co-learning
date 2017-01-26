@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "tile.h"
 #include <string>
+#include <vector>
 
 /**
 * @brief Singleton class that holds the information about the game state
@@ -52,6 +53,31 @@ class GameBoardSingleton
         */
         sf::Vector2i getNextTilePosition(sf::Vector2i tilePosition, Direction direction);
 
+        /**
+        * @brief return whether a tile at the movingTilePosition can slide to
+        * the newPosition.
+        * @param movingTilePosition the position of the tile to move
+        * @param newPosition the new position of the tile
+        * @return true if a slide is allowed, false if not
+        */
+        bool canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
+
+        /**
+        * @brief slides the tile from the movingTilePosition to the newPosition if
+        * this is legal.
+        * @param movingTilePosition the position of the tile to move
+        * @param newPosition the new position of the tile
+        */
+        void slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
+
+        /**
+        * @brief returns if the puzzle is in a solved state by checkin the path
+        * from the start tile to the end tile.
+        * @return a vector with the tile positions of the solution if solved otherwise rturns an empty vector
+        */
+        std::vector<sf::Vector2i> isSolved();
+
+        bool shutUp {false};
 
     private:
         /**

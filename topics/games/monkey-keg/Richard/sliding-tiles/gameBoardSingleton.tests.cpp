@@ -1,7 +1,5 @@
 #include "gameBoardSingleton.h"
 #include <gmock/gmock.h>
-#include "tile.h"
-#include <string>
 
 using namespace ::testing;
 
@@ -143,4 +141,108 @@ TEST(GameBoardSingleton, findNextTilePositionInvalid) {
     expectedPosition.x = -1;
     expectedPosition.y = -1;
     ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+}
+
+
+TEST(GameBoardSingleton, canSlideTile) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","-","-","┐",
+         "┣","┐"," ","|",
+         "┌","┘"," ","|",
+         "└","-","-","┘"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {2,0};
+    sf::Vector2i newPosition {2,1};
+    ASSERT_TRUE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should work\n";
+}
+
+
+TEST(GameBoardSingleton, canSlideTileOccupied) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","-","-","┐",
+         "┣","┐"," ","|",
+         "┌","┘"," ","|",
+         "└","-","-","┘"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {2,0};
+    sf::Vector2i newPosition {3,0};
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work\n";
+}
+
+
+TEST(GameBoardSingleton, canSlideTileUnmoveables) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" ","├","-","┐",
+         " ","┣"," ","┘",
+         " "," ","-"," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {1,0};
+    sf::Vector2i newPosition {0,0};
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work because it is a start tile\n";
+
+    tilePosition.x = 1;
+    tilePosition.y = 1;
+    newPosition.x = 0;
+    newPosition.y = 1;
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work because it is an end tile\n";
+
+    tilePosition.x = 1;
+    tilePosition.y = 2;
+    newPosition.x = 2;
+    newPosition.y = 2;
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work because it is an empty tile\n";
+}
+
+TEST(GameBoardSingleton, canSlideTileOffTheBoard) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" ","├","-","┐",
+         " ","┣"," ","┘",
+         " "," ","-"," ",
+         "-"," "," ","-"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {1,0};
+    sf::Vector2i newPosition {1,-1};
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work because the new tile is off the board\n";
+
+    tilePosition.x = 3;
+    tilePosition.y = 0;
+    newPosition.x = 4;
+    newPosition.y = 0;
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work because the new tile is off the board\n";
+
+    tilePosition.x = 0;
+    tilePosition.y = 3;
+    newPosition.x = -1;
+    newPosition.y = 0;
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work because the new tile is off the board\n";
+
+    tilePosition.x = 0;
+    tilePosition.y = 3;
+    newPosition.x = 0;
+    newPosition.y = 4;
+    ASSERT_FALSE( GameBoardSingleton::getInstance().canSlideTile(tilePosition, newPosition) ) << "This slide should not work because the new tile is off the board\n";
+}
+
+
+TEST(GameBoardSingleton, isSolved) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" ","├","-","┐",
+         " ","┣","-","┘",
+         " "," ","-"," ",
+         "-"," "," ","-"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
+    ASSERT_THAT( 6, result.size() );
+}
+
+TEST(GameBoardSingleton, isNotSolved) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" ","├"," ","┐",
+         " ","┣","-","┘",
+         " "," ","-"," ",
+         "-"," "," ","-"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
+    ASSERT_THAT( 0, result.size() );
 }

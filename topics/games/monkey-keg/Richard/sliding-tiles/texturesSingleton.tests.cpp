@@ -1,22 +1,17 @@
 #include "texturesSingleton.h"
 #include <gmock/gmock.h>
 
-using namespace ::testing;
-
-TEST(TexturesSingleton, ObjectCreation)
-{
+TEST(TexturesSingleton, ObjectCreation) {
     TexturesSingleton::getInstance();
 }
 
-TEST(TexturesSingleton, LoadTextures)
-{
+TEST(TexturesSingleton, LoadTextures) {
     std::map<TileType, sf::Texture> textureMap = TexturesSingleton::getInstance().getTexturesMap();
     ASSERT_GT(textureMap.size(), 1);
     EXPECT_EQ(textureMap.size(), 15);
 }
 
-TEST(TexturesSingleton, RetrieveTextureFromMap)
-{
+TEST(TexturesSingleton, RetrieveTextureFromMap) {
     std::map<TileType, sf::Texture> textureMap = TexturesSingleton::getInstance().getTexturesMap();
     sf::Texture emptyTexture{};
     sf::Vector2u textureSize = emptyTexture.getSize();

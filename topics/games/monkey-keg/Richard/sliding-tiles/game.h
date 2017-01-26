@@ -34,18 +34,9 @@ namespace SlidingTiles {
     private:
         sf::Clock deltaClock;
 
-        bool canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
-        void slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
-
-
         sf::Vector2i mousePositionPressed;
         void doMouseReleased(sf::Vector2i mousePosition);
 
-        std::vector<sf::Vector2i> findSolution();
-
-        bool shutUp {false};
         sf::RenderWindow window;
-
-
     };
 }

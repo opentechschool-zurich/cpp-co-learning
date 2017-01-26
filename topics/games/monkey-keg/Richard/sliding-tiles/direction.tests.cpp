@@ -1,7 +1,5 @@
 #include "direction.h"
 #include <gmock/gmock.h>
-#include <string>
-using namespace ::testing;
 
 TEST(Direction, Unkonwn) {
     Direction d = Direction::Unknown;
