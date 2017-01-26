@@ -2,11 +2,9 @@
 
 #include "tileView.h"
 #include <map>
-#include "tileType.h"
 #include <iostream>
 #include "direction.h"
 #include <string>
-
 
 namespace SlidingTiles {
 /**

@@ -15,6 +15,11 @@ class TileView {
             : tileCoordinates(tileCoordinates) {};
         void render();
         void update(const float dt);
+
+        /**
+        * @brief starts a transition to the supplied new pixel coordinates
+        * @return true if transition kicked off, false if not
+        */
         bool transition(sf::Vector2i newTileCoordinates);
 
         void setTexture(TileType newType) { setTexture(TexturesSingleton::getInstance().getTexturesMap()[newType]);};

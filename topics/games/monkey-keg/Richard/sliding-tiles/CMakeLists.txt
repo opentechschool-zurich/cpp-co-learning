@@ -4,7 +4,7 @@ PROJECT(sliding-tiles)
 SET(CMAKE_CXX_STANDARD 14)
 
 IF (UNIX)
-    SET(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" "${CMAKE_MODULE_PATH}")
+    SET(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" "${PROJECT_SOURCE_DIR}" "${CMAKE_MODULE_PATH}")
 ENDIF (UNIX)
 
 FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window audio system)
@@ -65,8 +65,6 @@ TARGET_LINK_LIBRARIES(sliding-tiles LINK_PUBLIC
 	${SFML_LIBRARIES}
 )
 
-
-
 # Download and unpack googletest at configure time
 # see https://crascit.com/2015/07/25/cmake-gtest/
 # copy the CMakeLists.txt.in to build area as CMakeLists.txt
@@ -93,3 +91,12 @@ enable_testing()  # gives us a make test target
 add_test( all unit-tests ) # gives us a make test all target
 add_executable( unit-tests test-main.cpp ${SOURCE_FILES} ${UNIT_TESTS} )
 target_link_libraries( unit-tests LINK_PUBLIC gtest gmock ${SFML_LIBRARIES})
+
+
+# see http://stackoverflow.com/questions/13116488/detailed-guide-on-using-gcov-with-cmake-cdash
+SET(CHECK_COVERAGE ON)
+if (CHECK_COVERAGE)
+    SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
+    include(CodeCoverage)
+    setup_target_for_coverage(${PROJECT_NAME}_coverage unit-tests coverage)
+ENDIF (CHECK_COVERAGE)

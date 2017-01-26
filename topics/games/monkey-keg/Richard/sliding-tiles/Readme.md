@@ -39,6 +39,20 @@ make test
 ./unit-tests
 ```
 
+## Code Coverage
+To generate code coverage reports from the unit tests run the below steps.
+The CodeCoverage.cmake file used gcov from the gcc installation and lcov
+which has to be installed separately to generate an html coverage report.
+
+```bash
+mkdir -p build
+cd build
+cmake ..
+make
+make sliding-tiles_coverage
+# open the file coverage/index.html with a browser
+```
+
 ## Copyright information
 The Font was taken from http://www.1001freefonts.com/changa_one.fontIt is in the public domain and licenced under OFL and GPL
 Designer was Eduardo Tunni http://www.1001freefonts.com/search.php?d=1&q=Eduardo+Tunni

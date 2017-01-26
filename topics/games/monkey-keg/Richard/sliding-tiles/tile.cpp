@@ -16,9 +16,7 @@ namespace SlidingTiles {
     * Sets the type of the tile based on a character code
     */
     void Tile::setTileType(std::string c) {
-        if (c == "") {
-            setTileType(TileType::Empty);
-        } else if (c == "-"){
+        if (c == "-"){
             setTileType(TileType::Horizontal);
         } else if (c == "|"){
             setTileType(TileType::Vertical);
@@ -69,6 +67,7 @@ namespace SlidingTiles {
     else
         isMoveable = true;
     };
+
 
     bool Tile::transition(sf::Vector2i newGameBoardPosition) {
         sf::Vector2i newCoordiantes = RenderingSingleton::getInstance().calculateCoordinates( newGameBoardPosition );

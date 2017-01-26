@@ -34,6 +34,7 @@ namespace SlidingTiles {
         transitionTileCoordiantes = newTileCoordinates;
         transitioning = true;
         timeSpentTransitioning = 0;
+        return true;
     }
 
 }
