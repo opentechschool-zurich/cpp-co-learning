@@ -6,6 +6,8 @@
 
 #include "game.h"
 
+#include "SFMLDebugDraw.h"
+
 #include "world/ground.h"
 #include "world/barrel.h"
 #include "world/worldcontactlistener.h"
@@ -16,6 +18,7 @@ namespace Box2DRolling {
         window(sf::VideoMode(800, 600, 32), "Box2D Collision"),
         gravity(0.f, 9.8f),
         world(gravity),
+        debugDraw(window),
         barrel(&world, 200, 100)
     {
     }
@@ -23,6 +26,10 @@ namespace Box2DRolling {
     void Game::init()
     {
         window.setFramerateLimit(60);
+
+        world.SetDebugDraw(&debugDraw);
+        debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
+
         world.SetContactListener(&worldContactListener);
         Ground* ground = new Ground(&world, 400.f, 500.f);
     }
@@ -52,6 +59,8 @@ namespace Box2DRolling {
                 item->render(&window, BodyIterator);
             }
         }
+
+        world.DrawDebugData();
 
         window.display();
     }
@@ -115,7 +124,14 @@ namespace Box2DRolling {
         else if ((event.key.code == sf::Keyboard::Q) && (event.key.control))  {
             window.close();
         }
-   
+        else if(event.key.code == sf::Keyboard::F1)
+        {
+            std::cout << "F1" << std::endl;
+            if(debugDraw.GetFlags() & b2Draw::e_shapeBit)
+                debugDraw.ClearFlags(b2Draw::e_shapeBit);
+            else
+                debugDraw.AppendFlags(b2Draw::e_shapeBit);
+        }
     }
 
     void Game::mouseReleased(sf::Event event)

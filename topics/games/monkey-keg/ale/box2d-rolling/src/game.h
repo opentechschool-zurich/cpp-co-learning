@@ -6,6 +6,8 @@
 #include <SFML/System/Time.hpp>
 #include <Box2D/Box2D.h>
 
+#include "SFMLDebugDraw.h"
+
 #include "world/barrel.h"
 #include "world/worldcontactlistener.h"
 
@@ -33,6 +35,8 @@ namespace Box2DRolling {
 
         b2Vec2 gravity;
         b2World world;
+
+        SFMLDebugDraw debugDraw;
 
         Barrel barrel;
         WorldContactListener worldContactListener;

@@ -36,6 +36,8 @@ SET(BOX2DROLLING "${PROJECT_SOURCE_DIR}/assets")
 SET(box2d-rolling-assets
     ${BOX2DROLLING}/box.png
     ${BOX2DROLLING}/barrel-red.png
+    ${BOX2DROLLING}/barrel-red.png
+    ${BOX2DROLLING}/Franchise-Bold-hinted.ttf
 )
 
 FILE(COPY ${box2d-rolling-assets} DESTINATION assets/)
