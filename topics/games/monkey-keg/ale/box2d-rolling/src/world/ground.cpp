@@ -13,8 +13,7 @@ namespace Box2DRolling {
 
         b2PolygonShape Shape;
         Body->SetTransform(Body->GetWorldCenter(), 10 * degtorad);
-        Shape.SetAsBox((width/2)/scale, (height/2)/scale, Body->GetLocalCenter(), Body->GetAngle());
-        // Shape.SetAsBox((width/2)/scale, (height/2)/scale, b2Vec2(0, 0), 10 * degtorad);
+        Shape.SetAsBox((width/2)/scale, (height/2)/scale, b2Vec2(0, 0), 10 * degtorad);
         // Shape.SetAsBox((width/2)/scale, (height/2)/scale);
         // Body->SetTransform(Body->GetWorldCenter(), 10 * degtorad);
         // Body->SetTransform(Body->GetWorldCenter(), 10 * degtorad);
@@ -29,7 +28,8 @@ namespace Box2DRolling {
         sf::RectangleShape rectangle(sf::Vector2f(width, height));
         rectangle.setFillColor(sf::Color(50,50,250));
         rectangle.setPosition(body->GetWorldCenter().x * scale - width /2, body->GetWorldCenter().y * scale - height /2);
-        rectangle.setRotation(180/b2_pi * body->GetAngle());
+        // rectangle.setOrigin(body->GetLocalCenter().x * scale - width/2, body->GetLocalCenter().y * scale - height/2);
+        rectangle.setRotation(body->GetAngle() * radtodeg);
         window->draw(rectangle);
     }
 }
