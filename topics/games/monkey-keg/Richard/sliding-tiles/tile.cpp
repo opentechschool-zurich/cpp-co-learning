@@ -114,6 +114,9 @@ namespace SlidingTiles {
             return Direction::Unknown;
     }
 
-
+    void Tile::setWinner(bool status) {
+      winner = status;
+      tileView.setWinner(status);
+    }
 
 }

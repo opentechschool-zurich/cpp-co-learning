@@ -42,12 +42,14 @@ namespace SlidingTiles {
         // see if there is a solution
         std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
         if ( solutionPath.size() > 0 ) {
+            //std::cout << "Game is solved!\n";
             for ( auto tile : solutionPath )
-                GameBoardSingleton::getInstance().tiles[tile.x][tile.y].winner = true;
+                GameBoardSingleton::getInstance().tiles[tile.x][tile.y].setWinner(true);
         } else {
+            //std::cout << "Not solved\n";
             for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
                 for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                    GameBoardSingleton::getInstance().tiles[x][y].winner = false;
+                    GameBoardSingleton::getInstance().tiles[x][y].setWinner(false);
         }
     }
 

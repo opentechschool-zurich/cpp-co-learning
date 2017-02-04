@@ -22,9 +22,9 @@ class Tile {
         void setTileType(TileType newType);
         void setTileType(std::string c);
         TileType getTileType() { return tileType; };
-        bool winner {false};
         bool isMoveable {false};
         Direction outputDirection(Direction incomingDirection);
+        void setWinner(bool status);
 
     private:
         /**
@@ -36,6 +36,8 @@ class Tile {
         * @brief sets the isMoveable flag based on the type of tile
         */
         void setMoveable(TileType newType);
+
+        bool winner {false};
 };
 
 } // namespace SlidingTiles

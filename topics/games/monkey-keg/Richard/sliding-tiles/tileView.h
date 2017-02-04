@@ -23,9 +23,12 @@ class TileView {
         bool transition(sf::Vector2i newTileCoordinates);
 
         void setTexture(TileType newType) { setTexture(TexturesSingleton::getInstance().getTexturesMap()[newType]);};
-        bool winner {false};
+
         bool transitioning {false};
         void setCoordinates( sf::Vector2i newCoordinates ) { tileCoordinates = newCoordinates; };
+        void setWinner(bool status) {
+            winner = status;
+        };
 
     private:
         static constexpr double TRANSITION_TIME {0.25}; // seconds
@@ -45,6 +48,9 @@ class TileView {
 
         sf::Texture tileTexture;
         void setTexture(sf::Texture newTexture) { tileTexture = newTexture; };
+
+        bool winner {false};
 };
+
 
 } // namespace SlidingTiles

@@ -120,6 +120,53 @@ TEST(GameBoardSingleton, findNextTilePosition) {
     expectedPosition.x = -2;
     expectedPosition.y = -2;
     ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    tilePosition.x = 3;
+    tilePosition.y = 2;
+    nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::GoUp);
+    expectedPosition.x = 3;
+    expectedPosition.y = 1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+}
+
+TEST(GameBoardSingleton, findNextTilePosition2) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"-","-","┤","┐",
+         "┣","┐"," ","|",
+         "┌","┘"," ","|",
+         "└","-","-","┘"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {2,0};
+    sf::Vector2i nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i expectedPosition {1,0};
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+}
+
+TEST(GameBoardSingleton, findNextTilePosition3) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"┬","-","-","┐",
+         "|","┐"," ","|",
+         "┌","┘"," ","|",
+         "└","-","-","┘"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {0,0};
+    sf::Vector2i nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i expectedPosition {0,1};
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+}
+
+TEST(GameBoardSingleton, findNextTilePosition4) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"┌","-","-","┐",
+         "|","┐"," ","|",
+         "┴","┘"," ","|",
+         "└","-","-","┘"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {0,2};
+    sf::Vector2i nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i expectedPosition {0,1};
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
 
