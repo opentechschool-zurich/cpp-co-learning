@@ -9,6 +9,7 @@
 #include "SFMLDebugDraw.h"
 
 #include "world/ground.h"
+#include "world/polygon.h"
 #include "world/barrel.h"
 #include "world/worldcontactlistener.h"
 
@@ -32,6 +33,7 @@ namespace Box2DRolling {
 
         world.SetContactListener(&worldContactListener);
         Ground* ground = new Ground(&world, 400.f, 500.f);
+        Polygon* polygon = new Polygon(&world, 200.f, 500.f);
     }
 
     void Game::update(const float dt)

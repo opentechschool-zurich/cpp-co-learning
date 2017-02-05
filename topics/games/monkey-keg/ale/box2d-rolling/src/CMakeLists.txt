@@ -4,6 +4,7 @@ SET(box2d-rolling-sources
     SFMLDebugDraw.cpp
     world/barrel.cpp
     world/ground.cpp
+    world/polygon.cpp
     world/worldcontactlistener.cpp
 )
 
