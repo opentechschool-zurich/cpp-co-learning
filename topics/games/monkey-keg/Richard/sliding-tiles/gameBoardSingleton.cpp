@@ -95,6 +95,11 @@ bool GameBoardSingleton::canSlideTile(sf::Vector2i movingTilePosition, sf::Vecto
     return true;
 }
 
+bool GameBoardSingleton::canSlideTile(sf::Vector2i movingTilePosition, Direction direction) {
+  sf::Vector2i newPosition = getNextTilePosition (movingTilePosition, direction);
+  return canSlideTile(movingTilePosition, newPosition);
+}
+
 
 /**
 * @brief moves a tile to a new position
@@ -162,4 +167,26 @@ std::vector<sf::Vector2i> GameBoardSingleton::isSolved() {
     if ( nextTilePos.x != -2 )
         solutionPath = {};
     return solutionPath;
+}
+
+std::vector<SlidingTiles::Move> GameBoardSingleton::possibleMoves(){
+  std::vector<SlidingTiles::Move> possibleMoves{};
+  for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
+      for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+        sf::Vector2i position {x,y};
+        if (canSlideTile(position, Direction::GoUp)) {
+          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoUp ));
+        }
+        if (canSlideTile(position, Direction::GoDown)) {
+          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoDown ));
+        }
+        if (canSlideTile(position, Direction::GoLeft)) {
+          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoLeft ));
+        }
+        if (canSlideTile(position, Direction::GoRight)) {
+          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoRight ));
+        }
+      }
+
+  return possibleMoves;
 }

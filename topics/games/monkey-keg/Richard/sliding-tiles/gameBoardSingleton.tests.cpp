@@ -1,4 +1,5 @@
 #include "gameBoardSingleton.h"
+#include "move.h"
 #include <gmock/gmock.h>
 
 using namespace ::testing;
@@ -292,4 +293,27 @@ TEST(GameBoardSingleton, isNotSolved) {
     GameBoardSingleton::getInstance().loadGame(game);
     std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
     ASSERT_THAT( 0, result.size() );
+}
+
+TEST(GameBoardSingleton, possibleMovesNone) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","┫"," "," ",
+         " "," "," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    ASSERT_THAT(0, possibleMoves.size());
+}
+
+TEST(GameBoardSingleton, possibleMovesOne) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","-","┫"," ",
+         " "," "," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    ASSERT_THAT(1, possibleMoves.size());
+    SlidingTiles::Move move = possibleMoves[0];
 }

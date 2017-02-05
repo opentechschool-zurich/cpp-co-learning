@@ -4,6 +4,7 @@
 #include "tile.h"
 #include <string>
 #include <vector>
+#include "move.h"
 
 /**
 * @brief Singleton class that holds the information about the game state
@@ -63,12 +64,21 @@ class GameBoardSingleton
         bool canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
 
         /**
+        * @brief return whether a tile at the movingTilePosition can slide in the supplied direction.
+        * @param movingTilePosition the position of the tile to move
+        * @param Direction the direction to slide
+        * @return true if a slide is allowed, false if not
+        */
+        bool canSlideTile(sf::Vector2i movingTilePosition, Direction direction);
+
+        /**
         * @brief slides the tile from the movingTilePosition to the newPosition if
         * this is legal.
         * @param movingTilePosition the position of the tile to move
         * @param newPosition the new position of the tile
         */
         void slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
+
 
         /**
         * @brief returns if the puzzle is in a solved state by checkin the path
@@ -77,6 +87,10 @@ class GameBoardSingleton
         */
         std::vector<sf::Vector2i> isSolved();
 
+        /**
+        * @brief returns all moves that are possible on the current gameboard
+        */
+        std::vector<SlidingTiles::Move> possibleMoves();
         //bool shutUp {false};
 
     private:

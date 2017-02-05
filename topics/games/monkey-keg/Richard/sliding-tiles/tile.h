@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include "tileView.h"
 #include <map>
 #include <iostream>
