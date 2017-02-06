@@ -20,6 +20,7 @@ namespace Box2DRolling {
         private:
             const int width = 600;
             const int height = 16;
+            const int angle = 10;
     };
 }
 

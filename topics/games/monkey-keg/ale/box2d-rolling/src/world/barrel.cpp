@@ -17,7 +17,7 @@ namespace Box2DRolling {
 
         b2CircleShape Shape;
         // Shape.SetAsBox((32.f/2)/scale, (32.f/2)/scale);
-        Shape.m_p.Set((2.f)/scale, (3.f)/scale);
+        Shape.m_p.Set((2.f)/scale, (2.f)/scale);
         Shape.m_radius = 0.5f;
         b2FixtureDef FixtureDef;
         FixtureDef.density = 1.f;
@@ -43,7 +43,9 @@ namespace Box2DRolling {
         {
             Sprite.setTexture(boxTexture);
         }
-        Sprite.setOrigin(16.f, 16.f);
+        //Sprite.setOrigin(16.f, 16.f);
+        //Sprite.setOrigin(scale * ((b2CircleShape*) body)->m_radius, scale * ((b2CircleShape*) body)->m_radius);
+        Sprite.setOrigin(14.f, 14.f);
         Sprite.setPosition(scale * body->GetPosition().x, scale * body->GetPosition().y);
         Sprite.setRotation(body->GetAngle() * 180/b2_pi);
         window->draw(Sprite);
