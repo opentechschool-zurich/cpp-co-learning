@@ -21,7 +21,7 @@ void GameBoardSingleton::loadGame( std::string game[GameBoardSingleton::boardSiz
 }
 
 /**
-* Returns the connecting tile from the supplied tile.
+* Returns the connecting tile from the supplied tile. Used for finding the solution.
 * if no connecting tile is found it returns -1,-1
 * if we are on an end tile it returns -2
 */
@@ -75,8 +75,35 @@ sf::Vector2i GameBoardSingleton::getNextTilePosition(sf::Vector2i tilePos, Direc
     return nextTile;
 }
 
+/**
+* @brief Returns the adjacent tile in the direction
+* if no connecting tile is found it returns -1,-1
+*/
+sf::Vector2i GameBoardSingleton::getAdjacentTilePosition(sf::Vector2i tilePos, Direction direction) {
+    sf::Vector2i nextTile {tilePos.x,tilePos.y};
+
+    std::cout << "getAdjacentTilePosition for ["<< tilePos.x << "][" << tilePos.y << "] direction: " << directionToString(direction) << "\n";
+    if (direction == Direction::GoDown) {
+        ++nextTile.y;
+    }
+    else if (direction == Direction::GoUp)
+        --nextTile.y;
+    else if (direction == Direction::GoLeft)
+        --nextTile.x;
+    else if (direction == Direction::GoRight)
+        ++nextTile.x;
+
+    if ( nextTile.y < 0 || nextTile.x < 0 || nextTile.x >= GameBoardSingleton::boardSize || nextTile.x >= GameBoardSingleton::boardSize) {
+        nextTile.x = -1;
+        nextTile.y = -1;
+    }
+    return nextTile;
+}
+
 
 bool GameBoardSingleton::canSlideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
+    std::cout << "can slide tile from [" << movingTilePosition.x << "][" << movingTilePosition.y << "] to ["
+        << newPosition.x << "][" << newPosition.y << "]\n";
     SlidingTiles::Tile movingTile = GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y];
     if ( ! movingTile.isMoveable )
         return false;
@@ -92,11 +119,12 @@ bool GameBoardSingleton::canSlideTile(sf::Vector2i movingTilePosition, sf::Vecto
     if ( tiles[newPosition.x][newPosition.y].getTileType() != TileType::Empty )
         return false;
 
+    std::cout << "is true\n";
     return true;
 }
 
 bool GameBoardSingleton::canSlideTile(sf::Vector2i movingTilePosition, Direction direction) {
-  sf::Vector2i newPosition = getNextTilePosition (movingTilePosition, direction);
+  sf::Vector2i newPosition = getAdjacentTilePosition(movingTilePosition, direction);
   return canSlideTile(movingTilePosition, newPosition);
 }
 
@@ -173,18 +201,23 @@ std::vector<SlidingTiles::Move> GameBoardSingleton::possibleMoves(){
   std::vector<SlidingTiles::Move> possibleMoves{};
   for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
       for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+        std::cout << "possibleMoves testing [" << x << "][" << y << "]\n";
         sf::Vector2i position {x,y};
         if (canSlideTile(position, Direction::GoUp)) {
           possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoUp ));
+          std::cout << "Can GoUp\n";
         }
         if (canSlideTile(position, Direction::GoDown)) {
           possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoDown ));
+          std::cout << "Can GoDown\n";
         }
         if (canSlideTile(position, Direction::GoLeft)) {
           possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoLeft ));
+          std::cout << "Can GoLeft\n";
         }
         if (canSlideTile(position, Direction::GoRight)) {
           possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoRight ));
+          std::cout << "Can GoRight\n";
         }
       }
 

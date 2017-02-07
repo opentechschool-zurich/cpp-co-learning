@@ -55,6 +55,13 @@ class GameBoardSingleton
         sf::Vector2i getNextTilePosition(sf::Vector2i tilePosition, Direction direction);
 
         /**
+        * @brief Returns the adjacent tile in the direction
+        * if no adjacent tile is possible it returns -1,-1
+        */
+        sf::Vector2i getAdjacentTilePosition(sf::Vector2i tilePos, Direction direction);
+
+
+        /**
         * @brief return whether a tile at the movingTilePosition can slide to
         * the newPosition.
         * @param movingTilePosition the position of the tile to move

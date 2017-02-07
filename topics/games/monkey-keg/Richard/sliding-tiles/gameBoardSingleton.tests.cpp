@@ -192,6 +192,71 @@ TEST(GameBoardSingleton, findNextTilePositionInvalid) {
 }
 
 
+TEST(GameBoardSingleton, findAdjacentTilePosition) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","-","-","┐",
+         "┣","┐"," ","|",
+         "┌","┘"," ","|",
+         "└","-","-","┘"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {0,0};
+    std::cout << "First test unknown\n";
+    sf::Vector2i nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i expectedPosition {0,0};
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    std::cout << "Second test go right\n";
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoRight);
+    expectedPosition.x = 1;
+    expectedPosition.y = 0;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    std::cout << "Now we want to go down...\n";
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoDown);
+    expectedPosition.x = 0;
+    expectedPosition.y = 1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    std::cout << "Now we want to go left...\n";
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoLeft);
+    expectedPosition.x = -1;
+    expectedPosition.y = -1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoUp);
+    expectedPosition.x = -1;
+    expectedPosition.y = -1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+
+    tilePosition.x = 3;
+    tilePosition.y = 0;
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::Unknown);
+    expectedPosition.x = 3;
+    expectedPosition.y = 0;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoRight);
+    expectedPosition.x = -1;
+    expectedPosition.y = -1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoDown);
+    expectedPosition.x = 3;
+    expectedPosition.y = 1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoLeft);
+    expectedPosition.x = 2;
+    expectedPosition.y = 0;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoUp);
+    expectedPosition.x = -1;
+    expectedPosition.y = -1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+}
+
 TEST(GameBoardSingleton, canSlideTile) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {"├","-","-","┐",
@@ -303,7 +368,7 @@ TEST(GameBoardSingleton, possibleMovesNone) {
          " "," "," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
     std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
-    ASSERT_THAT(0, possibleMoves.size());
+    ASSERT_THAT(possibleMoves.size(), 0);
 }
 
 TEST(GameBoardSingleton, possibleMovesOne) {
@@ -314,6 +379,6 @@ TEST(GameBoardSingleton, possibleMovesOne) {
          " "," "," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
     std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
-    ASSERT_THAT(1, possibleMoves.size());
+    ASSERT_THAT(possibleMoves.size(), 1);
     SlidingTiles::Move move = possibleMoves[0];
 }
