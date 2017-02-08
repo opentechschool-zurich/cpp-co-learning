@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace SlidingTiles {
+
 /**
 * @brief Singleton class that holds the information about the screen coordinates etc.
 */
@@ -74,7 +76,11 @@ class RenderingSingleton
         */
         RenderingSingleton();
 
-
+        /**
+        * @brief the rendering window
+        */
         sf::RenderWindow* window;
 
 };
+
+} //namespace

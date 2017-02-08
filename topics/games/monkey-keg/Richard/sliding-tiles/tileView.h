@@ -10,10 +10,24 @@ namespace SlidingTiles {
  */
 class TileView {
     public:
-        TileView(){};  // Don't want
+        TileView(){};
+
+        /**
+        * @brief Constructs a new TileView with the appropriate screen coordinates
+        */
         TileView( sf::Vector2i tileCoordinates )
             : tileCoordinates(tileCoordinates) {};
+
+        /**
+        * @brief knows how to render the tile
+        */
         void render();
+
+        /**
+        * @brief need to be called periodically with a delta time to
+        * update the position etc.
+        * @param dt The passing time since last call in seconds
+        */
         void update(const float dt);
 
         /**
@@ -22,16 +36,38 @@ class TileView {
         */
         bool transition(sf::Vector2i newTileCoordinates);
 
+        /**
+        * @brief settor for a texture of the tile
+        * @param newType the new type of the tile. Will figure out the correct texture from the TexturesSingleton
+        */
         void setTexture(TileType newType) { setTexture(TexturesSingleton::getInstance().getTexturesMap()[newType]);};
 
+        /**
+        * @brief a bool to tell us if the tile is currently undergoing a transition
+        */
         bool transitioning {false};
+
+        /**
+        * @brief settor for the tile coordinates in screen coordinates
+        */
         void setCoordinates( sf::Vector2i newCoordinates ) { tileCoordinates = newCoordinates; };
+
+        /**
+        * @brief settor for the winner flag
+        */
         void setWinner(bool status) {
             winner = status;
         };
 
     private:
-        static constexpr double TRANSITION_TIME {0.25}; // seconds
+        /**
+        * @brief A constant that gives the amount of time in seconds that the transition will last
+        */
+        static constexpr double TRANSITION_TIME {0.15}; // seconds
+
+        /**
+        * @brief a tracker to figure out how much of TRANSITION_TIME has passed
+        */
         double timeSpentTransitioning {0};
 
         /**
@@ -44,11 +80,24 @@ class TileView {
         */
         sf::Vector2i transitionTileCoordiantes {0, 0};
 
+        /**
+        * @brief The color with which to tint the textures
+        */
         sf::Color tileColor;
 
+        /**
+        * @brief The texture for the tile
+        */
         sf::Texture tileTexture;
+
+        /**
+        * @brief settor for the Texture
+        */
         void setTexture(sf::Texture newTexture) { tileTexture = newTexture; };
 
+        /**
+        * @brief a bool to tell us if the tile is part of the solution path or not
+        */
         bool winner {false};
 };
 

@@ -1,5 +1,7 @@
 #include "gameBoardSingleton.h"
 
+using namespace SlidingTiles;
+
 /**
 * Private singleton constructor
 */
@@ -20,11 +22,6 @@ void GameBoardSingleton::loadGame( std::string game[GameBoardSingleton::boardSiz
         }
 }
 
-/**
-* Returns the connecting tile from the supplied tile. Used for finding the solution.
-* if no connecting tile is found it returns -1,-1
-* if we are on an end tile it returns -2
-*/
 sf::Vector2i GameBoardSingleton::getNextTilePosition(sf::Vector2i tilePos, Direction incomingDirection) {
     TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
     sf::Vector2i nextTile {tilePos.x,tilePos.y};
@@ -75,10 +72,6 @@ sf::Vector2i GameBoardSingleton::getNextTilePosition(sf::Vector2i tilePos, Direc
     return nextTile;
 }
 
-/**
-* @brief Returns the adjacent tile in the direction
-* if no connecting tile is found it returns -1,-1
-*/
 sf::Vector2i GameBoardSingleton::getAdjacentTilePosition(sf::Vector2i tilePos, Direction direction) {
     sf::Vector2i nextTile {tilePos.x,tilePos.y};
 
@@ -129,10 +122,6 @@ bool GameBoardSingleton::canSlideTile(sf::Vector2i movingTilePosition, Direction
 }
 
 
-/**
-* @brief moves a tile to a new position
-* @param movingTile The coordinates of the tile that is moving
-*/
 void GameBoardSingleton::slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition) {
     SlidingTiles::Tile slidingTile = tiles[movingTilePosition.x][movingTilePosition.y];
     if ( canSlideTile(movingTilePosition, newPosition ) ) {

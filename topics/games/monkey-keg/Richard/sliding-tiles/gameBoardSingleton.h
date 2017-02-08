@@ -6,6 +6,9 @@
 #include <vector>
 #include "move.h"
 
+
+namespace SlidingTiles {
+
 /**
 * @brief Singleton class that holds the information about the game state
 */
@@ -57,6 +60,8 @@ class GameBoardSingleton
         /**
         * @brief Returns the adjacent tile in the direction
         * if no adjacent tile is possible it returns -1,-1
+        * @param tilePos The position of the tile to query
+        * @param direction the incoming direction to return the outgoing direction
         */
         sf::Vector2i getAdjacentTilePosition(sf::Vector2i tilePos, Direction direction);
 
@@ -73,7 +78,7 @@ class GameBoardSingleton
         /**
         * @brief return whether a tile at the movingTilePosition can slide in the supplied direction.
         * @param movingTilePosition the position of the tile to move
-        * @param Direction the direction to slide
+        * @param direction the direction to slide
         * @return true if a slide is allowed, false if not
         */
         bool canSlideTile(sf::Vector2i movingTilePosition, Direction direction);
@@ -98,7 +103,7 @@ class GameBoardSingleton
         * @brief returns all moves that are possible on the current gameboard
         */
         std::vector<SlidingTiles::Move> possibleMoves();
-        //bool shutUp {false};
+
 
     private:
         /**
@@ -107,3 +112,5 @@ class GameBoardSingleton
         GameBoardSingleton();
 
 };
+
+} // namespace

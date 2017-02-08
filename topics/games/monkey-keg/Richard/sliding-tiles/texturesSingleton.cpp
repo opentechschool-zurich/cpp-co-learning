@@ -1,5 +1,8 @@
 #include "texturesSingleton.h"
 
+using namespace SlidingTiles;
+
+
 TexturesSingleton::TexturesSingleton(){
     sf::Texture texture;
 

@@ -5,6 +5,8 @@
 #include "tileType.h"
 #include <SFML/Graphics.hpp>
 
+namespace SlidingTiles {
+
 /**
 * @brief Singleton class that loads and holds the tile textures
 */
@@ -49,3 +51,5 @@ class TexturesSingleton
         */
         std::map<TileType, sf::Texture> texturesMap;
 };
+
+} //namespace

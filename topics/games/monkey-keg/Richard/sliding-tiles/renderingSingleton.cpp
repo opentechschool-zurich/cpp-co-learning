@@ -1,5 +1,6 @@
 #include "renderingSingleton.h"
-#include <iostream>
+
+using namespace SlidingTiles;
 
 RenderingSingleton::RenderingSingleton(){
 }
@@ -18,7 +19,7 @@ sf::Vector2i RenderingSingleton::calculateCoordinates( int x, int y ) {
 }
 
 
-sf::Vector2i RenderingSingleton::RenderingSingleton::findTile(sf::Vector2i mousePosition) {
+sf::Vector2i RenderingSingleton::findTile(sf::Vector2i mousePosition) {
     sf::Vector2i gridCoordinates = mousePosition - gridZeroZero;
     if ( gridCoordinates.x < 0 || gridCoordinates.y < 0
         || gridCoordinates.x > 4 * tileSize || gridCoordinates.y > 4 * tileSize )

@@ -1,6 +1,8 @@
 #include "texturesSingleton.h"
 #include <gmock/gmock.h>
 
+using namespace SlidingTiles;
+
 TEST(TexturesSingleton, ObjectCreation) {
     TexturesSingleton::getInstance();
 }

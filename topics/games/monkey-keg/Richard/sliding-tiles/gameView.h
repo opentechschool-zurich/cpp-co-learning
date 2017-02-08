@@ -11,15 +11,30 @@ namespace SlidingTiles {
  */
 class GameView {
     public:
-        GameView(){};  // Don't want
+        /**
+        * @brief constructor for the view of the game
+        */
+        GameView(){};
+
+        /**
+        * @brief initialised the game
+        */
         void init();
+
+        /**
+        * @brief knows how to render the game
+        */
         void render();
+
+        /**
+        * @brief a font to use for the text
+        */
         sf::Font font;
+
+        /**
+        * @brief the text to print
+        */
         sf::Text bannerText;
-
-    private:
-
-
 };
 
 } // namespace SlidingTiles

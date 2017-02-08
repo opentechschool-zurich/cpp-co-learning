@@ -1,6 +1,8 @@
 #include "renderingSingleton.h"
 #include <gmock/gmock.h>
 
+using namespace SlidingTiles;
+
 TEST(RenderingSingleton, ObjectCreation) {
     RenderingSingleton::getInstance();
 }
