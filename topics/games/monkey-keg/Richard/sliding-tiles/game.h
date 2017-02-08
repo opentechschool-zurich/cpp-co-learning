@@ -44,7 +44,7 @@ namespace SlidingTiles {
         /**
         * @brief the view for the game
         */
-        GameView gameView;
+        SlidingTiles::GameView gameView;
 
     private:
         /**

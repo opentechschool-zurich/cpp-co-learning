@@ -15,7 +15,7 @@ class Move {
         * @param startPosition the game board coordinates of the moving tile
         * @param direction the direction to move in
         */
-        Move( sf::Vector2i startPosition, Direction direction )
+        Move( sf::Vector2i startPosition, SlidingTiles::Direction direction )
             : startPosition(startPosition), direction(direction) {};
 
         /**
@@ -26,7 +26,7 @@ class Move {
         /**
         * @brief the direction we are moving in
         */
-        Direction direction;
+        SlidingTiles::Direction direction;
 };
 
 } // namespace SlidingTiles

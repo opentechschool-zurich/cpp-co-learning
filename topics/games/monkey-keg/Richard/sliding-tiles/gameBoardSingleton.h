@@ -51,6 +51,17 @@ class GameBoardSingleton
         void loadGame( std::string game[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]);
 
         /**
+         * @brief load the game into the board
+         */
+        void loadGame( std::vector<std::string> game);
+
+        /**
+         * @brief saves the game into an array
+         */
+        std::vector<std::string> serialiseGame();
+
+
+        /**
         * @brief for a given imput return the position of the next tile
         * @param tilePosition The position of the tile to query
         * @param direction the incoming direction to return the outgoing direction
@@ -90,6 +101,13 @@ class GameBoardSingleton
         * @param newPosition the new position of the tile
         */
         void slideTile(sf::Vector2i movingTilePosition, sf::Vector2i newPosition);
+
+        /**
+        * @brief slides the tile from the movingTilePosition to the newPosition if
+        * this is legal.
+        * @param move the movement
+        */
+        void slideTile(SlidingTiles::Move move);
 
 
         /**

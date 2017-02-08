@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+namespace SlidingTiles {
 /**
 * @brief The direction you can go
 */
@@ -9,3 +10,5 @@ enum Direction {
 };
 
 std::string directionToString(Direction direction);
+
+}

@@ -1,4 +1,7 @@
 #include "gameBoardSingleton.h"
+#include <sstream>
+#include "tileType.h"
+#include <string>
 
 using namespace SlidingTiles;
 
@@ -13,14 +16,38 @@ GameBoardSingleton::GameBoardSingleton(){
 const int GameBoardSingleton::boardSize;
 
 void GameBoardSingleton::loadGame( std::string game[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize] ) {
-    for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
+    for (int x = 0; x < GameBoardSingleton::boardSize; ++x) {
         for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
             SlidingTiles::Tile* tile = &GameBoardSingleton::getInstance().tiles[x][y];
             tile->setTilePosition(sf::Vector2i {x,y});
             tile->setTileType( game[y][x] );  // note the inversion here!
             //std::cout << "[" << x << "][" << y << "] char: " << game[x][y] << " became: " << tileTypeToString(tile->getTileType()) << "\n";
         }
+    }
 }
+
+void GameBoardSingleton::loadGame( std::vector<std::string> game ) {
+    for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+        for (int x = 0; x < GameBoardSingleton::boardSize; ++x) {
+            SlidingTiles::Tile* tile = &GameBoardSingleton::getInstance().tiles[x][y];
+            tile->setTilePosition(sf::Vector2i {x,y});
+            tile->setTileType( game[y*4+x] );
+            //std::cout << "[" << x << "][" << y << "] game[y*4+x]: " << game[y*4+x] << " became: " << tileTypeToString(tile->getTileType()) << "\n";
+        }
+    }
+}
+
+
+std::vector<std::string> GameBoardSingleton::serialiseGame() {
+    std::vector<std::string> serialisedGame;
+    for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+        for (int x = 0; x < GameBoardSingleton::boardSize; ++x) {
+            serialisedGame.push_back( tileTypeToChar( GameBoardSingleton::getInstance().tiles[x][y].getTileType() ) );
+        }
+    }
+    return serialisedGame;
+}
+
 
 sf::Vector2i GameBoardSingleton::getNextTilePosition(sf::Vector2i tilePos, Direction incomingDirection) {
     TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
@@ -138,6 +165,11 @@ void GameBoardSingleton::slideTile(sf::Vector2i movingTilePosition, sf::Vector2i
     }
 }
 
+void GameBoardSingleton::slideTile(SlidingTiles::Move move) {
+    sf::Vector2i newPosition = getAdjacentTilePosition(move.startPosition, move.direction);
+    slideTile( move.startPosition, newPosition);
+}
+
 
 std::vector<sf::Vector2i> GameBoardSingleton::isSolved() {
     //if ( ! shutUp ) std::cout << "starting isSolved\n";
@@ -192,21 +224,23 @@ std::vector<SlidingTiles::Move> GameBoardSingleton::possibleMoves(){
       for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
         std::cout << "possibleMoves testing [" << x << "][" << y << "]\n";
         sf::Vector2i position {x,y};
-        if (canSlideTile(position, Direction::GoUp)) {
-          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoUp ));
-          std::cout << "Can GoUp\n";
-        }
-        if (canSlideTile(position, Direction::GoDown)) {
-          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoDown ));
-          std::cout << "Can GoDown\n";
-        }
-        if (canSlideTile(position, Direction::GoLeft)) {
-          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoLeft ));
-          std::cout << "Can GoLeft\n";
-        }
-        if (canSlideTile(position, Direction::GoRight)) {
-          possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoRight ));
-          std::cout << "Can GoRight\n";
+        if ( tiles[x][y].isMoveable ) {
+            if (canSlideTile(position, Direction::GoUp)) {
+                possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoUp ));
+                std::cout << "Can GoUp\n";
+            }
+            if (canSlideTile(position, Direction::GoDown)) {
+                possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoDown ));
+                std::cout << "Can GoDown\n";
+            }
+            if (canSlideTile(position, Direction::GoLeft)) {
+                possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoLeft ));
+                std::cout << "Can GoLeft\n";
+            }
+            if (canSlideTile(position, Direction::GoRight)) {
+                possibleMoves.push_back(SlidingTiles::Move(position, Direction::GoRight ));
+                std::cout << "Can GoRight\n";
+            }
         }
       }
 

@@ -14,7 +14,7 @@ class Tile {
         /**
         * @brief the view of the tile
         */
-        TileView tileView;
+        SlidingTiles::TileView tileView;
 
         /**
         * @brief sets the tile position to the supplied game board position

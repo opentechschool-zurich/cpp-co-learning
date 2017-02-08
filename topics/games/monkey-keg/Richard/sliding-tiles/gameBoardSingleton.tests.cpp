@@ -48,6 +48,60 @@ TEST(GameBoardSingleton, loadGame) {
     ASSERT_EQ(TileType::EndRight, t.getTileType()) << "Tile 0,1 is of type " << tileTypeToString(t.getTileType());
 }
 
+TEST(GameBoardSingleton, saveAndLoadGame) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","-","-","┐",
+         "┣","┐"," ","|",
+         "┌","┘"," ","|",
+         "└","-","-","┘"};
+    GameBoardSingleton::getInstance().loadGame(game);
+
+    std::vector<std::string> savedGame = GameBoardSingleton::getInstance().serialiseGame();
+    std::string emptyGame [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" "," "," "," ",
+         " "," "," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(emptyGame);
+
+    SlidingTiles::Tile t = GameBoardSingleton::getInstance().tiles[0][0];
+    ASSERT_EQ(TileType::Empty, t.getTileType()) << "Tile 0,0 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[1][0];
+    ASSERT_EQ(TileType::Empty, t.getTileType()) << "Tile 1,0 is of type " << tileTypeToString(t.getTileType());
+
+    //std::cout << savedGame << "\n";
+    GameBoardSingleton::getInstance().loadGame(savedGame);
+
+    t = GameBoardSingleton::getInstance().tiles[0][0];
+    ASSERT_EQ(TileType::StartRight, t.getTileType()) << "Tile 0,0 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[1][0];
+    ASSERT_EQ(TileType::Horizontal, t.getTileType()) << "Tile 1,0 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[2][0];
+    ASSERT_EQ(TileType::Horizontal, t.getTileType()) << "Tile 2,0 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[3][0];
+    ASSERT_EQ(TileType::LeftBottom, t.getTileType()) << "Tile 3,0 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[3][1];
+    ASSERT_EQ(TileType::Vertical, t.getTileType()) << "Tile 3,1 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[3][3];
+    ASSERT_EQ(TileType::LeftTop, t.getTileType()) << "Tile 3,3 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[0][3];
+    ASSERT_EQ(TileType::TopRight, t.getTileType()) << "Tile 0,3 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[0][2];
+    ASSERT_EQ(TileType::BottomRight, t.getTileType()) << "Tile 0,2 is of type " << tileTypeToString(t.getTileType());
+
+    t = GameBoardSingleton::getInstance().tiles[0][1];
+    ASSERT_EQ(TileType::EndRight, t.getTileType()) << "Tile 0,1 is of type " << tileTypeToString(t.getTileType());
+}
+
+
 TEST(GameBoardSingleton, findNextTilePosition) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {"├","-","-","┐",
@@ -406,4 +460,26 @@ TEST(GameBoardSingleton, possibleMovesFour) {
     std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 4);
     SlidingTiles::Move move = possibleMoves[0];
+}
+
+
+TEST(GameBoardSingleton, possibleMovesIsSolved) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├"," ","┫"," ",
+         " ","-"," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    ASSERT_THAT(possibleMoves.size(), 4);
+    int solutions = 0;
+    for ( Move move : possibleMoves ) {
+        GameBoardSingleton::getInstance().loadGame(game);
+        GameBoardSingleton::getInstance().slideTile(move);
+        std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
+        if ( solutionPath.size() > 0 ) {
+            ++solutions;
+        }
+    }
+    ASSERT_THAT(solutions, 1);
 }

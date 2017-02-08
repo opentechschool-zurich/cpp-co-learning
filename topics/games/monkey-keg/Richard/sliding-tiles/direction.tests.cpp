@@ -1,6 +1,8 @@
 #include "direction.h"
 #include <gmock/gmock.h>
 
+using namespace SlidingTiles;
+
 TEST(Direction, Unkonwn) {
     Direction d = Direction::Unknown;
     ASSERT_EQ ("Unknown", directionToString(d));

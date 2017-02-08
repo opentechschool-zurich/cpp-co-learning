@@ -1,6 +1,6 @@
 #include "direction.h"
 
-std::string directionToString(Direction direction) {
+std::string SlidingTiles::directionToString(Direction direction) {
     if ( direction == Direction::GoDown )
         return "GoDown";
     else if ( direction == Direction::GoRight )

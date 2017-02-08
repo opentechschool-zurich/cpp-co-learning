@@ -36,3 +36,40 @@ std::string tileTypeToString( TileType t) {
         return "Unknown Type";
     }
 }
+
+std::string tileTypeToChar( TileType t) {
+    switch( t ) {
+    case TileType::Empty:
+        return " ";
+    case TileType::Horizontal:
+        return "-";
+    case TileType::Vertical:
+        return "|";
+    case TileType::StartTop:
+        return "┴";
+    case TileType::StartBottom:
+        return "┬";
+    case TileType::StartLeft:
+        return "┤";
+    case TileType::StartRight:
+        return "├";
+    case TileType::EndTop:
+        return "┻";
+    case TileType::EndBottom:
+        return "┳";
+    case TileType::EndRight:
+        return "┣";
+    case TileType::EndLeft:
+        return "┫";
+    case TileType::LeftTop:
+        return "┘";
+    case TileType::LeftBottom:
+        return "┐";
+    case TileType::TopRight:
+        return "└";
+    case TileType::BottomRight:
+        return "┌";
+    default:
+        return "Unknown Type";
+    }
+}
