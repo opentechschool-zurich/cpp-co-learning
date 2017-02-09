@@ -463,6 +463,8 @@ TEST(GameBoardSingleton, possibleMovesOne) {
     std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 1);
     SlidingTiles::MoveNode move = possibleMoves[0];
+    sf::Vector2i expectedTile {1,0};
+    ASSERT_EQ(move.startPosition, expectedTile)  << "Expect tile [1][0] to be a possible move but returned tile is [" << move.startPosition.x << "][" << move.startPosition.y << "] \n";
 }
 
 TEST(GameBoardSingleton, possibleMovesTwo) {
@@ -498,8 +500,14 @@ TEST(GameBoardSingleton, possibleMovesIsSolvedIn1Move) {
     GameBoardSingleton::getInstance().loadGame(game);
     std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 4);
-    std::vector<MoveNode> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
+    std::vector<Solution> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
     ASSERT_THAT(solutions.size(), 1);
+    Solution s = solutions[0];
+    std::cout << "s: " << s.moves.size() << "\n";
+    Move m = s.moves[0];
+    m.toString();
+    sf::Vector2i expectedTile {1,1};
+    ASSERT_EQ(m.startPosition, expectedTile)  << "Expect tile [1][1] to move up for solution but startPosition returned is [" << m.startPosition.x << "][" << m.startPosition.y << "] \n";
 }
 
 TEST(GameBoardSingleton, isSolvedIn2SingleMoves) {
@@ -515,6 +523,6 @@ TEST(GameBoardSingleton, isSolvedIn2SingleMoves) {
     for ( MoveNode m : possibleMoves ) {
         std::cout << m.toString();
     }*/
-    std::vector<MoveNode> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
+    std::vector<Solution> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
     ASSERT_THAT(solutions.size(), 2);
 }

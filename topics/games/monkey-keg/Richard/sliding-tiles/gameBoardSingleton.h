@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "moveNode.h"
+#include "solution.h"
 
 
 namespace SlidingTiles {
@@ -123,9 +124,9 @@ class GameBoardSingleton
         std::vector<SlidingTiles::MoveNode> possibleMoves();
 
         /**
-        * @brief returns a vector with moves that lead to a solution if there is no solution the vector has 0 elements
+        * @brief returns a vector with solution moves. If there is no solution the vector has 0 elements
         */
-        std::vector<MoveNode> solutions (std::vector<MoveNode> possibleMoves);
+        std::vector<Solution> solutions (std::vector<MoveNode> possibleMoves);
 
 
     private:

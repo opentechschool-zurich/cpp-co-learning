@@ -2,6 +2,7 @@
 #include <sstream>
 #include "tileType.h"
 #include <string>
+#include "solution.h"
 
 using namespace SlidingTiles;
 
@@ -262,7 +263,7 @@ std::vector<SlidingTiles::MoveNode> GameBoardSingleton::possibleMoves(){
 }
 
 
-std::vector<MoveNode> GameBoardSingleton::solutions (std::vector<MoveNode> possibleMoves) {
+/*std::vector<MoveNode> GameBoardSingleton::solutions (std::vector<MoveNode> possibleMoves) {
     std::vector<std::string> priorGameState = serialiseGame();
     std::vector<MoveNode> solutions {};
     for ( MoveNode moveNode : possibleMoves ) {
@@ -271,6 +272,25 @@ std::vector<MoveNode> GameBoardSingleton::solutions (std::vector<MoveNode> possi
         std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
         if ( solutionPath.size() > 0 ) {
             solutions.push_back( moveNode );
+            //std::cout << moveNode.toString() << "winner!\n";
+        }
+        GameBoardSingleton::getInstance().loadGame(priorGameState);
+    }
+    return solutions;
+}*/
+
+
+std::vector<Solution> GameBoardSingleton::solutions (std::vector<MoveNode> possibleMoves) {
+    std::vector<std::string> priorGameState = serialiseGame();
+    std::vector<Solution> solutions {};
+    for ( MoveNode moveNode : possibleMoves ) {
+        Solution currentSolution {};
+        //std::cout << "Testing: " << moveNode.toString();
+        currentSolution.moves.push_back(moveNode);
+        GameBoardSingleton::getInstance().slideTile(moveNode);
+        std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
+        if ( solutionPath.size() > 0 ) {
+            solutions.push_back( currentSolution );
             //std::cout << moveNode.toString() << "winner!\n";
         }
         GameBoardSingleton::getInstance().loadGame(priorGameState);
