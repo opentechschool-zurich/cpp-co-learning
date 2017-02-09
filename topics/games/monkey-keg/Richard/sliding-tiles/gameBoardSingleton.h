@@ -122,6 +122,11 @@ class GameBoardSingleton
         */
         std::vector<SlidingTiles::Move> possibleMoves();
 
+        /**
+        * @brief returns a vector with moves that lead to a solution if there is no solution the vector has 0 elements
+        */
+        std::vector<Move> solutions (std::vector<Move> possibleMoves);
+        
 
     private:
         /**

@@ -201,6 +201,20 @@ TEST(GameBoardSingleton, findNextTilePosition2) {
 
 TEST(GameBoardSingleton, findNextTilePosition3) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+    {" "," "," "," ",
+     " ","-"," "," ",
+     "├"," ","┫"," ",
+     " ","-"," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {2,2};
+    sf::Vector2i nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::GoRight);
+    sf::Vector2i expectedPosition {-2,-2};
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] of type: "
+        << tileTypeToChar( GameBoardSingleton::getInstance().tiles[tilePosition.x][tilePosition.y].getTileType() ) << " getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+}
+
+TEST(GameBoardSingleton, findNextTilePosition4) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {"┬","-","-","┐",
          "|","┐"," ","|",
          "┌","┘"," ","|",
@@ -212,7 +226,7 @@ TEST(GameBoardSingleton, findNextTilePosition3) {
     ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
-TEST(GameBoardSingleton, findNextTilePosition4) {
+TEST(GameBoardSingleton, findNextTilePosition5) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {"┌","-","-","┐",
          "|","┐"," ","|",
@@ -255,24 +269,24 @@ TEST(GameBoardSingleton, findAdjacentTilePosition) {
          "└","-","-","┘"};
     GameBoardSingleton::getInstance().loadGame(game);
     sf::Vector2i tilePosition {0,0};
-    std::cout << "First test unknown\n";
+    //std::cout << "First test unknown\n";
     sf::Vector2i nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::Unknown);
     sf::Vector2i expectedPosition {0,0};
     ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    std::cout << "Second test go right\n";
+    //std::cout << "Second test go right\n";
     nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoRight);
     expectedPosition.x = 1;
     expectedPosition.y = 0;
     ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    std::cout << "Now we want to go down...\n";
+    //std::cout << "Now we want to go down...\n";
     nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoDown);
     expectedPosition.x = 0;
     expectedPosition.y = 1;
     ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    std::cout << "Now we want to go left...\n";
+    //std::cout << "Now we want to go left...\n";
     nextTilePosition = GameBoardSingleton::getInstance().getAdjacentTilePosition(tilePosition, Direction::GoLeft);
     expectedPosition.x = -1;
     expectedPosition.y = -1;
@@ -404,6 +418,19 @@ TEST(GameBoardSingleton, isSolved) {
     ASSERT_THAT( 6, result.size() );
 }
 
+TEST(GameBoardSingleton, isSolved2) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" "," "," "," ",
+         " ","-"," "," ",
+         "├","-","┫"," ",
+         " ","-"," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
+    ASSERT_THAT( 3, result.size() );
+}
+
+
+
 TEST(GameBoardSingleton, isNotSolved) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {" ","├"," ","┐",
@@ -462,8 +489,7 @@ TEST(GameBoardSingleton, possibleMovesFour) {
     SlidingTiles::Move move = possibleMoves[0];
 }
 
-
-TEST(GameBoardSingleton, possibleMovesIsSolved) {
+TEST(GameBoardSingleton, possibleMovesIsSolvedIn1Move) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {"├"," ","┫"," ",
          " ","-"," "," ",
@@ -472,14 +498,23 @@ TEST(GameBoardSingleton, possibleMovesIsSolved) {
     GameBoardSingleton::getInstance().loadGame(game);
     std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 4);
-    int solutions = 0;
-    for ( Move move : possibleMoves ) {
-        GameBoardSingleton::getInstance().loadGame(game);
-        GameBoardSingleton::getInstance().slideTile(move);
-        std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
-        if ( solutionPath.size() > 0 ) {
-            ++solutions;
-        }
-    }
-    ASSERT_THAT(solutions, 1);
+    std::vector<Move> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
+    ASSERT_THAT(solutions.size(), 1);
+}
+
+TEST(GameBoardSingleton, isSolvedIn2SingleMoves) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" "," "," "," ",
+         " ","-"," "," ",
+         "├"," ","┫"," ",
+         " ","-"," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    ASSERT_THAT(possibleMoves.size(), 7);
+    /*std::cout << "Possible moves:\n";
+    for ( Move m : possibleMoves ) {
+        std::cout << m.toString();
+    }*/
+    std::vector<Move> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
+    ASSERT_THAT(solutions.size(), 2);
 }
