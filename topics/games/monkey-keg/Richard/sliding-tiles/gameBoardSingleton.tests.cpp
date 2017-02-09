@@ -449,7 +449,7 @@ TEST(GameBoardSingleton, possibleMovesNone) {
          " "," "," "," ",
          " "," "," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
-    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 0);
 }
 
@@ -460,9 +460,9 @@ TEST(GameBoardSingleton, possibleMovesOne) {
          " "," "," "," ",
          " "," "," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
-    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 1);
-    SlidingTiles::Move move = possibleMoves[0];
+    SlidingTiles::MoveNode move = possibleMoves[0];
 }
 
 TEST(GameBoardSingleton, possibleMovesTwo) {
@@ -472,9 +472,9 @@ TEST(GameBoardSingleton, possibleMovesTwo) {
          " "," "," "," ",
          "-"," "," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
-    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 2);
-    SlidingTiles::Move move = possibleMoves[0];
+    SlidingTiles::MoveNode move = possibleMoves[0];
 }
 
 TEST(GameBoardSingleton, possibleMovesFour) {
@@ -484,9 +484,9 @@ TEST(GameBoardSingleton, possibleMovesFour) {
          " "," "," "," ",
          " "," "," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
-    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 4);
-    SlidingTiles::Move move = possibleMoves[0];
+    SlidingTiles::MoveNode move = possibleMoves[0];
 }
 
 TEST(GameBoardSingleton, possibleMovesIsSolvedIn1Move) {
@@ -496,9 +496,9 @@ TEST(GameBoardSingleton, possibleMovesIsSolvedIn1Move) {
          " "," "," "," ",
          " "," "," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
-    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 4);
-    std::vector<Move> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
+    std::vector<MoveNode> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
     ASSERT_THAT(solutions.size(), 1);
 }
 
@@ -509,12 +509,12 @@ TEST(GameBoardSingleton, isSolvedIn2SingleMoves) {
          "├"," ","┫"," ",
          " ","-"," "," "};
     GameBoardSingleton::getInstance().loadGame(game);
-    std::vector<SlidingTiles::Move> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
     ASSERT_THAT(possibleMoves.size(), 7);
     /*std::cout << "Possible moves:\n";
-    for ( Move m : possibleMoves ) {
+    for ( MoveNode m : possibleMoves ) {
         std::cout << m.toString();
     }*/
-    std::vector<Move> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
+    std::vector<MoveNode> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
     ASSERT_THAT(solutions.size(), 2);
 }

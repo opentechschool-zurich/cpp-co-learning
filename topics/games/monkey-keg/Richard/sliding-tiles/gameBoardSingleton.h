@@ -4,7 +4,7 @@
 #include "tile.h"
 #include <string>
 #include <vector>
-#include "move.h"
+#include "moveNode.h"
 
 
 namespace SlidingTiles {
@@ -120,13 +120,13 @@ class GameBoardSingleton
         /**
         * @brief returns all moves that are possible on the current gameboard
         */
-        std::vector<SlidingTiles::Move> possibleMoves();
+        std::vector<SlidingTiles::MoveNode> possibleMoves();
 
         /**
         * @brief returns a vector with moves that lead to a solution if there is no solution the vector has 0 elements
         */
-        std::vector<Move> solutions (std::vector<Move> possibleMoves);
-        
+        std::vector<MoveNode> solutions (std::vector<MoveNode> possibleMoves);
+
 
     private:
         /**
