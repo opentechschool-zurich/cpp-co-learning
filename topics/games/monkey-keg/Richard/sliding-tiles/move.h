@@ -3,6 +3,7 @@
 #include "direction.h"
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include <string>
 
 namespace SlidingTiles {
 /**
@@ -32,7 +33,7 @@ class Move {
         /**
         * @brief explains the move
         */
-        std::string toString() {
+        virtual std::string toString() {
             std::stringstream ss;
             ss << "Move startPosition: [" << startPosition.x << "][" << startPosition.y << "]";
             ss << " direction: " << directionToString(direction) << "\n";

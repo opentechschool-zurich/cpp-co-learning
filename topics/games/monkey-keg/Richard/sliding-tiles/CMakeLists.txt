@@ -40,6 +40,7 @@ SET(SOURCE_FILES
     renderingSingleton.cpp
     direction.cpp
     tileType.cpp
+    moveNode.cpp
 )
 
 set( UNIT_TESTS

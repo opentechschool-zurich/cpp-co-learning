@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include "move.h"
+#include <iostream>
 
 namespace SlidingTiles {
 /**
@@ -18,7 +19,11 @@ class MoveNode : public Move {
         * @param direction the direction to move in
         */
         MoveNode( sf::Vector2i startPosition, SlidingTiles::Direction direction, std::vector<std::string> startingBoard )
-            : Move(startPosition, direction), startingBoard(startingBoard) {};
+            : Move(startPosition, direction), startingBoard(startingBoard) {
+                id = count;
+                ++count;
+                //std::cout << "MoveNode constructor being called: #" << id << "\n";
+         };
 
         /**
         * @brief starting board (serialised)
@@ -38,6 +43,40 @@ class MoveNode : public Move {
         * @brief next moves
         */
         std::vector <SlidingTiles::MoveNode> possibleMoves {};
+
+        /**
+        * @brief explains the move
+        */
+        std::string toString( int indent ) {
+            std::stringstream ss;
+            ss << std::string(indent, ' ') << "Move #" << id << " startPosition: [" << startPosition.x
+                << "][" << startPosition.y << "]"
+                << " direction: " << directionToString(direction) << " possibleMoves: " << possibleMoves.size() << "\n";
+            for ( int i = 0; i < possibleMoves.size(); ++i ) {
+                ss << std::string(indent, ' ') << "possibleMove[" << i << "] -->\n";
+                ss << possibleMoves[i].toString( indent + 2 );
+            }
+            return ss.str();
+        }
+
+
+        /**
+        * @brief explains the move
+        */
+        virtual std::string toString() {
+            return toString(0);
+        }
+
+        /**
+        * @brief counter
+        */
+        static int count;
+
+        /**
+        * @brief My id
+        */
+        int id;
+
 };
 
 } // namespace SlidingTiles

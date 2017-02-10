@@ -230,6 +230,7 @@ std::vector<SlidingTiles::MoveNode> GameBoardSingleton::possibleMoves(){
                 moveNode.setEndingBoard( serialiseGame() );
                 possibleMoves.push_back(moveNode);
                 loadGame(priorGameState);
+                //std::cout << "Creating a possible move(GoUp): " << moveNode.toString();
                 //std::cout << "Can GoUp\n";
             }
             if (canSlideTile(position, Direction::GoDown)) {
@@ -238,6 +239,7 @@ std::vector<SlidingTiles::MoveNode> GameBoardSingleton::possibleMoves(){
                 moveNode.setEndingBoard( serialiseGame() );
                 possibleMoves.push_back(moveNode);
                 loadGame(priorGameState);
+                //std::cout << "Creating a possible move(GoDown): " << moveNode.toString();
                 //std::cout << "Can GoDown\n";
             }
             if (canSlideTile(position, Direction::GoLeft)) {
@@ -246,6 +248,7 @@ std::vector<SlidingTiles::MoveNode> GameBoardSingleton::possibleMoves(){
                 moveNode.setEndingBoard( serialiseGame() );
                 possibleMoves.push_back(moveNode);
                 loadGame(priorGameState);
+                //std::cout << "Creating a possible move(GoLeft): " << moveNode.toString();
                 //std::cout << "Can GoLeft\n";
             }
             if (canSlideTile(position, Direction::GoRight)) {
@@ -254,31 +257,33 @@ std::vector<SlidingTiles::MoveNode> GameBoardSingleton::possibleMoves(){
                 moveNode.setEndingBoard( serialiseGame() );
                 possibleMoves.push_back(moveNode);
                 loadGame(priorGameState);
+                //std::cout << "Creating a possible move(GoRight): " << moveNode.toString();
                 //std::cout << "Can GoRight\n";
             }
         }
       }
-
   return possibleMoves;
 }
 
+void GameBoardSingleton::addPossibleMoves(MoveNode &parentNode, int levels) {
+    //std::cout << "\n\naddPossibleMoves levels: " << levels << " " << parentNode.toString();
 
-/*std::vector<MoveNode> GameBoardSingleton::solutions (std::vector<MoveNode> possibleMoves) {
     std::vector<std::string> priorGameState = serialiseGame();
-    std::vector<MoveNode> solutions {};
-    for ( MoveNode moveNode : possibleMoves ) {
-        //std::cout << "Testing: " << moveNode.toString();
-        GameBoardSingleton::getInstance().slideTile(moveNode);
-        std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
-        if ( solutionPath.size() > 0 ) {
-            solutions.push_back( moveNode );
-            //std::cout << moveNode.toString() << "winner!\n";
+    GameBoardSingleton::getInstance().loadGame(parentNode.endingBoard);
+    std::vector<MoveNode> possMoves = possibleMoves();
+    if ( levels > 0 ) {
+        //std::cout << "Entering if with levels: " << levels << "\n";
+        for ( MoveNode & mn : possMoves ) {
+            // note the & above to ensure we work with the members and not a copy
+            addPossibleMoves(mn, levels-1);
         }
-        GameBoardSingleton::getInstance().loadGame(priorGameState);
     }
-    return solutions;
-}*/
-
+    // note do the insert after the recursive call above because insert copies the object and it might copy without the content in the vector!
+    parentNode.possibleMoves.insert(std::end(parentNode.possibleMoves), std::begin(possMoves), std::end(possMoves));
+    //std::cout << "parentNode after insert: " << parentNode.toString();
+    //std::cout << "finished addPosibleMoves levels: " << levels << " " << parentNode.toString();
+    GameBoardSingleton::getInstance().loadGame(priorGameState);
+}
 
 std::vector<Solution> GameBoardSingleton::solutions (std::vector<MoveNode> possibleMoves) {
     std::vector<std::string> priorGameState = serialiseGame();

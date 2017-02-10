@@ -124,6 +124,13 @@ class GameBoardSingleton
         std::vector<SlidingTiles::MoveNode> possibleMoves();
 
         /**
+        * @brief deepens the Search for possible moves and adds them to the MoveNode's possibleMoves recursively
+        * @param moveNode the node on which to Search
+        * @param levels how many levels deep to search 1 .. n
+        */
+        void addPossibleMoves(MoveNode &moveNode, int levels);
+
+        /**
         * @brief returns a vector with solution moves. If there is no solution the vector has 0 elements
         */
         std::vector<Solution> solutions (std::vector<MoveNode> possibleMoves);

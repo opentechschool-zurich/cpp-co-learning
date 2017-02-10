@@ -503,7 +503,7 @@ TEST(GameBoardSingleton, possibleMovesIsSolvedIn1Move) {
     std::vector<Solution> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
     ASSERT_THAT(solutions.size(), 1);
     Solution s = solutions[0];
-    std::cout << "s: " << s.moves.size() << "\n";
+    //std::cout << "s: " << s.moves.size() << "\n";
     Move m = s.moves[0];
     m.toString();
     sf::Vector2i expectedTile {1,1};
@@ -525,4 +525,61 @@ TEST(GameBoardSingleton, isSolvedIn2SingleMoves) {
     }*/
     std::vector<Solution> solutions = GameBoardSingleton::getInstance().solutions(possibleMoves);
     ASSERT_THAT(solutions.size(), 2);
+}
+
+TEST(GameBoardSingleton, addPossibleMoves) {
+    // builds on possibleMovesOne
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","-","┫"," ",
+         " "," "," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    ASSERT_THAT(possibleMoves.size(), 1);
+    SlidingTiles::MoveNode moveNode = possibleMoves[0];
+    sf::Vector2i expectedTile {1,0};
+    ASSERT_EQ(moveNode.startPosition, expectedTile)  << "Expect tile [1][0] to be a possible move but returned tile is [" << moveNode.startPosition.x << "][" << moveNode.startPosition.y << "] \n";
+
+    // now the addPossibleMoves stuff
+    GameBoardSingleton::getInstance().addPossibleMoves( moveNode, 1 );
+    ASSERT_THAT(moveNode.possibleMoves.size(), 4);
+}
+
+
+TEST(GameBoardSingleton, addPossibleMoves3Deep) {
+    // builds on addPossibleMoves which builds on possibleMovesOne
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├","-","┫"," ",
+         " "," "," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<SlidingTiles::MoveNode> possibleMoves = GameBoardSingleton::getInstance().possibleMoves();
+    ASSERT_THAT(possibleMoves.size(), 1);
+    SlidingTiles::MoveNode moveNode = possibleMoves[0];
+    sf::Vector2i expectedStartTile {1,0};
+    ASSERT_EQ(moveNode.startPosition, expectedStartTile)  << "Expect start tile [1][0] to be a possible move but returned tile is [" << moveNode.startPosition.x << "][" << moveNode.startPosition.y << "] \n";
+
+    //std::cout << "\n\n---\n" << moveNode.toString() << "----\n";
+
+    // now the addPossibleMoves stuff
+    GameBoardSingleton::getInstance().addPossibleMoves( moveNode, 3 );
+    //std::cout << "---\n" << moveNode.toString() << "----\n";
+    ASSERT_THAT(moveNode.possibleMoves.size(), 4);
+
+
+    int i = 0;
+    for ( ; i < 4; ++i ) {
+        //std::cout << "moveNode.possibleMoves["<<i<<"]: " << moveNode.possibleMoves[i].toString();
+        if ( moveNode.possibleMoves[i].direction == Direction::GoDown ) {
+            break;
+        }
+    }
+
+    //std::cout << "Move going down found on index: " << i << "\n";
+    //std::cout << moveNode.possibleMoves[i].toString();
+    MoveNode secondMove = moveNode.possibleMoves[i];
+    ASSERT_THAT( secondMove.direction, Direction::GoDown );
+    ASSERT_THAT( secondMove.possibleMoves.size(), 4 );
 }
