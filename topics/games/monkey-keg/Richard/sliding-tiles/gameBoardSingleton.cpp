@@ -217,52 +217,47 @@ std::vector<sf::Vector2i> GameBoardSingleton::isSolved() {
 }
 
 std::vector<SlidingTiles::MoveNode> GameBoardSingleton::possibleMoves(){
-  std::vector<std::string> priorGameState = serialiseGame();
-  std::vector<SlidingTiles::MoveNode> possibleMoves{};
+  MoveNode rootNode {sf::Vector2i{-1,-1}, Direction::Unknown, serialiseGame() };
+  rootNode.endingBoard = serialiseGame();
   for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
       for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
-        //std::cout << "possibleMoves testing [" << x << "][" << y << "]\n";
         sf::Vector2i position {x,y};
         if ( tiles[x][y].isMoveable ) {
             if (canSlideTile(position, Direction::GoUp)) {
-                SlidingTiles::MoveNode moveNode {position, Direction::GoUp, priorGameState};
+                SlidingTiles::MoveNode moveNode {position, Direction::GoUp, rootNode.startingBoard};
                 slideTile(moveNode);
                 moveNode.setEndingBoard( serialiseGame() );
-                possibleMoves.push_back(moveNode);
-                loadGame(priorGameState);
+                rootNode.possibleMoves.push_back(moveNode);
+                loadGame(rootNode.startingBoard);
                 //std::cout << "Creating a possible move(GoUp): " << moveNode.toString();
-                //std::cout << "Can GoUp\n";
             }
             if (canSlideTile(position, Direction::GoDown)) {
-                SlidingTiles::MoveNode moveNode {position, Direction::GoDown, priorGameState};
+                SlidingTiles::MoveNode moveNode {position, Direction::GoDown, rootNode.startingBoard};
                 slideTile(moveNode);
                 moveNode.setEndingBoard( serialiseGame() );
-                possibleMoves.push_back(moveNode);
-                loadGame(priorGameState);
+                rootNode.possibleMoves.push_back(moveNode);
+                loadGame(rootNode.startingBoard);
                 //std::cout << "Creating a possible move(GoDown): " << moveNode.toString();
-                //std::cout << "Can GoDown\n";
             }
             if (canSlideTile(position, Direction::GoLeft)) {
-                SlidingTiles::MoveNode moveNode {position, Direction::GoLeft, priorGameState};
+                SlidingTiles::MoveNode moveNode {position, Direction::GoLeft, rootNode.startingBoard};
                 slideTile(moveNode);
                 moveNode.setEndingBoard( serialiseGame() );
-                possibleMoves.push_back(moveNode);
-                loadGame(priorGameState);
+                rootNode.possibleMoves.push_back(moveNode);
+                loadGame(rootNode.startingBoard);
                 //std::cout << "Creating a possible move(GoLeft): " << moveNode.toString();
-                //std::cout << "Can GoLeft\n";
             }
             if (canSlideTile(position, Direction::GoRight)) {
-                SlidingTiles::MoveNode moveNode {position, Direction::GoRight, priorGameState};
+                SlidingTiles::MoveNode moveNode {position, Direction::GoRight, rootNode.startingBoard};
                 slideTile(moveNode);
                 moveNode.setEndingBoard( serialiseGame() );
-                possibleMoves.push_back(moveNode);
-                loadGame(priorGameState);
+                rootNode.possibleMoves.push_back(moveNode);
+                loadGame(rootNode.startingBoard);
                 //std::cout << "Creating a possible move(GoRight): " << moveNode.toString();
-                //std::cout << "Can GoRight\n";
             }
         }
       }
-  return possibleMoves;
+  return rootNode.possibleMoves;
 }
 
 void GameBoardSingleton::addPossibleMoves(MoveNode &parentNode, int levels) {
