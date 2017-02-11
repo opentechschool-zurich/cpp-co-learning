@@ -3,6 +3,7 @@
 #include "tileType.h"
 #include <string>
 #include "solution.h"
+#include <queue>
 
 using namespace SlidingTiles;
 
@@ -296,4 +297,27 @@ std::vector<Solution> GameBoardSingleton::solutions (std::vector<MoveNode> possi
         GameBoardSingleton::getInstance().loadGame(priorGameState);
     }
     return solutions;
+}
+
+
+
+bool GameBoardSingleton::hasASolution( const MoveNode & node ) {
+    std::vector<std::string> priorGameState = serialiseGame();
+    // inspired by https://gist.github.com/douglas-vaz/5072998
+    std::queue<MoveNode> Q;
+    Q.push(node);
+    while(!Q.empty()) {
+        MoveNode t = Q.front();
+        Q.pop();
+        GameBoardSingleton::getInstance().loadGame( t.endingBoard );
+        if ( GameBoardSingleton::getInstance().isSolved().size() > 0 ) {
+            GameBoardSingleton::getInstance().loadGame(priorGameState);
+            return true;
+        };
+		for (int i = 0; i < t.possibleMoves.size(); ++i) {
+			Q.push(t.possibleMoves[i]);
+		}
+    }
+    GameBoardSingleton::getInstance().loadGame(priorGameState);
+    return false;
 }

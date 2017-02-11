@@ -136,6 +136,12 @@ class GameBoardSingleton
         std::vector<Solution> solutions (std::vector<MoveNode> possibleMoves);
 
 
+        /**
+        * @brief figures out if the moves tree holds a solution
+        */
+        bool hasASolution( const MoveNode & node );
+
+
     private:
         /**
         * @brief Private constructor for singleton

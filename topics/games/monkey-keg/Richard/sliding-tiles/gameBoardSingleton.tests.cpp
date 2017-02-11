@@ -583,3 +583,54 @@ TEST(GameBoardSingleton, addPossibleMoves3Deep) {
     ASSERT_THAT( secondMove.direction, Direction::GoDown );
     ASSERT_THAT( secondMove.possibleMoves.size(), 4 );
 }
+
+bool hasASolutionOld( const MoveNode & node ) {
+    for ( MoveNode n : node.possibleMoves ) {
+        GameBoardSingleton::getInstance().loadGame( n.endingBoard );
+        if ( GameBoardSingleton::getInstance().isSolved().size() > 0 ) {
+            return true;
+        };
+    }
+    return false;
+}
+
+
+
+TEST(GameBoardSingleton, isSolvedIn1Move) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├"," ","┫"," ",
+         " ","-"," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    SlidingTiles::MoveNode rootNode {sf::Vector2i{-1,-1}, Direction::Unknown, GameBoardSingleton::getInstance().serialiseGame() };
+    rootNode.endingBoard = GameBoardSingleton::getInstance().serialiseGame();
+    GameBoardSingleton::getInstance().addPossibleMoves( rootNode, 3 );
+    ASSERT_TRUE( GameBoardSingleton::getInstance().hasASolution( rootNode ) ) << "There should be at least one solution for this puzzle";
+}
+
+TEST(GameBoardSingleton, isSolvedIn2Moves) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├"," ","┫"," ",
+         " "," "," "," ",
+         " ","-"," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    SlidingTiles::MoveNode rootNode {sf::Vector2i{-1,-1}, Direction::Unknown, GameBoardSingleton::getInstance().serialiseGame() };
+    rootNode.endingBoard = GameBoardSingleton::getInstance().serialiseGame();
+    GameBoardSingleton::getInstance().addPossibleMoves( rootNode, 3 );
+    ASSERT_TRUE( GameBoardSingleton::getInstance().hasASolution( rootNode ) ) << "There should be at least one solution for this puzzle";
+}
+
+TEST(GameBoardSingleton, noSolution) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"├"," ","┫"," ",
+         " ","|"," "," ",
+         " "," "," "," ",
+         " "," "," "," "};
+    GameBoardSingleton::getInstance().loadGame(game);
+    SlidingTiles::MoveNode rootNode {sf::Vector2i{-1,-1}, Direction::Unknown, GameBoardSingleton::getInstance().serialiseGame() };
+    rootNode.endingBoard = GameBoardSingleton::getInstance().serialiseGame();
+    GameBoardSingleton::getInstance().addPossibleMoves( rootNode, 3 );
+    ASSERT_FALSE( GameBoardSingleton::getInstance().hasASolution( rootNode ) ) << "There should be at no solution for this puzzle";
+}
