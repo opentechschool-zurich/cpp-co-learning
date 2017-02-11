@@ -65,6 +65,13 @@ namespace SlidingTiles {
                     mousePositionPressed = sf::Vector2i{event.mouseButton.x, event.mouseButton.y};
                 } else if (event.type == sf::Event::MouseButtonReleased) {
                     doMouseReleased(sf::Vector2i {event.mouseButton.x, event.mouseButton.y});
+                } else if (event.type == sf::Event::TextEntered) {
+                    if (event.text.unicode == 114) //r
+                        GameBoardSingleton::getInstance().randomGame();
+                    else if (event.text.unicode == 112) //p
+                        GameBoardSingleton::getInstance().printGame();
+                    else
+                        std::cout << "ASCII character typed: " << event.text.unicode << " --> " << static_cast<char>(event.text.unicode) << std::endl;
                 }
             }
 

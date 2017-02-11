@@ -57,13 +57,24 @@ class GameBoardSingleton
         void loadGame( std::vector<std::string> game);
 
         /**
+         * @brief sets up a random game
+         */
+        void randomGame();
+
+
+        /**
          * @brief saves the game into an array
          */
         std::vector<std::string> serialiseGame();
 
+        /**
+         * @brief prints the game to the console
+         */
+        void printGame();
 
         /**
-        * @brief for a given imput return the position of the next tile
+        * @brief for a given imput return the position of the next tile, If we hit a matching end tile
+        * it returns -2,-2. If we can't end properly we return -1,-1
         * @param tilePosition The position of the tile to query
         * @param direction the incoming direction to return the outgoing direction
         */
@@ -109,6 +120,17 @@ class GameBoardSingleton
         * @param move the movement
         */
         void slideTile(SlidingTiles::Move move);
+
+
+        /**
+        *  @brief returns the start tile on the gameboard. If none is found it returns -1,-1
+        */
+        sf::Vector2i findStartTile();
+
+        /**
+        *  @brief returns the start tile on the gameboard. If none is found it returns -1,-1
+        */
+        sf::Vector2i findEndTile();
 
 
         /**

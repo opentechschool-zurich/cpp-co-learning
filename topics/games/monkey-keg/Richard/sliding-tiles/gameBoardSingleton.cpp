@@ -4,6 +4,10 @@
 #include <string>
 #include "solution.h"
 #include <queue>
+#include <stdlib.h>  // srand, rand
+#include <algorithm>    // std::shuffle
+#include <random> // random_shuffle, std::default_random_engine
+#include <chrono>       // std::chrono::system_clock
 
 using namespace SlidingTiles;
 
@@ -39,6 +43,92 @@ void GameBoardSingleton::loadGame( std::vector<std::string> game ) {
     }
 }
 
+void GameBoardSingleton::randomGame() {
+    std::vector<sf::Vector2i> positions {};
+    for (int x = 0; x < GameBoardSingleton::boardSize; ++x) {
+        for ( int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+            positions.push_back(sf::Vector2i{x,y});
+        }
+    }
+    /*for (int i = 0; i<positions.size(); ++i) {
+        std::cout << i << ": [" << positions[i].x << "][" << positions[i].y << "]\n";
+    }*/
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(std::begin(positions), std::end(positions), std::default_random_engine(seed));
+    /*std::cout << "After Shuffle...\n";
+    for (int i = 0; i<positions.size(); ++i) {
+        std::cout << i << ": [" << positions[i].x << "][" << positions[i].y << "]\n";
+    }*/
+
+    TileType startTileType {TileType::Empty};
+    switch ( rand() % 4 ) {
+        case 0: startTileType = TileType::StartTop;
+                break;
+        case 1: startTileType = TileType::StartBottom;
+                break;
+        case 2: startTileType = TileType::StartLeft;
+                break;
+        case 3: startTileType = TileType::StartRight;
+                break;
+    }
+    sf::Vector2i startPos = positions[0];
+    Tile startTile {};
+    startTile.setTilePosition(startPos);
+    //GameBoardSingleton::getInstance().tiles[startPos.x][startPos.y].setTileType(startTileType);
+    startTile.setTileType(startTileType);
+    GameBoardSingleton::getInstance().tiles[startPos.x][startPos.y] = startTile;
+
+    TileType endTileType {TileType::Empty};
+    switch ( rand() % 4 ) {
+    case 0: endTileType = TileType::EndTop;
+                break;
+        case 1: endTileType = TileType::EndBottom;
+                break;
+        case 2: endTileType = TileType::EndLeft;
+                break;
+        case 3: endTileType = TileType::EndRight;
+                break;
+    }
+    sf::Vector2i endPos = positions[1];
+    Tile endTile {};
+    endTile.setTilePosition(endPos);
+    endTile.setTileType(endTileType);
+    GameBoardSingleton::getInstance().tiles[endPos.x][endPos.y] = endTile;
+
+    int emptyTiles = 3;
+
+    for ( int i = 0; i < emptyTiles; ++i ) {
+        sf::Vector2i emptyPos = positions[2 + i];
+        Tile emptyTile {};
+        emptyTile.setTilePosition(emptyPos);
+        emptyTile.setTileType(TileType::Empty);
+        GameBoardSingleton::getInstance().tiles[emptyPos.x][emptyPos.y] = emptyTile;
+    }
+
+    int tiles = GameBoardSingleton::boardSize * GameBoardSingleton::boardSize;
+    for ( int i = 2 + emptyTiles; i < tiles; ++i ) {
+        TileType tileType {TileType::Empty};
+        switch ( rand() % 4 ) {
+            case 0: tileType = TileType::Horizontal;
+                    break;
+            case 1: tileType = TileType::Vertical;
+                    break;
+            case 2: tileType = TileType::LeftTop;
+                    break;
+            case 3: tileType = TileType::LeftBottom;
+                    break;
+            case 4: tileType = TileType::TopRight;
+                    break;
+            case 5: tileType = TileType::BottomRight;
+                    break;
+        }
+        sf::Vector2i tilePos = positions[i];
+        Tile tile {};
+        tile.setTilePosition(tilePos);
+        tile.setTileType(tileType);
+        GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y] = tile;
+    }
+}
 
 std::vector<std::string> GameBoardSingleton::serialiseGame() {
     std::vector<std::string> serialisedGame;
@@ -50,6 +140,14 @@ std::vector<std::string> GameBoardSingleton::serialiseGame() {
     return serialisedGame;
 }
 
+void GameBoardSingleton::printGame() {
+    for (int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+        for (int x = 0; x < GameBoardSingleton::boardSize; ++x) {
+            std::cout <<  tileTypeToChar( GameBoardSingleton::getInstance().tiles[x][y].getTileType() );
+        }
+        std::cout << std::endl;
+    }
+}
 
 sf::Vector2i GameBoardSingleton::getNextTilePosition(sf::Vector2i tilePos, Direction incomingDirection) {
     TileType type = GameBoardSingleton::getInstance().tiles[tilePos.x][tilePos.y].getTileType();
@@ -89,8 +187,10 @@ sf::Vector2i GameBoardSingleton::getNextTilePosition(sf::Vector2i tilePos, Direc
         --nextTile.y;
     else if (type == TileType::TopRight && incomingDirection == Direction::GoDown)
         ++nextTile.x;
-    else if (type == TileType::EndBottom || type == TileType::EndLeft
-        || type == TileType::EndRight || type == TileType::EndTop) {
+    else if ( (type == TileType::EndBottom && incomingDirection == Direction::GoUp )
+        || ( type == TileType::EndLeft && incomingDirection == Direction::GoRight )
+        || ( type == TileType::EndRight && incomingDirection == Direction::GoLeft )
+        || ( type == TileType::EndTop && incomingDirection == Direction::GoDown ) ) {
         nextTile.x = -2;
         nextTile.y = -2;
     } else {
@@ -173,11 +273,9 @@ void GameBoardSingleton::slideTile(SlidingTiles::Move move) {
 }
 
 
-std::vector<sf::Vector2i> GameBoardSingleton::isSolved() {
-    std::vector<sf::Vector2i> solutionPath {};
-
+sf::Vector2i GameBoardSingleton::findStartTile()  {
+    sf::Vector2i startTilePos {-1,-1};
     bool startFound = false;
-    sf::Vector2i startTilePos {0,0};
     for (int x = 0; (x < GameBoardSingleton::boardSize) && !startFound; ++x)
         for (int y = 0; (y < GameBoardSingleton::boardSize) && !startFound; ++y)
             if ( GameBoardSingleton::getInstance().tiles[x][y].getTileType() == TileType::StartBottom
@@ -188,11 +286,20 @@ std::vector<sf::Vector2i> GameBoardSingleton::isSolved() {
                     startTilePos.x = x;
                     startTilePos.y = y;
                 }
+    return startTilePos;
+}
+
+
+std::vector<sf::Vector2i> GameBoardSingleton::isSolved() {
+    std::vector<sf::Vector2i> solutionPath {};
+
+    sf::Vector2i startTilePos = findStartTile();
+    if ( startTilePos.x == -1 ) return solutionPath;
     solutionPath.push_back(startTilePos);
     //std::cout << "Start tile found at [" << startTilePos.x << "][" << startTilePos.y <<"]\n";
 
     SlidingTiles::Tile startTile = GameBoardSingleton::getInstance().tiles[startTilePos.x][startTilePos.y];
-    startTile.setWinner(true);
+    //startTile.setWinner(true);
     sf::Vector2i nextTilePos = GameBoardSingleton::getInstance().getNextTilePosition(startTilePos, Direction::Unknown);
     Direction nextDirection = startTile.outputDirection( Direction::Unknown );
     /*std::cout << "getNextTile x[" << startTilePos.x << "][" << startTilePos.y

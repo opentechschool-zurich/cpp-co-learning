@@ -101,6 +101,27 @@ TEST(GameBoardSingleton, saveAndLoadGame) {
     ASSERT_EQ(TileType::EndRight, t.getTileType()) << "Tile 0,1 is of type " << tileTypeToString(t.getTileType());
 }
 
+TEST(GameBoardSingleton, randomGame) {
+     GameBoardSingleton::getInstance().randomGame();
+     int startTiles {0};
+     int endTiles {0};
+     int emptyTiles {0};
+     for (int x = 0; x < GameBoardSingleton::boardSize; ++x) {
+         for ( int y = 0; y < GameBoardSingleton::boardSize; ++y) {
+             TileType t = GameBoardSingleton::getInstance().tiles[x][y].getTileType();
+             if ( t == TileType::StartTop || t == TileType::StartBottom || t == TileType::StartLeft || t == TileType::StartRight ) {
+                 startTiles++;
+             } else if ( t == TileType::EndTop || t == TileType::EndBottom || t == TileType::EndLeft || t == TileType::EndRight ) {
+                 endTiles++;
+             } else if ( t == TileType::Empty ) {
+                 emptyTiles++;
+             }
+         }
+     }
+     ASSERT_EQ(startTiles, 1) << "A random game must have 1 start tile";
+     ASSERT_EQ(endTiles, 1) << "A random game must have 1 end tile";
+     ASSERT_GE(emptyTiles, 1) << "A random game must have at least 1 empty tile";
+}
 
 TEST(GameBoardSingleton, findNextTilePosition) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
@@ -240,7 +261,7 @@ TEST(GameBoardSingleton, findNextTilePosition5) {
 }
 
 
-TEST(GameBoardSingleton, findNextTilePositionInvalid) {
+TEST(GameBoardSingleton, findNextTilePositionInvalid1) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {"├","-","-","┐",
          "┣","┐"," ","|",
@@ -257,6 +278,24 @@ TEST(GameBoardSingleton, findNextTilePositionInvalid) {
     nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::GoDown);
     expectedPosition.x = -1;
     expectedPosition.y = -1;
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+}
+
+TEST(GameBoardSingleton, findNextTilePositionInvalid2) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"|","┘"," ","-",
+         "|","├","-","┳",
+         "┘","-"," ","|",
+         " ","|" "-","|"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    sf::Vector2i tilePosition {3,1};
+    sf::Vector2i nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::GoRight);
+    sf::Vector2i expectedPosition {-1,-1};
+    ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
+
+    nextTilePosition = GameBoardSingleton::getInstance().getNextTilePosition(tilePosition, Direction::GoUp);
+    expectedPosition.x = -2;
+    expectedPosition.y = -2;
     ASSERT_EQ(expectedPosition, nextTilePosition)  << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
@@ -429,14 +468,45 @@ TEST(GameBoardSingleton, isSolved2) {
     ASSERT_THAT( 3, result.size() );
 }
 
-
-
 TEST(GameBoardSingleton, isNotSolved) {
     std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
         {" ","├"," ","┐",
          " ","┣","-","┘",
          " "," ","-"," ",
          "-"," "," ","-"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
+    ASSERT_THAT( 0, result.size() );
+}
+
+TEST(GameBoardSingleton, isNotSolved2) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" "," "," "," ",
+         " "," "," "," ",
+         " "," ","-"," ",
+         "┫","-" "-","┤"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
+    ASSERT_THAT( 0, result.size() );
+}
+
+TEST(GameBoardSingleton, isNotSolved3) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {" "," "," "," ",
+         " "," "," "," ",
+         " "," ","-"," ",
+         "┤","-" "-","┫"};
+    GameBoardSingleton::getInstance().loadGame(game);
+    std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
+    ASSERT_THAT( 0, result.size() );
+}
+
+TEST(GameBoardSingleton, isNotSolved4) {
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
+        {"|","┘"," ","-",
+         "|","├","-","┳",
+         "┘","-"," ","|",
+         " ","|" "-","|"};
     GameBoardSingleton::getInstance().loadGame(game);
     std::vector<sf::Vector2i> result = GameBoardSingleton::getInstance().isSolved();
     ASSERT_THAT( 0, result.size() );
