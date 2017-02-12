@@ -198,7 +198,6 @@ TEST(Tile, outputDirectionHorizontal) {
     ASSERT_THAT(Direction::GoLeft, newDirection);
 }
 
-
 TEST(Tile, outputDirectionBottomRight) {
     SlidingTiles::Tile tile;
     tile.setTileType(TileType::BottomRight);
@@ -278,67 +277,66 @@ TEST(Tile, TopRight) {
 TEST(Tile, setTileTypeChar) {
     SlidingTiles::Tile tile;
 
-    tile.setTileType( "-");
+    tile.setTileType("-");
     ASSERT_EQ(TileType::Horizontal, tile.getTileType());
 
-    tile.setTileType( "|");
+    tile.setTileType("|");
     ASSERT_EQ(TileType::Vertical, tile.getTileType());
 
 
-    tile.setTileType( "┐");
+    tile.setTileType("┐");
     ASSERT_EQ(TileType::LeftBottom, tile.getTileType());
 
-    tile.setTileType( "└");
+    tile.setTileType("└");
     ASSERT_EQ(TileType::TopRight, tile.getTileType());
 
-    tile.setTileType( "┘");
+    tile.setTileType("┘");
     ASSERT_EQ(TileType::LeftTop, tile.getTileType());
 
-    tile.setTileType( "┌");
+    tile.setTileType("┌");
     ASSERT_EQ(TileType::BottomRight, tile.getTileType());
 
 
-    tile.setTileType( "├");
+    tile.setTileType("├");
     ASSERT_EQ(TileType::StartRight, tile.getTileType());
 
-    tile.setTileType( "┤");
+    tile.setTileType("┤");
     ASSERT_EQ(TileType::StartLeft, tile.getTileType());
 
-    tile.setTileType( "┬");
+    tile.setTileType("┬");
     ASSERT_EQ(TileType::StartBottom, tile.getTileType());
 
-    tile.setTileType( "┴");
+    tile.setTileType("┴");
     ASSERT_EQ(TileType::StartTop, tile.getTileType());
 
 
-    tile.setTileType( "┣");
+    tile.setTileType("┣");
     ASSERT_EQ(TileType::EndRight, tile.getTileType());
 
-    tile.setTileType( "┫");
+    tile.setTileType("┫");
     ASSERT_EQ(TileType::EndLeft, tile.getTileType());
 
-    tile.setTileType( "┳");
+    tile.setTileType("┳");
     ASSERT_EQ(TileType::EndBottom, tile.getTileType());
 
-    tile.setTileType( "┻");
+    tile.setTileType("┻");
     ASSERT_EQ(TileType::EndTop, tile.getTileType());
 
 
-    tile.setTileType( " ");
+    tile.setTileType(" ");
     ASSERT_EQ(TileType::Empty, tile.getTileType());
 }
 
 TEST(Tile, transition) {
-    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]
-        {"├","-","-","┐",
-         "┣","┐"," ","|",
-         "┌","┘"," ","|",
-         "└","-","-","┘"};
+    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]{"├", "-", "-", "┐",
+        "┣", "┐", " ", "|",
+        "┌", "┘", " ", "|",
+        "└", "-", "-", "┘"};
     GameBoardSingleton::getInstance().loadGame(game);
     SlidingTiles::Tile t = GameBoardSingleton::getInstance().tiles[0][0];
-    sf::Vector2i topLeftPostion {0,0};
-    bool result = t.transition( topLeftPostion );
+    sf::Vector2i topLeftPostion{0, 0};
+    bool result = t.transition(topLeftPostion);
     ASSERT_TRUE(result) << "Transitioning should be possible first time\n";
-    result = t.transition( topLeftPostion );
+    result = t.transition(topLeftPostion);
     ASSERT_FALSE(result) << "Transitioning should not be possible when transitioning in progress\n";
 }

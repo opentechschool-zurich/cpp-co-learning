@@ -1,9 +1,10 @@
 #include "tileView.h"
 
 namespace SlidingTiles {
+
     void TileView::render() {
         sf::Vector2i renderPosition = tileCoordinates;
-        if ( transitioning ) {
+        if (transitioning) {
             int deltaX = (transitionTileCoordiantes.x - tileCoordinates.x) * timeSpentTransitioning / TRANSITION_TIME;
             int deltaY = (transitionTileCoordiantes.y - tileCoordinates.y) * timeSpentTransitioning / TRANSITION_TIME;
             renderPosition.x += deltaX;
@@ -14,21 +15,21 @@ namespace SlidingTiles {
         sprite.setTexture(tileTexture);
         sprite.setPosition(renderPosition.x, renderPosition.y);
         if (winner)
-            sprite.setColor(sf::Color{0,255,0});
+            sprite.setColor(sf::Color{0, 255, 0});
         RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);
     }
 
     void TileView::update(const float dt) {
         if (transitioning) {
             timeSpentTransitioning += dt;
-            if ( timeSpentTransitioning > TRANSITION_TIME ) {
+            if (timeSpentTransitioning > TRANSITION_TIME) {
                 transitioning = false;
                 tileCoordinates = transitionTileCoordiantes;
             }
         }
     }
 
-    bool TileView::transition(sf::Vector2i newTileCoordinates) {
+    bool TileView::transition(const sf::Vector2i & newTileCoordinates) {
         if (transitioning) return false;
         transitionTileCoordiantes = newTileCoordinates;
         transitioning = true;

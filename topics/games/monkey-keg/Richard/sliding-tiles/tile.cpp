@@ -3,83 +3,80 @@
 namespace SlidingTiles {
 
     /**
-    * Sets the type of the tile
-    * passes on the request to the tileView so that it can adjust the texture
-    */
-    void Tile::setTileType(TileType newType) {
+     * Sets the type of the tile
+     * passes on the request to the tileView so that it can adjust the texture
+     */
+    void Tile::setTileType(const TileType & newType) {
         tileType = newType;
         tileView.setTexture(newType);
         setMoveable(newType);
     };
 
     /**
-    * Sets the type of the tile based on a character code
-    */
-    void Tile::setTileType(std::string c) {
-        if (c == "-"){
+     * Sets the type of the tile based on a character code
+     */
+    void Tile::setTileType(const std::string & c) {
+        if (c == "-") {
             setTileType(TileType::Horizontal);
-        } else if (c == "|"){
+        } else if (c == "|") {
             setTileType(TileType::Vertical);
 
-        } else if (c == "└"){
+        } else if (c == "└") {
             setTileType(TileType::TopRight);
-        } else if (c == "┘"){
+        } else if (c == "┘") {
             setTileType(TileType::LeftTop);
-        } else if (c == "┐"){
+        } else if (c == "┐") {
             setTileType(TileType::LeftBottom);
-        } else if (c == "┌"){
+        } else if (c == "┌") {
             setTileType(TileType::BottomRight);
 
-        } else if (c == "├"){
+        } else if (c == "├") {
             setTileType(TileType::StartRight);
-        } else if (c == "┬"){
+        } else if (c == "┬") {
             setTileType(TileType::StartBottom);
-        } else if (c == "┴"){
+        } else if (c == "┴") {
             setTileType(TileType::StartTop);
-        } else if (c == "┤"){
+        } else if (c == "┤") {
             setTileType(TileType::StartLeft);
 
-        } else if (c == "┻"){
+        } else if (c == "┻") {
             setTileType(TileType::EndTop);
-        } else if (c == "┣"){
+        } else if (c == "┣") {
             setTileType(TileType::EndRight);
-        } else if (c == "┫"){
+        } else if (c == "┫") {
             setTileType(TileType::EndLeft);
-        } else if (c == "┳"){
+        } else if (c == "┳") {
             setTileType(TileType::EndBottom);
         } else {
             setTileType(TileType::Empty);
         }
     }
 
-
-    void Tile::setMoveable(TileType newType) {
-    if ( newType == TileType::Empty
-        || newType == TileType::StartBottom
-        || newType == TileType::StartTop
-        || newType == TileType::StartLeft
-        || newType == TileType::StartRight
-        || newType == TileType::EndBottom
-        || newType == TileType::EndTop
-        || newType == TileType::EndLeft
-        || newType == TileType::EndRight)
-        isMoveable = false;
-    else
-        isMoveable = true;
+    void Tile::setMoveable(const TileType & newType) {
+        if (newType == TileType::Empty
+                || newType == TileType::StartBottom
+                || newType == TileType::StartTop
+                || newType == TileType::StartLeft
+                || newType == TileType::StartRight
+                || newType == TileType::EndBottom
+                || newType == TileType::EndTop
+                || newType == TileType::EndLeft
+                || newType == TileType::EndRight)
+            isMoveable = false;
+        else
+            isMoveable = true;
     };
 
-
-    bool Tile::transition(sf::Vector2i newGameBoardPosition) {
-        sf::Vector2i newCoordiantes = RenderingSingleton::getInstance().calculateCoordinates( newGameBoardPosition );
-        if (! tileView.transition(newCoordiantes) ) return false;
+    bool Tile::transition(const sf::Vector2i & newGameBoardPosition) {
+        sf::Vector2i newCoordiantes = RenderingSingleton::getInstance().calculateCoordinates(newGameBoardPosition);
+        if (!tileView.transition(newCoordiantes)) return false;
         return true;
     }
 
-
     /**
-    * Returns the direction coming out of the supplied tile and incoming direction.
-    */
-    Direction Tile::outputDirection(Direction incomingDirection) {
+     * Returns the direction coming out of the supplied tile and incoming direction.
+     */
+    Direction Tile::outputDirection(const Direction & incomingDirection) {
         if (tileType == TileType::StartRight)
             return Direction::GoRight;
         else if (tileType == TileType::StartLeft)
@@ -89,10 +86,10 @@ namespace SlidingTiles {
         else if (tileType == TileType::StartBottom)
             return Direction::GoDown;
         else if (tileType == TileType::Horizontal
-            && ( incomingDirection == Direction::GoRight || incomingDirection == Direction::GoLeft) )
+                && (incomingDirection == Direction::GoRight || incomingDirection == Direction::GoLeft))
             return incomingDirection;
         else if (tileType == TileType::Vertical
-            && ( incomingDirection == Direction::GoUp || incomingDirection == Direction::GoDown) )
+                && (incomingDirection == Direction::GoUp || incomingDirection == Direction::GoDown))
             return incomingDirection;
         else if (tileType == TileType::LeftBottom && incomingDirection == Direction::GoRight)
             return Direction::GoDown;
@@ -114,9 +111,9 @@ namespace SlidingTiles {
             return Direction::Unknown;
     }
 
-    void Tile::setWinner(bool status) {
-      winner = status;
-      tileView.setWinner(status);
+    void Tile::setWinner(const bool & status) {
+        winner = status;
+        tileView.setWinner(status);
     }
 
 }

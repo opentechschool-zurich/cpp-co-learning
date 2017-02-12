@@ -7,6 +7,6 @@ TEST(TileView, ObjectCreation) {
 
 TEST(TileView, transition) {
     SlidingTiles::TileView tileView;
-    bool result = tileView.transition( sf::Vector2i {0,0} );
-    ASSERT_TRUE ( result ) << "First transition should succeed\n";
+    bool result = tileView.transition(sf::Vector2i{0, 0});
+    ASSERT_TRUE(result) << "First transition should succeed\n";
 }

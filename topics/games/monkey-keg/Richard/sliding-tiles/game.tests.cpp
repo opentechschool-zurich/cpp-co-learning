@@ -3,7 +3,6 @@
 
 using namespace ::testing;
 
-TEST(Game, First_Test)
-{
+TEST(Game, First_Test) {
     ASSERT_THAT(1, Eq(1));
 }

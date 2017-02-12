@@ -1,7 +1,6 @@
 #include "game.h"
 
-int main()
-{
+int main() {
     SlidingTiles::Game game;
     game.init();
     game.run();

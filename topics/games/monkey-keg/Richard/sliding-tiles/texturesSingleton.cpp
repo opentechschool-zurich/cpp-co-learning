@@ -2,8 +2,7 @@
 
 using namespace SlidingTiles;
 
-
-TexturesSingleton::TexturesSingleton(){
+TexturesSingleton::TexturesSingleton() {
     sf::Texture texture;
 
     texture.loadFromFile("assets/horizontal.png");
