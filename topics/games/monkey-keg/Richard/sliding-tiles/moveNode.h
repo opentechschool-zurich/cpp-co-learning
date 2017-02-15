@@ -19,6 +19,7 @@ namespace SlidingTiles {
          * supplied direction
          * @param startPosition the game board coordinates of the moving tile
          * @param direction the direction to move in
+         * @param startingBoard the starting board (serialised)
          */
         MoveNode(sf::Vector2i startPosition, SlidingTiles::Direction direction, std::vector<std::string> startingBoard)
         : Move(startPosition, direction), startingBoard(startingBoard) {
@@ -37,6 +38,9 @@ namespace SlidingTiles {
          */
         std::vector <std::string> endingBoard{};
 
+        /**
+        * @brief sets the ending board state
+        */
         void setEndingBoard(const std::vector <std::string> & serialisedGame) {
             endingBoard = serialisedGame;
         }

@@ -8,7 +8,8 @@ namespace SlidingTiles {
      */
     void Tile::setTileType(const TileType & newType) {
         tileType = newType;
-        tileView.setTexture(newType);
+        //tileView.setTexture(newType);
+        tileView.setTileType( newType );
         setMoveable(newType);
     };
 

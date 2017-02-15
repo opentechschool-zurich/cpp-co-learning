@@ -12,8 +12,10 @@ namespace SlidingTiles {
     class TileView {
     public:
 
-        TileView() {
-        };
+        /**
+         * @brief Empty constructor
+         */
+        TileView() {}
 
         /**
          * @brief Constructs a new TileView with the appropriate screen coordinates
@@ -43,9 +45,20 @@ namespace SlidingTiles {
         /**
          * @brief settor for a texture of the tile
          * @param newType the new type of the tile. Will figure out the correct texture from the TexturesSingleton
-         */
+         *
         void setTexture(const TileType & newType) {
-            setTexture(TexturesSingleton::getInstance().getTexturesMap()[newType]);
+            //setTexture(TexturesSingleton::getInstance().getTexturesMap()[newType]);
+            setTexture(TexturesSingleton::getInstance().getTexture(newType));
+        };*/
+
+        /**
+         * @brief settor for the tile type
+         * @param newType the new type of the tile. Will figure out the correct texture from the TexturesSingleton
+         */
+        void setTileType(const TileType & newType) {
+            //setTexture(TexturesSingleton::getInstance().getTexturesMap()[newType]);
+            tileType = newType;
+            //setTexture(TexturesSingleton::getInstance().getTexture(newType));
         };
 
         /**
@@ -95,21 +108,27 @@ namespace SlidingTiles {
 
         /**
          * @brief The texture for the tile
-         */
-        sf::Texture tileTexture;
+         *
+        sf::Texture tileTexture; */
 
         /**
          * @brief settor for the Texture
-         */
+         *
         void setTexture(const sf::Texture & newTexture) {
             tileTexture = newTexture;
-        };
+        };"/"
 
         /**
          * @brief a bool to tell us if the tile is part of the solution path or not
          */
         bool winner{false};
+
+        /**
+        * @brief the type of the tile
+        */
+        TileType tileType {TileType::Empty};
     };
+
 
 
 } // namespace SlidingTiles

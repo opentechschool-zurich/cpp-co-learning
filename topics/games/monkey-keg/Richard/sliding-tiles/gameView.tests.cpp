@@ -18,3 +18,9 @@ TEST(GameView, bannerText) {
     std::string expected = "Move the tiles with the mouse";
     ASSERT_EQ(expected, text);
 }
+
+TEST(GameView, renderMethod) {
+    SlidingTiles::GameView gameView;
+    gameView.init();
+    gameView.render();
+}

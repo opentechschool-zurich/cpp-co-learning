@@ -22,11 +22,6 @@ namespace SlidingTiles {
     class Game {
     public:
         /**
-         * @brief Constructor for the game
-         */
-        Game();
-
-        /**
          * @brief initialises the game
          */
         void init();
@@ -61,10 +56,5 @@ namespace SlidingTiles {
          * @brief the function that figures out what to do when the mouse was released
          */
         void doMouseReleased(const sf::Vector2i & mousePosition);
-
-        /**
-         * @brief the render window
-         */
-        sf::RenderWindow window;
     };
 }

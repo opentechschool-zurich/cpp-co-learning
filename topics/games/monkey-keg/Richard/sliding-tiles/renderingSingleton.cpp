@@ -2,7 +2,8 @@
 
 using namespace SlidingTiles;
 
-RenderingSingleton::RenderingSingleton() {
+RenderingSingleton::RenderingSingleton() : window(sf::VideoMode(550, 400, 32), "Sliding tiles") {
+    window.setFramerateLimit(60);
 }
 
 const int RenderingSingleton::tileSize;

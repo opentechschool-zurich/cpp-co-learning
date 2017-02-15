@@ -2,14 +2,7 @@
 
 namespace SlidingTiles {
 
-    Game::Game() :
-    window(sf::VideoMode(550, 400, 32), "Sliding tiles") {
-    }
-
     void Game::init() {
-        RenderingSingleton::getInstance().setRenderWindow(&window);
-        RenderingSingleton::getInstance().getRenderWindow()->setFramerateLimit(60);
-
 
         gameView.init();
 
@@ -24,7 +17,15 @@ namespace SlidingTiles {
             "┌", "┘", " ", "|",
             "└", "-", "-", "┘"};
 
-        GameBoardSingleton::getInstance().loadGame(game1);
+        std::string game2[GameBoardSingleton::boardSize][GameBoardSingleton::boardSize] {
+            " "," "," "," ",
+            " "," "," "," ",
+            " "," ","-"," ",
+            //" "," ","├",""
+            " "," ","├","┐"
+        };
+
+        GameBoardSingleton::getInstance().loadGame(game2);
     }
 
     void Game::update(const float & dt) {
@@ -48,11 +49,12 @@ namespace SlidingTiles {
     }
 
     void Game::run() {
-        while (window.isOpen()) {
+        sf::RenderWindow* window = RenderingSingleton::getInstance().getRenderWindow();
+        while (window->isOpen()) {
             sf::Event event;
-            while (window.pollEvent(event)) {
+            while (window->pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
-                    window.close();
+                    window->close();
                 else if (event.type == sf::Event::MouseButtonPressed) {
                     mousePositionPressed = sf::Vector2i{event.mouseButton.x, event.mouseButton.y};
                 } else if (event.type == sf::Event::MouseButtonReleased) {
