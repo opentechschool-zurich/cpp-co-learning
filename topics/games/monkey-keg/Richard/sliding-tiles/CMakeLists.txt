@@ -52,6 +52,7 @@ set( UNIT_TESTS
     gameBoardSingleton.tests.cpp
     renderingSingleton.tests.cpp
     direction.tests.cpp
+    tileType.tests.cpp
 )
 
 ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})

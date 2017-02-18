@@ -60,39 +60,16 @@ void GameBoardSingleton::randomGame() {
         std::cout << i << ": [" << positions[i].x << "][" << positions[i].y << "]\n";
     }*/
 
-    TileType startTileType{TileType::Empty};
-    switch (rand() % 4) {
-        case 0: startTileType = TileType::StartTop;
-            break;
-        case 1: startTileType = TileType::StartBottom;
-            break;
-        case 2: startTileType = TileType::StartLeft;
-            break;
-        case 3: startTileType = TileType::StartRight;
-            break;
-    }
     sf::Vector2i startPos = positions[0];
     Tile startTile{};
     startTile.setTilePosition(startPos);
-    //GameBoardSingleton::getInstance().tiles[startPos.x][startPos.y].setTileType(startTileType);
-    startTile.setTileType(startTileType);
+    startTile.setTileType(randomStartTileType());
     GameBoardSingleton::getInstance().tiles[startPos.x][startPos.y] = startTile;
 
-    TileType endTileType{TileType::Empty};
-    switch (rand() % 4) {
-        case 0: endTileType = TileType::EndTop;
-            break;
-        case 1: endTileType = TileType::EndBottom;
-            break;
-        case 2: endTileType = TileType::EndLeft;
-            break;
-        case 3: endTileType = TileType::EndRight;
-            break;
-    }
     sf::Vector2i endPos = positions[1];
     Tile endTile{};
     endTile.setTilePosition(endPos);
-    endTile.setTileType(endTileType);
+    endTile.setTileType(randomEndTileType());
     GameBoardSingleton::getInstance().tiles[endPos.x][endPos.y] = endTile;
 
     int emptyTiles = 3;
@@ -108,7 +85,7 @@ void GameBoardSingleton::randomGame() {
     int tiles = GameBoardSingleton::boardSize * GameBoardSingleton::boardSize;
     for (int i = 2 + emptyTiles; i < tiles; ++i) {
         TileType tileType{TileType::Empty};
-        switch (rand() % 4) {
+        switch (rand() % 6) {
             case 0: tileType = TileType::Horizontal;
                 break;
             case 1: tileType = TileType::Vertical;

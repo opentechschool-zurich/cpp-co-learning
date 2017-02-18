@@ -70,6 +70,96 @@ std::string tileTypeToChar(const TileType & t) {
         case TileType::BottomRight:
             return "┌";
         default:
-            return "Unknown Type";
+            return "?";
     }
+}
+
+/**
+ * @brief Returns if a TileType is a start tile 
+ */
+bool isStartTileType(const TileType & t) {
+    switch (t) {
+        case TileType::StartTop:
+            return true;
+        case TileType::StartBottom:
+            return true;
+        case TileType::StartLeft:
+            return true;
+        case TileType::StartRight:
+            return true;
+    }
+    return false;
+}
+
+/**
+ * @brief Returns if a random start TileType
+ */
+TileType randomStartTileType() {
+    TileType startTileType{TileType::Empty};
+    switch (rand() % 4) {
+        case 0: startTileType = TileType::StartTop;
+            break;
+        case 1: startTileType = TileType::StartBottom;
+            break;
+        case 2: startTileType = TileType::StartLeft;
+            break;
+        case 3: startTileType = TileType::StartRight;
+            break;
+    }
+    return startTileType;
+}
+
+/**
+ * @brief Returns if a TileType is an end tile 
+ */
+bool isEndTileType(const TileType & t) {
+    switch (t) {
+        case TileType::EndTop:
+            return true;
+        case TileType::EndBottom:
+            return true;
+        case TileType::EndLeft:
+            return true;
+        case TileType::EndRight:
+            return true;
+    }
+    return false;
+}
+
+/**
+ * @brief Returns if a random end TileType
+ */
+TileType randomEndTileType() {
+    TileType endTileType{TileType::Empty};
+    switch (rand() % 4) {
+        case 0: endTileType = TileType::EndTop;
+            break;
+        case 1: endTileType = TileType::EndBottom;
+            break;
+        case 2: endTileType = TileType::EndLeft;
+            break;
+        case 3: endTileType = TileType::EndRight;
+            break;
+    }
+    return endTileType;
+}
+
+TileType randomGameTileType() {
+    TileType gameTileType{TileType::Empty};
+    switch (rand() % 6) {
+        case 0: gameTileType = TileType::Horizontal;
+            break;
+        case 1: gameTileType = TileType::Vertical;
+            break;
+        case 2: gameTileType = TileType::LeftTop;
+            break;
+        case 3: gameTileType = TileType::LeftBottom;
+            break;
+        case 4: gameTileType = TileType::TopRight;
+            break;
+        case 5: gameTileType = TileType::BottomRight;
+            break;
+    }
+
+    return gameTileType;
 }
