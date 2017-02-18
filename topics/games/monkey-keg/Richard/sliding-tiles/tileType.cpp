@@ -144,6 +144,24 @@ TileType randomEndTileType() {
     return endTileType;
 }
 
+bool isGameTileType(const TileType & t) {
+    switch (t) {
+        case TileType::Horizontal:
+            return true;
+        case TileType::Vertical:
+            return true;
+        case TileType::LeftTop:
+            return true;
+        case TileType::LeftBottom:
+            return true;
+        case TileType::TopRight:
+            return true;
+        case TileType::BottomRight:
+            return true;
+    }
+    return false;
+}
+
 TileType randomGameTileType() {
     TileType gameTileType{TileType::Empty};
     switch (rand() % 6) {

@@ -2,6 +2,7 @@
 
 #include "direction.h"
 #include "gameBoardSingleton.h"
+#include "gameBoard.h"
 #include "gameView.h"
 #include "renderingSingleton.h"
 #include "tile.h"

@@ -21,6 +21,11 @@ namespace SlidingTiles {
         sprite.setPosition(renderPosition.x, renderPosition.y);
         if (winner)
             sprite.setColor(sf::Color{0, 255, 0});
+        if (isStartTileType(tileType))
+            sprite.setColor(sf::Color{0, 0, 255});
+        else if (isEndTileType(tileTyper))
+            sprite.setColor(sf::Color{255, 0, 0});
+
         RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);
     }
 

@@ -51,6 +51,12 @@ bool isEndTileType(const TileType & t);
 TileType randomEndTileType();
 
 /**
- * @brief Returns if a random game TileType
+ * @brief Returns if a tile is a game TileType
+ */
+bool isGameTileType(const TileType & t);
+
+
+/**
+ * @brief Returns a random game TileType
  */
 TileType randomGameTileType();

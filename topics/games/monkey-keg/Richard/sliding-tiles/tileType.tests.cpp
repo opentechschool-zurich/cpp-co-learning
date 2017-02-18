@@ -232,7 +232,7 @@ TEST(TileType, randomEndTileType) {
     ASSERT_EQ(Unexpected, 0) << "After 100 random end tiles we must not have unexpected tiles";
 }
 
-TEST(TileType, randomGameTileType) {
+TEST(TileType, isGameTileType) {
     // non deterministic test !! Can this be improved?
     int Horizontal{0};
     int Vertical{0};

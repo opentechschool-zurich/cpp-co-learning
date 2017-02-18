@@ -41,6 +41,7 @@ SET(SOURCE_FILES
     direction.cpp
     tileType.cpp
     moveNode.cpp
+    gameBoard.cpp
 )
 
 set( UNIT_TESTS
@@ -53,6 +54,7 @@ set( UNIT_TESTS
     renderingSingleton.tests.cpp
     direction.tests.cpp
     tileType.tests.cpp
+    gameBoard.tests.cpp
 )
 
 ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})
@@ -60,7 +62,7 @@ ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})
 TARGET_INCLUDE_DIRECTORIES(sliding-tiles PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}
-	${SFML_INCLUDE_DIRS}
+    ${SFML_INCLUDE_DIRS}
 )
 
 TARGET_LINK_LIBRARIES(sliding-tiles LINK_PUBLIC
