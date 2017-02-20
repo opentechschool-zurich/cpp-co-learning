@@ -1,8 +1,12 @@
 #include "gameView.h"
+#include "renderingSingleton.h"
+#include "tile.h"
+#include "gameBoardSingleton.h"
+//#include "game.h"
 
 namespace SlidingTiles {
 
-    void GameView::init() {
+    GameView::GameView() {
         if (!font.loadFromFile("assets/ChangaOne-Regular.ttf"))
             std::cout << "Can't load font ./assets/ChangaOne-Regular.ttf" << std::endl;
 
@@ -12,6 +16,7 @@ namespace SlidingTiles {
         bannerText.setColor(sf::Color::Black);
         bannerText.setString("Move the tiles with the mouse");
         bannerText.setPosition(30, 10);
+        //game.run();
     }
 
     void GameView::render() {

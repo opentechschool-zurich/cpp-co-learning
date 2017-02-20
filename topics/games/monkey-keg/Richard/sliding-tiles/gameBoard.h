@@ -113,11 +113,28 @@ namespace SlidingTiles {
 
 
         /**
-         * @brief returns if the puzzle is in a solved state by checkin the path
+         * @brief returns if the puzzle is in a solved state by checking the path
          * from the start tile to the end tile.
-         * @return a vector with the tile positions of the solution if solved otherwise rturns an empty vector
+         * @return a vector with the tile positions of the solution if solved otherwise returns an empty vector
          */
         std::vector<sf::Vector2i> isSolved();
+
+        /**
+         * @brief sets the winner tiles to winner true
+         */
+        void setWinnerTiles(std::vector<sf::Vector2i> & solutionPath) {
+            for (auto tile : solutionPath)
+                tiles[tile.x][tile.y].setWinner(true);
+        }
+
+        /**
+         * @brief sets all tiles back to no winner status
+         */
+        void clearWinnerTiles() {
+            for (int x = 0; x < boardSize; ++x)
+                for (int y = 0; y < boardSize; ++y)
+                    tiles[x][y].setWinner(false);
+        }
 
         /**
          * @brief returns all moves that are possible on the current gameboard

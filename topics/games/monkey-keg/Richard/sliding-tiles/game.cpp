@@ -1,16 +1,17 @@
 #include "game.h"
+#include "gameBoardSingleton.h"
+#include "gameBoard.h"
+//#include <cmath>
+
+using namespace SlidingTiles;
 
 namespace SlidingTiles {
 
-    void Game::init() {
-
-        gameView.init();
-
+    Game::Game() {
         std::string game3[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", "-", "┬",
             " ", " ", " ", "|",
             " ", " ", "|", " ",
             " ", " ", " ", "┻"};
-
 
         std::string game1[GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
             "┣", "┐", " ", "|",
@@ -37,14 +38,9 @@ namespace SlidingTiles {
         // see if there is a solution
         std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
         if (solutionPath.size() > 0) {
-            //std::cout << "Game is solved!\n";
-            for (auto tile : solutionPath)
-                GameBoardSingleton::getInstance().tiles[tile.x][tile.y].setWinner(true);
+            GameBoardSingleton::getInstance().setWinnerTiles( solutionPath );
         } else {
-            //std::cout << "Not solved\n";
-            for (int x = 0; x < GameBoardSingleton::boardSize; ++x)
-                for (int y = 0; y < GameBoardSingleton::boardSize; ++y)
-                    GameBoardSingleton::getInstance().tiles[x][y].setWinner(false);
+            GameBoardSingleton::getInstance().clearWinnerTiles();
         }
     }
 

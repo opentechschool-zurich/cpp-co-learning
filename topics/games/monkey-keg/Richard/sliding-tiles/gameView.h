@@ -1,9 +1,5 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
-#include "texturesSingleton.h"
-#include "renderingSingleton.h"
-#include "gameBoardSingleton.h"
 
 namespace SlidingTiles {
 
@@ -12,17 +8,10 @@ namespace SlidingTiles {
      */
     class GameView {
     public:
-
         /**
          * @brief constructor for the view of the game
          */
-        GameView() {
-        };
-
-        /**
-         * @brief initialised the game
-         */
-        void init();
+        GameView();
 
         /**
          * @brief knows how to render the game
@@ -38,6 +27,7 @@ namespace SlidingTiles {
          * @brief the text to print
          */
         sf::Text bannerText;
+        
     };
 
 } // namespace SlidingTiles

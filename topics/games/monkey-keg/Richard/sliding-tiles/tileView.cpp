@@ -12,18 +12,13 @@ namespace SlidingTiles {
         }
 
         sf::Sprite sprite;
-        //sprite.setTexture(tileTexture);
-        //sf::Texture t = TexturesSingleton::getInstance().getTexture(tileType);
-        //sf::Vector2u textureSize = t.getSize();
-        //std::cout << "received Texture for tileType: " << tileTypeToString(tileType) << " size is: " << textureSize.x << " x " << textureSize.y << "\n";
-
         sprite.setTexture(TexturesSingleton::getInstance().getTexture(tileType));
         sprite.setPosition(renderPosition.x, renderPosition.y);
         if (winner)
             sprite.setColor(sf::Color{0, 255, 0});
         if (isStartTileType(tileType))
             sprite.setColor(sf::Color{0, 0, 255});
-        else if (isEndTileType(tileTyper))
+        else if (isEndTileType(tileType))
             sprite.setColor(sf::Color{255, 0, 0});
 
         RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);

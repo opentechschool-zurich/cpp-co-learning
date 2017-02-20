@@ -1,19 +1,7 @@
 #pragma once
-
-#include "direction.h"
-#include "gameBoardSingleton.h"
-#include "gameBoard.h"
 #include "gameView.h"
-#include "renderingSingleton.h"
-#include "tile.h"
-#include "tileType.h"
-#include <cmath>
-#include <iostream>
-#include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
-#include <SFML/System/Time.hpp>
-#include <string>
-#include <vector>
+#include <SFML/Graphics.hpp>
 
 namespace SlidingTiles {
 
@@ -23,9 +11,9 @@ namespace SlidingTiles {
     class Game {
     public:
         /**
-         * @brief initialises the game
+         * @brief Constructor for the game
          */
-        void init();
+        Game();
 
         /**
          * @brief update call to modify the model with a delta time in seconds
