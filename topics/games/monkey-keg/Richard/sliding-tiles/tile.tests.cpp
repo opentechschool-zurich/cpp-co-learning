@@ -1,6 +1,6 @@
 #include "tile.h"
 #include <gmock/gmock.h>
-#include "gameBoardSingleton.h"
+#include "gameBoard.h"
 
 using namespace SlidingTiles;
 
@@ -328,12 +328,13 @@ TEST(Tile, setTileTypeChar) {
 }
 
 TEST(Tile, transition) {
-    std::string game [GameBoardSingleton::boardSize][GameBoardSingleton::boardSize]{"├", "-", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
         "┣", "┐", " ", "|",
         "┌", "┘", " ", "|",
         "└", "-", "-", "┘"};
-    GameBoardSingleton::getInstance().loadGame(game);
-    SlidingTiles::Tile t = GameBoardSingleton::getInstance().tiles[0][0];
+    GameBoard gameBoard;
+    gameBoard.loadGame(game);
+    SlidingTiles::Tile t = gameBoard.tiles[0][0];
     sf::Vector2i topLeftPostion{0, 0};
     bool result = t.transition(topLeftPostion);
     ASSERT_TRUE(result) << "Transitioning should be possible first time\n";

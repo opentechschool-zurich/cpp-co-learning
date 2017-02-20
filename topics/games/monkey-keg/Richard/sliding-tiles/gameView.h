@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "gameBoard.h"
 
 namespace SlidingTiles {
 
@@ -27,6 +28,15 @@ namespace SlidingTiles {
          * @brief the text to print
          */
         sf::Text bannerText;
+        
+        SlidingTiles::GameBoard* gameBoard;
+        
+        /**
+         * @brief set the Game Board
+         */
+        void setGameBoard(SlidingTiles::GameBoard * gB) {
+            gameBoard = gB;
+        }
         
     };
 

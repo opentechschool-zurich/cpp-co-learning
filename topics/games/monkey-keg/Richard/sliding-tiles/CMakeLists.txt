@@ -36,7 +36,7 @@ SET(SOURCE_FILES
     tileView.cpp
     tile.cpp
     texturesSingleton.cpp
-    gameBoardSingleton.cpp
+#    gameBoardSingleton.cpp
     renderingSingleton.cpp
     direction.cpp
     tileType.cpp
@@ -50,7 +50,7 @@ set( UNIT_TESTS
     tileView.tests.cpp
     tile.tests.cpp
     texturesSingleton.tests.cpp
-    gameBoardSingleton.tests.cpp
+#    gameBoardSingleton.tests.cpp
     renderingSingleton.tests.cpp
     direction.tests.cpp
     tileType.tests.cpp

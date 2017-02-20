@@ -1,5 +1,6 @@
 #pragma once
 #include "gameView.h"
+#include "gameBoard.h"
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -25,6 +26,8 @@ namespace SlidingTiles {
          */
         void run();
 
+        SlidingTiles::GameBoard gameBoard {};
+        
         /**
          * @brief the view for the game
          */
