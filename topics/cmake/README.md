@@ -1,6 +1,12 @@
 #Learning CMake
-###General steps (for Mac OS X only):
-####1. Download and Install CMake
+
+## Introductions
+
+http://www2.informatik.uni-freiburg.de/~jakobro/files/cmake-an-introduction.pdf
+
+##General steps (for Mac OS X only):
+
+###1. Download and Install CMake
   * download CMake from the CMake [download page](https://cmake.org/download/). In this particular example, would be the *"cmake-3.5.2-Darwin-x86_64.dmg"* file for Mac.
 
   * launch the installer by double-clicking on the *.dmg* file, then drag&drop the CMake logo onto the Applications folder image to install it ( quick'n easy! ).
@@ -19,7 +25,7 @@
     ```
     If it's correct, it will show you the CMake version 3.5.2 ( in our case )
 
-####2. Build Up Your First C++ Project ( we'll do this in Terminal—no worries… )
+###2. Build Up Your First C++ Project ( we'll do this in Terminal—no worries… )
   * In your Terminal, switch your path to "Desktop" by entering the following:
   `cd ~/Desktop`. ( instead of "Desktop" you can of course chose anywhere else to follow alone, as long as you can easily find and access all of your files once they've been created. )
   * The following one-liner command will creat an empty directory, give it a name: "myTest" ( or anything you like ), and switch into it. Type:
@@ -63,7 +69,7 @@
   ```
   ######Notice that the "helloWorld" in the code above is the project name we've defined in the "CMakeLists.txt" file, it can be anything else but it must be consistently the same! This is important as you will see later on.
 
-####3. Let CMake Build Everything for Us
+###3. Let CMake Build Everything for Us
   * Save and close both "main.cpp" and "CMakeLists.txt" files. Back to your Terminal, creat and jump into an empty subdirectory with the name "build". Type:
 
   ```
@@ -80,9 +86,10 @@
   make
   ```
 
-######(If everything goes well, you should see a line like `[100%] Built target helloWorld` at the end of the output! I keep my finger crossed for you…)
+(If everything goes well, you should see a line like `[100%] Built target helloWorld` at the end of the output! I keep my finger crossed for you…)
 
-####4. Run Our first C++!!
+###4. Run Our first C++!!
+
 Finally enter the CMake command to run main.cpp:
 
 ```

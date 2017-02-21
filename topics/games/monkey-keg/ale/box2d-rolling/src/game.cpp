@@ -27,13 +27,16 @@ namespace Box2DRolling {
     void Game::init()
     {
         window.setFramerateLimit(60);
+        // window.setView(sf::View(sf::Vector2f(0.f, 0.f), sf::Vector2f(window.getSize())));
 
         world.SetDebugDraw(&debugDraw);
         debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 
         world.SetContactListener(&worldContactListener);
         Ground* ground = new Ground(&world, 400.f, 500.f);
-        Polygon* polygon = new Polygon(&world, 200.f, 500.f);
+        // Polygon* polygon = new Polygon(&world, 100.f, 100.f);
+        Polygon* polygon = new Polygon(&world, 150.f, 150.f);
+        // Polygon* polygon = new Polygon(&world, 200.f, 200.f);
     }
 
     void Game::update(const float dt)

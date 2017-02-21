@@ -17,9 +17,6 @@ namespace Box2DRolling {
 ;
             void update(const float dt) {}
             void render(sf::RenderWindow* window, b2Body* body);
-        private:
-            const int width = 600;
-            const int height = 16;
     };
 }
 
