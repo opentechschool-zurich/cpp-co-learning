@@ -1,8 +1,5 @@
 #include "tileType.h"
 #include <gmock/gmock.h>
-#include "gameBoardSingleton.h"
-
-using namespace SlidingTiles;
 
 TEST(TileType, Empty) {
     TileType t = TileType::Empty;

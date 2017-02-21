@@ -1,7 +1,7 @@
 #include "game.h"
 //#include "gameBoardSingleton.h"
 #include "gameBoard.h"
-//#include <cmath>
+#include <cmath>
 
 using namespace SlidingTiles;
 
