@@ -1,7 +1,6 @@
 #include "gameView.h"
 #include "renderingSingleton.h"
 #include "tile.h"
-#include "gameBoardSingleton.h"
 //#include "game.h"
 
 namespace SlidingTiles {
