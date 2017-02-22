@@ -13,12 +13,13 @@ namespace MonkeyKeg {
     class Ground : WorldItem
     {
         public:
-            Ground(b2World* world, int x, int y);
+            Ground(b2World* world, int x, int y, int length, int angle);
+            Ground(b2World* world, b2Vec2 start, b2Vec2 end);
 ;
             void update(const float dt) {}
             void render(sf::RenderWindow* window, b2Body* body);
         private:
-            const int width = 600;
+            int length = 600;
             const int height = 16;
     };
 }

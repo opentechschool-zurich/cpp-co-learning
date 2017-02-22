@@ -6,21 +6,33 @@
 
 #include "game.h"
 
+#include "SFMLDebugDraw.h"
+
 #include "world/ground.h"
-#include "world/box.h"
+#include "world/polygon.h"
+#include "world/barrel.h"
 #include "world/worldcontactlistener.h"
 
 namespace MonkeyKeg {
 
     Game::Game():
-        window(sf::VideoMode(800, 600, 32), "Monkey Keg"),
-        gravity(0.f, 9.8f),
-        world(gravity),
-        box(&world, 200, 100)
+        window(sf::VideoMode(800, 600, 32), "Box2D Collision"),
+        world(b2Vec2(0.f, 9.8f)), // world(gravity)
+        debugDraw(window)
     {
         window.setFramerateLimit(60);
+
+        world.SetDebugDraw(&debugDraw);
+        debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
+
         world.SetContactListener(&worldContactListener);
-        Ground* ground = new Ground(&world, 400.f, 500.f);
+        Ground* ground = new Ground(&world, 350, 350, 500, 10);
+        Ground* level1 = new Ground(&world, 450, 500, 600, -10);
+        Ground* level2 = new Ground(&world, 550, 500, 600, 10);
+        Ground* wallRight = new Ground(&world, 650, 500, 600, 90);
+        Ground* wallLeft = new Ground(&world, 150, 500, 600, 90);
+
+        Barrel* barrel = new Barrel(&world, 200, 100);
     }
 
     void Game::update(const float dt)
@@ -48,6 +60,8 @@ namespace MonkeyKeg {
                 item->render(&window, BodyIterator);
             }
         }
+
+        world.DrawDebugData();
 
         window.display();
     }
@@ -95,39 +109,14 @@ namespace MonkeyKeg {
 
     void Game::keyboardPressed(sf::Event event)
     {
-        if (event.key.code == sf::Keyboard::L) {
-            // TODO: right
-            box.startMoveRight();
-            // box.moveRight();
-        }
-        else if (event.key.code == sf::Keyboard::J) {
-            // TODO: jump
-            box.startMoveLeft();
-        }
-        else if (event.key.code == sf::Keyboard::I) {
-            box.startMoveUp();
-        }
-        else if (event.key.code == sf::Keyboard::K) {
-            box.startMoveDown();
+        if (event.key.code == sf::Keyboard::Space) {
         }
     }
 
     void Game::keyboardReleased(sf::Event event)
     {
-        if (event.key.code == sf::Keyboard::L) {
-            box.stopMove();
-        }
-        else if (event.key.code == sf::Keyboard::J) {
-            box.stopMove();
-        }
-        else if (event.key.code == sf::Keyboard::I) {
-            box.stopMove();
-        }
-        else if (event.key.code == sf::Keyboard::K) {
-            box.stopMove();
-        }
-        else if (event.key.code == sf::Keyboard::Space) {
-            box.startJump();
+        if (event.key.code == sf::Keyboard::Space) {
+            // barrel.start();
         }
         else if (event.key.code == sf::Keyboard::Escape)
         {
@@ -136,7 +125,14 @@ namespace MonkeyKeg {
         else if ((event.key.code == sf::Keyboard::Q) && (event.key.control))  {
             window.close();
         }
-   
+        else if(event.key.code == sf::Keyboard::F1)
+        {
+            std::cout << "F1" << std::endl;
+            if(debugDraw.GetFlags() & b2Draw::e_shapeBit)
+                debugDraw.ClearFlags(b2Draw::e_shapeBit);
+            else
+                debugDraw.AppendFlags(b2Draw::e_shapeBit);
+        }
     }
 
     void Game::mouseReleased(sf::Event event)

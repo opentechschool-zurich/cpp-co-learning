@@ -16,6 +16,9 @@ namespace MonkeyKeg {
         protected:
             int contact{0};
             static constexpr float scale = 30.f;
+            // static constexpr float scale = 1.f;
+            static constexpr float degtorad = 0.0174532925199432957f;
+            static constexpr float radtodeg = 57.295779513082320876f;
     };
 
 }

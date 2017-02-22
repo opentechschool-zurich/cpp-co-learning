@@ -31,13 +31,15 @@ FIND_LIBRARY(BOX2D_LIBRARY NAMES ${BOX2D_NAMES})
 SET(BOX2D_INCLUDE_DIRS "${BOX2D_INCLUDE_DIR}")
 SET(BOX2D_LIBRARIES    "${BOX2D_LIBRARY}")
 
-SET(MONKEYKEG_ASSETS "${PROJECT_SOURCE_DIR}/assets")
+SET(MONKEYKEG "${PROJECT_SOURCE_DIR}/assets")
 
 SET(monkey-keg-assets
-    ${MONKEYKEG_ASSETS}/box.png
-    ${MONKEYKEG_ASSETS}/box-red.png
+    ${MONKEYKEG}/box.png
+    ${MONKEYKEG}/barrel-red.png
+    ${MONKEYKEG}/barrel-red.png
+    ${MONKEYKEG}/Franchise-Bold-hinted.ttf
 )
 
-# FILE(COPY ${monkey-keg-assets} DESTINATION assets/)
+FILE(COPY ${monkey-keg-assets} DESTINATION assets/)
 
 ADD_SUBDIRECTORY(src)

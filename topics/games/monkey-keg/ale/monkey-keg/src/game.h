@@ -6,7 +6,9 @@
 #include <SFML/System/Time.hpp>
 #include <Box2D/Box2D.h>
 
-#include "world/box.h"
+#include "SFMLDebugDraw.h"
+
+#include "world/barrel.h"
 #include "world/worldcontactlistener.h"
 
 namespace MonkeyKeg {
@@ -25,15 +27,10 @@ namespace MonkeyKeg {
         // sf::CircleShape shape;
         sf::Clock deltaClock;
 
-        /** for converting between pixel and real-world coordinates*/
-        static constexpr float scale = 30.f;
-        static constexpr float degtorad = 0.0174532925199432957f;
-        static constexpr float radtodeg = 57.295779513082320876f;
-
-        b2Vec2 gravity;
         b2World world;
 
-        Box box;
+        SFMLDebugDraw debugDraw;
+
         WorldContactListener worldContactListener;
 
         /**

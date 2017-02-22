@@ -1,8 +1,10 @@
 SET(monkey-keg-sources
     main.cpp
     game.cpp
-    world/box.cpp
+    SFMLDebugDraw.cpp
+    world/barrel.cpp
     world/ground.cpp
+    world/polygon.cpp
     world/worldcontactlistener.cpp
 )
 
@@ -25,3 +27,5 @@ TARGET_LINK_LIBRARIES(monkey-keg LINK_PUBLIC
 		${SFML_LIBRARIES}
 		${BOX2D_LIBRARIES}
 )
+
+
