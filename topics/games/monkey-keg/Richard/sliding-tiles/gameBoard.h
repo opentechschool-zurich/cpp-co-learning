@@ -37,8 +37,9 @@ namespace SlidingTiles {
 
         /**
          * @brief sets up a random game
+         * @param emptyTiles the number of empty tiles to place defaults to 3
          */
-        void randomGame();
+        void randomGame(const int & emptyTiles = 3);
 
 
         /**
@@ -146,7 +147,7 @@ namespace SlidingTiles {
          * @param moveNode the node on which to Search
          * @param levels how many levels deep to search 1 .. n
          */
-        void addPossibleMoves(MoveNode &moveNode, const int & levels);
+        void addPossibleMoves(MoveNode & moveNode, const int & levels);
 
         /**
          * @brief returns a vector with solution moves. If there is no solution the vector has 0 elements
