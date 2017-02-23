@@ -6,6 +6,7 @@ SET(monkey-keg-sources
     world/ground.cpp
     world/polygon.cpp
     world/worldcontactlistener.cpp
+    decoration/text.cpp
 )
 
 
