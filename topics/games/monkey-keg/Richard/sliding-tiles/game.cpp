@@ -1,5 +1,4 @@
 #include "game.h"
-//#include "gameBoardSingleton.h"
 #include "gameBoard.h"
 #include <cmath>
 
@@ -59,15 +58,13 @@ namespace SlidingTiles {
                 if (event.type == sf::Event::Closed)
                     window->close();
                 else if (event.type == sf::Event::MouseButtonPressed) {
-                    mousePositionPressed = sf::Vector2i{event.mouseButton.x, event.mouseButton.y};
+                    doMousePressed(sf::Vector2i{event.mouseButton.x, event.mouseButton.y});
                 } else if (event.type == sf::Event::MouseButtonReleased) {
                     doMouseReleased(sf::Vector2i{event.mouseButton.x, event.mouseButton.y});
                 } else if (event.type == sf::Event::TextEntered) {
                     if (event.text.unicode == 114) { //r
-                        //GameBoardSingleton::getInstance().randomGame();
-                        gameBoard.randomGame();
+                        doRandomGame();
                     } else if (event.text.unicode == 112) { //p 
-                        //GameBoardSingleton::getInstance().printGame();
                         gameBoard.printGame();
                     } else
                         std::cout << "ASCII character typed: " << event.text.unicode << " --> " << static_cast<char> (event.text.unicode) << std::endl;
@@ -80,6 +77,29 @@ namespace SlidingTiles {
         }
     }
 
+    void Game::doRandomGame() {
+        int count {0};
+        //while ( sol == 0 ) {
+        do {
+            gameBoard.randomGame();
+            SlidingTiles::MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+            rootNode.endingBoard = gameBoard.serialiseGame();
+            gameBoard.addPossibleMoves(rootNode, 3);
+            
+            //std::vector<SlidingTiles::MoveNode> possibleMoves = gameBoard.possibleMoves();
+            //gameBoard.addPossibleMoves(possibleMoves, 3);
+            //std::vector<Solution> solutions = gameBoard.solutions(rootNode);
+            //sol = solutions.size();
+            std::cout << "trying a game: " << count << "\n";
+            if (gameBoard.hasASolution(rootNode)) { count = -1; }
+        } while ( count > -1 );
+        //}
+    }
+
+    void Game::doMousePressed(const sf::Vector2i & mousePosition) {
+        mousePositionPressed = mousePosition;
+    }
+    
     void Game::doMouseReleased(const sf::Vector2i & mousePosition) {
         sf::Vector2i movingTilePosition = RenderingSingleton::getInstance().findTile(mousePositionPressed);
         if (movingTilePosition.x == -1 || movingTilePosition.y == -1)
@@ -87,17 +107,14 @@ namespace SlidingTiles {
         int deltaX = mousePosition.x - mousePositionPressed.x;
         int deltaY = mousePosition.y - mousePositionPressed.y;
         if (abs(deltaX) > 2 || abs(deltaY) > 2) {
-            //SlidingTiles::Tile movingTile = GameBoardSingleton::getInstance().tiles[movingTilePosition.x][movingTilePosition.y];
             SlidingTiles::Tile movingTile = gameBoard.tiles[movingTilePosition.x][movingTilePosition.y];
             if (abs(deltaX) > abs(deltaY)) {
                 // horizontal movement
                 sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x + copysign(1, deltaX), movingTilePosition.y);
-                //GameBoardSingleton::getInstance().slideTile(movingTilePosition, newPosition);
                 gameBoard.slideTile(movingTilePosition, newPosition);
             } else {
                 // vertical movement
                 sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x, movingTilePosition.y + copysign(1, deltaY));
-                //GameBoardSingleton::getInstance().slideTile(movingTilePosition, newPosition);
                 gameBoard.slideTile(movingTilePosition, newPosition);
             }
         }

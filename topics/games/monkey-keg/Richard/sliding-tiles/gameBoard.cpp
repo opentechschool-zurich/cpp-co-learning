@@ -37,7 +37,7 @@ void GameBoard::loadGame(const std::vector<std::string> & game) {
     }
 }
 
-void GameBoard::randomGame() {
+void GameBoard::randomGame(const int & emptyTiles) {
     std::vector<sf::Vector2i> positions{};
     for (int x = 0; x < boardSize; ++x) {
         for (int y = 0; y < boardSize; ++y) {
@@ -66,7 +66,7 @@ void GameBoard::randomGame() {
     endTile.setTileType(randomEndTileType());
     tiles[endPos.x][endPos.y] = endTile;
 
-    int emptyTiles = 3;
+    //int emptyTiles = 3;
 
     for (int i = 0; i < emptyTiles; ++i) {
         sf::Vector2i emptyPos = positions[2 + i];

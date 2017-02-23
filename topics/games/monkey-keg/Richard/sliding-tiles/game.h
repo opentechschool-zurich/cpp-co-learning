@@ -33,6 +33,21 @@ namespace SlidingTiles {
          */
         SlidingTiles::GameView gameView;
 
+        /**
+         * @brief handler method for when the user wants to play a new random game
+         */
+        void doRandomGame();
+
+        /**
+         * @brief handler for the mouse pressed. Essentially records the coordinates
+         */
+        void doMousePressed(const sf::Vector2i & mousePosition);
+        
+        /**
+         * @brief the function that figures out what to do when the mouse was released
+         */
+        void doMouseReleased(const sf::Vector2i & mousePosition);
+
     private:
         /**
          * @brief the clock
@@ -44,9 +59,5 @@ namespace SlidingTiles {
          */
         sf::Vector2i mousePositionPressed;
 
-        /**
-         * @brief the function that figures out what to do when the mouse was released
-         */
-        void doMouseReleased(const sf::Vector2i & mousePosition);
     };
 }
