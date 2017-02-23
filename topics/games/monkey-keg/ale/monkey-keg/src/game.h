@@ -6,6 +6,9 @@
 #include <SFML/System/Time.hpp>
 #include <Box2D/Box2D.h>
 
+#include <vector>
+#include "decoration/text.h"
+
 #include "SFMLDebugDraw.h"
 
 #include "world/barrel.h"
@@ -28,6 +31,15 @@ namespace MonkeyKeg {
         sf::Clock deltaClock;
 
         b2World world;
+        // std::vector<WorldItem *> decoration;
+        std::vector< std::unique_ptr<Text> > decoration;
+
+        /*
+        template<typename D>
+        void addDecoration(const D& thing) {
+            decoration.push_back(make_unique<D>(thing));
+        }
+        */
 
         SFMLDebugDraw debugDraw;
 

@@ -43,9 +43,15 @@ namespace MonkeyKeg {
         // std::cout << "angle: " << angle * radtodeg << std::endl;
         std::cout << "angle: " << angle << std::endl;
 
+        // c2 = a2 + b2
+        auto middle = b2Vec2((start.x + end.x) / 2, (start.y + end.y) / 2);
+
         b2BodyDef BodyDef;
+        // TODO: check support of std::experimental::optional...
+        // (for which project was it?)
         // TODO: probably, we have to use the middle point
-        BodyDef.position = b2Vec2(start.x/scale, start.y/scale);
+        // BodyDef.position = b2Vec2(start.x/scale, start.y/scale);
+        BodyDef.position = b2Vec2(middle.x/scale, middle.y/scale);
         BodyDef.type = b2_staticBody;
         b2Body* Body = world->CreateBody(&BodyDef);
 
@@ -63,6 +69,26 @@ namespace MonkeyKeg {
 
     void Ground::render(sf::RenderWindow* window, b2Body* body)
     {
+
+        int x = scale * body->GetPosition().x;
+        int y = scale * body->GetPosition().y;
+
+        // int x =  100;
+        // int y =  100;
+
+        /*
+        sf::Font font;
+        font.loadFromFile("assets/Franchise-Bold-hinted.ttf");
+        sf::Text text;
+        text.setFont(font);
+		text.setCharacterSize(24); // in pixels, not points!
+		text.setFillColor(sf::Color::Black);
+
+        text.setString("s <------");
+        text.setPosition(x , y);
+        window->draw(text);
+        */
+
         sf::RectangleShape rectangle(sf::Vector2f(length, height));
         rectangle.setFillColor(sf::Color(50,50,250));
 

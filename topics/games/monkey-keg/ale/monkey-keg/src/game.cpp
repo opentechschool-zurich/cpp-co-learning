@@ -8,10 +8,15 @@
 
 #include "SFMLDebugDraw.h"
 
+#include <algorithm>  // for_each
+#include <functional> // bind
+
 #include "world/ground.h"
 #include "world/polygon.h"
 #include "world/barrel.h"
+#include "world/worlditem.h"
 #include "world/worldcontactlistener.h"
+#include "decoration/text.h"
 
 namespace MonkeyKeg {
 
@@ -26,11 +31,21 @@ namespace MonkeyKeg {
         debugDraw.SetFlags(b2Draw::e_shapeBit); //Only draw shapes
 
         world.SetContactListener(&worldContactListener);
-        Ground* ground = new Ground(&world, 350, 350, 500, 10);
-        Ground* level1 = new Ground(&world, 450, 500, 600, -10);
-        Ground* level2 = new Ground(&world, 550, 500, 600, 10);
-        Ground* wallRight = new Ground(&world, 650, 500, 600, 90);
-        Ground* wallLeft = new Ground(&world, 150, 500, 600, 90);
+        // Text* text = new Text(&world, b2Vec2(200, 200), "100,100");
+        // TODO: try to make decoration a vector of Decoration
+        decoration.push_back(std::make_unique<Text>(b2Vec2(100, 100), "100,100"));
+        Ground* wallLeft = new Ground(&world, b2Vec2(100, 100), b2Vec2(100, 450));
+        Ground* wallRight = new Ground(&world, b2Vec2(700, 100), b2Vec2(700, 500));
+        Ground* ground = new Ground(&world, b2Vec2(100, 500), b2Vec2(700, 450));
+        Ground* level1 = new Ground(&world, b2Vec2(100, 150), b2Vec2(650, 200));
+        Ground* level2 = new Ground(&world, b2Vec2(150, 300), b2Vec2(700, 250));
+        Ground* level3 = new Ground(&world, b2Vec2(100, 350), b2Vec2(650, 400));
+        // Ground* ground = new Ground(&world, 350, 350, 500, 10);
+        // Ground* level1 = new Ground(&world, 450, 500, 600, -10);
+        // Ground* level2 = new Ground(&world, 550, 500, 600, 10);
+        // Ground* level3 = new Ground(&world, b2Vec2(100, 100), b2Vec2(200, 200));
+        // Ground* wallRight = new Ground(&world, 650, 500, 600, 90);
+        // Ground* wallLeft = new Ground(&world, 150, 500, 600, 90);
 
         Barrel* barrel = new Barrel(&world, 200, 100);
     }
@@ -62,6 +77,14 @@ namespace MonkeyKeg {
         }
 
         world.DrawDebugData();
+
+        for(const auto& item : decoration)
+        {
+                item->render(&window);
+        }
+
+        //std::for_each(decoration.begin(), decoration.end(), 
+            //std::bind(&WorldItem::render));
 
         window.display();
     }
