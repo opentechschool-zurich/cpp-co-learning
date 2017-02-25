@@ -10,7 +10,7 @@ namespace SlidingTiles {
     class Solution {
     public:
         /**
-         * @brief the game board coordinates of the moving tile
+         * @brief a vector of moves
          */
         std::vector<Move> moves{};
     };

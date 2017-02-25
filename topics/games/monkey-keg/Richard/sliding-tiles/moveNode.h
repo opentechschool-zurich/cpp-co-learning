@@ -39,8 +39,8 @@ namespace SlidingTiles {
         std::vector <std::string> endingBoard{};
 
         /**
-        * @brief sets the ending board state
-        */
+         * @brief sets the ending board state
+         */
         void setEndingBoard(const std::vector <std::string> & serialisedGame) {
             endingBoard = serialisedGame;
         }
@@ -58,6 +58,15 @@ namespace SlidingTiles {
             ss << std::string(indent, ' ') << "Move #" << id << " startPosition: [" << startPosition.x
                     << "][" << startPosition.y << "]"
                     << " direction: " << directionToString(direction) << " possibleMoves: " << possibleMoves.size() << "\n";
+            ss << "startingBoard: ";
+            for (std::string s : startingBoard) {
+                ss << s;
+            }
+            ss << " endingBoard: ";
+            for (std::string s : endingBoard) {
+                ss << s;
+            }
+            ss << "\n";
             for (int i = 0; i < possibleMoves.size(); ++i) {
                 ss << std::string(indent, ' ') << "possibleMove[" << i << "] -->\n";
                 ss << possibleMoves[i].toString(indent + 2);

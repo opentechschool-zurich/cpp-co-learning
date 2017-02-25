@@ -85,10 +85,11 @@ namespace SlidingTiles {
             gameBoard.randomGame();
             SlidingTiles::MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
             rootNode.endingBoard = gameBoard.serialiseGame();
+            //std::cout << rootNode.toString() << "\n";
             PuzzleSolver puzzleSolver;
             puzzleSolver.addPossibleMoves(rootNode, 3);
             
-            std::cout << "trying a game: " << count << "\n";
+            std::cout << "trying a game: " << ++count << "\n";
             if (puzzleSolver.hasASolution(rootNode)) { count = -1; }
         } while ( count > -1 );
         //}

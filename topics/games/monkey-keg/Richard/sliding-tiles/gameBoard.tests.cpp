@@ -362,90 +362,61 @@ TEST(GameBoard, findAdjacentTilePosition) {
 }
 
 TEST(GameBoard, canSlideTile) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]
-    {"├", "-", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
         "┣", "┐", " ", "|",
         "┌", "┘", " ", "|",
         "└", "-", "-", "┘"};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    Move move {sf::Vector2i {2, 0}, Direction::GoDown};
-    //sf::Vector2i newPosition{2, 1};
+    Move move{sf::Vector2i{2, 0}, Direction::GoDown};
     ASSERT_TRUE(gameBoard.canSlideTile(move)) << "This slide should work\n";
 }
 
 TEST(GameBoard, canSlideTileOccupied) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]
-    {"├", "-", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
         "┣", "┐", " ", "|",
         "┌", "┘", " ", "|",
         "└", "-", "-", "┘"};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    Move move {sf::Vector2i {2, 0}, Direction::GoRight};
-    //sf::Vector2i newPosition{3, 0};
+    Move move{sf::Vector2i{2, 0}, Direction::GoRight};
     ASSERT_FALSE(gameBoard.canSlideTile(move)) << "This slide should not work because the tile is taken\n";
 }
 
 TEST(GameBoard, canSlideTileUnmoveables) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]
-    {" ", "├", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]{" ", "├", "-", "┐",
         " ", "┣", " ", "┘",
         " ", " ", "-", " ",
         " ", " ", " ", " "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    Move moveStartTile {sf::Vector2i {1, 0}, Direction::GoLeft};
-    //sf::Vector2i newPosition{0, 0};
+    Move moveStartTile{sf::Vector2i{1, 0}, Direction::GoLeft};
     ASSERT_FALSE(gameBoard.canSlideTile(moveStartTile)) << "This slide should not work because it is a start tile\n";
 
-    //tilePosition.x = 1;
-    //tilePosition.y = 1;
-    //newPosition.x = 0;
-    //newPosition.y = 1;
-    Move moveEndTile {sf::Vector2i {1,1}, Direction::GoRight};
+    Move moveEndTile{sf::Vector2i{1, 1}, Direction::GoRight};
     ASSERT_FALSE(gameBoard.canSlideTile(moveEndTile)) << "This slide should not work because it is an end tile\n";
 
-    //tilePosition.x = 1;
-    //tilePosition.y = 2;
-    //newPosition.x = 2;
-    //newPosition.y = 2;
-    Move moveEmptyTile {sf::Vector2i {1,2}, Direction::GoRight};
+    Move moveEmptyTile{sf::Vector2i{1, 2}, Direction::GoRight};
     ASSERT_FALSE(gameBoard.canSlideTile(moveEmptyTile)) << "This slide should not work because it is an empty tile\n";
 }
 
 TEST(GameBoard, canSlideTileOffTheBoard) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]
-    {" ", "├", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]{" ", "├", "-", "┐",
         " ", "┣", " ", "┘",
         " ", " ", "-", " ",
         "-", " ", " ", "-"};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    //sf::Vector2i tilePosition{1, 0};
-    //sf::Vector2i newPosition{1, -1};
-    Move moveOffTop {sf::Vector2i {2,0}, Direction::GoUp};
+    Move moveOffTop{sf::Vector2i{2, 0}, Direction::GoUp};
     ASSERT_FALSE(gameBoard.canSlideTile(moveOffTop)) << "This slide should not work because the new tile would move off the board\n";
 
-    //tilePosition.x = 3;
-    //tilePosition.y = 0;
-    //newPosition.x = 4;
-    //newPosition.y = 0;
-    Move moveOffRight {sf::Vector2i {3,0}, Direction::GoRight};
+    Move moveOffRight{sf::Vector2i{3, 0}, Direction::GoRight};
     ASSERT_FALSE(gameBoard.canSlideTile(moveOffRight)) << "This slide should not work because the new tile is off the right edge of the board\n";
 
-    //tilePosition.x = 0;
-    //tilePosition.y = 3;
-    //newPosition.x = -1;
-    //newPosition.y = 0;
-    Move moveOffLeft {sf::Vector2i {0,3}, Direction::GoLeft};
+    Move moveOffLeft{sf::Vector2i{0, 3}, Direction::GoLeft};
     ASSERT_FALSE(gameBoard.canSlideTile(moveOffLeft)) << "This slide should not work because the new tile is off the left side of the board\n";
 
-    //tilePosition.x = 0;
-    //tilePosition.y = 3;
-    //newPosition.x = 0;
-    //newPosition.y = 4;
-    Move moveOffBottom {sf::Vector2i {0,3}, Direction::GoDown};
+    Move moveOffBottom{sf::Vector2i{0, 3}, Direction::GoDown};
     ASSERT_FALSE(gameBoard.canSlideTile(moveOffBottom)) << "This slide should not work because the new tile is off the bottom of the board\n";
 }
 
@@ -514,54 +485,3 @@ TEST(GameBoard, isNotSolved4) {
     std::vector<sf::Vector2i> result = gameBoard.isSolved();
     ASSERT_THAT(0, result.size());
 }
-
-/*TEST(GameBoard, possibleMovesNone) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "┫", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    std::vector<SlidingTiles::MoveNode> possibleMoves = gameBoard.possibleMoves();
-    ASSERT_THAT(possibleMoves.size(), 0);
-}
-
-TEST(GameBoard, possibleMovesOne) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "┫", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    std::vector<SlidingTiles::MoveNode> possibleMoves = gameBoard.possibleMoves();
-    ASSERT_THAT(possibleMoves.size(), 1);
-    SlidingTiles::MoveNode move = possibleMoves[0];
-    sf::Vector2i expectedTile{1, 0};
-    ASSERT_EQ(move.startPosition, expectedTile) << "Expect tile [1][0] to be a possible move but returned tile is [" << move.startPosition.x << "][" << move.startPosition.y << "] \n";
-}
-
-TEST(GameBoard, possibleMovesTwo) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "┫", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        "-", " ", " ", " "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    std::vector<SlidingTiles::MoveNode> possibleMoves = gameBoard.possibleMoves();
-    ASSERT_THAT(possibleMoves.size(), 2);
-    SlidingTiles::MoveNode move = possibleMoves[0];
-}
-
-TEST(GameBoard, possibleMovesFour) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", " ", "┫", " ",
-        " ", "-", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    std::vector<SlidingTiles::MoveNode> possibleMoves = gameBoard.possibleMoves();
-    ASSERT_THAT(possibleMoves.size(), 4);
-    SlidingTiles::MoveNode move = possibleMoves[0];
-}
-
-*/
