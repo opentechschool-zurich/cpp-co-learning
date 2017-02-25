@@ -137,28 +137,6 @@ namespace SlidingTiles {
                     tiles[x][y].setWinner(false);
         }
 
-        /**
-         * @brief returns all moves that are possible on the current gameboard
-         */
-        std::vector<SlidingTiles::MoveNode> possibleMoves();
-
-        /**
-         * @brief deepens the Search for possible moves and adds them to the MoveNode's possibleMoves recursively
-         * @param moveNode the node on which to Search
-         * @param levels how many levels deep to search 1 .. n
-         */
-        void addPossibleMoves(MoveNode & moveNode, const int & levels);
-
-        /**
-         * @brief returns a vector with solution moves. If there is no solution the vector has 0 elements
-         */
-        std::vector<Solution> solutions(const std::vector<MoveNode> & possibleMoves);
-
-        /**
-         * @brief figures out if the moves tree holds a solution
-         */
-        bool hasASolution(const MoveNode & node);
-
     };
 
 } // namespace

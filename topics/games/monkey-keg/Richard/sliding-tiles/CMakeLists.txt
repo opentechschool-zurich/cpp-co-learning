@@ -36,12 +36,12 @@ SET(SOURCE_FILES
     tileView.cpp
     tile.cpp
     texturesSingleton.cpp
-#    gameBoardSingleton.cpp
     renderingSingleton.cpp
     direction.cpp
     tileType.cpp
     moveNode.cpp
     gameBoard.cpp
+    puzzleSolver.cpp
 )
 
 set( UNIT_TESTS
@@ -55,6 +55,7 @@ set( UNIT_TESTS
     direction.tests.cpp
     tileType.tests.cpp
     gameBoard.tests.cpp
+    puzzleSolver.tests.cpp
 )
 
 ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})

@@ -1,6 +1,7 @@
 #include "game.h"
 #include "gameBoard.h"
 #include <cmath>
+#include "puzzleSolver.h"
 
 using namespace SlidingTiles;
 
@@ -84,14 +85,11 @@ namespace SlidingTiles {
             gameBoard.randomGame();
             SlidingTiles::MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
             rootNode.endingBoard = gameBoard.serialiseGame();
-            gameBoard.addPossibleMoves(rootNode, 3);
+            PuzzleSolver puzzleSolver;
+            puzzleSolver.addPossibleMoves(rootNode, 3);
             
-            //std::vector<SlidingTiles::MoveNode> possibleMoves = gameBoard.possibleMoves();
-            //gameBoard.addPossibleMoves(possibleMoves, 3);
-            //std::vector<Solution> solutions = gameBoard.solutions(rootNode);
-            //sol = solutions.size();
             std::cout << "trying a game: " << count << "\n";
-            if (gameBoard.hasASolution(rootNode)) { count = -1; }
+            if (puzzleSolver.hasASolution(rootNode)) { count = -1; }
         } while ( count > -1 );
         //}
     }
