@@ -14,7 +14,7 @@ std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const std::vecto
             sf::Vector2i position{x, y};
             gameBoard.loadGame(gameState);
             if (gameBoard.tiles[x][y].isMoveable) {
-                if (gameBoard.canSlideTile(position, Direction::GoUp)) {
+                if (gameBoard.canSlideTile(Move{position, Direction::GoUp})) {
                     SlidingTiles::MoveNode moveNode{position, Direction::GoUp, rootNode.startingBoard};
                     gameBoard.slideTile(moveNode);
                     moveNode.setEndingBoard(gameBoard.serialiseGame());
@@ -22,7 +22,7 @@ std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const std::vecto
                     gameBoard.loadGame(rootNode.startingBoard);
                     //std::cout << "Creating a possible move(GoUp): " << moveNode.toString();
                 }
-                if (gameBoard.canSlideTile(position, Direction::GoDown)) {
+                if (gameBoard.canSlideTile(Move{position, Direction::GoDown})) {
                     SlidingTiles::MoveNode moveNode{position, Direction::GoDown, rootNode.startingBoard};
                     gameBoard.slideTile(moveNode);
                     moveNode.setEndingBoard(gameBoard.serialiseGame());
@@ -30,7 +30,7 @@ std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const std::vecto
                     gameBoard.loadGame(rootNode.startingBoard);
                     //std::cout << "Creating a possible move(GoDown): " << moveNode.toString();
                 }
-                if (gameBoard.canSlideTile(position, Direction::GoLeft)) {
+                if (gameBoard.canSlideTile(Move{position, Direction::GoLeft})) {
                     SlidingTiles::MoveNode moveNode{position, Direction::GoLeft, rootNode.startingBoard};
                     gameBoard.slideTile(moveNode);
                     moveNode.setEndingBoard(gameBoard.serialiseGame());
@@ -38,7 +38,7 @@ std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const std::vecto
                     gameBoard.loadGame(rootNode.startingBoard);
                     //std::cout << "Creating a possible move(GoLeft): " << moveNode.toString();
                 }
-                if (gameBoard.canSlideTile(position, Direction::GoRight)) {
+                if (gameBoard.canSlideTile(Move{position, Direction::GoRight})) {
                     SlidingTiles::MoveNode moveNode{position, Direction::GoRight, rootNode.startingBoard};
                     gameBoard.slideTile(moveNode);
                     moveNode.setEndingBoard(gameBoard.serialiseGame());

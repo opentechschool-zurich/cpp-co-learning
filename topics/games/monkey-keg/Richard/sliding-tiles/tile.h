@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include "tileView.h"
 #include "direction.h"
-#include <string>
 
 namespace SlidingTiles {
 

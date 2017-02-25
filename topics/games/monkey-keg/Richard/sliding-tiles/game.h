@@ -26,6 +26,9 @@ namespace SlidingTiles {
          */
         void run();
 
+        /**
+         * @brief the main gameboard of the game
+         */
         SlidingTiles::GameBoard gameBoard {};
         
         /**

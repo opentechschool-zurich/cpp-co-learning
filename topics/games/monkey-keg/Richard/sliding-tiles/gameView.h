@@ -29,6 +29,9 @@ namespace SlidingTiles {
          */
         sf::Text bannerText;
         
+        /**
+         * @brief pointer to the gameBoard
+         */
         SlidingTiles::GameBoard* gameBoard;
         
         /**

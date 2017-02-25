@@ -129,83 +129,83 @@ TEST(GameBoard, findNextTilePosition) {
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{0, 0};
-    sf::Vector2i nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::Unknown});
     sf::Vector2i expectedPosition{1, 0};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 1;
     tilePosition.y = 0;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoRight);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoRight});
     expectedPosition.x = 2;
     expectedPosition.y = 0;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 3;
     tilePosition.y = 0;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoRight);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoRight});
     expectedPosition.x = 3;
     expectedPosition.y = 1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 3;
     tilePosition.y = 1;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoDown);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoDown});
     expectedPosition.x = 3;
     expectedPosition.y = 2;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 3;
     tilePosition.y = 3;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoDown);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoDown});
     expectedPosition.x = 2;
     expectedPosition.y = 3;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 2;
     tilePosition.y = 3;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoLeft);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoLeft});
     expectedPosition.x = 1;
     expectedPosition.y = 3;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 0;
     tilePosition.y = 3;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoLeft);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoLeft});
     expectedPosition.x = 0;
     expectedPosition.y = 2;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 0;
     tilePosition.y = 2;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoUp);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoUp});
     expectedPosition.x = 1;
     expectedPosition.y = 2;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 1;
     tilePosition.y = 1;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoUp);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoUp});
     expectedPosition.x = 0;
     expectedPosition.y = 1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 0;
     tilePosition.y = 1;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoLeft);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoLeft});
     expectedPosition.x = -2;
     expectedPosition.y = -2;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 3;
     tilePosition.y = 2;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoUp);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoUp});
     expectedPosition.x = 3;
     expectedPosition.y = 1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
 }
 
-TEST(GameBoard, findNextTilePosition2) {
+TEST(GameBoard, getOutputPosition2) {
     std::string game [GameBoard::boardSize][GameBoard::boardSize]{"-", "-", "┤", "┐",
         "┣", "┐", " ", "|",
         "┌", "┘", " ", "|",
@@ -213,12 +213,12 @@ TEST(GameBoard, findNextTilePosition2) {
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{2, 0};
-    sf::Vector2i nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::Unknown});
     sf::Vector2i expectedPosition{1, 0};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
-TEST(GameBoard, findNextTilePosition3) {
+TEST(GameBoard, getOutputPosition3) {
     std::string game [GameBoard::boardSize][GameBoard::boardSize]{" ", " ", " ", " ",
         " ", "-", " ", " ",
         "├", " ", "┫", " ",
@@ -226,13 +226,13 @@ TEST(GameBoard, findNextTilePosition3) {
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{2, 2};
-    sf::Vector2i nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoRight);
+    sf::Vector2i nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoRight});
     sf::Vector2i expectedPosition{-2, -2};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] of type: "
             << tileTypeToChar(gameBoard.tiles[tilePosition.x][tilePosition.y].getTileType()) << " getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
-TEST(GameBoard, findNextTilePosition4) {
+TEST(GameBoard, getOutputPosition4) {
     std::string game [GameBoard::boardSize][GameBoard::boardSize]{"┬", "-", "-", "┐",
         "|", "┐", " ", "|",
         "┌", "┘", " ", "|",
@@ -240,12 +240,12 @@ TEST(GameBoard, findNextTilePosition4) {
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{0, 0};
-    sf::Vector2i nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::Unknown});
     sf::Vector2i expectedPosition{0, 1};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
-TEST(GameBoard, findNextTilePosition5) {
+TEST(GameBoard, getOutputPosition5) {
     std::string game [GameBoard::boardSize][GameBoard::boardSize]{"┌", "-", "-", "┐",
         "|", "┐", " ", "|",
         "┴", "┘", " ", "|",
@@ -253,12 +253,12 @@ TEST(GameBoard, findNextTilePosition5) {
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{0, 2};
-    sf::Vector2i nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::Unknown});
     sf::Vector2i expectedPosition{0, 1};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
-TEST(GameBoard, findNextTilePositionInvalid1) {
+TEST(GameBoard, getOutputPositionInvalid1) {
     std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
         "┣", "┐", " ", "|",
         "┌", "┘", " ", "|",
@@ -266,19 +266,19 @@ TEST(GameBoard, findNextTilePositionInvalid1) {
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{1, 0};
-    sf::Vector2i nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::Unknown});
     sf::Vector2i expectedPosition{-1, -1};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     tilePosition.x = 1;
     tilePosition.y = 0;
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoDown);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoDown});
     expectedPosition.x = -1;
     expectedPosition.y = -1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
-TEST(GameBoard, findNextTilePositionInvalid2) {
+TEST(GameBoard, getOutputPositionInvalid2) {
     std::string game [GameBoard::boardSize][GameBoard::boardSize]{"|", "┘", " ", "-",
         "|", "├", "-", "┳",
         "┘", "-", " ", "|",
@@ -286,11 +286,11 @@ TEST(GameBoard, findNextTilePositionInvalid2) {
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{3, 1};
-    sf::Vector2i nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoRight);
+    sf::Vector2i nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoRight});
     sf::Vector2i expectedPosition{-1, -1};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    nextTilePosition = gameBoard.getNextTilePosition(tilePosition, Direction::GoUp);
+    nextTilePosition = gameBoard.getOutputPosition(Move{tilePosition, Direction::GoUp});
     expectedPosition.x = -2;
     expectedPosition.y = -2;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getNextTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
@@ -305,29 +305,29 @@ TEST(GameBoard, findAdjacentTilePosition) {
     gameBoard.loadGame(game);
     sf::Vector2i tilePosition{0, 0};
     //std::cout << "First test unknown\n";
-    sf::Vector2i nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::Unknown);
+    sf::Vector2i nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::Unknown});
     sf::Vector2i expectedPosition{0, 0};
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     //std::cout << "Second test go right\n";
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoRight);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoRight});
     expectedPosition.x = 1;
     expectedPosition.y = 0;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     //std::cout << "Now we want to go down...\n";
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoDown);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoDown});
     expectedPosition.x = 0;
     expectedPosition.y = 1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
     //std::cout << "Now we want to go left...\n";
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoLeft);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoLeft});
     expectedPosition.x = -1;
     expectedPosition.y = -1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoUp);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoUp});
     expectedPosition.x = -1;
     expectedPosition.y = -1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
@@ -335,108 +335,118 @@ TEST(GameBoard, findAdjacentTilePosition) {
 
     tilePosition.x = 3;
     tilePosition.y = 0;
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::Unknown);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::Unknown});
     expectedPosition.x = 3;
     expectedPosition.y = 0;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoRight);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoRight});
     expectedPosition.x = -1;
     expectedPosition.y = -1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoDown);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoDown});
     expectedPosition.x = 3;
     expectedPosition.y = 1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoLeft);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoLeft});
     expectedPosition.x = 2;
     expectedPosition.y = 0;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 
-    nextTilePosition = gameBoard.getAdjacentTilePosition(tilePosition, Direction::GoUp);
+    nextTilePosition = gameBoard.getAdjacentTilePosition(Move{tilePosition, Direction::GoUp});
     expectedPosition.x = -1;
     expectedPosition.y = -1;
     ASSERT_EQ(expectedPosition, nextTilePosition) << "Tile[" << tilePosition.x << "][" << tilePosition.y << "] getAdjacentTilePosition returned: x[" << nextTilePosition.x << "][" << nextTilePosition.y << "] expected was: [" << expectedPosition.x << "][" << expectedPosition.y << "]\n";
 }
 
 TEST(GameBoard, canSlideTile) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]
+    {"├", "-", "-", "┐",
         "┣", "┐", " ", "|",
         "┌", "┘", " ", "|",
         "└", "-", "-", "┘"};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    sf::Vector2i tilePosition{2, 0};
-    sf::Vector2i newPosition{2, 1};
-    ASSERT_TRUE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should work\n";
+    Move move {sf::Vector2i {2, 0}, Direction::GoDown};
+    //sf::Vector2i newPosition{2, 1};
+    ASSERT_TRUE(gameBoard.canSlideTile(move)) << "This slide should work\n";
 }
 
 TEST(GameBoard, canSlideTileOccupied) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]
+    {"├", "-", "-", "┐",
         "┣", "┐", " ", "|",
         "┌", "┘", " ", "|",
         "└", "-", "-", "┘"};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    sf::Vector2i tilePosition{2, 0};
-    sf::Vector2i newPosition{3, 0};
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work\n";
+    Move move {sf::Vector2i {2, 0}, Direction::GoRight};
+    //sf::Vector2i newPosition{3, 0};
+    ASSERT_FALSE(gameBoard.canSlideTile(move)) << "This slide should not work because the tile is taken\n";
 }
 
 TEST(GameBoard, canSlideTileUnmoveables) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{" ", "├", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]
+    {" ", "├", "-", "┐",
         " ", "┣", " ", "┘",
         " ", " ", "-", " ",
         " ", " ", " ", " "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    sf::Vector2i tilePosition{1, 0};
-    sf::Vector2i newPosition{0, 0};
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work because it is a start tile\n";
+    Move moveStartTile {sf::Vector2i {1, 0}, Direction::GoLeft};
+    //sf::Vector2i newPosition{0, 0};
+    ASSERT_FALSE(gameBoard.canSlideTile(moveStartTile)) << "This slide should not work because it is a start tile\n";
 
-    tilePosition.x = 1;
-    tilePosition.y = 1;
-    newPosition.x = 0;
-    newPosition.y = 1;
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work because it is an end tile\n";
+    //tilePosition.x = 1;
+    //tilePosition.y = 1;
+    //newPosition.x = 0;
+    //newPosition.y = 1;
+    Move moveEndTile {sf::Vector2i {1,1}, Direction::GoRight};
+    ASSERT_FALSE(gameBoard.canSlideTile(moveEndTile)) << "This slide should not work because it is an end tile\n";
 
-    tilePosition.x = 1;
-    tilePosition.y = 2;
-    newPosition.x = 2;
-    newPosition.y = 2;
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work because it is an empty tile\n";
+    //tilePosition.x = 1;
+    //tilePosition.y = 2;
+    //newPosition.x = 2;
+    //newPosition.y = 2;
+    Move moveEmptyTile {sf::Vector2i {1,2}, Direction::GoRight};
+    ASSERT_FALSE(gameBoard.canSlideTile(moveEmptyTile)) << "This slide should not work because it is an empty tile\n";
 }
 
 TEST(GameBoard, canSlideTileOffTheBoard) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{" ", "├", "-", "┐",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]
+    {" ", "├", "-", "┐",
         " ", "┣", " ", "┘",
         " ", " ", "-", " ",
         "-", " ", " ", "-"};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    sf::Vector2i tilePosition{1, 0};
-    sf::Vector2i newPosition{1, -1};
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work because the new tile is off the board\n";
+    //sf::Vector2i tilePosition{1, 0};
+    //sf::Vector2i newPosition{1, -1};
+    Move moveOffTop {sf::Vector2i {2,0}, Direction::GoUp};
+    ASSERT_FALSE(gameBoard.canSlideTile(moveOffTop)) << "This slide should not work because the new tile would move off the board\n";
 
-    tilePosition.x = 3;
-    tilePosition.y = 0;
-    newPosition.x = 4;
-    newPosition.y = 0;
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work because the new tile is off the board\n";
+    //tilePosition.x = 3;
+    //tilePosition.y = 0;
+    //newPosition.x = 4;
+    //newPosition.y = 0;
+    Move moveOffRight {sf::Vector2i {3,0}, Direction::GoRight};
+    ASSERT_FALSE(gameBoard.canSlideTile(moveOffRight)) << "This slide should not work because the new tile is off the right edge of the board\n";
 
-    tilePosition.x = 0;
-    tilePosition.y = 3;
-    newPosition.x = -1;
-    newPosition.y = 0;
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work because the new tile is off the board\n";
+    //tilePosition.x = 0;
+    //tilePosition.y = 3;
+    //newPosition.x = -1;
+    //newPosition.y = 0;
+    Move moveOffLeft {sf::Vector2i {0,3}, Direction::GoLeft};
+    ASSERT_FALSE(gameBoard.canSlideTile(moveOffLeft)) << "This slide should not work because the new tile is off the left side of the board\n";
 
-    tilePosition.x = 0;
-    tilePosition.y = 3;
-    newPosition.x = 0;
-    newPosition.y = 4;
-    ASSERT_FALSE(gameBoard.canSlideTile(tilePosition, newPosition)) << "This slide should not work because the new tile is off the board\n";
+    //tilePosition.x = 0;
+    //tilePosition.y = 3;
+    //newPosition.x = 0;
+    //newPosition.y = 4;
+    Move moveOffBottom {sf::Vector2i {0,3}, Direction::GoDown};
+    ASSERT_FALSE(gameBoard.canSlideTile(moveOffBottom)) << "This slide should not work because the new tile is off the bottom of the board\n";
 }
 
 TEST(GameBoard, isSolved) {

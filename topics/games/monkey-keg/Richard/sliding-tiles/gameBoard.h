@@ -2,11 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "tile.h"
-#include <string>
 #include <vector>
 #include "moveNode.h"
-#include "solution.h"
-#include "direction.h"
 
 namespace SlidingTiles {
 
@@ -51,56 +48,27 @@ namespace SlidingTiles {
          * @brief prints the game to the console
          */
         void printGame();
-
+            
         /**
-         * @brief for a given input return the position of the next tile, If we hit a matching end tile
-         * it returns -2,-2. If we can't end properly we return -1,-1
-         * @param tilePosition The position of the tile to query
-         * @param direction the incoming direction to return the outgoing direction
+         * @brief Returns the adjacent tile in the supplied direction and check for off-the board condition.
+         * If no adjacent tile is possible it returns -1,-1
+         * @param move The position of the tile to query and the direction
          */
-        sf::Vector2i getNextTilePosition(const sf::Vector2i & tilePosition, const Direction & direction);
+        sf::Vector2i getAdjacentTilePosition(const Move & move);
 
         /**
-         * @brief Returns the adjacent tile in the direction
-         * if no adjacent tile is possible it returns -1,-1
-         * @param tilePos The position of the tile to query
-         * @param direction the incoming direction to return the outgoing direction
-         */
-        sf::Vector2i getAdjacentTilePosition(const sf::Vector2i & tilePos, const Direction & direction);
-
-
-        /**
-         * @brief return whether a tile at the movingTilePosition can slide to
-         * the newPosition.
-         * @param movingTilePosition the position of the tile to move
-         * @param newPosition the new position of the tile
+         * @brief return whether the move is possible
+         * @param move the position of the tile to move and the direction in which to move it
          * @return true if a slide is allowed, false if not
          */
-        bool canSlideTile(const sf::Vector2i & movingTilePosition, const sf::Vector2i & newPosition);
-
-        /**
-         * @brief return whether a tile at the movingTilePosition can slide in the supplied direction.
-         * @param movingTilePosition the position of the tile to move
-         * @param direction the direction to slide
-         * @return true if a slide is allowed, false if not
-         */
-        bool canSlideTile(const sf::Vector2i & movingTilePosition, const Direction & direction);
-
-        /**
-         * @brief slides the tile from the movingTilePosition to the newPosition if
-         * this is legal.
-         * @param movingTilePosition the position of the tile to move
-         * @param newPosition the new position of the tile
-         */
-        void slideTile(const sf::Vector2i & movingTilePosition, const sf::Vector2i & newPosition);
-
+        bool canSlideTile(const Move & move);
+        
         /**
          * @brief slides the tile from the movingTilePosition to the newPosition if
          * this is legal.
          * @param move the movement
          */
         void slideTile(const SlidingTiles::Move & move);
-
 
         /**
          *  @brief returns the start tile on the gameboard. If none is found it returns -1,-1
@@ -112,7 +80,15 @@ namespace SlidingTiles {
          */
         sf::Vector2i findEndTile();
 
-
+        /**
+         * @brief Used to find a solution by returning the output tile if we 
+         * roll a ball into the tile from the supplied direction.
+         * If we hit a matching end tile it returns -2,-2. If we can't end properly 
+         * because of an off the board or empty tile we return -1,-1
+         * @param move The move to for the ball
+         */
+        sf::Vector2i getOutputPosition(const Move & move);
+        
         /**
          * @brief returns if the puzzle is in a solved state by checking the path
          * from the start tile to the end tile.

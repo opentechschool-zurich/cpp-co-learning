@@ -109,11 +109,21 @@ namespace SlidingTiles {
             if (abs(deltaX) > abs(deltaY)) {
                 // horizontal movement
                 sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x + copysign(1, deltaX), movingTilePosition.y);
-                gameBoard.slideTile(movingTilePosition, newPosition);
+                if ( deltaX > 0 ) {
+                    gameBoard.slideTile(Move{movingTilePosition, Direction::GoRight});
+                } else {
+                    gameBoard.slideTile(Move{movingTilePosition, Direction::GoLeft});
+                }
             } else {
                 // vertical movement
                 sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x, movingTilePosition.y + copysign(1, deltaY));
-                gameBoard.slideTile(movingTilePosition, newPosition);
+                //gameBoard.slideTile(movingTilePosition, newPosition);
+                if ( deltaY > 0 ) {
+                    gameBoard.slideTile(Move{movingTilePosition, Direction::GoDown});
+                } else {
+                    gameBoard.slideTile(Move{movingTilePosition, Direction::GoUp});
+                }
+
             }
         }
     }
