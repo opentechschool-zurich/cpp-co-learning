@@ -134,9 +134,7 @@ brute-force approach here...
 Which path is the fastest one that leads to a solved puzzle? Enter the breadth-first 
 search:
 
-<p align="center">
-    <img src="https://en.wikipedia.org/wiki/Breadth-first_search#/media/File:Animated_BFS.gif"/>
-</p>
+![Breadth-First-Search](https://upload.wikimedia.org/wikipedia/commons/5/5d/Breadth-First-Search-Algorithm.gif)
 
 (From Wikipedia: https://en.wikipedia.org/wiki/Breadth-first_search )
 
