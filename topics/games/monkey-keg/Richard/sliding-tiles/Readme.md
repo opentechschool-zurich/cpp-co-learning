@@ -131,10 +131,12 @@ brute-force approach here...
 
 ![Level4](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/Level4.png)
 
-Which path is the fastest one that leads to a solved puzzle! Enter the breadth-first 
+Which path is the fastest one that leads to a solved puzzle? Enter the breadth-first 
 search:
 
-![Breadth-first-search](https://en.wikipedia.org/wiki/Breadth-first_search#/media/File:Animated_BFS.gif)
+<p align="center">
+    <img src="https://en.wikipedia.org/wiki/Breadth-first_search#/media/File:Animated_BFS.gif"/>
+</p>
 
 (From Wikipedia: https://en.wikipedia.org/wiki/Breadth-first_search )
 
