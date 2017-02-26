@@ -1,7 +1,7 @@
 # Sliding Tiles
 
 ## Screenshot
-![Screenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/Screenshot.png)
+![Screenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/Screenshot.png)
 
 ## Description:
 This program creates a window and places tiles in a grid.
@@ -102,12 +102,68 @@ it.
 
 For a human it is easy to see how to solve this puzzle:
 
-![Solver1](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/solver1.png)
-![Solver2](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/solver2.png)
-![Solver3](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/solver3.png)
+![Solver1](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/solver1.png)
+![Solver2](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/solver2.png)
+![Solver3](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/solver3.png)
 
+To solve programatically we can take a brute-force approach: Start with the puzzle 
+and figure out all possible moves that can be made by the tiles. In this puzzle
+there is only one tile that can move (start and end tiles are fixed). It can 
+move in 4 directions.
 
+If the tile moves to the right on the next move it can still move 3 ways. Note that
+moving back is not desirable so we will only consider 3 potential moves.
 
+If the tile moves to the right once more then it has no more future moves. In this
+situation that is OK because the puzzle has been solved.
+
+This making-a-move and then having multiple next moves can be expressed as a tree:
+
+![Level1](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/Level1.png)
+
+We can visit each node and see if there are new moves (excluding the go back move):
+
+![Level2](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/Level2.png)
+
+As we go n-deep the number of nodes increases. I'm sure there is some optimisation 
+that could be applied to prevent tiles moving round in circles. But we are on the
+brute-force approach here...
+
+![Level4](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/Level4.png)
+
+Which path is the fastest one that leads to a solved puzzle! Enter the breadth-first 
+search:
+
+![Breadth-first-search](https://en.wikipedia.org/wiki/Breadth-first_search#/media/File:Animated_BFS.gif)
+
+(From Wikipedia: https://en.wikipedia.org/wiki/Breadth-first_search )
+
+Here is "my" code to find the shortest solution path:
+```c++
+bool PuzzleSolver::hasASolution(const MoveNode & node) {
+    // inspired by https://gist.github.com/douglas-vaz/5072998
+    std::queue<MoveNode> Q;
+    Q.push(node);
+    while (!Q.empty()) {
+        MoveNode t = Q.front();
+        Q.pop();
+        gameBoard.loadGame(t.endingBoard);
+        if (gameBoard.isSolved().size() > 0) {
+            return true;
+        };
+        for (int i = 0; i < t.possibleMoves.size(); ++i) {
+            Q.push(t.possibleMoves[i]);
+        }
+    }
+    return false;
+}
+```
+
+I was impressed with the queue approach which avoids a recursive call. The method
+places the root node on the queue and then reads nodes off the front of the queue.
+If the endboard of the move isn't a solved puzzle the method looks for the 
+child moves and adds them at the end of the queue. This way first all the level 1
+nodes are visited before the level 2 nodes are checked and so on.
 
 
 ## Copyright information
@@ -115,4 +171,4 @@ The Font was taken from http://www.1001freefonts.com/changa_one.fontIt is in the
 Designer was Eduardo Tunni http://www.1001freefonts.com/search.php?d=1&q=Eduardo+Tunni
 
 
-The tiles were drawn by Richard Eigenmann. They are ugly and you will be criticized if you reuse them.
+The tiles were drawn by Richard Eigenmann. My artistic skills are gradually improving...
