@@ -18,16 +18,21 @@ namespace SlidingTiles {
             "┌", "┘", " ", "|",
             "└", "-", "-", "┘"};
 
-        std::string game2[GameBoard::boardSize][GameBoard::boardSize] {
-            " "," "," "," ",
-            " "," "," "," ",
-            " "," ","-"," ",
+        std::string game2[GameBoard::boardSize][GameBoard::boardSize]{
+            " ", " ", " ", " ",
+            " ", " ", " ", " ",
+            " ", " ", "-", " ",
             //" "," ","├",""
-            " "," ","├","┐"
+            " ", " ", "├", "┐"
         };
 
+        std::string game4[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", " ", "┬",
+            " ", "|", " ", " ",
+            " ", " ", " ", "┻",
+            " ", " ", " ", " "};
+
         //GameBoardSingleton::getInstance().loadGame(game2);
-        gameBoard.loadGame(game2);
+        gameBoard.loadGame(game4);
         gameView.setGameBoard(&gameBoard);
     }
 
@@ -44,7 +49,7 @@ namespace SlidingTiles {
         std::vector<sf::Vector2i> solutionPath = gameBoard.isSolved();
         if (solutionPath.size() > 0) {
             //GameBoardSingleton::getInstance().setWinnerTiles( solutionPath );
-            gameBoard.setWinnerTiles( solutionPath );
+            gameBoard.setWinnerTiles(solutionPath);
         } else {
             //GameBoardSingleton::getInstance().clearWinnerTiles();
             gameBoard.clearWinnerTiles();
@@ -79,7 +84,7 @@ namespace SlidingTiles {
     }
 
     void Game::doRandomGame() {
-        int count {0};
+        int count{0};
         //while ( sol == 0 ) {
         do {
             gameBoard.randomGame();
@@ -88,17 +93,19 @@ namespace SlidingTiles {
             //std::cout << rootNode.toString() << "\n";
             PuzzleSolver puzzleSolver;
             puzzleSolver.addPossibleMoves(rootNode, 3);
-            
+
             std::cout << "trying a game: " << ++count << "\n";
-            if (puzzleSolver.hasASolution(rootNode)) { count = -1; }
-        } while ( count > -1 );
+            if (puzzleSolver.hasASolution(rootNode)) {
+                count = -1;
+            }
+        } while (count > -1);
         //}
     }
 
     void Game::doMousePressed(const sf::Vector2i & mousePosition) {
         mousePositionPressed = mousePosition;
     }
-    
+
     void Game::doMouseReleased(const sf::Vector2i & mousePosition) {
         sf::Vector2i movingTilePosition = RenderingSingleton::getInstance().findTile(mousePositionPressed);
         if (movingTilePosition.x == -1 || movingTilePosition.y == -1)
@@ -110,7 +117,7 @@ namespace SlidingTiles {
             if (abs(deltaX) > abs(deltaY)) {
                 // horizontal movement
                 sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x + copysign(1, deltaX), movingTilePosition.y);
-                if ( deltaX > 0 ) {
+                if (deltaX > 0) {
                     gameBoard.slideTile(Move{movingTilePosition, Direction::GoRight});
                 } else {
                     gameBoard.slideTile(Move{movingTilePosition, Direction::GoLeft});
@@ -119,7 +126,7 @@ namespace SlidingTiles {
                 // vertical movement
                 sf::Vector2i newPosition = sf::Vector2i(movingTilePosition.x, movingTilePosition.y + copysign(1, deltaY));
                 //gameBoard.slideTile(movingTilePosition, newPosition);
-                if ( deltaY > 0 ) {
+                if (deltaY > 0) {
                     gameBoard.slideTile(Move{movingTilePosition, Direction::GoDown});
                 } else {
                     gameBoard.slideTile(Move{movingTilePosition, Direction::GoUp});

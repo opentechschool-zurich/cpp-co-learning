@@ -100,7 +100,12 @@ it.
 
 ### Searching for a solution - A breadth first search!
 
-To be added.
+For a human it is easy to see how to solve this puzzle:
+
+![Solver1](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/solver1.png)
+![Solver2](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/solver2.png)
+![Solver3](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/solver3.png)
+
 
 
 

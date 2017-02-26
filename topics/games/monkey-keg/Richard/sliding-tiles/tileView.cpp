@@ -17,7 +17,7 @@ namespace SlidingTiles {
         if (winner)
             sprite.setColor(sf::Color{0, 255, 0});
         if (isStartTileType(tileType))
-            sprite.setColor(sf::Color{0, 0, 255});
+            sprite.setColor(sf::Color{96, 206, 237});
         else if (isEndTileType(tileType))
             sprite.setColor(sf::Color{255, 0, 0});
 
