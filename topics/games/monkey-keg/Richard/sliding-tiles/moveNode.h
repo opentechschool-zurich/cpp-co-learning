@@ -58,7 +58,7 @@ namespace SlidingTiles {
             ss << std::string(indent, ' ') << "Move #" << id << " startPosition: [" << startPosition.x
                     << "][" << startPosition.y << "]"
                     << " direction: " << directionToString(direction) << " possibleMoves: " << possibleMoves.size() << "\n";
-            ss << "startingBoard: ";
+            ss << std::string(indent, ' ') << "startingBoard: ";
             for (std::string s : startingBoard) {
                 ss << s;
             }

@@ -31,24 +31,37 @@ TEST(PuzzleSolver, possibleMovesOne) {
     };
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    std::cout << "0\n";
     MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
     rootNode.endingBoard = gameBoard.serialiseGame();
-    std::cout << "1\n";
     PuzzleSolver puzzleSolver;
-    std::cout << "1.5\n";
-    //std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(gameBoard.serialiseGame());
-    std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
-    std::cout << "2\n";
+    std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
     ASSERT_THAT(possibleMoves.size(), 1);
-    SlidingTiles::MoveNode move = possibleMoves[0];
+    MoveNode move = possibleMoves[0];
     sf::Vector2i expectedTile{1, 0};
     ASSERT_EQ(move.startPosition, expectedTile) << "Expect tile [1][0] to be a possible move but returned tile is [" << move.startPosition.x << "][" << move.startPosition.y << "] \n";
+    int up{0};
+    int down{0};
+    int left{0};
+    int right{0};
+    for (auto moveNode : possibleMoves) {
+        if (moveNode.direction == Direction::GoDown) {
+            ++down;
+        } else if (moveNode.direction == Direction::GoUp) {
+            ++up;
+        } else if (moveNode.direction == Direction::GoLeft) {
+            ++left;
+        } else if (moveNode.direction == Direction::GoRight) {
+            ++right;
+        }
+    }
+    ASSERT_EQ(up, 0);
+    ASSERT_EQ(down, 1);
+    ASSERT_EQ(left, 0);
+    ASSERT_EQ(right, 0);
 }
 
 TEST(PuzzleSolver, possibleMovesTwo) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]
-    {"├", "┫", " ", " ",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "┫", " ", " ",
         " ", " ", " ", " ",
         " ", " ", " ", " ",
         "-", " ", " ", " "};
@@ -57,10 +70,27 @@ TEST(PuzzleSolver, possibleMovesTwo) {
     MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
-    //std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(gameBoard.serialiseGame());
-    std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
+    std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
     ASSERT_THAT(possibleMoves.size(), 2);
-    SlidingTiles::MoveNode move = possibleMoves[0];
+    int up{0};
+    int down{0};
+    int left{0};
+    int right{0};
+    for (auto moveNode : possibleMoves) {
+        if (moveNode.direction == Direction::GoDown) {
+            ++down;
+        } else if (moveNode.direction == Direction::GoUp) {
+            ++up;
+        } else if (moveNode.direction == Direction::GoLeft) {
+            ++left;
+        } else if (moveNode.direction == Direction::GoRight) {
+            ++right;
+        }
+    }
+    ASSERT_EQ(up, 1);
+    ASSERT_EQ(down, 0);
+    ASSERT_EQ(left, 0);
+    ASSERT_EQ(right, 1);
 }
 
 TEST(PuzzleSolver, possibleMovesFour) {
@@ -73,11 +103,62 @@ TEST(PuzzleSolver, possibleMovesFour) {
     MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
-    //std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(gameBoard.serialiseGame());
-    std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
+    std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
     ASSERT_THAT(possibleMoves.size(), 4);
-    SlidingTiles::MoveNode move = possibleMoves[0];
+    int up{0};
+    int down{0};
+    int left{0};
+    int right{0};
+    for (auto moveNode : possibleMoves) {
+        if (moveNode.direction == Direction::GoDown) {
+            ++down;
+        } else if (moveNode.direction == Direction::GoUp) {
+            ++up;
+        } else if (moveNode.direction == Direction::GoLeft) {
+            ++left;
+        } else if (moveNode.direction == Direction::GoRight) {
+            ++right;
+        }
+    }
+    ASSERT_EQ(up, 1);
+    ASSERT_EQ(down, 1);
+    ASSERT_EQ(left, 1);
+    ASSERT_EQ(right, 1);
 }
+
+TEST(PuzzleSolver, possibleMovesDontGoBack) {
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", " ", "┫", " ",
+        " ", "-", " ", " ",
+        " ", " ", " ", " ",
+        " ", " ", " ", " "};
+    GameBoard gameBoard{};
+    gameBoard.loadGame(game);
+    MoveNode rootNode{sf::Vector2i{1, 1}, Direction::GoDown, gameBoard.serialiseGame()};
+    rootNode.endingBoard = gameBoard.serialiseGame();
+    PuzzleSolver puzzleSolver;
+    std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
+    ASSERT_THAT(possibleMoves.size(), 3);
+    int up{0};
+    int down{0};
+    int left{0};
+    int right{0};
+    for (auto moveNode : possibleMoves) {
+        if (moveNode.direction == Direction::GoDown) {
+            ++down;
+        } else if (moveNode.direction == Direction::GoUp) {
+            ++up;
+        } else if (moveNode.direction == Direction::GoLeft) {
+            ++left;
+        } else if (moveNode.direction == Direction::GoRight) {
+            ++right;
+        }
+    }
+    ASSERT_EQ(up, 0);
+    ASSERT_EQ(down, 1);
+    ASSERT_EQ(left, 1);
+    ASSERT_EQ(right, 1);
+}
+
 
 /*TEST(PuzzleSolver, possibleMovesIsSolvedIn1Move) {
     std::string game [GameBoard::boardSize][GameBoard::boardSize]{
@@ -123,7 +204,8 @@ TEST(PuzzleSolver, possibleMovesFour) {
 
 TEST(PuzzleSolver, addPossibleMoves) {
     // builds on possibleMovesOne
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "┫", " ",
+    std::string game [GameBoard::boardSize][GameBoard::boardSize]
+    {"├", "-", "┫", " ",
         " ", " ", " ", " ",
         " ", " ", " ", " ",
         " ", " ", " ", " "};
@@ -132,15 +214,39 @@ TEST(PuzzleSolver, addPossibleMoves) {
     MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
-    std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
-    ASSERT_THAT(possibleMoves.size(), 1);
-    SlidingTiles::MoveNode moveNode = possibleMoves[0];
-    sf::Vector2i expectedTile{1, 0};
-    ASSERT_EQ(moveNode.startPosition, expectedTile) << "Expect tile [1][0] to be a possible move but returned tile is [" << moveNode.startPosition.x << "][" << moveNode.startPosition.y << "] \n";
+    //std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
+   // ASSERT_THAT(possibleMoves.size(), 1);
+    //MoveNode moveNode = possibleMoves[0];
+    //sf::Vector2i expectedTile{1, 0};
+    //ASSERT_EQ(moveNode.startPosition, expectedTile) << "Expect tile [1][0] to be a possible move but returned tile is [" << moveNode.startPosition.x << "][" << moveNode.startPosition.y << "] \n";
+    //ASSERT_EQ(moveNode.direction, Direction::GoDown);
 
-    // now the addPossibleMoves stuff
-    puzzleSolver.addPossibleMoves(moveNode, 1);
-    ASSERT_THAT(moveNode.possibleMoves.size(), 4);
+    puzzleSolver.addPossibleMoves(rootNode, 1);
+    ASSERT_THAT(rootNode.possibleMoves.size(), 1);
+    
+    MoveNode moveNodeNext = rootNode.possibleMoves[0];
+    std::cout << moveNodeNext.toString();
+    ASSERT_THAT(moveNodeNext.possibleMoves.size(), 3);
+    int up{0};
+    int down{0};
+    int left{0};
+    int right{0};
+    for (auto node : moveNodeNext) {
+        std::cout << "counting node: " << node.toString();
+        if (node.direction == Direction::GoDown) {
+            ++down;
+        } else if (node.direction == Direction::GoUp) {
+            ++up;
+        } else if (node.direction == Direction::GoLeft) {
+            ++left;
+        } else if (node.direction == Direction::GoRight) {
+            ++right;
+        }
+    }
+    ASSERT_EQ(up, 0);
+    ASSERT_EQ(down, 1);
+    ASSERT_EQ(left, 1);
+    ASSERT_EQ(right, 1);*/
 }
 
 TEST(PuzzleSolver, addPossibleMoves3Deep) {
