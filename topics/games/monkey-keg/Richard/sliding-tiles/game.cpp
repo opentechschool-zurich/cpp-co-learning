@@ -31,8 +31,10 @@ namespace SlidingTiles {
             " ", " ", " ", "┻",
             " ", " ", " ", " "};
 
-        //GameBoardSingleton::getInstance().loadGame(game2);
-        gameBoard.loadGame(game4);
+        std::wstring game5{L"   ┬ |     ┻    "};
+        std::wstring game6{L"└┘| ├┐┘-┳┘ ┐| ┘┌"};
+
+        gameBoard.loadGame(game6);
         gameView.setGameBoard(&gameBoard);
     }
 
@@ -40,18 +42,13 @@ namespace SlidingTiles {
         // send update event to all the tiles
         for (int x = 0; x < GameBoard::boardSize; ++x)
             for (int y = 0; y < GameBoard::boardSize; ++y) {
-                //GameBoardSingleton::getInstance().tiles[x][y].tileView.update(dt);
                 gameBoard.tiles[x][y].tileView.update(dt);
             }
 
-        // see if there is a solution
-        //std::vector<sf::Vector2i> solutionPath = GameBoardSingleton::getInstance().isSolved();
         std::vector<sf::Vector2i> solutionPath = gameBoard.isSolved();
         if (solutionPath.size() > 0) {
-            //GameBoardSingleton::getInstance().setWinnerTiles( solutionPath );
             gameBoard.setWinnerTiles(solutionPath);
         } else {
-            //GameBoardSingleton::getInstance().clearWinnerTiles();
             gameBoard.clearWinnerTiles();
         }
     }

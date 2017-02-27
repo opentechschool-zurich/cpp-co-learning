@@ -30,6 +30,12 @@ std::string tileTypeToString(const TileType & t);
 std::string tileTypeToChar(const TileType & t);
 
 /**
+ * @brief Returns a char for the tile type. Used for Serialisation
+ */
+std::wstring tileTypeToWstringChar(const TileType & t);
+
+
+/**
  * @brief Returns if a TileType is a start tile 
  */
 bool isStartTileType(const TileType & t);

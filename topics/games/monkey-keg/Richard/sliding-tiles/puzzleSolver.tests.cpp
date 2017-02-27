@@ -161,10 +161,7 @@ TEST(PuzzleSolver, possibleMovesDontGoBack) {
 
 TEST(PuzzleSolver, addPossibleMoves) {
     // builds on possibleMovesOne
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "┫", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
+    std::wstring game {L"├-┫             "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
@@ -198,10 +195,7 @@ TEST(PuzzleSolver, addPossibleMoves) {
 
 TEST(PuzzleSolver, addPossibleMoves3Deep) {
     // builds on addPossibleMoves which builds on possibleMovesOne
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "┫", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
+    std::wstring game {L"├-┫             "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
@@ -220,7 +214,6 @@ TEST(PuzzleSolver, addPossibleMoves3Deep) {
     int right{0};
     MoveNode rightNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
     for (auto node : onlyChild.possibleMoves) {
-        std::cout << "counting node: " << node.toString();
         if (node.direction == Direction::GoDown) {
             ++down;
             ASSERT_EQ(node.possibleMoves.size(), 3);
@@ -248,7 +241,6 @@ TEST(PuzzleSolver, addPossibleMoves3Deep) {
     int left2{0};
     int right2{0};
     for (auto node : downNode.possibleMoves) {
-        std::cout << "counting node: " << node.toString();
         if (node.direction == Direction::GoDown) {
             ++down2;
             ASSERT_EQ(node.possibleMoves.size(), 2);
@@ -303,10 +295,7 @@ TEST(PuzzleSolver, isSolvedIn2Moves) {
 }
 
 TEST(PuzzleSolver, noSolution) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", " ", "┫", " ",
-        " ", "|", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
+    std::wstring game {L"├ ┫  |          "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     MoveNode rootNode{sf::Vector2i

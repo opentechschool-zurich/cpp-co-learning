@@ -34,9 +34,14 @@ namespace SlidingTiles {
         void setTileType(const TileType & newType);
 
         /**
-         * @brief sets the tile type as per the character convetion
+         * @brief sets the tile type as per the character convention
          */
         void setTileType(const std::string & c);
+
+        /**
+         * @brief sets the tile type as per the character convention
+         */
+        void setTileType(const std::wstring & c);
 
         /**
          * @brief Returns the type of the tile

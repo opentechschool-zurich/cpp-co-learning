@@ -33,6 +33,12 @@ namespace SlidingTiles {
         void loadGame(const std::vector<std::string> & game);
 
         /**
+         * @brief load the game into the board
+         */
+        void loadGame(const std::wstring & game);
+        
+        
+        /**
          * @brief sets up a random game
          * @param emptyTiles the number of empty tiles to place defaults to 3
          */

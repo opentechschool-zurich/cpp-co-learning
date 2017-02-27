@@ -32,6 +32,17 @@ void GameBoard::loadGame(const std::vector<std::string> & game) {
     }
 }
 
+void GameBoard::loadGame(const std::wstring & game) {
+    for (int y = 0; y < boardSize; ++y) {
+        for (int x = 0; x < boardSize; ++x) {
+            SlidingTiles::Tile* tile = &tiles[x][y];
+            tile->setTilePosition(sf::Vector2i{x, y});
+            tile->setTileType(std::wstring{game[y * 4 + x]});
+            //std::wcout << L"[" << x << L"][" << y << L"] game[y*4+x]: " << std::wstring{game[y * 4 + x]} << L" became: \"" << tileTypeToWstringChar(tile->getTileType()) << L"\"\n";
+        }
+    }
+}
+
 void GameBoard::randomGame(const int & emptyTiles) {
     std::vector<sf::Vector2i> positions{};
     for (int x = 0; x < boardSize; ++x) {
@@ -102,8 +113,8 @@ void GameBoard::printGame() {
         for (int x = 0; x < boardSize; ++x) {
             std::cout << tileTypeToChar(tiles[x][y].getTileType());
         }
-        std::cout << std::endl;
     }
+    std::cout << std::endl;
 }
 
 sf::Vector2i GameBoard::getAdjacentTilePosition(const Move & move) {
@@ -127,8 +138,8 @@ sf::Vector2i GameBoard::getAdjacentTilePosition(const Move & move) {
 
 bool GameBoard::canSlideTile(const Move & move) {
     SlidingTiles::Tile movingTile = tiles[move.startPosition.x][move.startPosition.y];
-   /*std::cout << "canSlideTile: [" << move.startPosition.x << "][" << move.startPosition.y
-            << "] Direction: " << directionToString(move.direction) << "\n";*/
+    /*std::cout << "canSlideTile: [" << move.startPosition.x << "][" << move.startPosition.y
+             << "] Direction: " << directionToString(move.direction) << "\n";*/
     if (!movingTile.isMoveable)
         return false;
 

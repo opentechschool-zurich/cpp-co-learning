@@ -74,6 +74,43 @@ std::string tileTypeToChar(const TileType & t) {
     }
 }
 
+std::wstring tileTypeToWstringChar(const TileType & t) {
+    switch (t) {
+        case TileType::Empty:
+            return L" ";
+        case TileType::Horizontal:
+            return L"-";
+        case TileType::Vertical:
+            return L"|";
+        case TileType::StartTop:
+            return L"┴";
+        case TileType::StartBottom:
+            return L"┬";
+        case TileType::StartLeft:
+            return L"┤";
+        case TileType::StartRight:
+            return L"├";
+        case TileType::EndTop:
+            return L"┻";
+        case TileType::EndBottom:
+            return L"┳";
+        case TileType::EndRight:
+            return L"┣";
+        case TileType::EndLeft:
+            return L"┫";
+        case TileType::LeftTop:
+            return L"┘";
+        case TileType::LeftBottom:
+            return L"┐";
+        case TileType::TopRight:
+            return L"└";
+        case TileType::BottomRight:
+            return L"┌";
+        default:
+            return L"?";
+    }
+}
+
 /**
  * @brief Returns if a TileType is a start tile 
  */

@@ -53,6 +53,47 @@ namespace SlidingTiles {
         }
     }
 
+    /**
+     * Sets the type of the tile based on a character code
+     */
+    void Tile::setTileType(const std::wstring & c) {
+        if (c == L"-") {
+            setTileType(TileType::Horizontal);
+        } else if (c == L"|") {
+            setTileType(TileType::Vertical);
+
+        } else if (c == L"└") {
+            setTileType(TileType::TopRight);
+        } else if (c == L"┘") {
+            setTileType(TileType::LeftTop);
+        } else if (c == L"┐") {
+            setTileType(TileType::LeftBottom);
+        } else if (c == L"┌") {
+            setTileType(TileType::BottomRight);
+
+        } else if (c == L"├") {
+            setTileType(TileType::StartRight);
+        } else if (c == L"┬") {
+            setTileType(TileType::StartBottom);
+        } else if (c == L"┴") {
+            setTileType(TileType::StartTop);
+        } else if (c == L"┤") {
+            setTileType(TileType::StartLeft);
+
+        } else if (c == L"┻") {
+            setTileType(TileType::EndTop);
+        } else if (c == L"┣") {
+            setTileType(TileType::EndRight);
+        } else if (c == L"┫") {
+            setTileType(TileType::EndLeft);
+        } else if (c == L"┳") {
+            setTileType(TileType::EndBottom);
+        } else {
+            setTileType(TileType::Empty);
+        }
+    }
+    
+    
     void Tile::setMoveable(const TileType & newType) {
         if (newType == TileType::Empty
                 || newType == TileType::StartBottom
