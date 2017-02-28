@@ -74,7 +74,7 @@ namespace SlidingTiles {
          * this is legal.
          * @param move the movement
          */
-        void slideTile(const SlidingTiles::Move & move);
+        void slideTile(const Move & move);
 
         /**
          *  @brief returns the start tile on the gameboard. If none is found it returns -1,-1

@@ -1,5 +1,6 @@
 #include "puzzleSolver.h"
 #include <queue>
+#include <assert.h>     /* assert */
 
 using namespace SlidingTiles;
 
@@ -7,10 +8,12 @@ using namespace SlidingTiles;
 //std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const std::vector<std::string> & gameState) {
 
 std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const MoveNode & parentNode) {
+    assert(parentNode.startPosition.x >= -1 && parentNode.startPosition.x <= GameBoard::boardSize);
+    assert(parentNode.startPosition.y >= -1 && parentNode.startPosition.y <= GameBoard::boardSize);
+
     MoveNode moveNode{sf::Vector2i{-1, -1}, Direction::Unknown, parentNode.endingBoard};
     moveNode.endingBoard = parentNode.endingBoard;
     gameBoard.loadGame(parentNode.endingBoard);
-    //std::cout << moveNode.toString();
     for (int x = 0; x < GameBoard::boardSize; ++x)
         for (int y = 0; y < GameBoard::boardSize; ++y) {
             sf::Vector2i position{x, y};
@@ -50,6 +53,8 @@ std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const MoveNode &
 }
 
 void PuzzleSolver::addPossibleMoves(MoveNode &parentNode, const int & levels) {
+    assert(parentNode.startPosition.x >= -1 && parentNode.startPosition.x <= GameBoard::boardSize);
+    assert(parentNode.startPosition.y >= -1 && parentNode.startPosition.y <= GameBoard::boardSize);
     //std::cout << "\n\naddPossibleMoves levels: " << levels << " " << parentNode.toString();
 
     //std::vector<MoveNode> possMoves = possibleMoves(parentNode.endingBoard);
@@ -84,6 +89,8 @@ void PuzzleSolver::addPossibleMoves(MoveNode &parentNode, const int & levels) {
 }*/
 
 bool PuzzleSolver::hasASolution(const MoveNode & node) {
+    assert(node.startPosition.x >= -1 && node.startPosition.x <= GameBoard::boardSize);
+    assert(node.startPosition.y >= -1 && node.startPosition.y <= GameBoard::boardSize);
     // inspired by https://gist.github.com/douglas-vaz/5072998
     std::queue<MoveNode> Q;
     Q.push(node);

@@ -3,6 +3,7 @@
 #include <algorithm>    // std::shuffle
 #include <random> // random_shuffle, std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
+#include <assert.h>     /* assert */
 
 using namespace SlidingTiles;
 
@@ -118,6 +119,8 @@ void GameBoard::printGame() {
 }
 
 sf::Vector2i GameBoard::getAdjacentTilePosition(const Move & move) {
+    assert(move.startPosition.x >= 0 && move.startPosition.x <= boardSize);
+    assert(move.startPosition.y >= 0 && move.startPosition.y <= boardSize);
     sf::Vector2i adjacentPosition{move.startPosition.x, move.startPosition.y};
 
     if (move.direction == Direction::GoDown) {
@@ -137,6 +140,8 @@ sf::Vector2i GameBoard::getAdjacentTilePosition(const Move & move) {
 }
 
 bool GameBoard::canSlideTile(const Move & move) {
+    assert(move.startPosition.x >= 0 && move.startPosition.x <= boardSize);
+    assert(move.startPosition.y >= 0 && move.startPosition.y <= boardSize);
     SlidingTiles::Tile movingTile = tiles[move.startPosition.x][move.startPosition.y];
     /*std::cout << "canSlideTile: [" << move.startPosition.x << "][" << move.startPosition.y
              << "] Direction: " << directionToString(move.direction) << "\n";*/
@@ -159,6 +164,8 @@ bool GameBoard::canSlideTile(const Move & move) {
 }
 
 void GameBoard::slideTile(const Move & move) {
+    assert(move.startPosition.x >= 0 && move.startPosition.x <= boardSize);
+    assert(move.startPosition.y >= 0 && move.startPosition.y <= boardSize);
     if (canSlideTile(move)) {
         sf::Vector2i newPosition = getAdjacentTilePosition(move);
         SlidingTiles::Tile slidingTile = tiles[move.startPosition.x][move.startPosition.y];
@@ -185,42 +192,42 @@ sf::Vector2i GameBoard::findStartTile() {
 }
 
 sf::Vector2i GameBoard::getOutputPosition(const Move & move) {
+    assert(move.startPosition.x >= 0 && move.startPosition.x <= boardSize);
+    assert(move.startPosition.y >= 0 && move.startPosition.y <= boardSize);
     TileType type = tiles[move.startPosition.x][move.startPosition.y].getTileType();
     sf::Vector2i nextTile{move.startPosition.x, move.startPosition.y};
 
     if (type == TileType::StartRight)
         ++nextTile.x;
-    else if (type == TileType::StartLeft)
+    else if (type == TileType::StartLeft && move.startPosition.x < boardSize-1 && move.startPosition.x > 0)
         --nextTile.x;
-    else if (type == TileType::StartTop)
+    else if (type == TileType::StartTop && move.startPosition.y > 0)
         --nextTile.y;
-
-
-    else if (type == TileType::StartBottom)
+    else if (type == TileType::StartBottom && move.startPosition.y < boardSize-1)
         ++nextTile.y;
-    else if (type == TileType::Horizontal && move.direction == Direction::GoRight)
+    else if (type == TileType::Horizontal && move.startPosition.x < boardSize-1 && move.direction == Direction::GoRight)
         ++nextTile.x;
-    else if (type == TileType::Horizontal && move.direction == Direction::GoLeft)
+    else if (type == TileType::Horizontal && move.startPosition.x > 0 && move.direction == Direction::GoLeft)
         --nextTile.x;
-    else if (type == TileType::Vertical && move.direction == Direction::GoDown)
-        ++nextTile.y;
-    else if (type == TileType::Vertical && move.direction == Direction::GoUp)
+    else if (type == TileType::Vertical && move.startPosition.y < boardSize-1 && move.direction == Direction::GoDown)
+        ++nextTile.y; 
+    else if (type == TileType::Vertical && move.startPosition.y > 0 && move.direction == Direction::GoUp)
         --nextTile.y;
-    else if (type == TileType::LeftBottom && move.direction == Direction::GoRight)
+    else if (type == TileType::LeftBottom && move.startPosition.y < boardSize-1 && move.direction == Direction::GoRight)
         ++nextTile.y;
-    else if (type == TileType::LeftBottom && move.direction == Direction::GoUp)
+    else if (type == TileType::LeftBottom && move.startPosition.x > 0 && move.direction == Direction::GoUp)
         --nextTile.x;
-    else if (type == TileType::LeftTop && move.direction == Direction::GoDown)
+    else if (type == TileType::LeftTop && move.startPosition.x > 0 && move.direction == Direction::GoDown)
         --nextTile.x;
-    else if (type == TileType::LeftTop && move.direction == Direction::GoRight)
+    else if (type == TileType::LeftTop &&  move.startPosition.y > 0 && move.direction == Direction::GoRight)
         --nextTile.y;
-    else if (type == TileType::BottomRight && move.direction == Direction::GoUp)
+    else if (type == TileType::BottomRight && move.startPosition.x < boardSize-1 && move.direction == Direction::GoUp)
         ++nextTile.x;
-    else if (type == TileType::BottomRight && move.direction == Direction::GoLeft)
+    else if (type == TileType::BottomRight && move.startPosition.y < boardSize-1 && move.direction == Direction::GoLeft)
         ++nextTile.y;
-    else if (type == TileType::TopRight && move.direction == Direction::GoLeft)
+    else if (type == TileType::TopRight &&  move.startPosition.y > 0 && move.direction == Direction::GoLeft)
         --nextTile.y;
-    else if (type == TileType::TopRight && move.direction == Direction::GoDown)
+    else if (type == TileType::TopRight &&  move.startPosition.x < boardSize-1 && move.direction == Direction::GoDown)
         ++nextTile.x;
     else if ((type == TileType::EndBottom && move.direction == Direction::GoUp)
             || (type == TileType::EndLeft && move.direction == Direction::GoRight)
@@ -247,7 +254,8 @@ std::vector<sf::Vector2i> GameBoard::isSolved() {
     Move move{startTilePos, Direction::Unknown};
     sf::Vector2i nextTilePos = getOutputPosition(move);
     Direction nextDirection = startTile.outputDirection(Direction::Unknown);
-    while (nextTilePos.x > -1) {
+    int count {0};
+    while (nextTilePos.x > -1 && ++count < 10 ) {
         solutionPath.push_back(nextTilePos);
         Move nextMove{nextTilePos, nextDirection};
         sf::Vector2i tempTile = getOutputPosition(nextMove);

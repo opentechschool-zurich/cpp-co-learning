@@ -8,7 +8,8 @@ using namespace SlidingTiles;
 namespace SlidingTiles {
 
     Game::Game() {
-        std::string game3[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", "-", "┬",
+        std::string game3[GameBoard::boardSize][GameBoard::boardSize]
+           {" ", " ", "-", "┬",
             " ", " ", " ", "|",
             " ", " ", "|", " ",
             " ", " ", " ", "┻"};
@@ -33,9 +34,23 @@ namespace SlidingTiles {
 
         std::wstring game5{L"   ┬ |     ┻    "};
         std::wstring game6{L"└┘| ├┐┘-┳┘ ┐| ┘┌"};
+        std::wstring game7{L"┻ └|┌|┘└ |||├┘ ┌"};
+        std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
+        
 
-        gameBoard.loadGame(game6);
+
+        gameBoard.loadGame(game8);
         gameView.setGameBoard(&gameBoard);
+        /*MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+        rootNode.endingBoard = gameBoard.serialiseGame();
+        PuzzleSolver puzzleSolver;
+        puzzleSolver.addPossibleMoves(rootNode, 2);
+
+        std::cout << "trying a game:\n";
+        std::cout << "Baum\n" << rootNode.toString();
+        puzzleSolver.hasASolution(rootNode);
+        std::cout << "done trying a game:\n";
+        */
     }
 
     void Game::update(const float & dt) {
@@ -82,12 +97,10 @@ namespace SlidingTiles {
 
     void Game::doRandomGame() {
         int count{0};
-        //while ( sol == 0 ) {
         do {
             gameBoard.randomGame();
-            SlidingTiles::MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+            MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
             rootNode.endingBoard = gameBoard.serialiseGame();
-            //std::cout << rootNode.toString() << "\n";
             PuzzleSolver puzzleSolver;
             puzzleSolver.addPossibleMoves(rootNode, 3);
 
@@ -96,7 +109,6 @@ namespace SlidingTiles {
                 count = -1;
             }
         } while (count > -1);
-        //}
     }
 
     void Game::doMousePressed(const sf::Vector2i & mousePosition) {
