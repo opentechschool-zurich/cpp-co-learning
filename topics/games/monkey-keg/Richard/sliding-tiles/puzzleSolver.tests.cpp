@@ -6,15 +6,10 @@ using namespace::testing;
 using namespace SlidingTiles;
 
 TEST(PuzzleSolver, possibleMovesNone) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{
-        "├", "┫", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "
-    };
+    std::wstring game {L"├┫              "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     //std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(gameBoard.serialiseGame());
@@ -23,15 +18,10 @@ TEST(PuzzleSolver, possibleMovesNone) {
 }
 
 TEST(PuzzleSolver, possibleMovesOne) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{
-        "├", "-", "┫", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "
-    };
+    std::wstring game {L"├-┫             "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
@@ -61,13 +51,10 @@ TEST(PuzzleSolver, possibleMovesOne) {
 }
 
 TEST(PuzzleSolver, possibleMovesTwo) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", "┫", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " ",
-        "-", " ", " ", " "};
+    std::wstring game {L"├┫          -   "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
@@ -94,13 +81,10 @@ TEST(PuzzleSolver, possibleMovesTwo) {
 }
 
 TEST(PuzzleSolver, possibleMovesFour) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", " ", "┫", " ",
-        " ", "-", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
+    std::wstring game {L"├ ┫  -          "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
@@ -127,13 +111,10 @@ TEST(PuzzleSolver, possibleMovesFour) {
 }
 
 TEST(PuzzleSolver, possibleMovesDontGoBack) {
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", " ", "┫", " ",
-        " ", "-", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
+    std::wstring game {L"├ ┫  -          "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{1, 1}, Direction::GoDown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{1, 1}, Direction::GoDown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
@@ -161,10 +142,10 @@ TEST(PuzzleSolver, possibleMovesDontGoBack) {
 
 TEST(PuzzleSolver, addPossibleMoves) {
     // builds on possibleMovesOne
-    std::wstring game {L"├-┫             "};
+    std::wstring game{L"├-┫             "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     puzzleSolver.addPossibleMoves(rootNode, 1);
@@ -195,10 +176,10 @@ TEST(PuzzleSolver, addPossibleMoves) {
 
 TEST(PuzzleSolver, addPossibleMoves3Deep) {
     // builds on addPossibleMoves which builds on possibleMovesOne
-    std::wstring game {L"├-┫             "};
+    std::wstring game{L"├-┫             "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     puzzleSolver.addPossibleMoves(rootNode, 3);
@@ -208,11 +189,11 @@ TEST(PuzzleSolver, addPossibleMoves3Deep) {
     ASSERT_THAT(onlyChild.possibleMoves.size(), 3);
     int up{0};
     int down{0};
-    MoveNode downNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode downNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     int left{0};
-    MoveNode leftNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode leftNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     int right{0};
-    MoveNode rightNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rightNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     for (auto node : onlyChild.possibleMoves) {
         if (node.direction == Direction::GoDown) {
             ++down;
@@ -270,8 +251,7 @@ TEST(PuzzleSolver, isSolvedIn1Move) {
         " ", " ", " ", " "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i
-        {-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     puzzleSolver.addPossibleMoves(rootNode, 3);
@@ -286,8 +266,7 @@ TEST(PuzzleSolver, isSolvedIn2Moves) {
         " ", " ", " ", " "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i
-        {-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     puzzleSolver.addPossibleMoves(rootNode, 3);
@@ -295,11 +274,10 @@ TEST(PuzzleSolver, isSolvedIn2Moves) {
 }
 
 TEST(PuzzleSolver, noSolution) {
-    std::wstring game {L"├ ┫  |          "};
+    std::wstring game{L"├ ┫  |          "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i
-        {-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     puzzleSolver.addPossibleMoves(rootNode, 3);

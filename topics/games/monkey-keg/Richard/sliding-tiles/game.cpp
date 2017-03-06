@@ -38,19 +38,8 @@ namespace SlidingTiles {
         std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
         
 
-
         gameBoard.loadGame(game8);
         gameView.setGameBoard(&gameBoard);
-        /*MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
-        rootNode.endingBoard = gameBoard.serialiseGame();
-        PuzzleSolver puzzleSolver;
-        puzzleSolver.addPossibleMoves(rootNode, 2);
-
-        std::cout << "trying a game:\n";
-        std::cout << "Baum\n" << rootNode.toString();
-        puzzleSolver.hasASolution(rootNode);
-        std::cout << "done trying a game:\n";
-        */
     }
 
     void Game::update(const float & dt) {
@@ -99,7 +88,7 @@ namespace SlidingTiles {
         int count{0};
         do {
             gameBoard.randomGame();
-            MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown, gameBoard.serialiseGame()};
+            MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
             rootNode.endingBoard = gameBoard.serialiseGame();
             PuzzleSolver puzzleSolver;
             puzzleSolver.addPossibleMoves(rootNode, 3);

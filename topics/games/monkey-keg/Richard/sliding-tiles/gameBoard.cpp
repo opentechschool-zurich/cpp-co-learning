@@ -3,7 +3,8 @@
 #include <algorithm>    // std::shuffle
 #include <random> // random_shuffle, std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
-#include <assert.h>     /* assert */
+#include <assert.h>
+#include <c++/4.8/bits/basic_string.h>     /* assert */
 
 using namespace SlidingTiles;
 
@@ -34,6 +35,7 @@ void GameBoard::loadGame(const std::vector<std::string> & game) {
 }
 
 void GameBoard::loadGame(const std::wstring & game) {
+    assert(game.size() == boardSize*boardSize);
     for (int y = 0; y < boardSize; ++y) {
         for (int x = 0; x < boardSize; ++x) {
             SlidingTiles::Tile* tile = &tiles[x][y];

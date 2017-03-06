@@ -7,11 +7,11 @@ using namespace SlidingTiles;
 
 //std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const std::vector<std::string> & gameState) {
 
-std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const MoveNode & parentNode) {
+std::vector<MoveNode> PuzzleSolver::possibleMoves(const MoveNode & parentNode) {
     assert(parentNode.startPosition.x >= -1 && parentNode.startPosition.x <= GameBoard::boardSize);
     assert(parentNode.startPosition.y >= -1 && parentNode.startPosition.y <= GameBoard::boardSize);
 
-    MoveNode moveNode{sf::Vector2i{-1, -1}, Direction::Unknown, parentNode.endingBoard};
+    MoveNode moveNode{sf::Vector2i{-1, -1}, Direction::Unknown};
     moveNode.endingBoard = parentNode.endingBoard;
     gameBoard.loadGame(parentNode.endingBoard);
     for (int x = 0; x < GameBoard::boardSize; ++x)
@@ -19,28 +19,28 @@ std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const MoveNode &
             sf::Vector2i position{x, y};
             if (gameBoard.tiles[x][y].isMoveable) {
                 if (parentNode.direction != Direction::GoDown && gameBoard.canSlideTile(Move{position, Direction::GoUp})) {
-                    MoveNode childNode{position, Direction::GoUp, moveNode.startingBoard};
+                    MoveNode childNode{position, Direction::GoUp};
                     gameBoard.slideTile(childNode);
                     childNode.setEndingBoard(gameBoard.serialiseGame());
                     moveNode.possibleMoves.push_back(childNode);
                     gameBoard.loadGame(parentNode.endingBoard); // restore
                 }
                 if (parentNode.direction != Direction::GoUp && gameBoard.canSlideTile(Move{position, Direction::GoDown})) {
-                    MoveNode childNode{position, Direction::GoDown, moveNode.startingBoard};
+                    MoveNode childNode{position, Direction::GoDown};
                     gameBoard.slideTile(childNode);
                     childNode.setEndingBoard(gameBoard.serialiseGame());
                     moveNode.possibleMoves.push_back(childNode);
                     gameBoard.loadGame(parentNode.endingBoard); // restore
                 }
                 if (parentNode.direction != Direction::GoRight && gameBoard.canSlideTile(Move{position, Direction::GoLeft})) {
-                    MoveNode childNode{position, Direction::GoLeft, moveNode.startingBoard};
+                    MoveNode childNode{position, Direction::GoLeft};
                     gameBoard.slideTile(childNode);
                     childNode.setEndingBoard(gameBoard.serialiseGame());
                     moveNode.possibleMoves.push_back(childNode);
                     gameBoard.loadGame(parentNode.endingBoard); // restore
                 }
                 if (parentNode.direction != Direction::GoLeft && gameBoard.canSlideTile(Move{position, Direction::GoRight})) {
-                    MoveNode childNode{position, Direction::GoRight, moveNode.startingBoard};
+                    MoveNode childNode{position, Direction::GoRight};
                     gameBoard.slideTile(childNode);
                     childNode.setEndingBoard(gameBoard.serialiseGame());
                     moveNode.possibleMoves.push_back(childNode);

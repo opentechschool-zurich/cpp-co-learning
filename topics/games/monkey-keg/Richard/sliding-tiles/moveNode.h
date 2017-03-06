@@ -19,20 +19,28 @@ namespace SlidingTiles {
          * supplied direction
          * @param startPosition the game board coordinates of the moving tile
          * @param direction the direction to move in
-         * @param startingBoard the starting board (serialised)
          */
-        MoveNode(sf::Vector2i startPosition, SlidingTiles::Direction direction, std::vector<std::string> startingBoard)
-        : Move(startPosition, direction), startingBoard(startingBoard) {
+        MoveNode(sf::Vector2i startPosition, SlidingTiles::Direction direction)
+        : Move(startPosition, direction) {
             id = count;
             ++count;
             //std::cout << "MoveNode constructor being called: #" << id << "\n";
         };
 
-        /**
-         * @brief starting board (serialised)
-         */
-        std::vector <std::string> startingBoard{};
 
+        /**
+         * @brief the depth of the node
+         */
+        int depth {0};
+        
+        /**
+         * @brief sets the depth of the node
+         * @param newDepth the depth of the node
+         */
+        void setDepth( int newDepth ) {
+            depth = newDepth;
+        }
+        
         /**
          * @brief ending board (serialised)
          */
@@ -58,10 +66,7 @@ namespace SlidingTiles {
             ss << std::string(indent, ' ') << "Move #" << id << " startPosition: [" << startPosition.x
                     << "][" << startPosition.y << "]"
                     << " direction: " << directionToString(direction) << " possibleMoves: " << possibleMoves.size() << "\n";
-            ss << std::string(indent, ' ') << "startingBoard: ";
-            for (std::string s : startingBoard) {
-                ss << s;
-            }
+            ss << std::string(indent, ' ');
             ss << " endingBoard: ";
             for (std::string s : endingBoard) {
                 ss << s;
