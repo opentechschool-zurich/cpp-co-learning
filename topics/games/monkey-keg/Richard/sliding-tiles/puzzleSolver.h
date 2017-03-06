@@ -35,6 +35,12 @@ namespace SlidingTiles {
         void addPossibleMoves(MoveNode & moveNode, const int & levels);
 
         /**
+         * @brief returns the root node with the whole tree attached to it.
+         * @param game The serialised game
+         */
+        MoveNode getTree(std::vector<std::string> game);
+        
+        /**
          * @brief returns a vector with solution moves out of the tree of all 
          * possible moves. If there is no solution the vector has 0 elements.
          */

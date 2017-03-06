@@ -9,10 +9,8 @@ TEST(PuzzleSolver, possibleMovesNone) {
     std::wstring game {L"├┫              "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
-    //std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(gameBoard.serialiseGame());
+    MoveNode rootNode = puzzleSolver.getTree(gameBoard.serialiseGame());
     std::vector<SlidingTiles::MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
     ASSERT_THAT(possibleMoves.size(), 0);
 }
@@ -270,6 +268,9 @@ TEST(PuzzleSolver, isSolvedIn2Moves) {
     rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
     puzzleSolver.addPossibleMoves(rootNode, 3);
+    std::cout << "Original MoveNode:\n" << rootNode.toString();
+    MoveNode rootNode2 = puzzleSolver.getTree(gameBoard.serialiseGame());
+    std::cout << "in test:\n" << rootNode2.toString();
     ASSERT_TRUE(puzzleSolver.hasASolution(rootNode)) << "There should be at least one solution for this puzzle";
 }
 
@@ -277,9 +278,7 @@ TEST(PuzzleSolver, noSolution) {
     std::wstring game{L"├ ┫  |          "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
-    puzzleSolver.addPossibleMoves(rootNode, 3);
+    MoveNode rootNode = puzzleSolver.getTree(gameBoard.serialiseGame());
     ASSERT_FALSE(puzzleSolver.hasASolution(rootNode)) << "There should be at no solution for this puzzle";
 }

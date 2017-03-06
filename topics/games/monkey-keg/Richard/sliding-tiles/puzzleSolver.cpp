@@ -70,6 +70,14 @@ void PuzzleSolver::addPossibleMoves(MoveNode &parentNode, const int & levels) {
     parentNode.possibleMoves.insert(std::end(parentNode.possibleMoves), std::begin(possMoves), std::end(possMoves));
 }
 
+MoveNode PuzzleSolver::getTree(std::vector<std::string> game) {
+    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
+    rootNode.endingBoard = gameBoard.serialiseGame();
+    addPossibleMoves(rootNode, 3);
+    std::cout << "in getTree:\n" << rootNode.toString();
+    return rootNode;
+}
+
 /*std::vector<Solution> PuzzleSolver::solutions(const std::vector<std::string> & gameState, const std::vector<MoveNode> & possibleMoves) {
     std::vector<Solution> solutions{};
     for (MoveNode moveNode : possibleMoves) {

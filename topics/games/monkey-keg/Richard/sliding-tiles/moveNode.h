@@ -20,14 +20,20 @@ namespace SlidingTiles {
          * @param startPosition the game board coordinates of the moving tile
          * @param direction the direction to move in
          */
-        MoveNode(sf::Vector2i startPosition, SlidingTiles::Direction direction)
+        MoveNode(const sf::Vector2i & startPosition, const SlidingTiles::Direction & direction)
         : Move(startPosition, direction) {
             id = count;
             ++count;
             //std::cout << "MoveNode constructor being called: #" << id << "\n";
         };
 
-
+        /**
+         * Copy Constructor that also makes a copy of the vector but unfortunately it doesn't work.
+         */
+        MoveNode(const MoveNode& moveNode) : Move(moveNode), possibleMoves (moveNode.possibleMoves) {
+            setEndingBoard(moveNode.endingBoard);
+        }
+        
         /**
          * @brief the depth of the node
          */
@@ -64,7 +70,7 @@ namespace SlidingTiles {
         std::string toString(const int & indent) {
             std::stringstream ss;
             ss << std::string(indent, ' ') << "Move #" << id << " startPosition: [" << startPosition.x
-                    << "][" << startPosition.y << "]"
+                    << "][" << startPosition.y << "]" << " depth: " << depth
                     << " direction: " << directionToString(direction) << " possibleMoves: " << possibleMoves.size() << "\n";
             ss << std::string(indent, ' ');
             ss << " endingBoard: ";
