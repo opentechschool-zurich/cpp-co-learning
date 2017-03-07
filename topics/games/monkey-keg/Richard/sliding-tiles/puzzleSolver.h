@@ -24,8 +24,7 @@ namespace SlidingTiles {
         /**
          * @brief returns all moves that are possible on the current gameboard
          */
-        //std::vector<SlidingTiles::MoveNode> possibleMoves(const std::vector<std::string> & gameState);
-        std::vector<SlidingTiles::MoveNode> possibleMoves(const MoveNode & parentNode);
+        std::vector<MoveNode> possibleMoves(const MoveNode & parentNode);
 
         /**
          * @brief Adds the possibleMoves as MoveNodes to the supplied MoveNode
@@ -38,13 +37,13 @@ namespace SlidingTiles {
          * @brief returns the root node with the whole tree attached to it.
          * @param game The serialised game
          */
-        MoveNode getTree(std::vector<std::string> game);
-        
+        MoveNode getTree(const std::vector<std::string> & game, int depth = 3);
+
         /**
-         * @brief returns a vector with solution moves out of the tree of all 
-         * possible moves. If there is no solution the vector has 0 elements.
+         * @brief returns the root node with the whole tree attached to it.
+         * @param game The serialised game
          */
-        //std::vector<Solution> solutions(const std::vector<std::string> & gameState, const std::vector<MoveNode> & possibleMoves);
+        MoveNode getTree(const std::wstring & game, int depth = 3);
 
         /**
          * @brief figures out if the moves tree holds a solution

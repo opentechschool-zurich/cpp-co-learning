@@ -6,7 +6,7 @@ using namespace::testing;
 using namespace SlidingTiles;
 
 TEST(PuzzleSolver, possibleMovesNone) {
-    std::wstring game {L"├┫              "};
+    std::wstring game{L"├┫              "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     PuzzleSolver puzzleSolver;
@@ -16,7 +16,7 @@ TEST(PuzzleSolver, possibleMovesNone) {
 }
 
 TEST(PuzzleSolver, possibleMovesOne) {
-    std::wstring game {L"├-┫             "};
+    std::wstring game{L"├-┫             "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
@@ -49,19 +49,15 @@ TEST(PuzzleSolver, possibleMovesOne) {
 }
 
 TEST(PuzzleSolver, possibleMovesTwo) {
-    std::wstring game {L"├┫          -   "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
+    std::wstring game{L"├┫          -   "};
     PuzzleSolver puzzleSolver;
-    std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
-    ASSERT_THAT(possibleMoves.size(), 2);
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
+    ASSERT_THAT(rootNode.possibleMoves.size(), 2);
     int up{0};
     int down{0};
     int left{0};
     int right{0};
-    for (auto moveNode : possibleMoves) {
+    for (auto moveNode : rootNode.possibleMoves) {
         if (moveNode.direction == Direction::GoDown) {
             ++down;
         } else if (moveNode.direction == Direction::GoUp) {
@@ -79,19 +75,15 @@ TEST(PuzzleSolver, possibleMovesTwo) {
 }
 
 TEST(PuzzleSolver, possibleMovesFour) {
-    std::wstring game {L"├ ┫  -          "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
+    std::wstring game{L"├ ┫  -          "};
     PuzzleSolver puzzleSolver;
-    std::vector<MoveNode> possibleMoves = puzzleSolver.possibleMoves(rootNode);
-    ASSERT_THAT(possibleMoves.size(), 4);
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
+    ASSERT_THAT(rootNode.possibleMoves.size(), 4);
     int up{0};
     int down{0};
     int left{0};
     int right{0};
-    for (auto moveNode : possibleMoves) {
+    for (auto moveNode : rootNode.possibleMoves) {
         if (moveNode.direction == Direction::GoDown) {
             ++down;
         } else if (moveNode.direction == Direction::GoUp) {
@@ -109,7 +101,7 @@ TEST(PuzzleSolver, possibleMovesFour) {
 }
 
 TEST(PuzzleSolver, possibleMovesDontGoBack) {
-    std::wstring game {L"├ ┫  -          "};
+    std::wstring game{L"├ ┫  -          "};
     GameBoard gameBoard{};
     gameBoard.loadGame(game);
     MoveNode rootNode{sf::Vector2i{1, 1}, Direction::GoDown};
@@ -141,12 +133,8 @@ TEST(PuzzleSolver, possibleMovesDontGoBack) {
 TEST(PuzzleSolver, addPossibleMoves) {
     // builds on possibleMovesOne
     std::wstring game{L"├-┫             "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
-    puzzleSolver.addPossibleMoves(rootNode, 1);
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
     ASSERT_THAT(rootNode.possibleMoves.size(), 1);
 
     MoveNode onlyChild = rootNode.possibleMoves[0];
@@ -175,12 +163,8 @@ TEST(PuzzleSolver, addPossibleMoves) {
 TEST(PuzzleSolver, addPossibleMoves3Deep) {
     // builds on addPossibleMoves which builds on possibleMovesOne
     std::wstring game{L"├-┫             "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
     PuzzleSolver puzzleSolver;
-    puzzleSolver.addPossibleMoves(rootNode, 3);
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
     ASSERT_THAT(rootNode.possibleMoves.size(), 1);
 
     MoveNode onlyChild = rootNode.possibleMoves[0];
@@ -242,43 +226,22 @@ TEST(PuzzleSolver, addPossibleMoves3Deep) {
 }
 
 TEST(PuzzleSolver, isSolvedIn1Move) {
-
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", " ", "┫", " ",
-        " ", "-", " ", " ",
-        " ", " ", " ", " ",
-        " ", " ", " ", " "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
+    std::wstring game{L"├ ┫  -          "};
     PuzzleSolver puzzleSolver;
-    puzzleSolver.addPossibleMoves(rootNode, 3);
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
     ASSERT_TRUE(puzzleSolver.hasASolution(rootNode)) << "There should be at least one solution for this puzzle";
 }
 
 TEST(PuzzleSolver, isSolvedIn2Moves) {
-
-    std::string game [GameBoard::boardSize][GameBoard::boardSize]{"├", " ", "┫", " ",
-        " ", " ", " ", " ",
-        " ", "-", " ", " ",
-        " ", " ", " ", " "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
+    std::wstring game{L"├ ┫      -      "};
     PuzzleSolver puzzleSolver;
-    puzzleSolver.addPossibleMoves(rootNode, 3);
-    std::cout << "Original MoveNode:\n" << rootNode.toString();
-    MoveNode rootNode2 = puzzleSolver.getTree(gameBoard.serialiseGame());
-    std::cout << "in test:\n" << rootNode2.toString();
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
     ASSERT_TRUE(puzzleSolver.hasASolution(rootNode)) << "There should be at least one solution for this puzzle";
 }
 
 TEST(PuzzleSolver, noSolution) {
     std::wstring game{L"├ ┫  |          "};
-    GameBoard gameBoard{};
-    gameBoard.loadGame(game);
     PuzzleSolver puzzleSolver;
-    MoveNode rootNode = puzzleSolver.getTree(gameBoard.serialiseGame());
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
     ASSERT_FALSE(puzzleSolver.hasASolution(rootNode)) << "There should be at no solution for this puzzle";
 }

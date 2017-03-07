@@ -1,11 +1,8 @@
 #include "puzzleSolver.h"
 #include <queue>
-#include <assert.h>     /* assert */
+#include <assert.h> // assert
 
 using namespace SlidingTiles;
-
-
-//std::vector<SlidingTiles::MoveNode> PuzzleSolver::possibleMoves(const std::vector<std::string> & gameState) {
 
 std::vector<MoveNode> PuzzleSolver::possibleMoves(const MoveNode & parentNode) {
     assert(parentNode.startPosition.x >= -1 && parentNode.startPosition.x <= GameBoard::boardSize);
@@ -48,7 +45,6 @@ std::vector<MoveNode> PuzzleSolver::possibleMoves(const MoveNode & parentNode) {
                 }
             }
         }
-    //std::cout << "Explaining: " << moveNode.toString();
     return moveNode.possibleMoves;
 }
 
@@ -57,7 +53,6 @@ void PuzzleSolver::addPossibleMoves(MoveNode &parentNode, const int & levels) {
     assert(parentNode.startPosition.y >= -1 && parentNode.startPosition.y <= GameBoard::boardSize);
     //std::cout << "\n\naddPossibleMoves levels: " << levels << " " << parentNode.toString();
 
-    //std::vector<MoveNode> possMoves = possibleMoves(parentNode.endingBoard);
     std::vector<MoveNode> possMoves = possibleMoves(parentNode);
     if (levels > 0) {
         //std::cout << "Entering if with levels: " << levels << "\n";
@@ -70,31 +65,19 @@ void PuzzleSolver::addPossibleMoves(MoveNode &parentNode, const int & levels) {
     parentNode.possibleMoves.insert(std::end(parentNode.possibleMoves), std::begin(possMoves), std::end(possMoves));
 }
 
-MoveNode PuzzleSolver::getTree(std::vector<std::string> game) {
-    MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-    rootNode.endingBoard = gameBoard.serialiseGame();
-    addPossibleMoves(rootNode, 3);
-    std::cout << "in getTree:\n" << rootNode.toString();
+MoveNode PuzzleSolver::getTree(const std::vector<std::string> & game, int depth) {
+    MoveNode rootNode{};
+    rootNode.endingBoard = game;
+    addPossibleMoves(rootNode, depth);
     return rootNode;
 }
 
-/*std::vector<Solution> PuzzleSolver::solutions(const std::vector<std::string> & gameState, const std::vector<MoveNode> & possibleMoves) {
-    std::vector<Solution> solutions{};
-    for (MoveNode moveNode : possibleMoves) {
-        //gameBoard.loadGame(gameState);
-        
-        Solution currentSolution{};
-        //std::cout << "Testing: " << moveNode.toString();
-        currentSolution.moves.push_back(moveNode);
-        gameBoard.slideTile(moveNode);
-        std::vector<sf::Vector2i> solutionPath = gameBoard.isSolved();
-        if (solutionPath.size() > 0) {
-            solutions.push_back(currentSolution);
-            //std::cout << moveNode.toString() << "winner!\n";
-        }
-    }
-    return solutions;
-}*/
+MoveNode PuzzleSolver::getTree(const std::wstring & game, int depth) {
+    GameBoard gameBoard{};
+    gameBoard.loadGame(game);
+    return getTree(gameBoard.serialiseGame(), depth);
+}
+
 
 bool PuzzleSolver::hasASolution(const MoveNode & node) {
     assert(node.startPosition.x >= -1 && node.startPosition.x <= GameBoard::boardSize);

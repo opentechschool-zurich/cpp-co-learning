@@ -8,8 +8,7 @@ using namespace SlidingTiles;
 namespace SlidingTiles {
 
     Game::Game() {
-        std::string game3[GameBoard::boardSize][GameBoard::boardSize]
-           {" ", " ", "-", "┬",
+        std::string game3[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", "-", "┬",
             " ", " ", " ", "|",
             " ", " ", "|", " ",
             " ", " ", " ", "┻"};
@@ -36,7 +35,7 @@ namespace SlidingTiles {
         std::wstring game6{L"└┘| ├┐┘-┳┘ ┐| ┘┌"};
         std::wstring game7{L"┻ └|┌|┘└ |||├┘ ┌"};
         std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
-        
+
 
         gameBoard.loadGame(game8);
         gameView.setGameBoard(&gameBoard);
@@ -88,10 +87,8 @@ namespace SlidingTiles {
         int count{0};
         do {
             gameBoard.randomGame();
-            MoveNode rootNode{sf::Vector2i{-1, -1}, Direction::Unknown};
-            rootNode.endingBoard = gameBoard.serialiseGame();
             PuzzleSolver puzzleSolver;
-            puzzleSolver.addPossibleMoves(rootNode, 3);
+            MoveNode rootNode = puzzleSolver.getTree(gameBoard.serialiseGame(), 3);
 
             std::cout << "trying a game: " << ++count << "\n";
             if (puzzleSolver.hasASolution(rootNode)) {

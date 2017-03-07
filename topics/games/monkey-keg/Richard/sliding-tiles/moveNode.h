@@ -20,33 +20,25 @@ namespace SlidingTiles {
          * @param startPosition the game board coordinates of the moving tile
          * @param direction the direction to move in
          */
-        MoveNode(const sf::Vector2i & startPosition, const SlidingTiles::Direction & direction)
+        MoveNode(const sf::Vector2i & startPosition = sf::Vector2i{-1, -1}, const SlidingTiles::Direction & direction = Direction::Unknown)
         : Move(startPosition, direction) {
             id = count;
             ++count;
-            //std::cout << "MoveNode constructor being called: #" << id << "\n";
         };
 
         /**
-         * Copy Constructor that also makes a copy of the vector but unfortunately it doesn't work.
-         */
-        MoveNode(const MoveNode& moveNode) : Move(moveNode), possibleMoves (moveNode.possibleMoves) {
-            setEndingBoard(moveNode.endingBoard);
-        }
-        
-        /**
          * @brief the depth of the node
          */
-        int depth {0};
-        
+        int depth{0};
+
         /**
          * @brief sets the depth of the node
          * @param newDepth the depth of the node
          */
-        void setDepth( int newDepth ) {
+        void setDepth(int newDepth) {
             depth = newDepth;
         }
-        
+
         /**
          * @brief ending board (serialised)
          */
@@ -60,18 +52,20 @@ namespace SlidingTiles {
         }
 
         /**
-         * @brief next moves
+         * @brief The vector with all possible child moves
          */
-        std::vector <SlidingTiles::MoveNode> possibleMoves{};
+        std::vector <MoveNode> possibleMoves{};
 
         /**
          * @brief explains the move
          */
         std::string toString(const int & indent) {
             std::stringstream ss;
-            ss << std::string(indent, ' ') << "Move #" << id << " startPosition: [" << startPosition.x
+            ss << std::string(indent, ' ') << "Move #" << id
+                    << " startPosition: [" << startPosition.x
                     << "][" << startPosition.y << "]" << " depth: " << depth
-                    << " direction: " << directionToString(direction) << " possibleMoves: " << possibleMoves.size() << "\n";
+                    << " direction: " << directionToString(direction)
+                    << " possibleMoves: " << possibleMoves.size() << "\n";
             ss << std::string(indent, ' ');
             ss << " endingBoard: ";
             for (std::string s : endingBoard) {
