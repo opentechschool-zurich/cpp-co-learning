@@ -1,10 +1,9 @@
 #include "gameBoard.h"
-#include <stdlib.h>  // srand, rand
-#include <algorithm>    // std::shuffle
+#include <stdlib.h> // srand, rand
+#include <algorithm> // std::shuffle
 #include <random> // random_shuffle, std::default_random_engine
-#include <chrono>       // std::chrono::system_clock
-#include <assert.h>
-#include <c++/4.8/bits/basic_string.h>     /* assert */
+#include <chrono> // std::chrono::system_clock
+#include <assert.h> // assert
 
 using namespace SlidingTiles;
 
