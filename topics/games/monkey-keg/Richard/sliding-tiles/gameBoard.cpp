@@ -4,6 +4,7 @@
 #include <random> // random_shuffle, std::default_random_engine
 #include <chrono> // std::chrono::system_clock
 #include <assert.h> // assert
+#include <sstream> // stringstream
 
 using namespace SlidingTiles;
 
@@ -45,7 +46,8 @@ void GameBoard::loadGame(const std::wstring & game) {
     }
 }
 
-void GameBoard::randomGame(const int & emptyTiles) {
+void GameBoard::randomGame(const int emptyTiles) {
+    assert( emptyTiles > 0 && emptyTiles < boardSize * boardSize - 2);
     std::vector<sf::Vector2i> positions{};
     for (int x = 0; x < boardSize; ++x) {
         for (int y = 0; y < boardSize; ++y) {
@@ -108,6 +110,16 @@ std::vector<std::string> GameBoard::serialiseGame() {
         }
     }
     return serialisedGame;
+}
+
+std::string GameBoard::serialiseGameToString() {
+    std::stringstream ss;
+    for (int y = 0; y < boardSize; ++y) {
+        for (int x = 0; x < boardSize; ++x) {
+            ss << tileTypeToChar(tiles[x][y].getTileType());
+        }
+    }
+    return ss.str();
 }
 
 void GameBoard::printGame() {

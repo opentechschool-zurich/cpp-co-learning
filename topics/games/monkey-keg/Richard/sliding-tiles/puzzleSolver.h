@@ -31,7 +31,7 @@ namespace SlidingTiles {
          * @param moveNode the node on which to Search and add the new Moves
          * @param levels how many levels deep to search 1 .. n
          */
-        void addPossibleMoves(MoveNode & moveNode, const int & levels);
+        void addPossibleMoves(MoveNode & moveNode, const int levels);
 
         /**
          * @brief returns the root node with the whole tree attached to it.
@@ -50,8 +50,15 @@ namespace SlidingTiles {
          * @details Used a breadth-first search to visit all MoveNode nodes. 
          * Since each MoveNode has the endGameState we can load that state
          * into a GameBoard and ask the GameBoard if it is solved.
+         * @param node the root node from which to start the search
+         * @return the depth at which the node was found or -1 is no solution
          */
-        bool hasASolution(const MoveNode & node);
+        int hasASolution(const MoveNode & node);
+        
+        /**
+         * @brief generates a series of games
+         */
+        void generateGames(int games);
 
     };
 

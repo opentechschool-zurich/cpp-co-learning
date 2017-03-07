@@ -229,19 +229,40 @@ TEST(PuzzleSolver, isSolvedIn1Move) {
     std::wstring game{L"├ ┫  -          "};
     PuzzleSolver puzzleSolver;
     MoveNode rootNode = puzzleSolver.getTree(game, 3);
-    ASSERT_TRUE(puzzleSolver.hasASolution(rootNode)) << "There should be at least one solution for this puzzle";
+    ASSERT_THAT(puzzleSolver.hasASolution(rootNode),1) << "There should be at least one solution for this puzzle";
 }
 
 TEST(PuzzleSolver, isSolvedIn2Moves) {
     std::wstring game{L"├ ┫      -      "};
     PuzzleSolver puzzleSolver;
     MoveNode rootNode = puzzleSolver.getTree(game, 3);
-    ASSERT_TRUE(puzzleSolver.hasASolution(rootNode)) << "There should be at least one solution for this puzzle";
+    ASSERT_THAT(puzzleSolver.hasASolution(rootNode), 2) << "There should be at least one solution for this puzzle";
 }
 
 TEST(PuzzleSolver, noSolution) {
     std::wstring game{L"├ ┫  |          "};
     PuzzleSolver puzzleSolver;
     MoveNode rootNode = puzzleSolver.getTree(game, 3);
-    ASSERT_FALSE(puzzleSolver.hasASolution(rootNode)) << "There should be at no solution for this puzzle";
+    ASSERT_THAT(puzzleSolver.hasASolution(rootNode), -1) << "There should be at no solution for this puzzle";
+}
+
+
+TEST(PuzzleSolver, depth) {
+    std::wstring game{L"├┫          -   "};
+    PuzzleSolver puzzleSolver;
+    MoveNode rootNode = puzzleSolver.getTree(game, 3);
+    ASSERT_THAT(rootNode.depth, 0);
+    
+    MoveNode firstChild = rootNode.possibleMoves.at(0);
+    ASSERT_THAT(firstChild.depth, 1);
+
+    MoveNode secondChild = rootNode.possibleMoves.at(1);
+    ASSERT_THAT(secondChild.depth, 1);
+    
+    MoveNode firstChildChild = firstChild.possibleMoves.at(0);
+    ASSERT_THAT(firstChildChild.depth, 2);
+
+    MoveNode firstChildChildChild = firstChildChild.possibleMoves.at(0);
+    ASSERT_THAT(firstChildChildChild.depth, 3);
+
 }

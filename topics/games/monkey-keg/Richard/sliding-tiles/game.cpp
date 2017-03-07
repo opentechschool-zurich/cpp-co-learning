@@ -86,12 +86,14 @@ namespace SlidingTiles {
     void Game::doRandomGame() {
         int count{0};
         do {
-            gameBoard.randomGame();
+            gameBoard.randomGame(1);
             PuzzleSolver puzzleSolver;
             MoveNode rootNode = puzzleSolver.getTree(gameBoard.serialiseGame(), 3);
 
             std::cout << "trying a game: " << ++count << "\n";
-            if (puzzleSolver.hasASolution(rootNode)) {
+            int solutionDepth =  puzzleSolver.hasASolution(rootNode);
+            if ( solutionDepth > -1 ) {
+                std::cout << "Solution Depth: " << solutionDepth << "\n";
                 count = -1;
             }
         } while (count > -1);

@@ -48,16 +48,17 @@ std::vector<MoveNode> PuzzleSolver::possibleMoves(const MoveNode & parentNode) {
     return moveNode.possibleMoves;
 }
 
-void PuzzleSolver::addPossibleMoves(MoveNode &parentNode, const int & levels) {
+void PuzzleSolver::addPossibleMoves(MoveNode &parentNode, const int levels) {
     assert(parentNode.startPosition.x >= -1 && parentNode.startPosition.x <= GameBoard::boardSize);
     assert(parentNode.startPosition.y >= -1 && parentNode.startPosition.y <= GameBoard::boardSize);
     //std::cout << "\n\naddPossibleMoves levels: " << levels << " " << parentNode.toString();
 
     std::vector<MoveNode> possMoves = possibleMoves(parentNode);
-    if (levels > 0) {
-        //std::cout << "Entering if with levels: " << levels << "\n";
-        for (MoveNode & mn : possMoves) {
-            // note the & above to ensure we work with the members and not a copy
+    //std::cout << "Entering if with levels: " << levels << "\n";
+    for (MoveNode & mn : possMoves) {
+        // note the & above to ensure we work with the members and not a copy
+        mn.depth = parentNode.depth + 1;
+        if (levels > 0) {
             addPossibleMoves(mn, levels - 1);
         }
     }
@@ -78,8 +79,7 @@ MoveNode PuzzleSolver::getTree(const std::wstring & game, int depth) {
     return getTree(gameBoard.serialiseGame(), depth);
 }
 
-
-bool PuzzleSolver::hasASolution(const MoveNode & node) {
+int PuzzleSolver::hasASolution(const MoveNode & node) {
     assert(node.startPosition.x >= -1 && node.startPosition.x <= GameBoard::boardSize);
     assert(node.startPosition.y >= -1 && node.startPosition.y <= GameBoard::boardSize);
     // inspired by https://gist.github.com/douglas-vaz/5072998
@@ -90,11 +90,32 @@ bool PuzzleSolver::hasASolution(const MoveNode & node) {
         Q.pop();
         gameBoard.loadGame(t.endingBoard);
         if (gameBoard.isSolved().size() > 0) {
-            return true;
+            return t.depth;
         };
         for (int i = 0; i < t.possibleMoves.size(); ++i) {
             Q.push(t.possibleMoves[i]);
         }
     }
-    return false;
+    return -1;
+}
+
+void PuzzleSolver::generateGames(int games) {
+    GameBoard gameBoard{};
+    PuzzleSolver puzzleSolver;
+    while (--games >= 0) {
+        int emptyTiles = (rand() % 13) + 1;
+        int count{0};
+        std::cout << "trying a game: " << ++count << " with empty tiles: " << emptyTiles << " max moves: 4";
+        do {
+            gameBoard.randomGame(emptyTiles);
+            MoveNode rootNode = puzzleSolver.getTree(gameBoard.serialiseGame(), 4);
+            std::cout << ".";
+            
+            int solutionDepth = puzzleSolver.hasASolution(rootNode);
+            if (solutionDepth > -1) {
+                std::cout << "\nEmpty Tiles: " << emptyTiles << " Solution Depth: " << solutionDepth << " Game Board: " << gameBoard.serialiseGameToString() << "\n";
+                count = -1;
+            }
+        } while (count > -1);
+    }
 }

@@ -42,13 +42,18 @@ namespace SlidingTiles {
          * @brief sets up a random game
          * @param emptyTiles the number of empty tiles to place defaults to 3
          */
-        void randomGame(const int & emptyTiles = 3);
+        void randomGame(const int emptyTiles = 3);
 
 
         /**
-         * @brief saves the game into an array
+         * @brief saves the game into an vector of string characters
          */
         std::vector<std::string> serialiseGame();
+        
+        /**
+         * @brief saves the game into a string;
+         */
+        std::string serialiseGameToString();
 
         /**
          * @brief prints the game to the console
