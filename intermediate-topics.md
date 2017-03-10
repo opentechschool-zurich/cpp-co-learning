@@ -82,6 +82,7 @@
 - [Default Constructed Return Value: return {}](https://adishavit.github.io/2015/default-constructed-return-value-return/)
 - [c++ 17 and Polymorphism](https://adishavit.github.io/2016/polymorphism-polymorphism/)
 - read articles from [overload magazine](https://accu.org/index.php/journals/c78/)
+- [Using data structures and algorithms in C++ using STL](http://www.techiedelight.com/data-structures-and-algorithms-interview-questions-stl/)
 
 
 ## katrin
