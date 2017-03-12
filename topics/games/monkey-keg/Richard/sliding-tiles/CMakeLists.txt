@@ -2,10 +2,14 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
 PROJECT(sliding-tiles)
 
 SET(CMAKE_CXX_STANDARD 14)
-
+IF (WIN32)
+  SET(SFML_ROOT "C:/Users/Richard/Documents/SFML-2.4.2")
+  SET(CMAKE_MODULE_PATH "${SFML_ROOT}/cmake/Modules" "${PROJECT_SOURCE_DIR}" "${CMAKE_MODULE_PATH}")
+ENDIF (WIN32)
 IF (UNIX)
     SET(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" "${PROJECT_SOURCE_DIR}" "${CMAKE_MODULE_PATH}")
 ENDIF (UNIX)
+
 
 FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window audio system)
 
@@ -50,7 +54,6 @@ set( UNIT_TESTS
     tileView.tests.cpp
     tile.tests.cpp
     texturesSingleton.tests.cpp
-#    gameBoardSingleton.tests.cpp
     renderingSingleton.tests.cpp
     direction.tests.cpp
     tileType.tests.cpp
@@ -67,7 +70,7 @@ TARGET_INCLUDE_DIRECTORIES(sliding-tiles PUBLIC
 )
 
 TARGET_LINK_LIBRARIES(sliding-tiles LINK_PUBLIC
-	${SFML_LIBRARIES}
+	  ${SFML_LIBRARIES}
 )
 
 # Download and unpack googletest at configure time
@@ -99,7 +102,12 @@ target_link_libraries( unit-tests LINK_PUBLIC gtest gmock ${SFML_LIBRARIES})
 
 
 # see http://stackoverflow.com/questions/13116488/detailed-guide-on-using-gcov-with-cmake-cdash
-SET(CHECK_COVERAGE ON)
+IF (WIN32)
+  SET(CHECK_COVERAGE OFF)
+ENDIF (WIN32)
+IF (UNIX)
+    SET(CHECK_COVERAGE ON)
+ENDIF (UNIX)
 if (CHECK_COVERAGE)
     SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
     include(CodeCoverage)

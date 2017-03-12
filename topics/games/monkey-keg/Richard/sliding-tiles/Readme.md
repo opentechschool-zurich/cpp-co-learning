@@ -18,6 +18,23 @@ make
 ./sliding-tiles
 ```
 
+## Build and run on Visual Studio 2017
+I have not managed to make this work yet.
+You need to install
+CMake
+Python
+SFML
+Visual Studio 2017
+
+Edit the CMakeLists.txt file and edit the line where the SFML root
+directory is on your machine.
+
+Then open the CMake GUI or go in a cmd window to the root project
+directory and then cd to the build directory. cmake .. will create
+the solution file that you can then open in Visual Studio.
+
+Click the build buttons and hope it compiles.
+
 ## Doxygen Documentation
 ```bash
 mkdir -p build
@@ -81,20 +98,20 @@ void TileView::render() {
 ```
 
 Turns out a huge difference: The difference is that easy-to-overlook little
-ampersand in the return value declaration of the getTexture method. 
+ampersand in the return value declaration of the getTexture method.
 
 Without the
-ampersand the method returns a copy of the texture from the texturesMap (which 
-exists only once in the singleton). Whilst perhaps not optimally efficient 
+ampersand the method returns a copy of the texture from the texturesMap (which
+exists only once in the singleton). Whilst perhaps not optimally efficient
 why should this be a problem? After all, the texture exists till the closing
 brace in the render method. A few hundred segfaults later my suspicion is that
 the draw method goes off into some asynchronous heaven and by the time it gets
-round to picking up the texture the closing brace has come along and wiped the 
-texture off the stack and we get a segfault. 
+round to picking up the texture the closing brace has come along and wiped the
+texture off the stack and we get a segfault.
 
 By adding the ampersand the getTexture method returns a reference to the texture
 in the map. This is also on the stack but the texturesMap is a long living object
-in the singleton so it does not go away and any delayed draw can happily access 
+in the singleton so it does not go away and any delayed draw can happily access
 it.
 
 
@@ -106,9 +123,9 @@ For a human it is easy to see how to solve this puzzle:
 ![Solver2](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/solver2.png)
 ![Solver3](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/solver3.png)
 
-To solve programatically we can take a brute-force approach: Start with the puzzle 
+To solve programatically we can take a brute-force approach: Start with the puzzle
 and figure out all possible moves that can be made by the tiles. In this puzzle
-there is only one tile that can move (start and end tiles are fixed). It can 
+there is only one tile that can move (start and end tiles are fixed). It can
 move in 4 directions.
 
 If the tile moves to the right on the next move it can still move 3 ways. Note that
@@ -125,13 +142,13 @@ We can visit each node and see if there are new moves (excluding the go back mov
 
 ![Level2](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/Level2.png)
 
-As we go n-deep the number of nodes increases. I'm sure there is some optimisation 
+As we go n-deep the number of nodes increases. I'm sure there is some optimisation
 that could be applied to prevent tiles moving round in circles. But we are on the
 brute-force approach here...
 
 ![Level4](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/Level4.png)
 
-Which path is the fastest one that leads to a solved puzzle? Enter the breadth-first 
+Which path is the fastest one that leads to a solved puzzle? Enter the breadth-first
 search:
 
 ![Breadth-First-Search](https://upload.wikimedia.org/wikipedia/commons/5/5d/Breadth-First-Search-Algorithm.gif)
@@ -161,7 +178,7 @@ bool PuzzleSolver::hasASolution(const MoveNode & node) {
 
 I was impressed with the queue approach which avoids a recursive call. The method
 places the root node on the queue and then reads nodes off the front of the queue.
-If the endboard of the move isn't a solved puzzle the method looks for the 
+If the endboard of the move isn't a solved puzzle the method looks for the
 child moves and adds them at the end of the queue. This way first all the level 1
 nodes are visited before the level 2 nodes are checked and so on.
 
