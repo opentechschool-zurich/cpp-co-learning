@@ -37,7 +37,7 @@ namespace SlidingTiles {
         std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
 
 
-        gameBoard.loadGame(game8);
+        gameBoard.loadGame(game1);
         gameView.setGameBoard(&gameBoard);
     }
 
