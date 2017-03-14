@@ -8,7 +8,7 @@ namespace MonkeyKeg {
     class Decoration
     {
         public:
-            virtual void update(const float dt) = 0;
+            virtual void update(const int dt) = 0;
             virtual void render(sf::RenderWindow* window) = 0;
             void startContact() {contact++;}
             void endContact() {contact--;}

@@ -9,12 +9,12 @@
 #include "decoration/decoration.h"
 
 namespace MonkeyKeg {
-    class Text : Decoration
+    class Text : public Decoration
     {
         public:
             Text(b2Vec2 pos, std::string content);
 ;
-            void update(const float dt) {}
+            void update(const int dt) {}
             void render(sf::RenderWindow* window);
         private:
             sf::Font font;

@@ -23,6 +23,7 @@ namespace MonkeyKeg {
     Game::Game():
         window(sf::VideoMode(800, 600, 32), "Box2D Collision"),
         world(b2Vec2(0.f, 9.8f)), // world(gravity)
+        hero(&world, 200, 100),
         debugDraw(window)
     {
         window.setFramerateLimit(60);
@@ -40,17 +41,14 @@ namespace MonkeyKeg {
         Ground* level1 = new Ground(&world, b2Vec2(100, 150), b2Vec2(650, 200));
         Ground* level2 = new Ground(&world, b2Vec2(150, 300), b2Vec2(700, 250));
         Ground* level3 = new Ground(&world, b2Vec2(100, 350), b2Vec2(650, 400));
-        // Ground* ground = new Ground(&world, 350, 350, 500, 10);
-        // Ground* level1 = new Ground(&world, 450, 500, 600, -10);
-        // Ground* level2 = new Ground(&world, 550, 500, 600, 10);
-        // Ground* level3 = new Ground(&world, b2Vec2(100, 100), b2Vec2(200, 200));
-        // Ground* wallRight = new Ground(&world, 650, 500, 600, 90);
-        // Ground* wallLeft = new Ground(&world, 150, 500, 600, 90);
 
         Barrel* barrel = new Barrel(&world, 200, 100);
     }
 
-    void Game::update(const float dt)
+    /**
+     * @param dt delta time in milliseconds
+     */
+    void Game::update(const int dt)
     {
         for (b2Body* BodyIterator = world.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
         {
@@ -83,8 +81,10 @@ namespace MonkeyKeg {
                 item->render(&window);
         }
 
-        //std::for_each(decoration.begin(), decoration.end(), 
-            //std::bind(&WorldItem::render));
+        // std::for_each(decoration.begin(), decoration.end(), 
+            // std::bind(&Decoration::render, std::placeholders::_1, &window));
+        // std::for_each(decoration.begin(), decoration.end(), 
+            // [window](Text& item) {item->render(&window);});
 
         window.display();
     }
@@ -125,21 +125,43 @@ namespace MonkeyKeg {
             // TODO: should this go to update()? and should it relate to dt? (ale)
             world.Step(1/60.f, 8, 3);
             sf::Time dt = deltaClock.restart();
-            update(dt.asSeconds());
+            update(dt.asMilliseconds());
             render();
         }
     }
 
     void Game::keyboardPressed(sf::Event event)
     {
-        if (event.key.code == sf::Keyboard::Space) {
+        if (event.key.code == sf::Keyboard::L) {
+            hero.startMoveRight();
+        }
+        else if (event.key.code == sf::Keyboard::J) {
+            hero.startMoveLeft();
+        }
+        else if (event.key.code == sf::Keyboard::I) {
+            hero.startMoveUp();
+        }
+        else if (event.key.code == sf::Keyboard::K) {
+            hero.startMoveDown();
         }
     }
 
     void Game::keyboardReleased(sf::Event event)
     {
         if (event.key.code == sf::Keyboard::Space) {
-            // barrel.start();
+            hero.startJump();
+        }
+        else if (event.key.code == sf::Keyboard::L) {
+            hero.stopMove();
+        }
+        else if (event.key.code == sf::Keyboard::J) {
+            hero.stopMove();
+        }
+        else if (event.key.code == sf::Keyboard::I) {
+            hero.stopMove();
+        }
+        else if (event.key.code == sf::Keyboard::K) {
+            hero.stopMove();
         }
         else if (event.key.code == sf::Keyboard::Escape)
         {

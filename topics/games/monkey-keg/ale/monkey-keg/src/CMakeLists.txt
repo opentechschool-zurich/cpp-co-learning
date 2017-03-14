@@ -3,6 +3,7 @@ SET(monkey-keg-sources
     game.cpp
     SFMLDebugDraw.cpp
     world/barrel.cpp
+    world/hero.cpp
     world/ground.cpp
     world/polygon.cpp
     world/worldcontactlistener.cpp

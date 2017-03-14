@@ -15,7 +15,7 @@ namespace MonkeyKeg {
         public:
             Barrel(b2World* world, int x, int y);
 
-            void update(const float dt);
+            void update(const int dt);
             void render(sf::RenderWindow* window, b2Body* body);
 
         private:

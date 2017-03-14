@@ -7,6 +7,10 @@ A game inspired by Donkey Kong.
 - add a "sensor" for the ground
 - jump
 
+# Artworks
+
+http://kenney.nl/assets/platformer-characters-1
+
 
 ## Readings
 

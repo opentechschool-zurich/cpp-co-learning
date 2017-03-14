@@ -12,6 +12,7 @@
 #include "SFMLDebugDraw.h"
 
 #include "world/barrel.h"
+#include "world/hero.h"
 #include "world/worldcontactlistener.h"
 
 namespace MonkeyKeg {
@@ -21,7 +22,7 @@ namespace MonkeyKeg {
     public:
         Game();
 
-        void update(const float dt);
+        void update(const int dt);
         void render();
         void run();
 
@@ -32,7 +33,9 @@ namespace MonkeyKeg {
 
         b2World world;
         // std::vector<WorldItem *> decoration;
-        std::vector< std::unique_ptr<Text> > decoration;
+        std::vector< std::unique_ptr<Decoration> > decoration;
+
+        Hero hero;
 
         /*
         template<typename D>

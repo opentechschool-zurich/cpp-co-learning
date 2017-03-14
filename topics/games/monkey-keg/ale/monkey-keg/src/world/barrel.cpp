@@ -26,7 +26,7 @@ namespace MonkeyKeg {
         Body->CreateFixture(&FixtureDef);
     }
 
-    void Barrel::update(const float dt)
+    void Barrel::update(const int dt)
     {
         // jump(); // TODO: move this to update()
         // move();

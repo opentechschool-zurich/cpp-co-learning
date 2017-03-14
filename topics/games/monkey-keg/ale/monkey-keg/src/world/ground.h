@@ -16,7 +16,7 @@ namespace MonkeyKeg {
             Ground(b2World* world, int x, int y, int length, int angle);
             Ground(b2World* world, b2Vec2 start, b2Vec2 end);
 ;
-            void update(const float dt) {}
+            void update(const int dt) {}
             void render(sf::RenderWindow* window, b2Body* body);
         private:
             int length = 600;

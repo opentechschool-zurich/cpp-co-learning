@@ -36,7 +36,8 @@ SET(MONKEYKEG "${PROJECT_SOURCE_DIR}/assets")
 SET(monkey-keg-assets
     ${MONKEYKEG}/box.png
     ${MONKEYKEG}/barrel-red.png
-    ${MONKEYKEG}/barrel-red.png
+    ${MONKEYKEG}/hero-walk-01.png
+    ${MONKEYKEG}/hero-walk-02.png
     ${MONKEYKEG}/Franchise-Bold-hinted.ttf
 )
 

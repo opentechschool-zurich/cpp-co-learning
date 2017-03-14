@@ -9,7 +9,7 @@ namespace MonkeyKeg {
     class WorldItem
     {
         public:
-            virtual void update(const float dt) = 0;
+            virtual void update(const int dt) = 0;
             virtual void render(sf::RenderWindow* window, b2Body* body) = 0;
             void startContact() {contact++;}
             void endContact() {contact--;}

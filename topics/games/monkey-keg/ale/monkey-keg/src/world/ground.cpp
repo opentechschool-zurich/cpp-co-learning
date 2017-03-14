@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include "world/ground.h"
+#include "decoration/text.h"
 #include "game.h"
 
 /**
@@ -47,8 +48,6 @@ namespace MonkeyKeg {
         auto middle = b2Vec2((start.x + end.x) / 2, (start.y + end.y) / 2);
 
         b2BodyDef BodyDef;
-        // TODO: check support of std::experimental::optional...
-        // (for which project was it?)
         // TODO: probably, we have to use the middle point
         // BodyDef.position = b2Vec2(start.x/scale, start.y/scale);
         BodyDef.position = b2Vec2(middle.x/scale, middle.y/scale);
@@ -59,7 +58,6 @@ namespace MonkeyKeg {
 
         b2PolygonShape Shape;
         Body->SetTransform(Body->GetWorldCenter(), angle);
-        // TODO: can SetAsBox directly use x/y?
         Shape.SetAsBox((length/2)/scale, (height/2)/scale);
         b2FixtureDef FixtureDef;
         FixtureDef.density = 0.f;
@@ -73,21 +71,8 @@ namespace MonkeyKeg {
         int x = scale * body->GetPosition().x;
         int y = scale * body->GetPosition().y;
 
-        // int x =  100;
-        // int y =  100;
-
-        /*
-        sf::Font font;
-        font.loadFromFile("assets/Franchise-Bold-hinted.ttf");
-        sf::Text text;
-        text.setFont(font);
-		text.setCharacterSize(24); // in pixels, not points!
-		text.setFillColor(sf::Color::Black);
-
-        text.setString("s <------");
-        text.setPosition(x , y);
-        window->draw(text);
-        */
+        // auto text = Text(b2Vec2(x, y), "s <-----");
+        // text.render(window);
 
         sf::RectangleShape rectangle(sf::Vector2f(length, height));
         rectangle.setFillColor(sf::Color(50,50,250));
