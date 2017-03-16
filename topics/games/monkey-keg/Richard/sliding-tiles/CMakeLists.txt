@@ -5,7 +5,6 @@ SET(CMAKE_CXX_STANDARD 14)
 IF (WIN32)
   SET(SFML_ROOT "C:/Users/Richard/Documents/SFML-2.4.2")
   SET(CMAKE_MODULE_PATH "${SFML_ROOT}/cmake/Modules" "${PROJECT_SOURCE_DIR}" "${CMAKE_MODULE_PATH}")
-  #SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}" "${CMAKE_MODULE_PATH}")
   message( STATUS "CMAKE_GENERATOR: ${CMAKE_GENERATOR}")
   message( STATUS "CMAKE_CL_64: ${CMAKE_CL_64}")
 ENDIF (WIN32)
@@ -15,6 +14,8 @@ ENDIF (UNIX)
 
 
 FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window system)
+MESSAGE(STATUS "SFML_INCLUDE_DIR: ${SFML_INCLUDE_DIR}")
+MESSAGE(STATUS "SFML_LIBRARIES: ${SFML_LIBRARIES}")
 
 SET(sliding-tiles_assets_dir "${PROJECT_SOURCE_DIR}/assets")
 SET(sliding-tiles-assets
@@ -35,7 +36,8 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/vertical.png
     ${sliding-tiles_assets_dir}/empty.png
 )
-FILE(COPY ${sliding-tiles-assets} DESTINATION assets/)
+#FILE(COPY ${sliding-tiles-assets} DESTINATION assets/)
+
 
 SET(SOURCE_FILES
     game.cpp
@@ -65,16 +67,36 @@ set( UNIT_TESTS
 )
 
 ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})
+#MESSAGE(STATUS "TARGET_FILE_DIR: $<TARGET_FILE_DIR:sliding-tiles>/assets" )
+#MESSAGE(STATUS "TARGET_FILE_DIR:sliding-tiles: " $<TARGET_FILE_DIR:sliding-tiles>)
+#FILE(MAKE_DIRECTORY $<TARGET_FILE_DIR:sliding-tiles>/assets)
+#ADD_CUSTOM_COMMAND( TARGET sliding-tiles POST_BUILD
+  #COMMAND ${CMAKE_COMMAND} -E MESSAGE(STATUS "TARGET_FILE_DIR:sliding-tiles: " $<TARGET_FILE_DIR:sliding-tiles>)
+  #COMMAND ${CMAKE_COMMAND} -E file(make_directory $<TARGET_FILE_DIR:sliding-tiles>/assets)
+#)
+
+#ADD_CUSTOM_COMMAND( TARGET sliding-tiles POST_BUILD
+#  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#    ${sliding-tiles-assets} $<TARGET_FILE_DIR:sliding-tiles>/assets/
+#)
 
 TARGET_INCLUDE_DIRECTORIES(sliding-tiles PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}
-    ${SFML_INCLUDE_DIRS}
+    ${SFML_INCLUDE_DIR}
 )
 
 TARGET_LINK_LIBRARIES(sliding-tiles LINK_PUBLIC
 	  ${SFML_LIBRARIES}
 )
+
+IF (WIN32)
+  ADD_CUSTOM_COMMAND( TARGET sliding-tiles POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${SFML_ROOT}/bin $<TARGET_FILE_DIR:sliding-tiles>
+  )
+ENDIF (WIN32)
+
 
 # Download and unpack googletest at configure time
 # see https://crascit.com/2015/07/25/cmake-gtest/
@@ -101,6 +123,11 @@ add_subdirectory( ${CMAKE_BINARY_DIR}/googletest-src
 enable_testing()  # gives us a make test target
 add_test( all unit-tests ) # gives us a make test all target
 add_executable( unit-tests test-main.cpp ${SOURCE_FILES} ${UNIT_TESTS} )
+TARGET_INCLUDE_DIRECTORIES( unit-tests PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}
+    ${SFML_INCLUDE_DIR}
+)
 target_link_libraries( unit-tests LINK_PUBLIC gtest gmock ${SFML_LIBRARIES})
 
 
