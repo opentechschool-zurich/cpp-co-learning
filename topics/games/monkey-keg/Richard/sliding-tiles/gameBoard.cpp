@@ -145,7 +145,7 @@ sf::Vector2i GameBoard::getAdjacentTilePosition(const Move & move) {
     else if (move.direction == Direction::GoRight)
         ++adjacentPosition.x;
 
-    if (adjacentPosition.y < 0 || adjacentPosition.x < 0 || adjacentPosition.x >= boardSize || adjacentPosition.x >= boardSize) {
+    if (adjacentPosition.x < 0 || adjacentPosition.y < 0 || adjacentPosition.x >= boardSize || adjacentPosition.y >= boardSize) {
         adjacentPosition.x = -1;
         adjacentPosition.y = -1;
     }

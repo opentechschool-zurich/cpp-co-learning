@@ -87,6 +87,8 @@ IF (WIN32)
     COMMAND ${CMAKE_COMMAND} -E copy_directory
       ${SFML_ROOT}/bin $<TARGET_FILE_DIR:sliding-tiles>
   )
+  set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT sliding-tiles)
+  set_target_properties(sliding-tiles PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY $(Configuration))
 ENDIF (WIN32)
 
 

@@ -40,7 +40,9 @@ Then click Generate to create the sliding-tiles.sln solution file along with lot
 
 To build the software click Build > Build Solution from the menu. (Be sure not to have the game open or the build will fail to overwrite the exe file "LINK1168: Cannot open ... for writing".)
 
-You should now have a sliding-tiles.exe file in the sliding-tiles/build/Debug directory. Happy gaming!
+You should now have a sliding-tiles.exe file in the sliding-tiles/build/Debug directory. You can run it from that directory or start it with the debugger (green triangle or F5).
+
+To run the unit tests. Right click in the Solution Explorer on "unit-tests" and pick "Set as StartUp project". Now you can run them without the debugger by pressing Ctrl-F5 or perhaps with the debugger by pressing F5 (but the terminal window closes on you then).
 
 ## Doxygen Documentation
 ```bash
