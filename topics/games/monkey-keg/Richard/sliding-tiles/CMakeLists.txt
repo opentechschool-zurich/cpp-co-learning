@@ -36,8 +36,6 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/vertical.png
     ${sliding-tiles_assets_dir}/empty.png
 )
-#FILE(COPY ${sliding-tiles-assets} DESTINATION assets/)
-
 
 SET(SOURCE_FILES
     game.cpp
@@ -67,18 +65,12 @@ set( UNIT_TESTS
 )
 
 ADD_EXECUTABLE(sliding-tiles main.cpp ${SOURCE_FILES})
-#MESSAGE(STATUS "TARGET_FILE_DIR: $<TARGET_FILE_DIR:sliding-tiles>/assets" )
-#MESSAGE(STATUS "TARGET_FILE_DIR:sliding-tiles: " $<TARGET_FILE_DIR:sliding-tiles>)
-#FILE(MAKE_DIRECTORY $<TARGET_FILE_DIR:sliding-tiles>/assets)
-#ADD_CUSTOM_COMMAND( TARGET sliding-tiles POST_BUILD
-  #COMMAND ${CMAKE_COMMAND} -E MESSAGE(STATUS "TARGET_FILE_DIR:sliding-tiles: " $<TARGET_FILE_DIR:sliding-tiles>)
-  #COMMAND ${CMAKE_COMMAND} -E file(make_directory $<TARGET_FILE_DIR:sliding-tiles>/assets)
-#)
 
-#ADD_CUSTOM_COMMAND( TARGET sliding-tiles POST_BUILD
-#  COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#    ${sliding-tiles-assets} $<TARGET_FILE_DIR:sliding-tiles>/assets/
-#)
+ADD_CUSTOM_COMMAND( TARGET sliding-tiles POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:sliding-tiles>/assets
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${sliding-tiles-assets} $<TARGET_FILE_DIR:sliding-tiles>/assets/
+)
 
 TARGET_INCLUDE_DIRECTORIES(sliding-tiles PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}

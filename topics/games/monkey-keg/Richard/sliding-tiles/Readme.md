@@ -19,44 +19,28 @@ make
 ```
 
 ## Build and run on Visual Studio 2017
-It can be done!
-You need to install
-* CMake
-* Python
-* SFML
-* Visual Studio 2017
+This is a CMake project. That means that we let CMake create the solution files in the build directory from the CMakeLists.txt file
 
-Edit the CMakeLists.txt file and edit the line where the SFML root
-directory is on your machine. Unfortunately this doesn't actually have any real effect but it should.
+You need to install
+* [CMake](https://cmake.org/download)
+* [Python 2.x, not 3.x](https://www.python.org/downloads/release)
+* [SFML](https://www.sfml-dev.org/download.php)
+* [Visual Studio 2017](https://www.visualstudio.com/downloads)
+
+On windows there is no standard place that SFML goes. So you need to tell CMake in the CMakeLists.txt file where it is. Edit this file and adjust the SFML_ROOT delcaration on line 6.
 
 Then open the CMake GUI. It wants to know "Where is the source code:". Give it the sliding-tiles root directory.
 It also wants to know the build directory. Create a build subdirectory and point the gui at that.
 
 Click the Configure button. If you do this the first time it will ask you for the generator. Pick the Visual Sutdio 15 2017 Win64 generator. Be sure to pick a 64 bit generator if you downloaded the 64 bit SFML library! You could end up with an unhelpful linker error saying it doesn't like x86 in a x64 project.
 
-This would have generated a sliding-tiles.sln file along with lots of other stuff in the sliding-tiles/build directory. Open this with Visual Studio 2017.
+![CMakeScreenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/games/monkey-keg/Richard/sliding-tiles/doc/cmake.png)
 
-In Visual Studio you next need to open up the Solution Explorer. If it is not showing pick it from the View > Solution Explorer menu.
+Then click Generate to create the sliding-tiles.sln solution file along with lots of other stuff in the sliding-tiles/build directory. Open this with Visual Studio 2017 by clicking "Open Project".
 
-The Solution Explorer shows a bewildering amount of build targets. In order to build the game we need to tell the sliding-tiles target where to find the SFML stuff. Right-click on the sliding-tiles target (this is NOT the "Solution 'sliding-tiles' (10 projects)" root note - it's is one level down!!). In the pop-up menu open "Properties".
+To build the software click Build > Build Solution from the menu. (Be sure not to have the game open or the build will fail to overwrite the exe file "LINK1168: Cannot open ... for writing".)
 
-Unfold the "C/C++" node and click on "General". First line on the right side is "Additional Include Directories" where the directory from the CMakeLists.txt file should have been included. Click on the line and a little drop-down icon appears at the far right. Click this and a pop down menu appears. Click on &lt;Edit...&gt; to open a dialog window. In the white box at the top of the dialog click on the empty space. This "highlights" the line and a "three dot icon" appears on the right hand side. Click this and in the filechooser dialog pick the Include subdirectory from where you installed SFML. Click OK to go back to the Properties page.
-
-The next step is to tell the Linker where to find the lib files. Using the same mystery navigation click on the "Linker" key on the left side list. Pick "General" and click on "Additional Library Directories". Into that field's edit dialog add the lib directory from your SFML installation.
-
-Next click on "Input" in the Liker section. The top line is "Additional Dependencies". This list is already pre-populated. add the following items to it:
-* sfml-window-d.lib
-* sfml-system-d.lib
-* opengl32.lib
-* freetype.lib
-* jpeg.lib
-
-On the top right of the dialog is a button for the Configuration Manager. Open this and untick the unit-tests.
-
-Now you can build the software! Click Build > Build Solution from the menu. (Be sure not to have the game open or the build will fail to overwrite the exe file "LINK1168: Cannot open ... for writing".) Hopefully it builds with no error. The SFML tutorial shows how to set this up too: http://www.sfml-dev.org/tutorials/2.4/start-vc.php
-
-You are not done yet. You should now have a sliding-tiles.exe file in the sliding-tiles/build/Debug directory. If you open it, it will complain about missing DLL files. You need to copy all the .dll files in the SFML/bin directory to this directory. Also copy the sliding-tiles/asses subdirectory to this sliding-tiles/build/Debug directory. But now the game should start up!
-
+You should now have a sliding-tiles.exe file in the sliding-tiles/build/Debug directory. Happy gaming!
 
 ## Doxygen Documentation
 ```bash
