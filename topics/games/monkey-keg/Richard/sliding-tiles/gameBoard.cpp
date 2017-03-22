@@ -5,6 +5,8 @@
 #include <chrono> // std::chrono::system_clock
 #include <assert.h> // assert
 #include <sstream> // stringstream
+#include <locale>
+#include <codecvt>
 
 using namespace SlidingTiles;
 
@@ -48,12 +50,14 @@ void GameBoard::loadGame(const std::wstring & game) {
 
 void GameBoard::loadGame(const std::string & game) {
     std::cout << "game.size() is " << game.size() << std::endl;
-    assert(game.size() >= boardSize*boardSize);
+    std::u16string utf16 = std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t>{}.from_bytes(game.data());
+    assert(utf16.size() >= boardSize*boardSize);
+    
     for (int y = 0; y < boardSize; ++y) {
         for (int x = 0; x < boardSize; ++x) {
             SlidingTiles::Tile* tile = &tiles[x][y];
             tile->setTilePosition(sf::Vector2i{x, y});
-            tile->setTileType(std::string{game[y * 4 + x]});
+            tile->setTileType(std::wstring{utf16[y * 4 + x]});
             //std::wcout << L"[" << x << L"][" << y << L"] game[y*4+x]: " << std::wstring{game[y * 4 + x]} << L" became: \"" << tileTypeToWstringChar(tile->getTileType()) << L"\"\n";
         }
     }
