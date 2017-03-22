@@ -36,7 +36,11 @@ namespace SlidingTiles {
          * @brief load the game into the board
          */
         void loadGame(const std::wstring & game);
-        
+
+        /**
+         * @brief load the game into the board
+         */
+        void loadGame(const std::string & game);        
         
         /**
          * @brief sets up a random game

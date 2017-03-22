@@ -46,6 +46,19 @@ void GameBoard::loadGame(const std::wstring & game) {
     }
 }
 
+void GameBoard::loadGame(const std::string & game) {
+    std::cout << "game.size() is " << game.size() << std::endl;
+    assert(game.size() >= boardSize*boardSize);
+    for (int y = 0; y < boardSize; ++y) {
+        for (int x = 0; x < boardSize; ++x) {
+            SlidingTiles::Tile* tile = &tiles[x][y];
+            tile->setTilePosition(sf::Vector2i{x, y});
+            tile->setTileType(std::string{game[y * 4 + x]});
+            //std::wcout << L"[" << x << L"][" << y << L"] game[y*4+x]: " << std::wstring{game[y * 4 + x]} << L" became: \"" << tileTypeToWstringChar(tile->getTileType()) << L"\"\n";
+        }
+    }
+}
+
 void GameBoard::randomGame(const int emptyTiles) {
     assert( emptyTiles > 0 && emptyTiles < boardSize * boardSize - 2);
     std::vector<sf::Vector2i> positions{};

@@ -35,6 +35,7 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/topright.png
     ${sliding-tiles_assets_dir}/vertical.png
     ${sliding-tiles_assets_dir}/empty.png
+    ${sliding-tiles_assets_dir}/file.json
 )
 
 SET(SOURCE_FILES
@@ -49,6 +50,7 @@ SET(SOURCE_FILES
     moveNode.cpp
     gameBoard.cpp
     puzzleSolver.cpp
+    json.hpp
 )
 
 set( UNIT_TESTS
@@ -79,7 +81,7 @@ TARGET_INCLUDE_DIRECTORIES(sliding-tiles PUBLIC
 )
 
 TARGET_LINK_LIBRARIES(sliding-tiles LINK_PUBLIC
-	  ${SFML_LIBRARIES}
+    ${SFML_LIBRARIES}
 )
 
 IF (WIN32)

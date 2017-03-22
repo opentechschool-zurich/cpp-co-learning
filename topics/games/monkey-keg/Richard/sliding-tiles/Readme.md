@@ -13,6 +13,7 @@ When the start and end tile match up in a path you win.
 ```bash
 mkdir -p build
 cd build
+export CXX=/usr/bin/g++-6 # only if you have an old compiler and need to override the default to a modern one
 cmake ..
 make
 ./sliding-tiles
@@ -195,6 +196,7 @@ nodes are visited before the level 2 nodes are checked and so on.
 ## Copyright information
 The Font was taken from http://www.1001freefonts.com/changa_one.fontIt is in the public domain and licenced under OFL and GPL
 Designer was Eduardo Tunni http://www.1001freefonts.com/search.php?d=1&q=Eduardo+Tunni
+The source includes a copy of JSON for Modern C++ from Niels Lohmann [GitHub](https://github.com/nlohmann/json) This is MIT licenced.
 
 
 The tiles were drawn by Richard Eigenmann. My artistic skills are gradually improving...

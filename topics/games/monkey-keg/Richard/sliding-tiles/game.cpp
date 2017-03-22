@@ -2,8 +2,11 @@
 #include "gameBoard.h"
 #include <cmath>
 #include "puzzleSolver.h"
+#include "json.hpp"
+#include <fstream>
 
 using namespace SlidingTiles;
+using json = nlohmann::json;
 
 namespace SlidingTiles {
 
@@ -37,8 +40,26 @@ namespace SlidingTiles {
         std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
 
 
-        gameBoard.loadGame(game1);
+
+
+        // read a JSON file
+        std::ifstream i("assets/file.json");
+        json j;
+        i >> j;
+        std::cout << j.dump(4) << std::endl;
+        
+        json empty_array_explicit = j["levels"];
+        std::cout << empty_array_explicit.dump(4) << std::endl;
+        
+        json level = empty_array_explicit[0];
+        std::cout << level.dump(4) << std::endl;
+        
+        std::string serializedGame = level["SerializedGame"].get<std::string>();
+        std::cout << serializedGame  << std::endl;
+
+        gameBoard.loadGame(serializedGame);
         gameView.setGameBoard(&gameBoard);
+        
     }
 
     void Game::update(const float & dt) {
@@ -91,8 +112,8 @@ namespace SlidingTiles {
             MoveNode rootNode = puzzleSolver.getTree(gameBoard.serialiseGame(), 3);
 
             std::cout << "trying a game: " << ++count << "\n";
-            int solutionDepth =  puzzleSolver.hasASolution(rootNode);
-            if ( solutionDepth > -1 ) {
+            int solutionDepth = puzzleSolver.hasASolution(rootNode);
+            if (solutionDepth > -1) {
                 std::cout << "Solution Depth: " << solutionDepth << "\n";
                 count = -1;
             }
