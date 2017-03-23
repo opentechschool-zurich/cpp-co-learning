@@ -12,11 +12,21 @@
     "value": 42.99
   },
 "levels": [
-{ "Level" : 1,
+{ 
 "SerializedGame" : "   ┬ |     ┻    ",
-"Difficulty" : 0,
-"Par" : 3,
-"Time" : 120
+"Difficulty" : 0
+},
+{ 
+"SerializedGame" : "└||--├ -└┘┐┫┐┘└-",
+"Difficulty" : 0
+},
+{ 
+"SerializedGame" : "└┳┬|┐┌└┘-┐|-| --",
+"Difficulty" : 0
+},
+{ 
+"SerializedGame" : "-┘┌-┐┐| ├┌|└┣┘┐└",
+"Difficulty" : 0
 }
 ]
 
