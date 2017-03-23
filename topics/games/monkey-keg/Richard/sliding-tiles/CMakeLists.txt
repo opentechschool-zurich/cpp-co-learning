@@ -13,7 +13,7 @@ IF (UNIX)
 ENDIF (UNIX)
 
 
-FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window system)
+FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window system audio)
 MESSAGE(STATUS "SFML_INCLUDE_DIR: ${SFML_INCLUDE_DIR}")
 MESSAGE(STATUS "SFML_LIBRARIES: ${SFML_LIBRARIES}")
 
@@ -35,7 +35,22 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/topright.png
     ${sliding-tiles_assets_dir}/vertical.png
     ${sliding-tiles_assets_dir}/empty.png
-    ${sliding-tiles_assets_dir}/file.json
+    ${sliding-tiles_assets_dir}/sliding-tiles.json
+    ${sliding-tiles_assets_dir}/GuetGmacht.ogg
+    ${sliding-tiles_assets_dir}/CooliSach.ogg
+    ${sliding-tiles_assets_dir}/AechtStarch.ogg
+    ${sliding-tiles_assets_dir}/HammerGuet.ogg
+    ${sliding-tiles_assets_dir}/EsKlarsTalaent.ogg
+    ${sliding-tiles_assets_dir}/KonkretKrassMann.ogg
+    ${sliding-tiles_assets_dir}/Awesome.ogg
+    ${sliding-tiles_assets_dir}/WieEnWaeltmeister.ogg
+    ${sliding-tiles_assets_dir}/Saubi.ogg
+    ${sliding-tiles_assets_dir}/HaeschMueh.ogg
+    ${sliding-tiles_assets_dir}/HuereStrengGaell.ogg
+    ${sliding-tiles_assets_dir}/NurNoEsPaarWenigiZueueg.ogg
+    ${sliding-tiles_assets_dir}/DasHettNoJedesChindBesserChoenne.ogg
+    ${sliding-tiles_assets_dir}/Warmduscher.ogg
+    ${sliding-tiles_assets_dir}/IschEsZSchwirig.ogg
 )
 
 SET(SOURCE_FILES

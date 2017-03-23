@@ -1,0 +1,86 @@
+{
+    "levels": [
+        { 
+            "SerializedGame": "   ┬ |     ┻    ",
+            "Difficulty": 0
+        },
+        { 
+            "SerializedGame": "└||--├ -└┘┐┫┐┘└-",
+            "Difficulty": 0
+        },
+        { 
+            "SerializedGame": "└┳┬|┐┌└┘-┐|-| --",
+            "Difficulty": 0
+        },
+        { 
+            "SerializedGame": "-┘┌-┐┐| ├┌|└┣┘┐└",
+            "Difficulty": 0
+        }
+    ],
+
+    "winnerSoundBites": [
+        {
+            "File": "GuetGmacht.ogg",
+            "Description": "Guet Gmacht"
+        },
+        {
+            "File": "CooliSach.ogg",
+            "Description": "Cooli Sach"
+        },
+        {
+            "File": "AechtStarch.ogg",
+            "Description": "Aecht Starch"
+        },
+        {
+            "File": "HammerGuet.ogg",
+            "Description": "Hammer Guet"
+        },
+        {
+            "File": "EsKlarsTalaent.ogg",
+            "Description": "Es Klars Talaent"
+        },
+        {
+            "File": "KonkretKrassMann.ogg",
+            "Description": "Konkret Krass Mann"
+        },
+        {
+            "File": "Awesome.ogg",
+            "Description": "Awesome"
+        },
+        {
+            "File": "WieEnWaeltmeister.ogg",
+            "Description": "Wie en Wältmeister"
+        },
+        {
+            "File": "Saubi.ogg",
+            "Description": "Saubi"
+        }
+    ],
+
+    "attitudeSoundBites": [
+        {
+            "File": "HaeschMueh.ogg",
+            "Description": "Haesch Müeh?"
+        },
+        {
+            "File": "HuereStrengGaell.ogg",
+            "Description": "Huere streng, gäll!"
+        },
+        {
+            "File": "NurNoEsPaarWenigiZueueg.ogg",
+            "Description": "Nur no es paar wenigi Züüg"
+        },
+        {
+            "File": "DasHettNoJedesChindBesserChoenne.ogg",
+            "Description": "Das Hett No Jedes Chind Besser Chönne"
+        },
+        {
+            "File": "Warmduscher.ogg",
+            "Description": "Warmduscher"
+        },
+        {
+            "File": "IschEsZSchwirig.ogg",
+            "Description": "Isch es z'schwirig?"
+        }
+    ]
+}

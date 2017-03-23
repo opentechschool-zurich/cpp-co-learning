@@ -2,8 +2,9 @@
 #include "gameBoard.h"
 #include <cmath>
 #include "puzzleSolver.h"
-#include "json.hpp"
 #include <fstream>
+#include <random> // random_shuffle, std::default_random_engine
+#include <chrono> // std::chrono::system_clock
 
 using namespace SlidingTiles;
 using json = nlohmann::json;
@@ -40,26 +41,34 @@ namespace SlidingTiles {
         std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
 
 
-
-
         // read a JSON file
-        std::ifstream i("assets/file.json");
+        std::ifstream i("assets/sliding-tiles.json");
         json j;
         i >> j;
-        std::cout << j.dump(4) << std::endl;
-        
-        json empty_array_explicit = j["levels"];
-        std::cout << empty_array_explicit.dump(4) << std::endl;
-        
-        json level = empty_array_explicit[0];
-        std::cout << level.dump(4) << std::endl;
-        
-        std::string serializedGame = level["SerializedGame"].get<std::string>();
-        std::cout << serializedGame  << std::endl;
+        levelsArray = j["levels"];
+        loadLevel();
 
-        gameBoard.loadGame(serializedGame);
         gameView.setGameBoard(&gameBoard);
-        
+
+        json winnerSoundBitesArray = j["winnerSoundBites"];
+        for (auto& element : winnerSoundBitesArray) {
+            const std::string filename = "assets/" + element["File"].get<std::string>();
+            std::cout << filename << '\n';
+            sf::SoundBuffer sb{};
+            sb.loadFromFile(filename);
+            winnerSoundBites.push_back(sb);
+        }
+
+        json attitudeSoundBitesArray = j["attitudeSoundBites"];
+        for (auto& element : attitudeSoundBitesArray) {
+            std::string filename = "assets/" + element["File"].get<std::string>();
+            std::cout << filename << '\n';
+            sf::SoundBuffer sb{};
+            sb.loadFromFile(filename);
+            attitudeSoundBites.push_back(sb);
+        }
+
+
     }
 
     void Game::update(const float & dt) {
@@ -69,11 +78,15 @@ namespace SlidingTiles {
                 gameBoard.tiles[x][y].tileView.update(dt);
             }
 
-        std::vector<sf::Vector2i> solutionPath = gameBoard.isSolved();
-        if (solutionPath.size() > 0) {
-            gameBoard.setWinnerTiles(solutionPath);
-        } else {
-            gameBoard.clearWinnerTiles();
+        if (gameState == GameState::Playing) {
+            std::vector<sf::Vector2i> solutionPath = gameBoard.isSolved();
+            if (solutionPath.size() > 0) {
+                gameBoard.setWinnerTiles(solutionPath);
+                gameState = GameState::VictoryRolling;
+                playWinnerSoundBite();
+            } else {
+                gameBoard.clearWinnerTiles();
+            }
         }
     }
 
@@ -93,6 +106,12 @@ namespace SlidingTiles {
                         doRandomGame();
                     } else if (event.text.unicode == 112) { //p 
                         gameBoard.printGame();
+                    } else if (event.text.unicode == 110) { //n
+                        doLevelUp();
+                    } else if (event.text.unicode == 97) { //a
+                        playAttitudeSoundBite();
+                    } else if (event.text.unicode == 119) { //w
+                        playWinnerSoundBite();
                     } else
                         std::cout << "ASCII character typed: " << event.text.unicode << " --> " << static_cast<char> (event.text.unicode) << std::endl;
                 }
@@ -152,6 +171,38 @@ namespace SlidingTiles {
 
             }
         }
+    }
+
+    void Game::loadLevel() {
+        std::cout << "Loading Level: " << level << std::endl;
+        json jsonLevel = levelsArray[level];
+        std::string serializedGame = jsonLevel["SerializedGame"].get<std::string>();
+        gameBoard.loadGame(serializedGame);
+        gameState = GameState::Playing;
+    }
+
+    sf::Sound sound;
+
+    void Game::playWinnerSoundBite() {
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::size_t index = rand() % winnerSoundBites.size();
+        sound.setBuffer(winnerSoundBites.at(index));
+        sound.play();
+    }
+
+    void Game::playAttitudeSoundBite() {
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        std::size_t index = rand() % attitudeSoundBites.size();
+        sound.setBuffer(attitudeSoundBites.at(index));
+        sound.play();
+    }
+
+    void Game::doLevelUp() {
+        ++level;
+        if (level >= levelsArray.size()) {
+            level = 0;
+        }
+        loadLevel();
     }
 
 }
