@@ -37,13 +37,13 @@ namespace SlidingTiles {
          * @brief returns the root node with the whole tree attached to it.
          * @param game The serialised game
          */
-        MoveNode getTree(const std::vector<std::string> & game, int depth = 3);
+        MoveNode getTree(const std::vector<std::string> & game, int depth = DEFAULT_DEPTH);
 
         /**
          * @brief returns the root node with the whole tree attached to it.
          * @param game The serialised game
          */
-        MoveNode getTree(const std::wstring & game, int depth = 3);
+        MoveNode getTree(const std::wstring & game, int depth = DEFAULT_DEPTH);
 
         /**
          * @brief figures out if the moves tree holds a solution
@@ -60,6 +60,11 @@ namespace SlidingTiles {
          */
         void generateGames(int games);
 
+    private:
+                /**
+         * @brief The number of tiles in each direction
+         */
+        static const int DEFAULT_DEPTH{3};
     };
 
 } // namespace

@@ -4,6 +4,8 @@
 
 using namespace SlidingTiles;
 
+const int PuzzleSolver::DEFAULT_DEPTH;
+
 std::vector<MoveNode> PuzzleSolver::possibleMoves(const MoveNode & parentNode) {
     assert(parentNode.startPosition.x >= -1 && parentNode.startPosition.x <= GameBoard::boardSize);
     assert(parentNode.startPosition.y >= -1 && parentNode.startPosition.y <= GameBoard::boardSize);
