@@ -38,6 +38,7 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/topright.png
     ${sliding-tiles_assets_dir}/vertical.png
     ${sliding-tiles_assets_dir}/empty.png
+    ${sliding-tiles_assets_dir}/trophy.png
     ${sliding-tiles_assets_dir}/sliding-tiles.json
     ${sliding-tiles_assets_dir}/GuetGmacht.ogg
     ${sliding-tiles_assets_dir}/CooliSach.ogg

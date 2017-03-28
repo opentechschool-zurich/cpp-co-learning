@@ -14,7 +14,7 @@ using json = nlohmann::json;
 namespace SlidingTiles {
 
     constexpr float Game::VICTORY_ROLL_TIME;
-    
+
     Game::Game() {
         std::string game3[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", "-", "┬",
             " ", " ", " ", "|",
@@ -92,14 +92,6 @@ namespace SlidingTiles {
                 gameBoard.clearWinnerTiles();
             }
         }
-        
-        if (gameState == GameState::VictoryRolling) {
-            victoryRollingTime -= dt;
-            if ( victoryRollingTime < 0.0f ) {
-                doLevelUp();
-                gameState = GameState::Playing;
-            }
-        }
     }
 
     void Game::OnButtonClick() {
@@ -135,7 +127,7 @@ namespace SlidingTiles {
         while (window->isOpen()) {
             sf::Event event;
             while (window->pollEvent(event)) {
-                desktop.HandleEvent( event );
+                desktop.HandleEvent(event);
                 if (event.type == sf::Event::Closed)
                     window->close();
                 else if (event.type == sf::Event::MouseButtonPressed) {
@@ -160,8 +152,23 @@ namespace SlidingTiles {
 
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
-            desktop.Update( dt.asSeconds() );
+            desktop.Update(dt.asSeconds());
             gameView.render();
+            if (gameState == GameState::VictoryRolling) {
+                victoryRollingTime -= dt.asSeconds();
+                if (victoryRollingTime < 0.0f) {
+                    doLevelUp();
+                    gameState = GameState::Playing;
+                }
+                // Load a sprite to display
+                sf::Texture texture;
+                texture.loadFromFile("trophy.png");
+                sf::Sprite sprite(texture);
+                sprite.setPosition(10, 10);
+                RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);
+                std::cout << "winner!\n";
+
+            }
             m_sfgui.Display(*window);
             window->display();
         }
