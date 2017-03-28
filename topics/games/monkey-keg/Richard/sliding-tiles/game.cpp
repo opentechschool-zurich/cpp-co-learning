@@ -6,11 +6,15 @@
 #include <random> // random_shuffle, std::default_random_engine
 #include <chrono> // std::chrono::system_clock
 
+
+
 using namespace SlidingTiles;
 using json = nlohmann::json;
 
 namespace SlidingTiles {
 
+    constexpr float Game::VICTORY_ROLL_TIME;
+    
     Game::Game() {
         std::string game3[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", "-", "┬",
             " ", " ", " ", "|",
@@ -68,7 +72,6 @@ namespace SlidingTiles {
             attitudeSoundBites.push_back(sb);
         }
 
-
     }
 
     void Game::update(const float & dt) {
@@ -83,18 +86,56 @@ namespace SlidingTiles {
             if (solutionPath.size() > 0) {
                 gameBoard.setWinnerTiles(solutionPath);
                 gameState = GameState::VictoryRolling;
+                victoryRollingTime = VICTORY_ROLL_TIME;
                 playWinnerSoundBite();
             } else {
                 gameBoard.clearWinnerTiles();
             }
         }
+        
+        if (gameState == GameState::VictoryRolling) {
+            victoryRollingTime -= dt;
+            if ( victoryRollingTime < 0.0f ) {
+                doLevelUp();
+                gameState = GameState::Playing;
+            }
+        }
+    }
+
+    void Game::OnButtonClick() {
+        m_label->SetText("Hello SFGUI, pleased to meet you!");
     }
 
     void Game::run() {
+
+        // Create the label.
+        m_label = sfg::Label::Create("Hello world!");
+
+        // Create a simple button and connect the click signal.
+        auto button = sfg::Button::Create("Greet SFGUI!");
+        button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Game::OnButtonClick, this));
+
+        // Create a vertical box layouter with 5 pixels spacing and add the label
+        // and button to it.
+        auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
+        box->Pack(m_label);
+        box->Pack(button, false);
+
+        // Create a window and add the box layouter to it. Also set the window's title.
+        auto sfgwindow = sfg::Window::Create();
+        sfgwindow->SetTitle("SFG Window");
+        sfgwindow->Add(m_label);
+
+        // Create a desktop and add the window to it.
+        sfg::Desktop desktop;
+        desktop.Add(sfgwindow);
+
         sf::RenderWindow* window = RenderingSingleton::getInstance().getRenderWindow();
+        //window->resetGLStates();
         while (window->isOpen()) {
             sf::Event event;
             while (window->pollEvent(event)) {
+                desktop.HandleEvent( event );
                 if (event.type == sf::Event::Closed)
                     window->close();
                 else if (event.type == sf::Event::MouseButtonPressed) {
@@ -119,7 +160,10 @@ namespace SlidingTiles {
 
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
+            desktop.Update( dt.asSeconds() );
             gameView.render();
+            m_sfgui.Display(*window);
+            window->display();
         }
     }
 
