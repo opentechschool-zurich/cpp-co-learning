@@ -162,7 +162,7 @@ namespace SlidingTiles {
                 }
                 // Load a sprite to display
                 sf::Texture texture;
-                texture.loadFromFile("trophy.png");
+                texture.loadFromFile("assets/trophy.png");
                 sf::Sprite sprite(texture);
                 sprite.setPosition(10, 10);
                 RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);
