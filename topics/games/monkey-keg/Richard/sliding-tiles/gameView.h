@@ -18,16 +18,6 @@ namespace SlidingTiles {
          * @brief knows how to render the game
          */
         void render();
-
-        /**
-         * @brief a font to use for the text
-         */
-        sf::Font font;
-
-        /**
-         * @brief the text to print
-         */
-        sf::Text bannerText;
         
         /**
          * @brief pointer to the gameBoard

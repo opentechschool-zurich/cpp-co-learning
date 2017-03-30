@@ -6,20 +6,12 @@
 namespace SlidingTiles {
 
     GameView::GameView() {
-        if (!font.loadFromFile("assets/ChangaOne-Regular.ttf"))
-            std::cout << "Can't load font ./assets/ChangaOne-Regular.ttf" << std::endl;
 
-        bannerText.setFont(font);
-        bannerText.setCharacterSize(30);
-        bannerText.setStyle(sf::Text::Bold);
-        bannerText.setColor(sf::Color::Black);
-        bannerText.setString("Move the tiles with the mouse");
-        bannerText.setPosition(30, 10);
     }
 
     void GameView::render() {
         RenderingSingleton::getInstance().getRenderWindow()->clear(sf::Color::White);
-        RenderingSingleton::getInstance().getRenderWindow()->draw(bannerText);
+        
 
         // render the board after the clear
         sf::Sprite emptyTileSprite;

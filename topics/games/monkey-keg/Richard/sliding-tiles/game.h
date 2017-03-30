@@ -5,8 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "json.hpp"
-#include <SFGUI/SFGUI.hpp>
-#include <SFGUI/Widgets.hpp>
+#include "button.h"
+#include "label.h"
 
 namespace SlidingTiles {
 
@@ -60,12 +60,18 @@ namespace SlidingTiles {
          */
         void doLevelUp();
 
+        /**
+         * @brief the game states
+         */
         enum GameState {
             Initializing,
             Playing,
             VictoryRolling
         };
 
+        /**
+         * @brief the state of the current game
+         */
         GameState gameState{GameState::Initializing};
 
     private:
@@ -115,20 +121,33 @@ namespace SlidingTiles {
          */
         void playAttitudeSoundBite();
 
-        // Create an SFGUI. This is required before doing anything with SFGUI.
-        sfg::SFGUI m_sfgui;
+        /**
+         * @brief opens a random level
+         */
+        void onRandomButtonClick();
 
-        // Create the label pointer here to reach it from OnButtonClick().
-        sfg::Label::Ptr levelLabel;
-        
-        
-         void OnButtonClick();
-         
-         /**
+        /**
+         * @brief advances to the next level
+         */
+        void onNextButtonClick();
+
+        /**
+         * @brief restarts the level
+         */
+        void onRestartButtonClick();
+
+        /**
          * @brief The number of tiles in each direction
          */
         static constexpr float VICTORY_ROLL_TIME{1.0f};
-         
-         float victoryRollingTime {0.0f};
+
+        float victoryRollingTime{0.0f};
+        
+        Button randomSfmlButton{"assets/button_random.png"};
+        Button nextSfmlButton{"assets/button_next.png"};
+        Button restartSfmlButton{"assets/button_restart.png"};
+
+        Label levelLabel;    
+        
     };
 }

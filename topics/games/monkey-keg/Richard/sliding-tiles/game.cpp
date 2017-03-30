@@ -5,6 +5,7 @@
 #include <fstream>
 #include <random> // random_shuffle, std::default_random_engine
 #include <chrono> // std::chrono::system_clock
+#include <sstream>
 
 
 
@@ -44,7 +45,6 @@ namespace SlidingTiles {
         std::wstring game7{L"┻ └|┌|┘└ |||├┘ ┌"};
         std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
 
-
         // read a JSON file
         std::ifstream i("assets/sliding-tiles.json");
         json j;
@@ -57,7 +57,6 @@ namespace SlidingTiles {
         json winnerSoundBitesArray = j["winnerSoundBites"];
         for (auto& element : winnerSoundBitesArray) {
             const std::string filename = "assets/" + element["File"].get<std::string>();
-            std::cout << filename << '\n';
             sf::SoundBuffer sb{};
             sb.loadFromFile(filename);
             winnerSoundBites.push_back(sb);
@@ -66,12 +65,15 @@ namespace SlidingTiles {
         json attitudeSoundBitesArray = j["attitudeSoundBites"];
         for (auto& element : attitudeSoundBitesArray) {
             std::string filename = "assets/" + element["File"].get<std::string>();
-            std::cout << filename << '\n';
             sf::SoundBuffer sb{};
             sb.loadFromFile(filename);
             attitudeSoundBites.push_back(sb);
         }
-
+        
+        levelLabel.setPosition(400, 150);
+        randomSfmlButton.setPosition(400,230);
+        nextSfmlButton.setPosition(400,270);
+        restartSfmlButton.setPosition(400,310);
     }
 
     void Game::update(const float & dt) {
@@ -94,44 +96,26 @@ namespace SlidingTiles {
         }
     }
 
-    void Game::OnButtonClick() {
-        levelLabel->SetText("Hello SFGUI, pleased to meet you!");
+    void Game::onRandomButtonClick() {
+        doRandomGame();
     }
 
+    void Game::onNextButtonClick() {
+        doLevelUp();
+    }
+
+    void Game::onRestartButtonClick() {
+        loadLevel();
+        playAttitudeSoundBite();
+    }
+    
+    
     void Game::run() {
-
-        // Create the label.
-        levelLabel = sfg::Label::Create("Level");
-
-        // Create a simple button and connect the click signal.
-        auto button = sfg::Button::Create("Greet SFGUI!");
-        button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Game::OnButtonClick, this));
-
-        // Create a vertical box layouter with 5 pixels spacing and add the label
-        // and button to it.
-        auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
-        //box->Pack(m_label);
-        box->Pack(button, false);
-
-        // Create a window and add the box layouter to it. Also set the window's title.
-        auto sfgwindow = sfg::Window::Create();
-        sfgwindow->SetTitle("SFG Window");
-        sfgwindow->Add(levelLabel);
-
-        // Create a desktop and add the window to it.
-        sfg::Desktop desktop;
-        //desktop.Add(sfgwindow);
-        desktop.Add(levelLabel);
-        levelLabel->SetPosition( sf::Vector2f{400,150});
-        levelLabel->SetId("levelLabel");
-        
-
         sf::RenderWindow* window = RenderingSingleton::getInstance().getRenderWindow();
-        //window->resetGLStates();
+
         while (window->isOpen()) {
             sf::Event event;
             while (window->pollEvent(event)) {
-                desktop.HandleEvent( event );
                 if (event.type == sf::Event::Closed)
                     window->close();
                 else if (event.type == sf::Event::MouseButtonPressed) {
@@ -156,7 +140,6 @@ namespace SlidingTiles {
 
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
-            desktop.Update(dt.asSeconds());
             gameView.render();
             if (gameState == GameState::VictoryRolling) {
                 victoryRollingTime -= dt.asSeconds();
@@ -170,10 +153,11 @@ namespace SlidingTiles {
                 sf::Sprite sprite(texture);
                 sprite.setPosition(10, 10);
                 RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);
-                std::cout << "winner!\n";
-
             }
-            m_sfgui.Display(*window);
+            levelLabel.render();
+            randomSfmlButton.render();
+            nextSfmlButton.render();
+            restartSfmlButton.render();
             window->display();
         }
     }
@@ -199,6 +183,13 @@ namespace SlidingTiles {
     }
 
     void Game::doMouseReleased(const sf::Vector2i & mousePosition) {
+        if ( nextSfmlButton.mouseReleased(mousePosition) ) {
+            onNextButtonClick();
+        } else if ( randomSfmlButton.mouseReleased(mousePosition) ) {
+            onRandomButtonClick();
+        } else if ( restartSfmlButton.mouseReleased(mousePosition) ) {
+            onRestartButtonClick();
+        }
         sf::Vector2i movingTilePosition = RenderingSingleton::getInstance().findTile(mousePositionPressed);
         if (movingTilePosition.x == -1 || movingTilePosition.y == -1)
             return; // out of grid
@@ -229,7 +220,9 @@ namespace SlidingTiles {
     }
 
     void Game::loadLevel() {
-        std::cout << "Loading Level: " << level << std::endl;
+        std::ostringstream ss;
+        ss << "Level: " << level;
+        levelLabel.setText( ss.str() );
         json jsonLevel = levelsArray[level];
         std::string serializedGame = jsonLevel["SerializedGame"].get<std::string>();
         gameBoard.loadGame(serializedGame);

@@ -17,12 +17,10 @@ FIND_PACKAGE(SFML REQUIRED COMPONENTS graphics window system audio)
 MESSAGE(STATUS "SFML_INCLUDE_DIR: ${SFML_INCLUDE_DIR}")
 MESSAGE(STATUS "SFML_LIBRARIES: ${SFML_LIBRARIES}")
 
-set( SFGUI_STATIC_LIBRARIES FALSE )
-FIND_PACKAGE( SFGUI REQUIRED )
-
 SET(sliding-tiles_assets_dir "${PROJECT_SOURCE_DIR}/assets")
 SET(sliding-tiles-assets
-    ${sliding-tiles_assets_dir}/ChangaOne-Regular.ttf
+    ${sliding-tiles_assets_dir}/Raleway-Regular.ttf
+
     ${sliding-tiles_assets_dir}/bottomright.png
     ${sliding-tiles_assets_dir}/endbottom.png
     ${sliding-tiles_assets_dir}/endright.png
@@ -39,7 +37,9 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/vertical.png
     ${sliding-tiles_assets_dir}/empty.png
     ${sliding-tiles_assets_dir}/trophy.png
+
     ${sliding-tiles_assets_dir}/sliding-tiles.json
+
     ${sliding-tiles_assets_dir}/GuetGmacht.ogg
     ${sliding-tiles_assets_dir}/CooliSach.ogg
     ${sliding-tiles_assets_dir}/AechtStarch.ogg
@@ -49,12 +49,17 @@ SET(sliding-tiles-assets
     ${sliding-tiles_assets_dir}/Awesome.ogg
     ${sliding-tiles_assets_dir}/WieEnWaeltmeister.ogg
     ${sliding-tiles_assets_dir}/Saubi.ogg
+
     ${sliding-tiles_assets_dir}/HaeschMueh.ogg
     ${sliding-tiles_assets_dir}/HuereStrengGaell.ogg
     ${sliding-tiles_assets_dir}/NurNoEsPaarWenigiZueueg.ogg
     ${sliding-tiles_assets_dir}/DasHettNoJedesChindBesserChoenne.ogg
     ${sliding-tiles_assets_dir}/Warmduscher.ogg
     ${sliding-tiles_assets_dir}/IschEsZSchwirig.ogg
+
+    ${sliding-tiles_assets_dir}/button_restart.png
+    ${sliding-tiles_assets_dir}/button_random.png
+    ${sliding-tiles_assets_dir}/button_next.png
 )
 
 SET(SOURCE_FILES
@@ -70,6 +75,8 @@ SET(SOURCE_FILES
     gameBoard.cpp
     puzzleSolver.cpp
     json.hpp
+    button.cpp
+    label.cpp
 )
 
 set( UNIT_TESTS
@@ -102,7 +109,7 @@ TARGET_INCLUDE_DIRECTORIES(sliding-tiles PUBLIC
 
 TARGET_LINK_LIBRARIES(sliding-tiles LINK_PUBLIC
     ${SFML_LIBRARIES}
-    ${SFGUI_LIBRARY} ${SFGUI_DEPENDENCIES} 
+    ${SFGUI_LIBRARY}
 )
 
 IF (WIN32)
@@ -144,11 +151,9 @@ TARGET_INCLUDE_DIRECTORIES( unit-tests PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}
     ${SFML_INCLUDE_DIR}
-    ${SFGUI_INCLUDE_DIR} 
 )
 target_link_libraries( unit-tests LINK_PUBLIC 
     gtest gmock ${SFML_LIBRARIES}
-    ${SFGUI_LIBRARY} ${SFGUI_DEPENDENCIES} 
 )
 
 
