@@ -197,6 +197,7 @@ nodes are visited before the level 2 nodes are checked and so on.
 The Font was taken from http://www.1001freefonts.com/changa_one.fontIt is in the public domain and licenced under OFL and GPL
 Designer was Eduardo Tunni http://www.1001freefonts.com/search.php?d=1&q=Eduardo+Tunni
 The source includes a copy of JSON for Modern C++ from Niels Lohmann [GitHub](https://github.com/nlohmann/json) This is MIT licenced.
+Trophy Clipart from http://www.clipartbest.com/clipart-aieonzEzT
 
 
 The tiles were drawn by Richard Eigenmann. My artistic skills are gradually improving...

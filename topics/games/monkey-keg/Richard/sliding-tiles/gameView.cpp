@@ -15,7 +15,6 @@ namespace SlidingTiles {
         bannerText.setColor(sf::Color::Black);
         bannerText.setString("Move the tiles with the mouse");
         bannerText.setPosition(30, 10);
-        //game.run();
     }
 
     void GameView::render() {

@@ -13,6 +13,8 @@ using json = nlohmann::json;
 
 namespace SlidingTiles {
 
+    constexpr float Game::VICTORY_ROLL_TIME;
+
     Game::Game() {
         std::string game3[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", "-", "┬",
             " ", " ", " ", "|",
@@ -84,6 +86,7 @@ namespace SlidingTiles {
             if (solutionPath.size() > 0) {
                 gameBoard.setWinnerTiles(solutionPath);
                 gameState = GameState::VictoryRolling;
+                victoryRollingTime = VICTORY_ROLL_TIME;
                 playWinnerSoundBite();
             } else {
                 gameBoard.clearWinnerTiles();
@@ -153,8 +156,23 @@ namespace SlidingTiles {
 
             sf::Time dt = deltaClock.restart();
             update(dt.asSeconds());
-            desktop.Update( dt.asSeconds() );
+            desktop.Update(dt.asSeconds());
             gameView.render();
+            if (gameState == GameState::VictoryRolling) {
+                victoryRollingTime -= dt.asSeconds();
+                if (victoryRollingTime < 0.0f) {
+                    doLevelUp();
+                    gameState = GameState::Playing;
+                }
+                // Load a sprite to display
+                sf::Texture texture;
+                texture.loadFromFile("assets/trophy.png");
+                sf::Sprite sprite(texture);
+                sprite.setPosition(10, 10);
+                RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);
+                std::cout << "winner!\n";
+
+            }
             m_sfgui.Display(*window);
             window->display();
         }

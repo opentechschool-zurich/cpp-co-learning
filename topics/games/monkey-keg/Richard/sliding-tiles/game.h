@@ -123,5 +123,12 @@ namespace SlidingTiles {
         
         
          void OnButtonClick();
+         
+         /**
+         * @brief The number of tiles in each direction
+         */
+        static constexpr float VICTORY_ROLL_TIME{1.0f};
+         
+         float victoryRollingTime {0.0f};
     };
 }
