@@ -20,7 +20,6 @@ namespace SlidingTiles {
 
     void GameView::render() {
         RenderingSingleton::getInstance().getRenderWindow()->clear(sf::Color::White);
-
         RenderingSingleton::getInstance().getRenderWindow()->draw(bannerText);
 
         // render the board after the clear
@@ -55,6 +54,6 @@ namespace SlidingTiles {
                     t.tileView.render();
             }
 
-        RenderingSingleton::getInstance().getRenderWindow()->display();
+        //RenderingSingleton::getInstance().getRenderWindow()->display();
     }
 }

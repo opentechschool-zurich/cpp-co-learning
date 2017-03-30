@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "json.hpp"
+#include <SFGUI/SFGUI.hpp>
+#include <SFGUI/Widgets.hpp>
 
 namespace SlidingTiles {
 
@@ -63,8 +65,8 @@ namespace SlidingTiles {
             Playing,
             VictoryRolling
         };
-        
-        GameState gameState {GameState::Initializing};
+
+        GameState gameState{GameState::Initializing};
 
     private:
         /**
@@ -113,5 +115,13 @@ namespace SlidingTiles {
          */
         void playAttitudeSoundBite();
 
+        // Create an SFGUI. This is required before doing anything with SFGUI.
+        sfg::SFGUI m_sfgui;
+
+        // Create the label pointer here to reach it from OnButtonClick().
+        sfg::Label::Ptr levelLabel;
+        
+        
+         void OnButtonClick();
     };
 }
