@@ -11,7 +11,8 @@
 namespace SlidingTiles {
 
     /**
-     * @brief The main game object
+     * @brief The main game object. This class acts like the Controller and the 
+     * Model in MVC and it owns the view (GameView)
      */
     class Game {
     public:

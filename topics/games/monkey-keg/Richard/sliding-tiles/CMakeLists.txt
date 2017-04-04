@@ -77,6 +77,7 @@ SET(SOURCE_FILES
     json.hpp
     button.cpp
     label.cpp
+    winnerSounds.cpp
 )
 
 set( UNIT_TESTS
