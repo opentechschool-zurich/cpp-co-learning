@@ -6,7 +6,7 @@
 #include <random> // random_shuffle, std::default_random_engine
 #include <chrono> // std::chrono::system_clock
 #include <sstream>
-#include "json.hpp"
+
 
 
 
@@ -33,7 +33,9 @@ namespace SlidingTiles {
         json attitudeSoundBitesArray = j["attitudeSoundBites"];
         attitudeSounds.loadSounds(attitudeSoundBitesArray);
 
-        levelLabel.setPosition(400, 150);
+        levelLabel.setPosition(400, 120);
+        movesLabel.setPosition(400, 150);
+        parLabel.setPosition(400, 180);
         randomSfmlButton.setPosition(400, 230);
         nextSfmlButton.setPosition(400, 270);
         restartSfmlButton.setPosition(400, 310);
@@ -113,6 +115,8 @@ namespace SlidingTiles {
                 RenderingSingleton::getInstance().getRenderWindow()->draw(sprite);
             }
             levelLabel.render();
+            movesLabel.render();
+            parLabel.render();
             randomSfmlButton.render();
             nextSfmlButton.render();
             restartSfmlButton.render();
@@ -178,9 +182,19 @@ namespace SlidingTiles {
     }
 
     void Game::loadLevel() {
-        std::ostringstream ss;
-        ss << "Level: " << level;
-        levelLabel.setText(ss.str());
+        std::ostringstream levelText;
+        levelText << "Level: " << level;
+        levelLabel.setText(levelText.str());
+
+        std::ostringstream movesText;
+        movesText << "Moves: " << moves;
+        movesLabel.setText(movesText.str());
+
+
+        std::ostringstream parText;
+        parText << "Par: " << par;
+        parLabel.setText(parText.str());
+
         json jsonLevel = levelsArray[level];
         std::string serializedGame = jsonLevel["SerializedGame"].get<std::string>();
         gameBoard.loadGame(serializedGame);

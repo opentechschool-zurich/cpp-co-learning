@@ -97,7 +97,7 @@ namespace SlidingTiles {
         nlohmann::json levelsArray;
 
         /**
-         * @brief loads the level indicated by the level member var from the levelsArray
+         * @brief loads the level indicated by the level member variable from the levelsArray
          */
         void loadLevel();
 
@@ -121,15 +121,57 @@ namespace SlidingTiles {
          */
         static constexpr float VICTORY_ROLL_TIME{1.0f};
 
+        /**
+         *@brief The amount of time left for the victory roll in seconds.  
+         */
         float victoryRollingTime{0.0f};
 
+        /**
+         * a Button for a random level
+         */
         Button randomSfmlButton{"assets/button_random.png"};
+        /**
+         * a Button to go to the next level
+         */
         Button nextSfmlButton{"assets/button_next.png"};
+        /**
+         * a restart button
+         */
         Button restartSfmlButton{"assets/button_restart.png"};
 
+        /**
+         * a label to show the current level
+         */
         Label levelLabel;
 
+        /**
+         * @brief the number of moves in the game
+         */
+        std::size_t moves{0};
+
+        /**
+         * a label to show the number of moves
+         */
+        Label movesLabel;
+
+
+        /**
+         * @brief the par number of moves in the game
+         */
+        std::size_t par{0};
+
+        /**
+         * a label to show the par number of moves
+         */
+        Label parLabel;
+
+        /**
+         * an object with winner sounds to be played randomly when a game is won 
+         */
         RandomSoundPlayer winnerSounds;
+        /**
+         * an object with attitude sounds to be played randomly when the users is taking too long or restarts a level
+         */
         RandomSoundPlayer attitudeSounds;
 
     };
