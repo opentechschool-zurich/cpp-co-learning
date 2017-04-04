@@ -3,10 +3,10 @@
 #include "gameBoard.h"
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include "json.hpp"
 #include "button.h"
 #include "label.h"
+#include "json.hpp"
+#include "randomSoundPlayer.h"
 
 namespace SlidingTiles {
 
@@ -102,27 +102,6 @@ namespace SlidingTiles {
         void loadLevel();
 
         /**
-         * @brief Winner sounds
-         */
-        std::vector<sf::SoundBuffer> winnerSoundBites;
-
-        /**
-         * @brief Attitude sounds
-         */
-        std::vector<sf::SoundBuffer> attitudeSoundBites;
-
-
-        /**
-         * @brief plays a winner soundbite
-         */
-        void playWinnerSoundBite();
-
-        /**
-         * @brief plays an attitude soundbite
-         */
-        void playAttitudeSoundBite();
-
-        /**
          * @brief opens a random level
          */
         void onRandomButtonClick();
@@ -143,12 +122,15 @@ namespace SlidingTiles {
         static constexpr float VICTORY_ROLL_TIME{1.0f};
 
         float victoryRollingTime{0.0f};
-        
+
         Button randomSfmlButton{"assets/button_random.png"};
         Button nextSfmlButton{"assets/button_next.png"};
         Button restartSfmlButton{"assets/button_restart.png"};
 
-        Label levelLabel;    
-        
+        Label levelLabel;
+
+        RandomSoundPlayer winnerSounds;
+        RandomSoundPlayer attitudeSounds;
+
     };
 }

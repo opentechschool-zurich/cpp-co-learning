@@ -6,6 +6,7 @@
 #include <random> // random_shuffle, std::default_random_engine
 #include <chrono> // std::chrono::system_clock
 #include <sstream>
+#include "json.hpp"
 
 
 
@@ -17,34 +18,6 @@ namespace SlidingTiles {
     constexpr float Game::VICTORY_ROLL_TIME;
 
     Game::Game() {
-        std::string game3[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", "-", "┬",
-            " ", " ", " ", "|",
-            " ", " ", "|", " ",
-            " ", " ", " ", "┻"};
-
-        std::string game1[GameBoard::boardSize][GameBoard::boardSize]{"├", "-", "-", "┐",
-            "┣", "┐", " ", "|",
-            "┌", "┘", " ", "|",
-            "└", "-", "-", "┘"};
-
-        std::string game2[GameBoard::boardSize][GameBoard::boardSize]{
-            " ", " ", " ", " ",
-            " ", " ", " ", " ",
-            " ", " ", "-", " ",
-            //" "," ","├",""
-            " ", " ", "├", "┐"
-        };
-
-        std::string game4[GameBoard::boardSize][GameBoard::boardSize]{" ", " ", " ", "┬",
-            " ", "|", " ", " ",
-            " ", " ", " ", "┻",
-            " ", " ", " ", " "};
-
-        std::wstring game5{L"   ┬ |     ┻    "};
-        std::wstring game6{L"└┘| ├┐┘-┳┘ ┐| ┘┌"};
-        std::wstring game7{L"┻ └|┌|┘└ |||├┘ ┌"};
-        std::wstring game8{L"┻|└|┌|┘└ | |├┘ ┌"};
-
         // read a JSON file
         std::ifstream i("assets/sliding-tiles.json");
         json j;
@@ -55,25 +28,15 @@ namespace SlidingTiles {
         gameView.setGameBoard(&gameBoard);
 
         json winnerSoundBitesArray = j["winnerSoundBites"];
-        for (auto& element : winnerSoundBitesArray) {
-            const std::string filename = "assets/" + element["File"].get<std::string>();
-            sf::SoundBuffer sb{};
-            sb.loadFromFile(filename);
-            winnerSoundBites.push_back(sb);
-        }
+        winnerSounds.loadSounds(winnerSoundBitesArray);
 
         json attitudeSoundBitesArray = j["attitudeSoundBites"];
-        for (auto& element : attitudeSoundBitesArray) {
-            std::string filename = "assets/" + element["File"].get<std::string>();
-            sf::SoundBuffer sb{};
-            sb.loadFromFile(filename);
-            attitudeSoundBites.push_back(sb);
-        }
-        
+        attitudeSounds.loadSounds(attitudeSoundBitesArray);
+
         levelLabel.setPosition(400, 150);
-        randomSfmlButton.setPosition(400,230);
-        nextSfmlButton.setPosition(400,270);
-        restartSfmlButton.setPosition(400,310);
+        randomSfmlButton.setPosition(400, 230);
+        nextSfmlButton.setPosition(400, 270);
+        restartSfmlButton.setPosition(400, 310);
     }
 
     void Game::update(const float & dt) {
@@ -89,7 +52,7 @@ namespace SlidingTiles {
                 gameBoard.setWinnerTiles(solutionPath);
                 gameState = GameState::VictoryRolling;
                 victoryRollingTime = VICTORY_ROLL_TIME;
-                playWinnerSoundBite();
+                winnerSounds.playRandomSound();
             } else {
                 gameBoard.clearWinnerTiles();
             }
@@ -106,10 +69,9 @@ namespace SlidingTiles {
 
     void Game::onRestartButtonClick() {
         loadLevel();
-        playAttitudeSoundBite();
+        attitudeSounds.playRandomSound();
     }
-    
-    
+
     void Game::run() {
         sf::RenderWindow* window = RenderingSingleton::getInstance().getRenderWindow();
 
@@ -129,10 +91,6 @@ namespace SlidingTiles {
                         gameBoard.printGame();
                     } else if (event.text.unicode == 110) { //n
                         doLevelUp();
-                    } else if (event.text.unicode == 97) { //a
-                        playAttitudeSoundBite();
-                    } else if (event.text.unicode == 119) { //w
-                        playWinnerSoundBite();
                     } else
                         std::cout << "ASCII character typed: " << event.text.unicode << " --> " << static_cast<char> (event.text.unicode) << std::endl;
                 }
@@ -183,11 +141,11 @@ namespace SlidingTiles {
     }
 
     void Game::doMouseReleased(const sf::Vector2i & mousePosition) {
-        if ( nextSfmlButton.mouseReleased(mousePosition) ) {
+        if (nextSfmlButton.mouseReleased(mousePosition)) {
             onNextButtonClick();
-        } else if ( randomSfmlButton.mouseReleased(mousePosition) ) {
+        } else if (randomSfmlButton.mouseReleased(mousePosition)) {
             onRandomButtonClick();
-        } else if ( restartSfmlButton.mouseReleased(mousePosition) ) {
+        } else if (restartSfmlButton.mouseReleased(mousePosition)) {
             onRestartButtonClick();
         }
         sf::Vector2i movingTilePosition = RenderingSingleton::getInstance().findTile(mousePositionPressed);
@@ -222,27 +180,11 @@ namespace SlidingTiles {
     void Game::loadLevel() {
         std::ostringstream ss;
         ss << "Level: " << level;
-        levelLabel.setText( ss.str() );
+        levelLabel.setText(ss.str());
         json jsonLevel = levelsArray[level];
         std::string serializedGame = jsonLevel["SerializedGame"].get<std::string>();
         gameBoard.loadGame(serializedGame);
         gameState = GameState::Playing;
-    }
-
-    sf::Sound sound;
-
-    void Game::playWinnerSoundBite() {
-        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::size_t index = rand() % winnerSoundBites.size();
-        sound.setBuffer(winnerSoundBites.at(index));
-        sound.play();
-    }
-
-    void Game::playAttitudeSoundBite() {
-        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        std::size_t index = rand() % attitudeSoundBites.size();
-        sound.setBuffer(attitudeSoundBites.at(index));
-        sound.play();
     }
 
     void Game::doLevelUp() {
