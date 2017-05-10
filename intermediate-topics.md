@@ -83,6 +83,7 @@
 - [c++ 17 and Polymorphism](https://adishavit.github.io/2016/polymorphism-polymorphism/)
 - read articles from [overload magazine](https://accu.org/index.php/journals/c78/)
 - [Using data structures and algorithms in C++ using STL](http://www.techiedelight.com/data-structures-and-algorithms-interview-questions-stl/)
+- [is the preprocessor still needed in c++?](http://foonathan.net/blog/2017/05/08/preprocessor.html) and [HN](https://news.ycombinator.com/item?id=14290051) (für luzern?)
 
 
 ## katrin
