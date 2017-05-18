@@ -83,6 +83,7 @@
 - [c++ 17 and Polymorphism](https://adishavit.github.io/2016/polymorphism-polymorphism/)
 - read articles from [overload magazine](https://accu.org/index.php/journals/c78/)
 - [Using data structures and algorithms in C++ using STL](http://www.techiedelight.com/data-structures-and-algorithms-interview-questions-stl/)
+- [is the preprocessor still needed in c++?](http://foonathan.net/blog/2017/05/08/preprocessor.html) and [HN](https://news.ycombinator.com/item?id=14290051) (für luzern?)
 - [C++ Error Handling: Why Use Eithers in Favor of Exceptions and Error-Codes](https://hackernoon.com/error-handling-in-c-or-why-you-should-use-eithers-in-favor-of-exceptions-and-error-codes-f0640912eb45) and [HN thread](https://news.ycombinator.com/item?id=14356036)
 - have a look at [jakob's threads pool implementation](https://github.com/progschj/ThreadPool/) (using c++ 11 threads instead of pthreads; and compare to <https://github.com/leohotfn/Reuzel>)
 
