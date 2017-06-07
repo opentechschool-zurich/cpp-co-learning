@@ -6,6 +6,7 @@ import sys
 import scribus
 from scribus import BUTTON_OK,ICON_WARNING
 
+# each section corresponds to a master page in the scribus document
 sectionList = [
 	'Numbers',
 	'Classic Algorithms',
@@ -35,6 +36,8 @@ markdown = getMarkdownPageContent('https://raw.githubusercontent.com/karan/Proje
 
 lines = []
 
+# get the all the lines after the "Numbers" title
+
 lineBefore = ''
 start = False
 for line in markdown.split('\n'):
@@ -47,7 +50,7 @@ for line in markdown.split('\n'):
         lines.append(line)
     lineBefore = line
 
-# print(lines)
+# sort the projects by section
 
 sectionsRaw = {}
 section = ''
@@ -67,6 +70,8 @@ for line in lines :
     else :
         lineBuffer += line
 
+# get the title and the description out ot the project
+
 projects = []
 for section, projectsRaw in sectionsRaw.items() :
     for project in projectsRaw :
@@ -79,8 +84,10 @@ for section, projectsRaw in sectionsRaw.items() :
             projects.append({'section' : section, 'title': match.group(1), 'description': match.group(2)})
         # print(project)
 
-print(projects)
+# print(projects)
 # sys.exit(1)
+
+# add the projects to a scribus doc, one project per A6 page. for each section there is a specific master page with a logo.
 
 if (not scribus.haveDoc()) :
     # TODO: how to open a file in the script's directory?
@@ -93,8 +100,6 @@ if (not scribus.haveDoc()) :
 # scribus.messageBox("Error", str(scribus.pageCount()), ICON_WARNING, BUTTON_OK)
 for page in range(scribus.pageCount(), 1, -1) :
     scribus.deletePage(page)
-    # scribus.messageBox("Error", str(page), ICON_WARNING, BUTTON_OK)
-    #scribus.insertText(str(page)+'\n', 'Text188')
 
 for project in projects :
     scribus.newPage(-1, project['section'])
@@ -107,6 +112,8 @@ for project in projects :
     descriptionFrame = scribus.createText(10, 40, 85, 80)
     scribus.setText(project['description'], descriptionFrame)
     scribus.setStyle('description', descriptionFrame)
+
+    # shrink the title and text size if it does not fit in the frame
     while scribus.textOverflows(titleFrame) != 0 :
         fontSize = scribus.getFontSize(titleFrame)
         scribus.setFontSize(fontSize - 1, titleFrame)
