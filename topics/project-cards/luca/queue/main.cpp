@@ -40,6 +40,14 @@ public:
     { }
 
 
+    void pushMethod(int toPush, bool resetMyself=false)
+    {
+        queue.push(std::make_pair(otherName, toPush));
+        iPushed(toPush);
+        if (resetMyself)
+            value = 0;
+    }
+
     int count()
     {
         queueElement e;
@@ -58,32 +66,24 @@ public:
         std::cout << name << ": " << value << std::endl;
 
         if (value == 10) {
-            queue.push(std::make_pair(otherName, 4));
-            value = 0;
-            iPushed();
+            pushMethod(4, true);
 
         }else if (value % 20 == 0) {
-            queue.push(std::make_pair(otherName, 0));
-            value = 0;
-            iPushed();
+            pushMethod(0, true);
 
         }else if (value == oldValue) {
-            queue.push(std::make_pair(otherName, -1));
-            iPushed();
+            pushMethod(-1);
 
         }else if (value < -5) {
-            queue.push(std::make_pair(otherName, 0));
-            value = 0;
-            iPushed();
+            pushMethod(1, true);
         }
-
 
         return value;
     }
 
-    void iPushed()
+    void iPushed(int number)
     {
-        std::cout << name << " push to queue" << std::endl;
+        std::cout << name << " push to queue new step: " << number << std::endl;
     }
 
 };
