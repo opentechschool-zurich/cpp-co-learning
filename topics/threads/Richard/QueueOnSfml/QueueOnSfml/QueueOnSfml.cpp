@@ -42,6 +42,25 @@ public:
 
 int Customer::next_id = 0;
 
+class Till {
+private:
+	static int next_id;
+public:
+	Till()
+	{
+		id = Till::next_id++;
+		open = false;
+	}
+
+	bool open;
+	int id;
+
+	void describe() {
+		std::cout << "I am till " << id << " and I am " << (open ? " open " : " closed ") 
+			<< std::endl;
+	}
+};
+
 std::queue<Customer> BurgerShopQueue;
 std::mutex BurgerShopQueueMutex;
 
