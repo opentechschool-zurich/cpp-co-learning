@@ -1,6 +1,3 @@
-// QueueOnSfml.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -18,8 +15,7 @@ class Customer {
 private:
 	static int next_id;
 public:
-	Customer()
-	{
+	Customer() {
 		id = Customer::next_id++;
 		wantsDrink = rand() % 2;
 		wantsFood = rand() % 2;
@@ -72,7 +68,6 @@ std::mutex BurgerShopQueueMutex;
 void produceCustomers() {
 	while (true) {
 		Customer cust;
-		//cust.describe();
 		BurgerShopQueueMutex.lock();
 		BurgerShopQueue.push(cust);
 		BurgerShopQueueMutex.unlock();
@@ -84,32 +79,36 @@ void serveCustomers(byte number) {
 	while (true) {
 		if (tills[number].open) {
 			BurgerShopQueueMutex.lock();
+			Customer customer;
+			boolean gotOne = false;
 			if (!BurgerShopQueue.empty()) {
-				auto cust = BurgerShopQueue.front();
+				customer = BurgerShopQueue.front();
 				BurgerShopQueue.pop();
-
-				if (cust.wantsDrink) {
-					std::stringstream ss;
-					ss << "Cust: " << cust.id << " serving Drink";
-					tills[number].customer.setString(ss.str());
-					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
-				}
-				if (cust.wantsFood) {
-					std::stringstream ss;
-					ss << "Cust: " << cust.id << " serving Food";
-					tills[number].customer.setString(ss.str());
-					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
-				}
-				if (cust.wantsDesert) {
-					std::stringstream ss;
-					ss << "Cust: " << cust.id << " serving Desert";
-					tills[number].customer.setString(ss.str());
-					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
-				}
-
-				tills[number].customer.setString("next, please!");
+				gotOne = true;
 			}
 			BurgerShopQueueMutex.unlock();
+
+			if (gotOne) {
+				if (customer.wantsDrink) {
+					std::stringstream ss;
+					ss << "Cust: " << customer.id << " serving Drink";
+					tills[number].customer.setString(ss.str());
+					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
+				}
+				if (customer.wantsFood) {
+					std::stringstream ss;
+					ss << "Cust: " << customer.id << " serving Food";
+					tills[number].customer.setString(ss.str());
+					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
+				}
+				if (customer.wantsDesert) {
+					std::stringstream ss;
+					ss << "Cust: " << customer.id << " serving Desert";
+					tills[number].customer.setString(ss.str());
+					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
+				}
+				tills[number].customer.setString("next, please!");
+			}
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(200 + rand() % 300));
 		if (!tills[number].open) {
@@ -119,13 +118,11 @@ void serveCustomers(byte number) {
 }
 
 
-int main()
-{
+int main() {
 	srand(time(0));
 
 	sf::Font font;
-	if (!font.loadFromFile("Abel-Regular.ttf"))
-	{
+	if (!font.loadFromFile("Abel-Regular.ttf")) {
 		std::cerr << "Could not load Abel-Regular.ttf\n";
 		exit(255);
 	}
@@ -141,11 +138,10 @@ int main()
 	std::thread produceCustomers(produceCustomers);
 	std::vector<std::thread> counters;
 	for (byte i = 0; i < MAX_COUNTERS; ++i) {
-		tills[i].open = false;
 		counters.push_back(std::thread(serveCustomers, i));
 		sf::Sprite sprite;
 		sprite.setTexture(tillGreyTexture, true);
-		sprite.setPosition(TILL_X, TILL_HEIGHT * i + 50 );
+		sprite.setPosition(TILL_X, TILL_HEIGHT * i + 50);
 		tills[i].sprite = sprite;
 
 		tills[i].customer.setFont(font);
@@ -156,11 +152,7 @@ int main()
 		tills[i].customer.setString("nobody");
 	}
 
-	sf::RenderWindow window(sf::VideoMode(700, 700), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
-
-
+	sf::RenderWindow window(sf::VideoMode(700, 700), "Burger Shop Queue");
 
 	sf::Text queueLabel;
 	queueLabel.setFont(font);
@@ -190,10 +182,7 @@ int main()
 				for (byte i = 0; i < MAX_COUNTERS; ++i) {
 					if (event.mouseButton.x > TILL_X && event.mouseButton.x < TILL_X + TILL_WIDTH
 						&& event.mouseButton.y > TILL_HEIGHT * i && event.mouseButton.y < TILL_HEIGHT * (i + 1)) {
-						//std::cout << "till " << i << "was pressed" << std::endl;
-						//openTill[i] = !openTill[i];
 						tills[i].open = !tills[i].open;
-						//tills.at(i).setTexture(openTill[i] ? tillColoredTexture : tillGreyTexture);
 						tills[i].sprite.setTexture(tills[i].open ? tillColoredTexture : tillGreyTexture);
 					}
 				}
