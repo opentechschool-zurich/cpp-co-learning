@@ -49,8 +49,20 @@ public:
 
 	bool open;
 	int id;
-	sf::Sprite sprite;
-	sf::Text customer;
+
+	Customer currentCustomer;
+	boolean servingCustomer = false;
+	boolean servingDrink = false;
+	boolean servingFood = false;
+	boolean servingDesert = false;
+
+	sf::Sprite tillSprite;
+	sf::Sprite customerSprite;
+	sf::Sprite foodSprite;
+	sf::Sprite drinkSprite;
+	sf::Sprite desertSprite;
+
+	sf::Text text;
 
 	void describe() {
 		std::cout << "I am till " << id << " and I am " << (open ? " open " : " closed ")
@@ -79,40 +91,45 @@ void serveCustomers(byte number) {
 	while (true) {
 		if (tills[number].open) {
 			BurgerShopQueueMutex.lock();
-			Customer customer;
-			boolean gotOne = false;
 			if (!BurgerShopQueue.empty()) {
-				customer = BurgerShopQueue.front();
+				tills[number].currentCustomer = BurgerShopQueue.front();
 				BurgerShopQueue.pop();
-				gotOne = true;
+				tills[number].servingCustomer = true;
 			}
 			BurgerShopQueueMutex.unlock();
 
-			if (gotOne) {
-				if (customer.wantsDrink) {
+			if (tills[number].servingCustomer) {
+				if (tills[number].currentCustomer.wantsDrink) {
+					tills[number].servingDrink = true;
 					std::stringstream ss;
-					ss << "Cust: " << customer.id << " serving Drink";
-					tills[number].customer.setString(ss.str());
+					ss << "Cust: " << tills[number].currentCustomer.id << " serving Drink";
+					tills[number].text.setString(ss.str());
 					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
 				}
-				if (customer.wantsFood) {
+				if (tills[number].currentCustomer.wantsFood) {
+					tills[number].servingFood = true;
 					std::stringstream ss;
-					ss << "Cust: " << customer.id << " serving Food";
-					tills[number].customer.setString(ss.str());
+					ss << "Cust: " << tills[number].currentCustomer.id << " serving Food";
+					tills[number].text.setString(ss.str());
 					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
 				}
-				if (customer.wantsDesert) {
+				if (tills[number].currentCustomer.wantsDesert) {
+					tills[number].servingDesert = true;
 					std::stringstream ss;
-					ss << "Cust: " << customer.id << " serving Desert";
-					tills[number].customer.setString(ss.str());
+					ss << "Cust: " << tills[number].currentCustomer.id << " serving Desert";
+					tills[number].text.setString(ss.str());
 					std::this_thread::sleep_for(std::chrono::milliseconds(50 + rand() % 600));
 				}
-				tills[number].customer.setString("next, please!");
+				tills[number].text.setString("next, please!");
+				tills[number].servingCustomer = false;
+				tills[number].servingFood = false;
+				tills[number].servingDrink = false;
+				tills[number].servingDesert = false;
 			}
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(200 + rand() % 300));
 		if (!tills[number].open) {
-			tills[number].customer.setString("closed");
+			tills[number].text.setString("closed");
 		}
 	}
 }
@@ -134,25 +151,53 @@ int main() {
 	tillColoredTexture.loadFromFile("till.png");
 	sf::Texture tillGreyTexture;
 	tillGreyTexture.loadFromFile("tillGrey.png");
+	sf::Texture customerTexture;
+	customerTexture.loadFromFile("customer.png");
+	sf::Texture foodTexture;
+	foodTexture.loadFromFile("food.png");
+	sf::Texture drinkTexture;
+	drinkTexture.loadFromFile("drink.png");
+	sf::Texture desertTexture;
+	desertTexture.loadFromFile("desert.png");
 
 	std::thread produceCustomers(produceCustomers);
 	std::vector<std::thread> counters;
 	for (byte i = 0; i < MAX_COUNTERS; ++i) {
 		counters.push_back(std::thread(serveCustomers, i));
-		sf::Sprite sprite;
-		sprite.setTexture(tillGreyTexture, true);
-		sprite.setPosition(TILL_X, TILL_HEIGHT * i + 50);
-		tills[i].sprite = sprite;
+		sf::Sprite tillSprite;
+		tillSprite.setTexture(tillGreyTexture, true);
+		tillSprite.setPosition(TILL_X + 200, TILL_HEIGHT * i + 50);
+		tills[i].tillSprite = tillSprite;
 
-		tills[i].customer.setFont(font);
-		tills[i].customer.setCharacterSize(30);
-		tills[i].customer.setColor(sf::Color::White);
-		tills[i].customer.setStyle(sf::Text::Bold);
-		tills[i].customer.setPosition(TILL_X, TILL_HEIGHT * i);
-		tills[i].customer.setString("nobody");
+		sf::Sprite customerSprite;
+		customerSprite.setTexture(customerTexture, true);
+		customerSprite.setPosition(TILL_X, TILL_HEIGHT * i + 50);
+		tills[i].customerSprite = customerSprite;
+
+		sf::Sprite foodSprite;
+		foodSprite.setTexture(foodTexture, true);
+		foodSprite.setPosition(TILL_X + 45, TILL_HEIGHT * i + 60);
+		tills[i].foodSprite = foodSprite;
+
+		sf::Sprite drinkSprite;
+		drinkSprite.setTexture(drinkTexture, true);
+		drinkSprite.setPosition(TILL_X + 90, TILL_HEIGHT * i + 40);
+		tills[i].drinkSprite = drinkSprite;
+
+		sf::Sprite desertSprite;
+		desertSprite.setTexture(desertTexture, true);
+		desertSprite.setPosition(TILL_X + 105, TILL_HEIGHT * i + 50);
+		tills[i].desertSprite = desertSprite;
+
+		tills[i].text.setFont(font);
+		tills[i].text.setCharacterSize(30);
+		tills[i].text.setColor(sf::Color::White);
+		tills[i].text.setStyle(sf::Text::Bold);
+		tills[i].text.setPosition(TILL_X, TILL_HEIGHT * i);
+		tills[i].text.setString("nobody");
 	}
 
-	sf::RenderWindow window(sf::VideoMode(700, 700), "Burger Shop Queue");
+	sf::RenderWindow window(sf::VideoMode(850, 700), "Burger Shop Queue");
 
 	sf::Text queueLabel;
 	queueLabel.setFont(font);
@@ -180,10 +225,10 @@ int main() {
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
 				for (byte i = 0; i < MAX_COUNTERS; ++i) {
-					if (event.mouseButton.x > TILL_X && event.mouseButton.x < TILL_X + TILL_WIDTH
+					if (event.mouseButton.x > TILL_X + 200 && event.mouseButton.x < TILL_X + TILL_WIDTH + 200
 						&& event.mouseButton.y > TILL_HEIGHT * i && event.mouseButton.y < TILL_HEIGHT * (i + 1)) {
 						tills[i].open = !tills[i].open;
-						tills[i].sprite.setTexture(tills[i].open ? tillColoredTexture : tillGreyTexture);
+						tills[i].tillSprite.setTexture(tills[i].open ? tillColoredTexture : tillGreyTexture);
 					}
 				}
 			}
@@ -194,11 +239,22 @@ int main() {
 		window.draw(queueLabel);
 		window.draw(queueCount);
 		for (byte i = 0; i < MAX_COUNTERS; ++i) {
-			window.draw(tills[i].sprite);
-			window.draw(tills[i].customer);
+			window.draw(tills[i].tillSprite);
+			window.draw(tills[i].text);
+			if (tills[i].servingCustomer) {
+				window.draw(tills[i].customerSprite);
+			}
+			if (tills[i].servingFood) {
+				window.draw(tills[i].foodSprite);
+			}
+			if (tills[i].servingDrink) {
+				window.draw(tills[i].drinkSprite);
+			}
+			if (tills[i].servingDesert) {
+				window.draw(tills[i].desertSprite);
+			}
 		}
 		window.display();
 	}
 	return 0;
 }
-
