@@ -7,7 +7,7 @@ queue and are then called to any of the open tills to be served.
 
 # Screenshot
 
-[!Screenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/threads/Richard/QueueOnSfml/screenshot.png)
+![Screenshot](http://opentechschool-zurich.github.io/cpp-co-learning/topics/threads/Richard/QueueOnSfml/screenshot.png)
 
 # Description
 
@@ -55,7 +55,14 @@ Follow the instructions on the SFML page. You need to fix the include directory.
 
 And the linker directory.
 
-Be sure to use the x64 build target as the libraries are otherwise not compatible.
-Copy the png images and the dll to the target binary directory.
+Be sure to select the x64 build target as the libraries are otherwise not compatible.
+
+Copy the png images to the target binary directory.
+
+You need to copy the SFML dll libraries (```openal32.dll```
+```sfml-audio-2.dll``` ```sfml-audio-d-2.dll``` ```sfml-graphics-2.dll```
+```sfml-graphics-d-2.dll``` ```sfml-network-2.dll``` ```sfml-network-d-2.dll```
+```sfml-system-2.dll``` ```sfml-system-d-2.dll``` ```sfml-window-2.dll```
+```sfml-window-d-2.dll```) to the ```QueueOnSfml\x64\Debug``` directory.
 
 TODO: Improve this description until a newbie can do this too.
