@@ -61,9 +61,21 @@ size_t future_copyFile(const std::string& inFile, const std::string& outFile)
     return result;
 }
 
+size_t async_copyFile(const std::string& inFile, const std::string& outFile) 
+{
+    auto futRead = async(readFile, inFile);
+    auto futWrite = async([&futRead](const std::string& path) {
+        return writeFile(futRead.get(), path);
+    }, outFile);
+
+    return futWrite.get();
+}
+
+
 int main()
 {
     // sync_copyFile("abc.txt", "def.txt");
-    future_copyFile("abc.txt", "def.txt");
+    // future_copyFile("abc.txt", "def.txt");
+    async_copyFile("abc.txt", "def.txt");
 }
 
