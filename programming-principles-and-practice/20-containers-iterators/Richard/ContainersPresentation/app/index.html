@@ -52,7 +52,7 @@
                         </ul>
                         <p>See <a href="http://www.stroustrup.com/programming.html">Stroustroup, Programming Principle and Practice Using C++ 20.10</a></p>
                     </small>
-                </section>                
+                </section>
 
                 <section>
                     <h2>Containers have Iterators:</h2>
@@ -69,7 +69,7 @@
                         <li>You can get an iterator to the next element by using ++.</li>
                     </ul>
                     <small><p>See <a href="http://www.stroustrup.com/programming.html">Stroustroup, Programming Principle and Practice Using C++ 20.3</a></p></small>
-                </section>                
+                </section>
 
                 <section>
                     <h3>Think of an Iterator as a Cursor on Containers, mimicking pointer-access on elements</h3>
@@ -84,7 +84,7 @@
                         <li>pointer relation if supported (<, <=, >=, >)</li>
                     </ul>
                     <small><p>Thanks Andreas Gieriet</p></small>
-                </section>                
+                </section>
 
                 <section>
                     <h2>Traditional approach with position-based for loop</h2>
@@ -103,7 +103,7 @@ int main() {
                     <pre>Output: 1 4 8</pre>
                     <p align="right"><small>Sample1</small></p>
                     <p><small>From <a href="http://www.cprogramming.com/tutorial/stl/iterators.html">http://www.cprogramming.com/tutorial/stl/iterators.html</a></small></p>
-                </section>             
+                </section>
 
 
                 <section>
@@ -124,7 +124,7 @@ int main() {
                     <pre>Output: 1 4 8</pre>
                     <p align="right"><small>Sample2</small></p>
                     <p><small>From <a href="http://www.cprogramming.com/tutorial/stl/iterators.html">http://www.cprogramming.com/tutorial/stl/iterators.html</a></small></p>
-                </section>             
+                </section>
 
 
                 <section>
@@ -145,7 +145,7 @@ int main() {
 }</code></pre>
                     <pre>Output: 1 4 8</pre>
                     <p align="right"><small>Sample4</small></p>
-                </section>             
+                </section>
 
                 <section>
                     <h2>Reverse Iterator</h2>
@@ -167,9 +167,9 @@ int main() {
                     <p>Note the rbegin and rend!</p>
                     <p align="right"><small>Sample3</small></p>
                     <p><small>From <a href="http://www.cprogramming.com/tutorial/stl/iterators.html">http://www.cprogramming.com/tutorial/stl/iterators.html</a></small></p>
-                </section>             
+                </section>
 
-                
+
                 <section>
                     <h3>Iteration with auto and a range-for-loop in C++11</h3>
                     <pre><code class="C++">#include &lt;vector>
@@ -188,7 +188,7 @@ int main() {
                     <small><p>The range-for-loop is defined in terms of begin() and end() functions returning iterators to the first and one beyond the end of our vector elements. The range-for-loop is simply “syntactic sugar” for a loop over a sequence using iterators.</p></small>
                     <small><p>Depeding on the use case: <strong>auto element</strong> or <strong>auto& element</strong> or <strong>const auto& element</strong>.</p></small>
                     <p align="right"><small>Sample5</small></p>
-                </section>             
+                </section>
 
 
 
@@ -245,7 +245,7 @@ int main() {
 }</code></pre>
                     <small><p>For a better way check out Algorithms in the next chapter!</p></small>
                     <p align="right"><small>FindHigh</small></p>
-                </section>      
+                </section>
 
                 <section>
                     <h2>vector vs. linked list:</h2>
@@ -296,8 +296,8 @@ int main() {
                         <h2>Suggested Exercise</h2>
                         <p>Run a timing experiment to compare the performance of using a vector versus a list.</p>
                         <p>(Timing code from 26.6.1 on slide below).</p>
-                        <p>Generate N random int values in the range [0:N). 
-                            As each int is generated, insert it into a vector<int> at the place where it belongs numerically (thereby forcing the vector to copy all later elements out). 
+                        <p>Generate N random int values in the range [0:N).
+                            As each int is generated, insert it into a vector<int> at the place where it belongs numerically (thereby forcing the vector to copy all later elements out).
                             Repeat the experiment using a list<int>.</p>
                         <p>Plot the results and find the point where one container is more performant than the other. Explain the result and then watch <a href="https://www.youtube.com/watch?v=YQs6IC-vgmo"">Bjarne's video (7:45)</a></p>
                     </section>
@@ -316,7 +316,7 @@ int main() {
     for (int i = 0; i &lt; n; i++) // timing loop
         do_something();
     auto endTime = system_clock::now();
-    auto ms = duration_cast&lt;<milliseconds>( endTime - startTime).count();
+    auto ms = duration_cast&lt;milliseconds&gt;( endTime - startTime).count();
     std::cout &lt;&lt; "do_something() " &lt;&lt; n &lt;&lt; " times took "
         &lt;&lt; ms &lt;&lt; "ms" &lt;&lt; std_endl;
 }</code></pre>
@@ -333,7 +333,7 @@ int main() {
                     <p><a href="https://highlightjs.org/">highlight.js</a></p>
                 </section>
             </div>
-        </div>        
+        </div>
 
         <!-- <script src="bower_components/reveal.js/lib/js/head.min.js"></script>
         <script src="bower_components/highlightjs/highlight.pack.js"></script>
