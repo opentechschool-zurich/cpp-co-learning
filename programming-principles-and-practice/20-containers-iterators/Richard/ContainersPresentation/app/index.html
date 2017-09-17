@@ -306,9 +306,9 @@ int main() {
                         <pre><code class="C++">#include &lt;chrono>
 #include &lt;iostream>
 #include &lt;vector>
-using namespace chrono;
+using namespace std::chrono;
 void do_something() {
-    vector&lt;int> pointless {0,1,2,3,4,5};
+    std::vector&lt;int> pointless {0,1,2,3,4,5};
 }
 int main() {
     int n = 10000000;
@@ -316,10 +316,12 @@ int main() {
     for (int i = 0; i &lt; n; i++) // timing loop
         do_something();
     auto endTime = system_clock::now();
-    auto ms = duration_cast&lt;milliseconds&gt;( endTime - startTime).count();
+    auto ms = duration_cast&lt;milliseconds&gt;(endTime - startTime).count();
     std::cout &lt;&lt; "do_something() " &lt;&lt; n &lt;&lt; " times took "
-        &lt;&lt; ms &lt;&lt; "ms" &lt;&lt; std_endl;
+        &lt;&lt; ms &lt;&lt; "ms" &lt;&lt; std::endl;
 }</code></pre>
+
+<small><a href="http://cpp.sh/33wgq">try on ccp.sh</a></small>
 
                     </section>
                 </section>
