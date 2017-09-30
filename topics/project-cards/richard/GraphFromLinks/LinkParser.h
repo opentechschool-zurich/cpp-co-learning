@@ -22,24 +22,24 @@ class LinkParser
 public:
     ~LinkParser() { xmlCleanupParser(); }
 
-    std::vector<Link> parseLinks(std::string webPage)
+    void parseLinks(Link & node, const std::string & webPage )
     {
-        std::vector<Link> links{};
+        //std::vector<Link> links{};
         _xmlDoc *htmlDocument =
             htmlReadDoc((const xmlChar *)webPage.c_str(), NULL, NULL,
                         HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
 
         if (htmlDocument) {
             xmlNodePtr root_element = (xmlNodePtr)htmlDocument;
-            collectLinks(links, root_element);
+            collectLinks(node, root_element);
         }
 
         xmlFreeDoc(htmlDocument); // clear memory
-        return links;
+        //return links;
     }
 
 private:
-    void collectLinks(std::vector<Link> &links, xmlNode *a_node)
+    void collectLinks(Link &node, xmlNode *a_node)
     {
         xmlNode *cur_node = NULL;
 
@@ -49,13 +49,15 @@ private:
                 if (name == "a") {
                     xmlChar *hrefProp = xmlGetProp(cur_node, (const xmlChar *)"href");
                     std::wstring href = xmlCharToWideString(hrefProp);
+                    //std::string href = xmlCharToString(hrefProp);
                     xmlFree(hrefProp);
                     std::wstring text = xmlCharToWideString(cur_node->children->content);
-                    links.emplace_back(Link(href, text));
+                    //std::string text = xmlCharToString(cur_node->children->content);
+                    node.children.emplace_back(Link(href, text));
                 }
             }
 
-            collectLinks(links, cur_node->children);
+            collectLinks(node, cur_node->children);
         }
     }
 
@@ -66,13 +68,15 @@ private:
     std::wstring xmlCharToWideString(const xmlChar *xmlString)
     {
         if (!xmlString) {
-            abort();
-        } // provided string was null
+            return L"Null pointer passed to xmlCharToWideString" ;
+        }
         try {
             std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
             return conv.from_bytes((const char *)xmlString);
         } catch (const std::range_error &e) {
-            abort(); // wstring_convert failed
+            return L"wstring_convert failed";
         }
     }
+
+
 };
