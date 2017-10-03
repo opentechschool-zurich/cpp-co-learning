@@ -27,6 +27,8 @@ std::wstring stringToWstring(const std::string s)
     return converter.from_bytes(s);
 }
 
+
+
 /**
  * Pulls the supplied web page and outputs the links it finds on the page
  */
@@ -47,13 +49,6 @@ int main(int argc, char *argv[])
     Link rootLink = Link { stringToWstring( url ), L"Root Node" };
     p.parseLinks( rootLink, webPage );
 
-    /*for (auto l : links) {
-        std::wcout << l.href << " - " << l.text << std::endl;
-        // std::cout << l.href << " - " << l.text << std::endl;
-    }*/
-
-    //std::cout << links.size() << " links found on url: " << url << "\n";
-
     HttpServer server;
     server.config.port = 8080;
     std::cout << "Open your browser against: http://localhost:8080\n";
@@ -69,6 +64,20 @@ int main(int argc, char *argv[])
         *response << "HTTP/1.1 200 OK\r\nContent-Length: " << stream.tellp() << "\r\n\r\n"
                   << stream.rdbuf();
     };
+
+    server.resource["^/fetch/([0-9]+)$"]["GET"] = [rootLink](std::shared_ptr<HttpServer::Response> response,
+       std::shared_ptr<HttpServer::Request> request) {
+        std::string number = request->path_match[1];
+        std::cout <<  "fetch node : " << number << std::endl;
+        std::stringstream stream;
+        stream << rootLink.toJson();
+
+        // Find length of content_stream (length received using content_stream.tellp())
+        stream.seekp(0, std::ios::end);
+
+        *response << "HTTP/1.1 200 OK\r\nContent-Length: " << stream.tellp() << "\r\n\r\n"
+                  << stream.rdbuf();
+      };
 
     server.default_resource["GET"] = [](std::shared_ptr<HttpServer::Response> response,
                                         std::shared_ptr<HttpServer::Request> request) {

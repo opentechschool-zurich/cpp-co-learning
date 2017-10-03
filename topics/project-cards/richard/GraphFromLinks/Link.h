@@ -22,17 +22,26 @@ std::string wstringToString(const std::wstring ws)
 class Link
 {
 public:
-    Link(std::wstring href, std::wstring text) : href(href), text(text){};
+    Link(std::wstring href, std::wstring text) : href(href), text(text), node(counter++){};
     std::wstring href;
     std::wstring text;
+    int node;
     std::vector<Link> children;
     json toJson() const {
-        json j = { { "href", wstringToString( href ) }, { "text", wstringToString( text ) }};
+        json j = { { "href", wstringToString( href ) },
+         { "text", wstringToString( text ) },
+         { "node", node }
+       };
         for ( auto child : children ) {
-            j["children"].push_back(  { { "href", wstringToString( child.href ) }, { "text", wstringToString( child.text ) }} );
+            j["children"].push_back(  {
+              { "href", wstringToString( child.href ) },
+              { "text", wstringToString( child.text ) },
+            {"node",child.node} } );
         }
         return j;
     }
 
 private:
+  static int counter;
 };
+int Link::counter = 0;

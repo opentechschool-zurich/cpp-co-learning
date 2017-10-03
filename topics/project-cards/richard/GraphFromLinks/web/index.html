@@ -4,7 +4,7 @@
 
 .node {
   cursor: pointer;
-}
+}c
 
 .node circle {
   fill: #fff;
@@ -47,10 +47,10 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data", function(error, flare) {
+d3.json("data", function(error, data) {
   if (error) throw error;
 
-  root = flare;
+  root = data;
   root.x0 = height / 2;
   root.y0 = 0;
 
@@ -157,10 +157,17 @@ function update(source) {
 
 // Toggle children on click.
 function click(d) {
+
   if (d.children) {
     d._children = d.children;
     d.children = null;
   } else {
+    console.log("Need to fetch data on node: " + d.node);
+    d3.json("fetch/" + d.node, function(error, data) {
+      if (error) throw error;
+
+      root = data;
+    });
     d.children = d._children;
     d._children = null;
   }
