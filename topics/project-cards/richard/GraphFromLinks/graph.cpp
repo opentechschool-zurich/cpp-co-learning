@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 
-#include "CurlWrapper.h"
-#include "LinkParser.h"
+
+
 #include "Link.h"
 
 #include "server_http.hpp"
@@ -15,17 +15,7 @@ using HttpServer = SimpleWeb::Server<SimpleWeb::HTTP>;
 #include <codecvt>
 
 
-/**
-* @see
-* https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
-*/
-std::wstring stringToWstring(const std::string s)
-{
-    using convert_type = std::codecvt_utf8<wchar_t>;
-    std::wstring_convert<convert_type, wchar_t> converter;
 
-    return converter.from_bytes(s);
-}
 
 
 
@@ -34,20 +24,15 @@ std::wstring stringToWstring(const std::string s)
  */
 int main(int argc, char *argv[])
 {
-    if (argc != 3) {
+    if (argc != 2) {
         std::cout << "Usage: graph depth URL\n";
         return 1;
     }
-    int depth = atoi(argv[1]);
-    std::string url = argv[2];
+    std::string url = argv[1];
 
-    CurlWrapper w;
-    std::string webPage = w.getPage(url);
-    std::cout << "Downloaded URL: " << url << " (" << webPage.size() << " chars)" << std::endl;
-
-    LinkParser p;
-    Link rootLink = Link { stringToWstring( url ), L"Root Node" };
-    p.parseLinks( rootLink, webPage );
+    Link rootLink = Link { url, L"Root Node" };
+    rootLink.fetch();
+    rootLink.parseLinks();
 
     HttpServer server;
     server.config.port = 8080;

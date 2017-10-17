@@ -8,10 +8,10 @@ Create a program that will create a graph or network from a series of links.
 
 ##Implementation
 ` ` `bash
-./graph depth URL
+./graph URL
 
 # Example:
-./graph 2 https://richardeigenmann.github.io/simplepage/links.htm
+./graph https://richardeigenmann.github.io/simplepage/links.htm
 ` ` `
 
 ##Compiling
@@ -52,3 +52,10 @@ He has licensed it under the MIT license
 
 ##D3 visualisation
 see https://bl.ocks.org/mbostock/4339083
+
+##Documentation
+```bash
+mkdir -p build
+cd build
+doxygen ../Doxyfile
+```

@@ -13,7 +13,7 @@ class CurlWrapper
 {
 public:
     /**
-     * This function will call CURL with the requested url and
+     * @brief This function will call CURL with the requested url and
      * returns a string of the data received.
      */
     std::string getPage(std::string pageUrl)
