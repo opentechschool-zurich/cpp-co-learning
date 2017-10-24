@@ -19,25 +19,34 @@ class Link
 {
 public:
     /**
-    * @brief Constructs a new link with the url, html document
+    * @brief Constructs a new link with the url, and the description.
+    * It downloads the webpage and stores it in the member variable webPage
     */
     Link(std::wstring href, std::wstring description)
-        : href(href), description(description), node(counter++){};
+        : href(href), description(description), node(counter++){
+          std::cout << "second constructor\n";
+          this->fetch();
+          //this->parseLinks();
+        };
 
     /**
     * @brief Constructs a new link with the url, html document
     */
     Link(std::string href, std::wstring description)
-    : href(stringToWstring(href)), description(description), node(counter++){};
+        : Link( stringToWstring(href), description ){
+          std::cout << "first constructor\n";
+        };
 
     /**
     * @brief an internal node number
     */
     int node;
+
     /**
     * @brief the child pages
     */
-    std::vector<Link> children {};
+    std::vector<Link> children{};
+
     /**
     * @brief returns a json representation of the node with href, description and node number
     */
@@ -55,9 +64,9 @@ public:
     }
 
     /**
-    *@brief fetches the webpage in the href and stores the result in the  member variable
+    *@brief fetches the webpage in the href and stores the result in the member variable webPage
     */
-    void fetch() 
+    void fetch()
     {
         CurlWrapper w;
         webPage = w.getPage(wstringToString(href));
@@ -65,10 +74,12 @@ public:
                   << " chars)" << std::endl;
     }
 
-
+    /**
+    * @brief parses the webPage for links and adds them to the children vector.
+    */
     void parseLinks()
     {
-        //std::vector<Link> links{};
+        // std::vector<Link> links{};
         _xmlDoc *htmlDocument =
             htmlReadDoc((const xmlChar *)webPage.c_str(), NULL, NULL,
                         HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
@@ -79,9 +90,13 @@ public:
         }
 
         xmlFreeDoc(htmlDocument); // clear memory
-        //return links;
+        // return links;
     }
 
+    /**
+    * @brief Searches the xmlNode for href tags and adds them to the children vector
+    * can be called recursively.
+    */
     void collectLinks(xmlNode *a_node)
     {
         xmlNode *cur_node = NULL;
@@ -92,10 +107,10 @@ public:
                 if (name == "a") {
                     xmlChar *hrefProp = xmlGetProp(cur_node, (const xmlChar *)"href");
                     std::wstring href = xmlCharToWideString(hrefProp);
-                    //std::string href = xmlCharToString(hrefProp);
+                    // std::string href = xmlCharToString(hrefProp);
                     xmlFree(hrefProp);
                     std::wstring text = xmlCharToWideString(cur_node->children->content);
-                    //std::string text = xmlCharToString(cur_node->children->content);
+                    // std::string text = xmlCharToString(cur_node->children->content);
                     children.emplace_back(Link(href, text));
                 }
             }
@@ -163,7 +178,7 @@ private:
     std::wstring xmlCharToWideString(const xmlChar *xmlString)
     {
         if (!xmlString) {
-            return L"Null pointer passed to xmlCharToWideString" ;
+            return L"Null pointer passed to xmlCharToWideString";
         }
         try {
             std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> conv;
