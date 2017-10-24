@@ -23,19 +23,17 @@ public:
     * It downloads the webpage and stores it in the member variable webPage
     */
     Link(std::wstring href, std::wstring description)
-        : href(href), description(description), node(counter++){
-          std::cout << "second constructor\n";
-          this->fetch();
-          //this->parseLinks();
-        };
+        : href(href), description(description), node(counter++)
+    {
+        this->fetch();
+    };
 
     /**
     * @brief Constructs a new link with the url, html document
     */
-    Link(std::string href, std::wstring description)
-        : Link( stringToWstring(href), description ){
-          std::cout << "first constructor\n";
-        };
+    Link(std::string href, std::wstring description) : Link(stringToWstring(href), description)
+    {
+    };
 
     /**
     * @brief an internal node number
@@ -46,6 +44,7 @@ public:
     * @brief the child pages
     */
     std::vector<Link> children{};
+
 
     /**
     * @brief returns a json representation of the node with href, description and node number
@@ -77,7 +76,7 @@ public:
     /**
     * @brief parses the webPage for links and adds them to the children vector.
     */
-    void parseLinks()
+    void parseLinks() 
     {
         // std::vector<Link> links{};
         _xmlDoc *htmlDocument =
@@ -175,7 +174,7 @@ private:
     * @see
     * https://stackoverflow.com/questions/14107268/libxml2-xmlchar-to-stdwstring
     */
-    std::wstring xmlCharToWideString(const xmlChar *xmlString)
+    std::wstring xmlCharToWideString(const xmlChar *xmlString) const
     {
         if (!xmlString) {
             return L"Null pointer passed to xmlCharToWideString";

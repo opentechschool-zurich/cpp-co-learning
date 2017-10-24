@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
     Link rootLink = Link{url, L"Root Node"};
     rootLink.parseLinks();
-    WebServer w{rootLink};
+    WebServer w{&rootLink};
     w.start();
 
     return 0;
