@@ -6,20 +6,24 @@
 #include <stdexcept>
 #include "Link.h"
 #include <set>
-#include <experimental/optional>
+#include <optional>
 
 
 using HttpServer = SimpleWeb::Server<SimpleWeb::HTTP>;
 
-std::experimental::optional<Link  *> print_inorder(Link  *p, int searchNumber) {
+std::optional<Link> print_inorder(Link  *p, int searchNumber) {
     if (p->node ==  searchNumber) {
             std::cout << "Found " << searchNumber << " on node " << p->node << std::endl;
-            return p;
-            std::cout << "not reachable\n";
+            //std::cout << p->toString();
+            return *p;
     } else {
         std::cout << "Didn't find " << searchNumber << " on node " << p->node << std::endl;
         for ( Link c : p->children) {
-            print_inorder( &c, searchNumber);
+            auto o = print_inorder( &c, searchNumber);
+            if ( o ) {
+                //std::cout << o->toString();
+                return o;
+            }
         }
     }
     return {};
@@ -54,10 +58,11 @@ public:
                         //Link* l = rootLink.findChild(number);
                         //l->parseLinks();
                         //print_path(&rootLink);
-                        std::experimental::optional<Link *> o = print_inorder( rootLink, std::stoi( number ));
+                        auto o = print_inorder( rootLink, std::stoi( number ));
                         if (o) {
-                            std::cout << "Paring links on optional\n";
-                            (*o)->parseLinks();
+                            std::cout << "Parsing links on optional\n";
+                            o->parseLinks();
+                            std::cout << o->toString();
                         }
 
                         std::stringstream stream;
