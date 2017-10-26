@@ -11,24 +11,6 @@
 
 using HttpServer = SimpleWeb::Server<SimpleWeb::HTTP>;
 
-std::optional<Link> print_inorder(Link  *p, int searchNumber) {
-    if (p->node ==  searchNumber) {
-            std::cout << "Found " << searchNumber << " on node " << p->node << std::endl;
-            //std::cout << p->toString();
-            return *p;
-    } else {
-        std::cout << "Didn't find " << searchNumber << " on node " << p->node << std::endl;
-        for ( Link c : p->children) {
-            auto o = print_inorder( &c, searchNumber);
-            if ( o ) {
-                //std::cout << o->toString();
-                return o;
-            }
-        }
-    }
-    return {};
-}
-
 class WebServer
 {
 public:
@@ -58,11 +40,11 @@ public:
                         //Link* l = rootLink.findChild(number);
                         //l->parseLinks();
                         //print_path(&rootLink);
-                        auto o = print_inorder( rootLink, std::stoi( number ));
+                        auto o = rootLink->findLink( std::stoi( number ));
                         if (o) {
                             std::cout << "Parsing links on optional\n";
-                            o->parseLinks();
-                            std::cout << o->toString();
+                            o.value()->parseLinks();
+                            std::cout << o.value()->toString();
                         }
 
                         std::stringstream stream;
