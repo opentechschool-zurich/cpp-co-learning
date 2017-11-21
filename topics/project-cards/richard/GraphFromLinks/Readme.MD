@@ -7,12 +7,14 @@ Exercise:
 Create a program that will create a graph or network from a series of links.
 
 ##Implementation
-` ` `bash
+```bash
 ./graph URL
+```
 
 # Example:
+```bash
 ./graph https://richardeigenmann.github.io/simplepage/links.htm
-` ` `
+```
 
 ##Compiling
 
@@ -23,11 +25,16 @@ Dependencies:
 libxml2
 Boost
 
-` ` `bash
+```bash
 cd build
 cmake -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_CC_COMPILER=/usr/bin/clang ..
 make -j2
-` ` `
+```
+
+##Visual Studio
+```bash
+cmake .. -G "Visual Studio 15 Win64"
+```
 
 ##Webserver
 I'm using the simple web server from Ole Christian Eidheim at
