@@ -9,6 +9,8 @@ using json = nlohmann::json;
 
 #include <locale>
 #include <codecvt>
+#include <optional>
+
 
 #include "CurlWrapper.h"
 
