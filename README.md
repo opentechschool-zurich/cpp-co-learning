@@ -28,3 +28,22 @@ Meetup page: <http://www.meetup.com/opentechschool-zurich/events/226235793/>
 [Richard: Writeup on Early vs. Late Binding in C++ and Java](https://github.com/opentechschool-zurich/cpp-co-learning/blob/master/topics/design-patterns/decorator/richard/ReadMe.md)
 
 [Richard: Linear Regression with wxWidgets and wxFreeChart](https://github.com/opentechschool-zurich/cpp-co-learning/tree/master/topics/machine-learning/logreg/richard)
+
+## On-line CPP Compilers
+
+Online compilers can be very useful to try out code quickly without having the hassle of setting up a new project with directories, build system etc. They mostly allow you to "save" the code on a permanent URL which makes it easy to share and experiment.
+
+* http://cpp.sh/
+* http://coliru.stacked-crooked.com/
+* https://wandbox.org/
+* http://codepad.org
+* https://ide.geeksforgeeks.org/
+* https://ideone.com
+* https://tio.run/
+
+See https://arne-mertz.de/2017/05/online-compilers/
+
+
+
+
+
