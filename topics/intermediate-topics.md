@@ -72,7 +72,7 @@
   - http://drakon-editor.sourceforge.net/cpp/cpp.html
   - http://drakon-editor.sourceforge.net/cpp.pdf
 - [Reclaiming Data Structures with Cycles](https://www.justsoftwaresolutions.co.uk/cplusplus/reclaiming-data-structures-with-cycles.html) ("garbage collection" in c++)
-- uml and c++: <https://cppcodetips.wordpress.com/2013/12/23/uml-class-diagram-explained-with-c-samples/
+- uml and c++: <https://cppcodetips.wordpress.com/2013/12/23/uml-class-diagram-explained-with-c-samples/>
 - pub quiz:
   - http://www.pvv.org/~oma/PubQuiz_CPP_Oct2011.pdf
   - http://cppquiz.org/
@@ -87,6 +87,7 @@
 - [C++ Error Handling: Why Use Eithers in Favor of Exceptions and Error-Codes](https://hackernoon.com/error-handling-in-c-or-why-you-should-use-eithers-in-favor-of-exceptions-and-error-codes-f0640912eb45) and [HN thread](https://news.ycombinator.com/item?id=14356036)
 - have a look at [jakob's threads pool implementation](https://github.com/progschj/ThreadPool/) (using c++ 11 threads instead of pthreads; and compare to <https://github.com/leohotfn/Reuzel>)
 - expore c++ 17: https://github.com/tvaneerd/cpp17_in_TTs/blob/master/ALL_IN_ONE.md
+- atomic and fences: https://davmac.wordpress.com/2018/01/28/understanding-the-c-c-memory-model/
 
 
 ## katrin
