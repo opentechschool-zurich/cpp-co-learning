@@ -88,6 +88,7 @@
 - have a look at [jakob's threads pool implementation](https://github.com/progschj/ThreadPool/) (using c++ 11 threads instead of pthreads; and compare to <https://github.com/leohotfn/Reuzel>)
 - expore c++ 17: https://github.com/tvaneerd/cpp17_in_TTs/blob/master/ALL_IN_ONE.md
 - atomic and fences: https://davmac.wordpress.com/2018/01/28/understanding-the-c-c-memory-model/
+- auto: http://swdevmastery.com/dont-use-c-auto-restricting-auto-is-not-the-best-decision-for-your-company-and-it-is-unfair-to-your-developers-instead-train-them-on-how-to-use-it/
 
 
 ## katrin
