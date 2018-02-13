@@ -1,7 +1,7 @@
 # Late Binding in C++
 ## Differences between Java and C++ and how C++ overridden functions behave differently when you use objects or pointers to objects
 
-The cool thing about Object Oriented Programming is that you can define methods in a base class that you can override to do something desirable in the overriding class. This is fairly common with GUI frameworks where you might have a Drawable with a paint method and then the Circle which extends the Drawable knows how to paint a circle and the Box which also extends Drawable knows how to paint a box with the framwork only having to call paint on whatever object it is working on. 
+The cool thing about Object Oriented Programming is that you can define methods in a base class that you can override to do something desirable in the overriding class. This is fairly common with GUI frameworks where you might have a `Drawable` with a `paint` method and then the `Circle` which extends the `Drawable` knows how to `paint` a circle and the `Box` which also extends `Drawable` knows how to `paint` a box with the framwork only having to call `paint` on whatever object it is working on. 
 
 Consider this Java program:
 
