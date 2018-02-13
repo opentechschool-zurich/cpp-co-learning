@@ -1,9 +1,9 @@
-#Late Binding in C++
-##Differences between Java and C++ and how C++ overridden function behave differently when you use objects or pointers to objects
+# Late Binding in C++
+## Differences between Java and C++ and how C++ overridden functions behave differently when you use objects or pointers to objects
 
-The cool thing about Object Oriented Programming is that you can define methods in a base class that you
-can override to do something desirable in the overriding class. Consider this Java program:
+The cool thing about Object Oriented Programming is that you can define methods in a base class that you can override to do something desirable in the overriding class. This is fairly common with GUI frameworks where you might have a Drawable with a paint method and then the Circle which extends the Drawable knows how to paint a circle and the Box which also extens Drawable knows how to paint a box with the framwork only having to call paint on whatever object it is working on. 
 
+Consider this Java program:
 
 ```java
 // FooBar.java
@@ -131,6 +131,8 @@ The result is spectacularly different! Why? When we push the `Foo` or `Bar` obje
 essentially downcast our object to just the base functionality of the `FooBar` object. And when we call `FooBar`'s
 `doSomething()` the compile-time VTable listed function `doSomething()` from `FooBar` is called.
 
+Note that FooBar's doSomething function is a virtual function with an implementation. Importantly it is not a pure virtual function which would have a `= 0` at the end;
+
 If we want the equivalent of the Java behaviour we need to use pointers. They use "late binding" and can figure out
 at runtime what type of object they are dealing with and can call the appropriate function:
 
@@ -193,16 +195,15 @@ Bar
 ```
 Check it: <http://cpp.sh/5ioi>
 
-Note the subtle changes: `fb` is now a `FooBar` type pointer. We push a pointer to a `Foo` or `Bar`
-object into it. And when we call the `doSomething()` method the system understands what kind of object the
-pointer is pointing at and calls the overriding method in the sub-class.
+Note the subtle changes: `fb` is now a `FooBar` type pointer. We push a pointer to a `Foo` or `Bar` object into it. And when we call the `doSomething()` method the system understands what kind of object the pointer is pointing at and calls the overriding method in the sub-class.
 
 
 See also:
 <http://stackoverflow.com/questions/36691108/what-is-the-difference-between-early-binding-and-late-binding-in-c>
 
 
-There is another twist to this C++ behaviour. Consider this code:
+There is another twist to this C++ behaviour when a class's member function calls another member function which is marked virtual in the context of an extended object. Consider this code:
+
 ```cpp
 #include <iostream>
 using namespace std;
