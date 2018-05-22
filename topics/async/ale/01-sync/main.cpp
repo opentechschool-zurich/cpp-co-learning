@@ -1,17 +1,24 @@
 #include <iostream>
 #include <cassert>
-#include "../shared/non-gsl.h"
 #include "http_client.h"
 #include "../shared/http_client_implementations.h"
 
 namespace synchronous {
 
-std::vector<std::string>
-	request_uris(HttpClient& http_client,
-	const std::vector<std::string>& uris_to_request) {
-		(void)http_client;
-		(void)uris_to_request;
-		return {"42"};
+std::vector<std::string> request_uris(HttpClient& http_client,
+	const std::vector<std::string>& uris_to_request)
+{
+    std::vector<std::string> result{};
+    for (auto uri: uris_to_request) {
+        auto response = http_client.request_get(uri);
+        while (std::holds_alternative<Redirect>(response)) {
+            response = http_client.request_get(std::get<Redirect>(response).target);
+        }
+        if (std::holds_alternative<Content>(response)) {
+            result.push_back(std::get<Content>(response).content);
+        }
+    }
+    return result;
 }
 
 }

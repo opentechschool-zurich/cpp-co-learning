@@ -16,6 +16,6 @@ public:
 };
 
 std::vector<std::string>
-request_uris(HttpClient&                     http_client,
-             const std::vector<std::string>& uris_to_request);
+request_uris(HttpClient& http_client,
+    const std::vector<std::string>& uris_to_request);
 }
