@@ -3,9 +3,9 @@
 #include "../shared/non-gsl.h"
 #include "http_client.h"
 #include "../shared/http_client_implementations.h"
-#include "../shared/non-boost.h"
 
 namespace synchronous {
+
 std::vector<std::string>
 	request_uris(HttpClient& http_client,
 	const std::vector<std::string>& uris_to_request) {
@@ -13,6 +13,7 @@ std::vector<std::string>
 		(void)uris_to_request;
 		return {"42"};
 }
+
 }
 
 int main()
