@@ -89,7 +89,10 @@
 - expore c++ 17: https://github.com/tvaneerd/cpp17_in_TTs/blob/master/ALL_IN_ONE.md
 - atomic and fences: https://davmac.wordpress.com/2018/01/28/understanding-the-c-c-memory-model/
 - auto: http://swdevmastery.com/dont-use-c-auto-restricting-auto-is-not-the-best-decision-for-your-company-and-it-is-unfair-to-your-developers-instead-train-them-on-how-to-use-it/
-
+- tail recursion and fibonacci:
+  - https://blog.des.io/posts/2018-03-08-fibonacci.html
+  - https://news.ycombinator.com/item?id=16557420
+- [rvalue references explained](http://thbecker.net/articles/rvalue_references/section_01.html)
 
 ## katrin
 
