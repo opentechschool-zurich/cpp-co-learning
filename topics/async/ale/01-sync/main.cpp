@@ -34,7 +34,6 @@ int main()
 		http_client, {"/file1", "/file2", "/file3", "/extremeredirect"}
 	);
 
-	
     assert(result.at(0) == "content1");
     assert(result.at(1) == "content1");
     assert(result.at(2) == "content2");

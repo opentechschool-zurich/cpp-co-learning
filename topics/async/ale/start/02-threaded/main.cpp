@@ -2,10 +2,9 @@
 #include "http_client.h"
 #include "../shared/http_client_implementations.h"
 
-namespace synchronous {
+namespace threaded {
 
-std::vector<std::string> request_uris(
-    HttpClient& http_client,
+std::vector<std::string> request_uris(HttpClient& http_client,
 	const std::vector<std::string>& uris_to_request)
 {
     (void)http_client;
@@ -18,7 +17,7 @@ std::vector<std::string> request_uris(
 int main()
 {
 
-	using namespace synchronous;
+	using namespace threaded;
 
 	auto http_client = ConcreteHttpClient{};
 
@@ -26,9 +25,6 @@ int main()
 		http_client, {"/file1", "/file2", "/file3", "/extremeredirect"}
 	);
 
-	
-    assert(result.at(0) == "content1");
-    assert(result.at(1) == "content1");
-    assert(result.at(2) == "content2");
-    assert(result.at(3) == "finally here");
+    std::vector<std::string> expect{"content1", "content1", "content2", "finally here"};
+    assert(std::is_permutation(result.begin(), result.end(), expect.begin()));
 }
