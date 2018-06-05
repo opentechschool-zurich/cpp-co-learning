@@ -1,5 +1,6 @@
 #pragma once
 #include <sstream>
+#include <algorithm>
 
 namespace non_boost {
 namespace algorithm {
