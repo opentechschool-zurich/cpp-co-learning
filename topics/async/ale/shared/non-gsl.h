@@ -11,7 +11,7 @@ namespace non_gsl {
 class FinallyAction
 {
     public:
-        FinallyAction(auto fn) : fn{fn} {}
+        FinallyAction(std::function<void()> fn) : fn{fn} {}
         ~FinallyAction()
         {
             fn();
@@ -20,7 +20,7 @@ class FinallyAction
         std::function<void()> fn;
 };
 
-FinallyAction finally(auto fn) {
+FinallyAction finally(std::function<void()> fn) {
     return FinallyAction{fn};
 }
 
