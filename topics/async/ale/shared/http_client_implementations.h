@@ -1,7 +1,7 @@
 #include "../01-sync/http_client.h"
 #include "../02-threaded/http_client.h"
 #include "../03-callback/http_client.h"
-// #include "../04-task/http_client.h"
+#include "../04-task/http_client.h"
 // #include "../05-boost_coroutine/http_client.h"
 // #include "../06-coroutine_ts/http_client.h"
 
