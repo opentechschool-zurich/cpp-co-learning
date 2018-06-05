@@ -24,7 +24,7 @@ int main()
 
 	using namespace callback;
 
-	auto executor    = Executor{};
+	auto executor = Executor{};
 	auto http_client = ConcreteHttpClient{};
 
 	auto result = std::vector<std::string>{};

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <functional>
-#include "non-gsl.h"
+#include "../shared/non-gsl.h"
 #include <vector>
 
 struct Executor;

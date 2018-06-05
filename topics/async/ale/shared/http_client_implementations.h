@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../01-sync/http_client.h"
 #include "../02-threaded/http_client.h"
 #include "../03-callback/http_client.h"
@@ -8,9 +10,9 @@
 #include "executor.h"
 
 #include <sstream>
-#include "non-boost.h"
+#include "../shared/non-boost.h"
 
-#include "non-gsl.h"
+#include "../shared/non-gsl.h"
 
 static std::ostream& get_logger() {
 #if 1
