@@ -10,7 +10,11 @@ alignsas is a keyword that you can use when defining C++ classes. It tells the c
 
 ## Let's test it
 
+<<<<<<< HEAD
 Look at the code in alignas.cpp in this directory. We have two classes, one which has a "packed" representation of 48 bytes and one with just two ints but aligns to the 64 bit cache line of my available cpus. The program does some pointless calculations many times and outputs the result. (Note: outputting is important because otherwise the optimiser catches on to the fact that the calculations serve no purpose and removes them out of the binary!)
+=======
+Look at the code in alignas.cpp in this directory. We have two classes, one which has a "packed" representation of 48 bytes and one with just two ints but aligns to the 64 bit cache line of my available cpus. The program does some pointless calculations many times and outputs the result. (Note outputting is important because otherwise the optimiser catches on to the fact that the calculations serve no purpose and removes them out of the binary!)
+>>>>>>> b6cb5c570c60046c770d7fdac05b50b5b855964a
 
 ```cpp
 class UnalignedClass {
@@ -33,7 +37,11 @@ class AlignedClass {
 };
 ```
 
+<<<<<<< HEAD
 ### Results from an Intel(R) Core(TM) i9-8950HK CPU @ 2.90GHz
+=======
+### Results from a Intel(R) Core(TM) i9-8950HK CPU @ 2.90GHz
+>>>>>>> b6cb5c570c60046c770d7fdac05b50b5b855964a
 
 ```
 Unaligned (Object sizeof: 48)
@@ -61,7 +69,11 @@ Time: 13 sizeof: 128
 Time: 13 sizeof: 128
 ```
 
+<<<<<<< HEAD
 ### Results from an Intel(R) Core(TM) i7-4770K CPU @ 3.50GHz
+=======
+### Results from a  Intel(R) Core(TM) i7-4770K CPU @ 3.50GHz
+>>>>>>> b6cb5c570c60046c770d7fdac05b50b5b855964a
 
 ```
 Unaligned (Object sizeof: 48)
@@ -125,7 +137,11 @@ Time: 726 sizeof: 128
 Time: 728 sizeof: 128
 ```
 
+<<<<<<< HEAD
 ### Optimize level 2 --> 105 ms
+=======
+### Optimize level 2 --> 105 ms 
+>>>>>>> b6cb5c570c60046c770d7fdac05b50b5b855964a
 
 ```
 g++ -O2 -o alignas  alignas.cpp  && ./alignas | grep -v Ignore
@@ -155,7 +171,11 @@ Time: 109 sizeof: 128
 Time: 105 sizeof: 128
 ```
 
+<<<<<<< HEAD
 ### Optimize level 3 --> 30 ms
+=======
+### Optimize level 3 --> 30 ms 
+>>>>>>> b6cb5c570c60046c770d7fdac05b50b5b855964a
 
 ```
 g++ -O3 -o alignas  alignas.cpp  && ./alignas | grep -v Ignore
