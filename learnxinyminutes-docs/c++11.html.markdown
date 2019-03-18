@@ -172,13 +172,13 @@ void Square::setName(const std::string& squareName)
 
 void Square::setWidth(int squareWidth)
 {
-    weight = squareWidth;
+    width = squareWidth;
 }
 
 // Notice that "virtual" is only needed in the declaration, not the definition.
 void Square::print() const
 {
-    std::cout << "Square is " << name << " and is " << weight << " wide\n";
+    std::cout << "Square is " << name << " and is " << width << " wide\n";
 }
 
 Square::~Square()
